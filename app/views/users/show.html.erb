@@ -1,27 +1,34 @@
 
-
-
 <div class="col-lg-9">
-	<img src="<%=  @user.profilePicture %>" align="left" >
 
-	<h1><%= @user.username %></h1>
-	<p><%=  @user.email %></p>
-	<p><%=  @user.campus %></p>
-	<p><%=  @user.unit %></p>
+	<div class="col-lg-4">
+	 	<div class="well">
+			<div class="profileCrop" style="background-image: url('<%= @user.profilePicture %>')"></div>
+		</div>	
+	</div>	
 
-	<h1>About me</h1>
-	<p>Palasin juuri uudesta koulustani, sain tänään tietää, että minun ei tarvitse osallistua ollenkaan ruotsin kielen tunneille, sillä kielitaitoni on niin vahva! Jee, tosi hienoa, saan skipattua kuulemma koko kurssin! Asuin vuonna -98 Ruotsissa ja opiskelin ruotsin kieltä Uppsalan yliopistossa, joten minun ei tarvitse käydä perusasioita enää läpi. Sama juttu englannin kielessä, opettelen ainoastaan bisnes-sanastoa.</p>
+	<div class="col-lg-3">
+	
+
+		<h1><%= @user.username %></h1>
+		<p><%=  @user.email %></p>
+		<p><%=  @user.campus %></p>
+		<p><%=  @user.unit %></p>
 	</div>
-        <div class="col-lg-3">
-          	<div class="well sidebar-nav">
-            	<h3>Hashtags</h3>
-            	<ul class="nav nav-list">
-              		<!--<li class="nav-header">Sidebar</li>-->
-					<% @user.hashtags.each do |tag| %>
-						<li><%= link_to "#"+tag.tag, "#" %></li>
-					<% end %>
-            	</ul>
-          	</div><!--/.well -->
-        </div><!--/span-->
-     </div><!--/row-->
-</div> <!-- /container -->   
+	<div class="col-lg-8">	
+		<h1>About me</h1>
+		<p>Palasin juuri uudesta koulustani, sain tänään tietää, että minun ei tarvitse osallistua ollenkaan ruotsin kielen tunneille, sillä kielitaitoni on niin vahva! Jee, tosi hienoa, saan skipattua kuulemma koko kurssin! Asuin vuonna -98 Ruotsissa ja opiskelin ruotsin kieltä Uppsalan yliopistossa, joten minun ei tarvitse käydä perusasioita enää läpi. Sama juttu englannin kielessä, opettelen ainoastaan bisnes-sanastoa.</p>
+	</div>
+</div>
+<div class="col-lg-3">
+  	<div class="well sidebar-nav">
+    	<h3>Hashtags</h3>
+    	<ul class="nav nav-list">
+      		<!--<li class="nav-header">Sidebar</li>-->
+			<% @user.hashtags.each do |tag| %>
+				<li><%= link_to "#"+tag.tag, "#" %></li>
+			<% end %>
+    	</ul>
+  	</div><!--/.well -->
+</div><!--/span-->
+
