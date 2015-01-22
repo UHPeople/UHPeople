@@ -35,7 +35,6 @@ gem "twitter-bootstrap-rails"
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.1'
-  gem 'factory_girl_rails'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -54,5 +53,12 @@ group :production do
   # PostgreSQL database for Heroku
   gem 'pg'
   gem 'rails_12factor'
+end
+
+group :test do
+  gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'launchy'
+  gem 'simplecov', require: false
 end
 
