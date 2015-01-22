@@ -5,6 +5,7 @@ script:
  - bundle exec rake db:migrate --trace
  - RAILS_ENV=test bundle exec rake db:migrate --trace
  - bundle exec rake db:test:prepare
+<<<<<<< HEAD
  - bundle exec rspec -fd spec/
 
 deploy:
@@ -12,3 +13,5 @@ deploy:
   run: "rake db:migrate"
   api_key: "214c2567-e0f5-47cb-a364-38af8ee0cced"
   on: dev
+=======
+>>>>>>> dev
