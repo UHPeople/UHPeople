@@ -34,6 +34,9 @@ gem "twitter-bootstrap-rails"
 
 
 group :development, :test do
+  gem 'rspec-rails', '~> 2.14.1'
+  gem 'factory_girl_rails'
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
