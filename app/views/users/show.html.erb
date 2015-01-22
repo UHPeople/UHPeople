@@ -12,12 +12,11 @@
 
 		<h1><%= @user.username %></h1>
 		<p><%=  @user.email %></p>
-		<p><%=  @user.campus %></p>
-		<p><%=  @user.unit %></p>
+		<p><%=  @user.campus %>, <%=  @user.unit %></p>
 	</div>
 	<div class="col-lg-8">	
 		<h1>About me</h1>
-		<p>Palasin juuri uudesta koulustani, sain tänään tietää, että minun ei tarvitse osallistua ollenkaan ruotsin kielen tunneille, sillä kielitaitoni on niin vahva! Jee, tosi hienoa, saan skipattua kuulemma koko kurssin! Asuin vuonna -98 Ruotsissa ja opiskelin ruotsin kieltä Uppsalan yliopistossa, joten minun ei tarvitse käydä perusasioita enää läpi. Sama juttu englannin kielessä, opettelen ainoastaan bisnes-sanastoa.</p>
+		<p><%= @user.about %></p>
 	</div>
 </div>
 <div class="col-lg-3">
