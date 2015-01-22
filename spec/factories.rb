@@ -1,4 +1,14 @@
 FactoryGirl.define do
+  factory :user do
+    name 'asd asd'
+    username 'asd'
+    email 'asd@asd.fi'
+    campus 'Viikki'
+    unit 'Maametsis'
+    about 'abouttest!!212'
+  end
 
-
+  factory :hashtag do
+  	tag 'avantouinti'
+  end
 end
