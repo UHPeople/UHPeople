@@ -1,3 +1,5 @@
+language: ruby
+
 rvm:
  - 2.2.0
 
@@ -9,8 +11,9 @@ script:
 
 deploy:
   provider: heroku
-  run: "rake db:migrate"
-  api_key: "214c2567-e0f5-47cb-a364-38af8ee0cced"
-  app: uhpeople
-
+  api_key: 214c2567-e0f5-47cb-a364-38af8ee0cced
+  on: 
+    repo: makroma/UHPeople
+    branch: dev
+  run: rake db:migrate 
 
