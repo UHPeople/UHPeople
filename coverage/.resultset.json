@@ -1,0 +1,23 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/home/kristava/UHPeople/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/home/kristava/UHPeople/app/models/hashtag.rb": [
+        1,
+        1,
+        null,
+        1,
+        null
+      ],
+      "/home/kristava/UHPeople/app/models/user.rb": [
+        1,
+        1,
+        null
+      ]
+    },
+    "timestamp": 1421918560
+  }
+}
