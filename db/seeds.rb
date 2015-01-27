@@ -1,8 +1,23 @@
-user = User.create username: 'asd', email: 'asd@asd.fi', campus:'Viikki', unit:'Maametsis',
-	profilePicture: 'http://www.mycatspace.com/wp-content/uploads/2013/08/adopting-a-cat.jpg',
-	name: 'Johanna Tukiainen', about: 'Palasin juuri uudesta koulustani, sain tänään tietää, että minun ei tarvitse osallistua ollenkaan ruotsin kielen tunneille, sillä kielitaitoni on niin vahva! Jee, tosi hienoa, saan skipattua kuulemma koko kurssin! Asuin vuonna -98 Ruotsissa ja opiskelin ruotsin kieltä Uppsalan yliopistossa, joten minun ei tarvitse käydä perusasioita enää läpi. Sama juttu englannin kielessä, opettelen ainoastaan bisnes-sanastoa.'
+user1 = User.create username: 'tuntite', email: 'teemu.tuntiopettaja@helsinki.fi', campus:'Viikki', unit:'Solubiologia',
+	profilePicture: 'http://upload.wikimedia.org/wikipedia/commons/9/97/DNA_Double_Helix.png',
+	name: 'Teemu Tuntiopettaja', about: 'Innovatiivinen opetuksen kehittäjä'
 
-user.hashtags.create tag: 'lätkämutsit'
-user.hashtags.create tag: 'avantouinti'
+user1.hashtags.create tag: 'solu'
+user1.hashtags.create tag: 'mitoosi'
 
 
+user2 = User.create username: 'opiskol', email: 'olli.opiskelija@helsinki.fi', campus:'Keskusta', unit:'YVA',
+										profilePicture: 'http://c1.staticflickr.com/5/4026/5131213010_0d1394858a_b.jpg',
+										name: 'Olli Opiskelija', about: 'I have a dream'
+
+user2.hashtags.create tag: 'kokoomus'
+user2.hashtags.create tag: 'tasaarvo'
+user2.hashtags.create tag: 'maserati'
+
+user3 = User.create username: 'laakila', email: 'laura.laakislainen@helsinki.fi', campus:'Meilahti', unit:'Lääkis',
+										profilePicture: 'http://i.dailymail.co.uk/i/pix/2011/09/16/article-2037848-0DEC8D2200000578-406_634x408.jpg',
+										name: 'Laura Lääkisläinen', about: ''
+
+user3.hashtags.create tag: 'lumilautailu'
+user3.hashtags.create tag: 'golf'
+user3.hashtags.create tag: 'tasaarvo'
