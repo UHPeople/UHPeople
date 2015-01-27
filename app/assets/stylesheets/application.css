@@ -16,7 +16,6 @@
 
 /* User image crop*/
 .profileCrop {
-  width: 215px;
   height: 300px;
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
