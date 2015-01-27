@@ -14,4 +14,12 @@ describe "User" do
     expect(page).to have_content 'Vaihdettu Nimi'
     expect(page).to have_content 'Hauska tyyppi.'
   end
+
+  it "fails on invalid changes" do
+    visit edit_user_path(user)
+    fill_in('user_name', with:'')
+    click_button('Update User')
+
+    expect(page).to have_content '1 error prohibited changes from being saved:'
+  end
 end
