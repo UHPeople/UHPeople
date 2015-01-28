@@ -36,38 +36,39 @@
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
 
-    <%= javascript_include_tag "application" %>
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
 
-        <button type="button" class="navbar-toggle" onClick="$('.collapse.in').collapse('hide'); $('.collapse').collapse('show');">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
+  <div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
     	<div class="navbar-brand">
     		<%= image_tag 'helsinki53x50.png' %>
     	</div>
-    
-        <a class="navbar-brand" href="#">UHPeople</a>
-        <div class="navbar-collapse collapse navbar-responsive-collapse">
-          <ul class="nav navbar-nav">
-            <li><%= link_to "Link1", "/path1"  %></li>
-            <li><%= link_to "Link2", "/path2"  %></li>
-            <li><%= link_to "Link3", "/path3"  %></li>
-          </ul>
-        </div>
+  
+      <a class="navbar-brand" href="#">UHPeople</a>
+      <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav">
+          <li><%= link_to "Link1", "/path1"  %></li>
+          <li><%= link_to "Link2", "/path2"  %></li>
+          <li><%= link_to "Link3", "/path3"  %></li>
+        </ul>
       </div>
     </div>
+  </div>
 
-    <div class="container">
-      	<div class="row">
-	      	<%= bootstrap_flash %>
-	      	<%= yield %>
-        </div>
-	</div>
+  <div class="container">
+  	<div class="row">
+    	<%= bootstrap_flash %>
+    	<%= yield %>
+    </div><!--/row-->
+	</div> <!-- /container -->     	
 </body>
 </html>
