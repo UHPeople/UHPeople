@@ -50,10 +50,11 @@
       </button>
 
     	<div class="navbar-brand">
-    		<%= image_tag 'helsinki53x50.png' %>
+    		<%= link_to image_tag('helsinki53x50.png'), root_path %>
     	</div>
-  
-      <a class="navbar-brand" href="#">UHPeople</a>
+
+      <a class="navbar-brand" href="/">UHPeople</a>
+
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
           <li><%= link_to "Link1", "/path1"  %></li>
