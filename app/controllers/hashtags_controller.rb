@@ -2,8 +2,6 @@ class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show]
 
 	def show
-    @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
-    @messages = Message.all
 	end
 
 	private

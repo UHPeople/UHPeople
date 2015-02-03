@@ -2,7 +2,7 @@
 	<h1>#<%= @hashtag.tag %></h1>
 
 	<div id="chat-text">
-	  <% @messages.each do |message| %>
+	  <% @hashtag.messages.each do |message| %>
 	    <div class="panel panel-default">
 	      <div class="panel-body">
 	      	<%= message.content %>
@@ -24,7 +24,7 @@
 	<div class="well sidebar-nav">
 		<h3>Members</h3>
 		<ul class="nav nav-list">
-			<% @members.each do |m| %>
+			<% @hashtag.users.each do |m| %>
 				<li><%= link_to m.name, m %></li>
 			<% end %>
 		</ul>

@@ -3,7 +3,7 @@ require 'thread'
 require 'json'
 require 'erb'
 
-module ChatDemo
+module UHPeople
   class ChatBackend
     KEEPALIVE_TIME = 15
 
@@ -22,11 +22,10 @@ module ChatDemo
         end
 
         ws.on :message do |event|
-          p [:message, event.data]
-          @clients.each {|client| client.send(event.data) }
+          asd = Message.create content: event.data, hashtag_id: 1, user_id: 1
+          p [:message, asd.content, asd.save]
 
-          asd = Message.create content: event.data
-          p [:message, asd.message, asd.save]
+          @clients.each {|client| client.send(event.data) }
         end
 
         ws.on :close do |event|

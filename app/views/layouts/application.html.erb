@@ -35,8 +35,6 @@
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
-
-
 </head>
 <body>
 
@@ -66,10 +64,8 @@
   </div>
 
   <div class="container">
-  	<div class="row">
-    	<%= bootstrap_flash %>
-    	<%= yield %>
-    </div><!--/row-->
+  	<%= bootstrap_flash %>
+  	<%= yield %>
 	</div> <!-- /container -->     	
 </body>
 </html>
