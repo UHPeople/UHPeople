@@ -5,7 +5,7 @@
 	<h3>Users</h3>
 	<ul class="nav nav-list">
 		<% @users.each do |user| %>
-			<li><%=  user.name %></li>
+			<li><%=  user.name if user.hashtags.exists? id=@hashtag %></li>
 		<% end %>
 	</ul>
 </div>
