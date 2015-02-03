@@ -2,7 +2,8 @@ class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show]
 
 	def show
-		@users = User.where (hashtag_id=(params[:id]))
+		#@users = User.where (hashtag_id=(params[:id]))
+    @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
 	end
 
 	private

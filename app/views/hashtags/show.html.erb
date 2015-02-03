@@ -9,10 +9,8 @@
 	<div class="well sidebar-nav">
 		<h3>Members</h3>
 		<ul class="nav nav-list">
-			<% @users.each do |user| %>
-				<% if user.hashtags.exists? id=@hashtag %>
-					<li><%= link_to user.name, user %></li>
-				<% end %>
+			<% @members.each do |m| %>
+				<li><%= link_to m.name, m %></li>
 			<% end %>
 		</ul>
 	</div>
