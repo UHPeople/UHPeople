@@ -31,7 +31,8 @@ end
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
 gem "twitter-bootstrap-rails"
 
-
+gem 'faye-websocket'
+gem 'puma'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.1'

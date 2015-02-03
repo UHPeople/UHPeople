@@ -1,11 +1,26 @@
-
-<div class= "col-xs-12 col-sm-8">
+<div class="col-xs-12 col-sm-8">
 	<h1>#<%= @hashtag.tag %></h1>
 
-	<p>This is going to be awesome chat window!</p>
+	<div id="chat-text">
+	  <% @messages.each do |message| %>
+	    <div class="panel panel-default">
+	      <div class="panel-body">
+	      	<%= message.content %>
+	      </div>
+	    </div>
+	  <% end %>
+	</div>
+
+	<form id="input-form" class="form-inline">
+  	<div class="form-group">
+    	<input id="input-text" type="text" class="form-control" placeholder="" autofocus />
+  	</div>
+
+  	<button class="btn btn-primary" type="submit">Send</button>
+	</form>
 </div>
 
-<div class= "col-xs-12 col-sm-4">
+<div class="col-xs-12 col-sm-4">
 	<div class="well sidebar-nav">
 		<h3>Members</h3>
 		<ul class="nav nav-list">
