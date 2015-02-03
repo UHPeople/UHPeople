@@ -1,0 +1,11 @@
+
+<h1><%= @hashtag.tag %></h1>
+
+<div class="well sidebar-nav">
+	<h3>Users</h3>
+	<ul class="nav nav-list">
+		<% @users.each do |user| %>
+			<li><%=  user.name %></li>
+		<% end %>
+	</ul>
+</div>
