@@ -4,5 +4,9 @@
 
 	<% @hashtags.each do |h| %>
 		<p><%= link_to "#" + h.tag, h%></p>
-    <% end %>
+  <% end %>
+
+  <h1>What about a new one?</h1>
+  	<p>Create new hashtag: #<%= @searchword%>
+  	</p>
 </div>
