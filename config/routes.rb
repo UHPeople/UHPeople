@@ -6,6 +6,4 @@ Rails.application.routes.draw do
   #get 'hashtag/:id', to: 'hashtag#show'
 
   resources :users, :only => [:index, :show, :edit, :update]
-
-  get '/chat' => 'chat#chat'
 end

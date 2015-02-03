@@ -22,10 +22,12 @@ module UHPeople
         end
 
         ws.on :message do |event|
-          asd = Message.create content: event.data, hashtag_id: 1, user_id: 1
+          data = JSON.parse(event.data)
+
+          asd = Message.create content: data['content'], hashtag_id: 1, user_id: 1
           p [:message, asd.content, asd.save]
 
-          @clients.each {|client| client.send(event.data) }
+          @clients.each {|client| client.send(sanitize(event.data)) }
         end
 
         ws.on :close do |event|
