@@ -24,8 +24,8 @@
 		<h3>Hashtags</h3>
     	<ul class="nav nav-list">
 			<% @user.hashtags.each do |tag| %>
-				<li><%= link_to "#"+tag.tag, "#" %></li>
+				<li><%= link_to "#"+tag.tag, tag %></li>
 			<% end %>
     	</ul>
 	</div>
-</div><!--/span-->
+</div>
