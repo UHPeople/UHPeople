@@ -7,13 +7,12 @@ class HashtagsController < ApplicationController
 	end
 
   def create 
-    @hashtag = Hashtag.new(params[:tag])
+    
+    @hashtag = Hashtag.new(tag: params[:tag])
+    byebug
     @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
-    if @hashtag.save
-      redirect_to hashtag_path @hashtag.id
-    else
-      render nothing: true
-    end  
+    @hashtag.save
+    redirect_to hashtag_path @hashtag.id
   end   
 
 
@@ -23,6 +22,6 @@ class HashtagsController < ApplicationController
      @hashtag = Hashtag.find(params[:id])
   end
   def hashtag_params
-    params.require(:hashtag).permit(:hashtag_id)
+    params.require(:tag).permit(:tag)
   end
 end

@@ -7,12 +7,9 @@
   <% end %>
 
   <h1>What about a new one?</h1>
-  	<p>Create new hashtag: #<%= @searchword%>
-
+  	<p>Create new hashtag: 
+  	
+  	<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
   	</p>
 
-  	
-	<%= form_for(@hashtag) do |b| %>
-	  <%= b.submit :tag => @searchword %>
-	<% end %>
 </div>
