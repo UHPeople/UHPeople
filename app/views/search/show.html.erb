@@ -8,5 +8,11 @@
 
   <h1>What about a new one?</h1>
   	<p>Create new hashtag: #<%= @searchword%>
+
   	</p>
+
+  	
+	<%= form_for(@hashtag) do |b| %>
+	  <%= b.submit :tag => @searchword %>
+	<% end %>
 </div>

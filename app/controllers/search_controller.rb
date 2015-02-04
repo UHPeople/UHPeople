@@ -3,8 +3,8 @@ class SearchController < ApplicationController
 
 	def show
 		@searchword = params[:id]
-
-    @hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
+		@hashtag = Hashtag.new
+   	@hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
 	end
 
 	private

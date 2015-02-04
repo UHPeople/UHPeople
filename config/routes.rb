@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root 'users#index'
 
-  resources :hashtags, :only => [:show]
+  resources :hashtags, :only => [:show, :create]
   resources :search, :only => [:show]
   #get 'hashtag/:id', to: 'hashtag#show'
 
