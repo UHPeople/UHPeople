@@ -18,7 +18,8 @@ $(function() {
   $("#input-form").on("submit", function(event) {
     event.preventDefault();
     var text = $("#input-text")[0].value;
-    ws.send(JSON.stringify({ content: text }));
+    var id = $("#hashtag-id")[0].value;
+    ws.send(JSON.stringify({ content: text, hashtag: id }));
     $("#input-text")[0].value = "";
   });
 });

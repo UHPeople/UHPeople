@@ -5,10 +5,6 @@ class MessagesController < ApplicationController
 
   def create
     @message = Message.create params.require(:message).permit(:content, :user_id, :hashtag_id)
-    
-    @message.user_id = 1
-    @message.hashtag_id = 1
-    
     if @message.save
     end
   end

@@ -24,7 +24,7 @@ module UHPeople
         ws.on :message do |event|
           data = JSON.parse(event.data)
 
-          asd = Message.create content: data['content'], hashtag_id: 1, user_id: 1
+          asd = Message.create content: data['content'], hashtag_id: data['hashtag'], user_id: 1
           p [:message, asd.content, asd.save]
 
           @clients.each {|client| client.send(sanitize(event.data)) }

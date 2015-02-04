@@ -2,6 +2,7 @@ class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show]
 
 	def show
+
 	end
 
 	private
