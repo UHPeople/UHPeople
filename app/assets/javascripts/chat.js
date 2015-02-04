@@ -7,8 +7,7 @@ $(function() {
     var data = JSON.parse(message.data);
     
     $("#chat-text").append(
-      "<div class='panel panel-default'>" +
-      "<div class='panel-body'>" + data.content + "</div></div>");
+      "<div class='panel-body'>" + data.content + "</div>");
 
     $("#chat-text").stop().animate({
       scrollTop: $('#chat-text')[0].scrollHeight
