@@ -9,9 +9,8 @@ class HashtagsController < ApplicationController
   def create 
     
     @hashtag = Hashtag.new(tag: params[:tag])
-    byebug
-    @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
     @hashtag.save
+    @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
     redirect_to hashtag_path @hashtag.id
   end   
 
