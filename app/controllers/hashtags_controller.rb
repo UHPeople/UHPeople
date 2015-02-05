@@ -1,5 +1,5 @@
 class HashtagsController < ApplicationController
-	before_action :set_hashtag, only: [:show]
+	before_action :set_hashtag, only: [:show, :update]
 
   def join
     @hashtag = Hashtag.find params[:id]
@@ -13,6 +13,13 @@ class HashtagsController < ApplicationController
     redirect_to :back
   end
 
+  def update
+    respond_to do |format|
+      if @hashtag.update(hashtag_params)
+        format.html { redirect_to :back, notice: 'Topic was successfully updated.' }
+      end
+    end
+  end
 
   def create
     @hashtag = Hashtag.new(tag: params[:tag])
@@ -29,6 +36,6 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:tag).permit(:tag)
+    params.require(:hashtag).permit(:tag, :topic)
   end
 end
