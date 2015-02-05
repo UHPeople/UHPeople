@@ -1,3 +1,4 @@
+
 <div class="jumbotron">
     <h1>#<%= @hashtag.tag %></h1>
 
@@ -13,6 +14,7 @@
   <div id="chat-text" class="panel panel-default chatbox">
     <% @hashtag.messages.each do |message| %>
       <div class="panel-body">
+        <span class="chat-name"><%= message.user.name %></span>
         <%= message.content %>
       </div>
     <% end %>
@@ -23,6 +25,7 @@
     <div class="form-group">
       <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
     </div>
 
     <button class="btn btn-primary" type="submit">Send</button>

@@ -63,3 +63,7 @@ a.navbar-brand {
 .footer{
 	height: 100px;
 }
+.chat-name {
+  color: #7D7D7D;
+  font-style: italic;
+}

@@ -17,23 +17,33 @@ module UHPeople
         ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
 
         ws.on :open do |event|
-          p [:open, ws.object_id]
           @clients << ws
         end
 
         ws.on :message do |event|
           data = JSON.parse(event.data)
 
-          asd = Message.create content: data['content'], hashtag_id: data['hashtag'], user_id: 1
+          if data['event'] == 'message'
+            user = User.find(data['user'])
+            hashtag = Hashtag.find(data['hashtag'])
 
-          if asd.valid?
-            @clients.each {|client| client.send(sanitize(event.data)) }
-          end
+            if user.hashtags.include? hashtag
+              message = Message.create content: data['content'],
+                                       hashtag_id: data['hashtag'],
+                                       user_id: data['user']
 
+              data['user'] = user.name
+
+              if message.valid?
+                @clients.each { |client| client.send(sanitize(data)) }
+              end
+            end
+          elsif data['event'] == 'online'
+            # @clients.each { |client| client.send() }
+          end 
         end
 
         ws.on :close do |event|
-          p [:close, ws.object_id, event.code, event.reason]
           @clients.delete(ws)
           ws = nil
         end
@@ -47,8 +57,7 @@ module UHPeople
 
     private
 
-    def sanitize(message)
-      json = JSON.parse(message)
+    def sanitize(json)
       json.each {|key, value| json[key] = ERB::Util.html_escape(value) }
       JSON.generate(json)
     end
