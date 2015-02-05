@@ -6,4 +6,7 @@ Rails.application.routes.draw do
   #get 'hashtag/:id', to: 'hashtag#show'
 
   resources :users, :only => [:index, :show, :edit, :update]
+
+  get 'login/:id', to: 'session#login'
+  get 'logout', to: 'session#logout'
 end

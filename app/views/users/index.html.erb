@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<table>
+<table class="table table-condensed table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -12,6 +12,7 @@
       <tr>
         <td><%= link_to user.name, user %></td>
         <td><%= link_to 'Edit', edit_user_path(user) %></td>
+        <td><%= link_to 'Login as', "login/#{user.id}" %></td>
       </tr>
     <% end %>
   </tbody>

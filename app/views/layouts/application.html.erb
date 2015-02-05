@@ -54,10 +54,11 @@
       <a class="navbar-brand" href="/">UHPeople</a>
 
       <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">
-          <li><%= link_to "Link1", "/path1"  %></li>
-          <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
+        <ul class="nav navbar-nav">=
+          <% if not current_user.nil? %>
+          <li><%= link_to current_user.name, current_user %></li>
+          <li><%= link_to "Logout", "/logout" %></li>
+          <% end %>
         </ul>
       </div>
     </div>

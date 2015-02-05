@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe "Hashtag page chat" do
-  let(:hashtag) { FactoryGirl.create(:hashtag) }
+  Capybara.javascript_driver = :webkit
+
+  let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
   it "has send button" do
     visit "/hashtags/#{hashtag.id}"
@@ -9,14 +11,19 @@ describe "Hashtag page chat" do
     expect(page).to have_content('Send')
   end
 
-  # Not working because of the websocket-thingy?
-  # it "can be written a message" do
-  #  visit "/hashtags/#{hashtag.id}"
+  
+  it "can be written a message", :js => true do
+    visit "/hashtags/#{hashtag.id}"
 
-  #  fill_in('input-text', with:'Hello world!')
-  #  click_button('Send')
+    fill_in('input-text', with:'Hello world!')
+    click_button('Send')
 
-  #  expect(page).to have_content('Hello world!')
-  #end
+    fill_in('input-text', with:'Hello world!')
+    click_button('Send')
+
+    expect(page).to have_content('Hello world!')
+  end
+
+  Capybara.use_default_driver
 
 end

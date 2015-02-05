@@ -1,18 +1,13 @@
 class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show]
 
-	def show
-
-	end
-
-  def create 
-    
+  def create
     @hashtag = Hashtag.new(tag: params[:tag])
-    @hashtag.save
-    @members = User.joins(:hashtags).where(hashtags: {id:(params[:id])})
-    redirect_to hashtag_path @hashtag.id
+    
+    if @hashtag.save
+      redirect_to @hashtag
+    end
   end   
-
 
 	private
 
