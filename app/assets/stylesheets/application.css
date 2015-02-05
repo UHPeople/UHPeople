@@ -53,3 +53,6 @@ a.navbar-brand {
 .navbar {
 	min-height:70px !important
 }
+.search{
+	padding-top: 10px;
+}
