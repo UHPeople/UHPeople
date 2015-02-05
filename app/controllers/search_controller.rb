@@ -2,7 +2,7 @@ class SearchController < ApplicationController
 	before_action :set_search, only: [:index]
 
 	def index
-		@searchword = params[:search]
+		@searchword = params[:search].downcase
 		@hashtag = Hashtag.new
 		#@hashtags = Hashtag.find(:all, :conditions => ['tag LIKE ?', "%#{@searchword}%"])
    	@hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
