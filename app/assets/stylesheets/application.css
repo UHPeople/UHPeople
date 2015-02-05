@@ -56,3 +56,8 @@ a.navbar-brand {
 .search{
 	padding-top: 10px;
 }
+
+.chat-name {
+  color: #7D7D7D;
+  font-style: italic;
+}
