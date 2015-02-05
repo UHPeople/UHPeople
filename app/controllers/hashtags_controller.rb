@@ -1,5 +1,6 @@
 class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show, :update]
+  before_action :user_has_tag, only:[:show]
 
   def join
     @hashtag = Hashtag.find params[:id]
@@ -34,6 +35,10 @@ class HashtagsController < ApplicationController
   def set_hashtag
      @hashtag = Hashtag.find(params[:id])
   end
+
+  def user_has_tag
+    @user_has_tag = current_user.hashtags.include? @hashtag
+  end 
 
   def hashtag_params
     params.require(:hashtag).permit(:tag, :topic)

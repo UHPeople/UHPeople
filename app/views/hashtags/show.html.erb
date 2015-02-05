@@ -2,7 +2,7 @@
 <div class="jumbotron">
 
   <h1>#<%= @hashtag.tag %>
-    <% if current_user.hashtags.include? @hashtag %>
+    <% if @user_has_tag %>
       <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
     <% else %>  
       <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
@@ -10,12 +10,12 @@
   </h1>
 
   <p class="lead"><%= @hashtag.topic %>  
-    <% if current_user.hashtags.include? @hashtag %>
+    <% if @user_has_tag %>
       <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
     <% end %>
   </p>  
 
-  <% if current_user.hashtags.include? @hashtag %>
+  <% if @user_has_tag %>
     <div id="target" class="hidden">
       <%= form_for(@hashtag) do |f| %>
         <div class="form-group">
@@ -28,25 +28,26 @@
 </div>
 
 <div class="col-xs-12 col-sm-8">
-  <div id="chat-text" class="panel panel-default chatbox">
-    <% @hashtag.messages.each do |message| %>
-      <div class="panel-body">
-        <span class="chat-name"><%= message.user.name %></span>
-        <%= message.content %>
-      </div>
-    <% end %>
-  </div>
-
-
-  <form id="input-form" class="form-inline">
-    <div class="form-group">
-      <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
-      <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
-      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+  <% if @user_has_tag %>
+    <div id="chat-text" class="panel panel-default chatbox">
+      <% @hashtag.messages.each do |message| %>
+        <div class="panel-body">
+          <span class="chat-name"><%= message.user.name %></span>
+          <%= message.content %>
+        </div>
+      <% end %>
     </div>
+    
+    <form id="input-form" class="form-inline">
+      <div class="form-group">
+        <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
+        <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+        <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+      </div>
 
-    <button class="btn btn-primary" type="submit">Send</button>
-  </form>
+      <button class="btn btn-primary" type="submit">Send</button>
+    </form>
+  <% end %>
 </div>
 
 <div class="col-xs-12 col-sm-4">
