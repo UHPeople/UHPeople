@@ -5,6 +5,7 @@ describe "Hashtag page chat" do
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
   before :each do
+    user.hashtags << hashtag
     visit "/login/#{user.id}"
   end
 
