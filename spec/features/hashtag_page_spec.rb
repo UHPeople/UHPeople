@@ -6,32 +6,25 @@ describe "Hashtag page" do
 
   before :each do
     visit "/login/#{user.id}"
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Join'
   end
 
   it "has edit topic button" do
-    go_to_hashtag_join
-
-    expect(page).to have_content 'Click to edit topic!'
+    expect(page).to have_content 'Edit topic!'
   end
 
   it "has updated topic" do
-    go_to_hashtag_join
     fill_in 'topic', with: 'This is the topic!'
-    click_button 'Update topic!'
+    click_button 'Update'
 
     expect(page).to have_content 'This is the topic!'
   end
 
   it "has working leave button" do
-    go_to_hashtag_join
     click_link 'Leave'
 
     expect(page).to have_content 'Join'
-  end
-
-  def go_to_hashtag_join
-    visit "/hashtags/#{hashtag.id}"
-    click_link 'Join'
   end
 
 end
