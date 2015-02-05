@@ -14,7 +14,7 @@ describe "Hashtag page chat" do
     expect(page).to have_content('Send')
   end
 
-  
+
   #it "can be written a message", :js => true do
   #  visit "/hashtags/#{hashtag.id}"
 

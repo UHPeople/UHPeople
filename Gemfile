@@ -28,8 +28,7 @@ group :doc do
 end
 
 # Bootstrap layout
-gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS
-gem "twitter-bootstrap-rails"
+gem "bootstrap-sass"
 
 gem 'faye-websocket'
 gem 'puma'

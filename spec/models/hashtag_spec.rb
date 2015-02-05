@@ -26,6 +26,7 @@ describe Hashtag do
     hashtag2 = Hashtag.create tag: "avantouinti"
 
     expect(hashtag1.valid?).to be(true)
+    expect(hashtag2.valid?).to be(false)
     expect(Hashtag.count).to eq(1)
   end
 end

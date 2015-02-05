@@ -15,14 +15,16 @@
     <% end %>
   </p>  
 
-  <div id="target" class="hidden">
-    <%= form_for(@hashtag) do |f| %>
-      <div class="form-group">
-        <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
-      </div>
-      <%= f.submit value: "Update", :class=>'btn btn-primary' %>
-    <%end%>
-  </div>
+  <% if current_user.hashtags.exists?(@hashtag) %>
+    <div id="target" class="hidden">
+      <%= form_for(@hashtag) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
+        </div>
+        <%= f.submit value: "Update", :class=>'btn btn-primary' %>
+      <%end%>
+    </div>
+  <% end %>
 </div>
 
 <div class="col-xs-12 col-sm-8">

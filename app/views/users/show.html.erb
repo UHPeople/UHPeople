@@ -1,5 +1,3 @@
-
-
 <div class= "col-xs-12 col-sm-4" >
 	<div class="profileCrop well" style="background-image: url('<%= @user.profilePicture %>')"></div>
 </div>
@@ -24,7 +22,12 @@
 		<h3>Hashtags</h3>
     	<ul class="nav nav-list">
 			<% @user.hashtags.each do |tag| %>
-				<li><%= link_to "#"+tag.tag, tag %></li>
+				<li>
+					<%= link_to "#"+tag.tag, tag %>
+					<%= link_to leave_path(id: tag), method: :delete, :class => "btn btn-danger" do %>
+						<span class="glyphicon glyphicon-remove"/>
+					<% end %>
+				</li>
 			<% end %>
     	</ul>
 	</div>
