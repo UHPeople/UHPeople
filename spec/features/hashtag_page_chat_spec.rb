@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 describe "Hashtag page chat" do
+  let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
+
+  before :each do
+    visit "/login/#{user.id}"
+  end
 
   it "has send button" do
     visit "/hashtags/#{hashtag.id}"
