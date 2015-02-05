@@ -12,17 +12,19 @@
       <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
     <% end %>
 
+  <% if current_user.hashtags.exists?(@hashtag) %>
   <div id="target" class="hidden">
     <%= form_for(@hashtag) do |f| %>
         <div class="panel panel-default">
           <%= f.label :'Change topic' %><br>
-          <%= f.text_area :topic, value: @hashtag.topic, size: '60x2'%>
+          <%= f.text_area :topic, value: @hashtag.topic, size: '60x2', id: 'topic'%>
           <div class="actions">
             <%= f.submit value: "Update topic!" %>
           </div>
         </div>
     <%end%>
   </div>
+<% end %>
 
 </div>
 
