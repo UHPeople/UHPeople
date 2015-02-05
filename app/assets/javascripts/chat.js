@@ -8,6 +8,8 @@ $(function() {
 
   // ws.send(JSON.stringify({ event: "online", hashtag: hashtag, user: user }));
 
+  $("#chat-text").scrollTop($("#chat-text")[0].scrollHeight);
+
   ws.onmessage = function(message) {
     var data = JSON.parse(message.data);
     if (data.hashtag != hashtag) return;
