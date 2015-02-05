@@ -1,33 +1,31 @@
 
 <div class="jumbotron">
-    <h1>#<%= @hashtag.tag %></h1>
 
-  <h3>Topic: <%= @hashtag.topic %></h3>
-
-
-    <% if current_user.hashtags.exists?(@hashtag) %>
-      <button class="btn btn-default" onclick="$('#target').toggleClass('hidden');">Click to edit topic!</button>
+  <h1>#<%= @hashtag.tag %>
+    <% if current_user.hashtags.include? @hashtag %>
       <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
     <% else %>  
       <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
     <% end %>
+  </h1>
 
-  <% if current_user.hashtags.exists?(@hashtag) %>
-  <div id="target" class="hidden">
-    <%= form_for(@hashtag) do |f| %>
-        <div class="panel panel-default">
-          <%= f.label :'Change topic' %><br>
-          <%= f.text_area :topic, value: @hashtag.topic, size: '60x2', id: 'topic'%>
-          <div class="actions">
-            <%= f.submit value: "Update topic!" %>
-          </div>
+  <p class="lead"><%= @hashtag.topic %>  
+    <% if current_user.hashtags.include? @hashtag %>
+      <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+    <% end %>
+  </p>  
+
+  <% if current_user.hashtags.include? @hashtag %>
+    <div id="target" class="hidden">
+      <%= form_for(@hashtag) do |f| %>
+        <div class="form-group">
+          <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
         </div>
-    <%end%>
-  </div>
-<% end %>
-
+        <%= f.submit value: "Update", :class=>'btn btn-primary' %>
+      <%end%>
+    </div>
+  <% end %>
 </div>
-
 
 <div class="col-xs-12 col-sm-8">
   <div id="chat-text" class="panel panel-default chatbox">

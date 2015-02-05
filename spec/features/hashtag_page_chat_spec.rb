@@ -11,7 +11,7 @@ describe "Hashtag page chat" do
   it "has send button" do
     visit "/hashtags/#{hashtag.id}"
 
-    expect(page).to have_content('Send')
+    expect(page).to have_content 'Send'
   end
 
 

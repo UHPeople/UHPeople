@@ -73,3 +73,9 @@ a.navbar-brand {
   color: #7D7D7D;
   font-style: italic;
 }
+.input-large{
+    margin-bottom: 10px;
+    line-height: 1.4;
+    padding: 11px 19px;
+    font-size: inherit;
+}
