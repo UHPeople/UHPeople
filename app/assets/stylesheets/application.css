@@ -59,6 +59,11 @@ a.navbar-brand {
 
 .chatbox{
 	height: 300px;
+	overflow: auto;
+}
+.panel-body{
+	padding-top: 5px;
+	padding-bottom: 5px; 
 }
 .footer{
 	height: 100px;
