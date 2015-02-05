@@ -3,12 +3,10 @@
 
   <div id="chat-text" class="panel panel-default">
     <% @hashtag.messages.each do |message| %>
-
         <div class="panel-body">
           <span class="chat-name"><%= message.user.name %></span>
           <%= message.content %>
         </div>
-
     <% end %>
   </div>
 

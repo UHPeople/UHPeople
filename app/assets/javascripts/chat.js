@@ -6,6 +6,8 @@ $(function() {
   var hashtag = $("#hashtag-id")[0].value;
   var user = $("#user-id")[0].value;
 
+  // ws.send(JSON.stringify({ event: "online", hashtag: hashtag, user: user }));
+
   ws.onmessage = function(message) {
     var data = JSON.parse(message.data);
     if (data.hashtag != hashtag) return;

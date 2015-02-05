@@ -18,27 +18,29 @@ module UHPeople
 
         ws.on :open do |event|
           @clients << ws
-
-          # @clients.each {|client| client.send() }
         end
 
         ws.on :message do |event|
           data = JSON.parse(event.data)
 
-          user = User.find(data['user'])
-          hashtag = Hashtag.find(data['hashtag'])
+          if data['event'] == 'message'
+            user = User.find(data['user'])
+            hashtag = Hashtag.find(data['hashtag'])
 
-          if user.hashtags.include? hashtag
-            message = Message.create content: data['content'],
-                                     hashtag_id: data['hashtag'],
-                                     user_id: data['user']
+            if user.hashtags.include? hashtag
+              message = Message.create content: data['content'],
+                                       hashtag_id: data['hashtag'],
+                                       user_id: data['user']
 
-            data['user'] = user.name
+              data['user'] = user.name
 
-            if message.valid?
-              @clients.each {|client| client.send(sanitize(data)) }
+              if message.valid?
+                @clients.each { |client| client.send(sanitize(data)) }
+              end
             end
-          end
+          elsif data['event'] == 'online'
+            # @clients.each { |client| client.send() }
+          end 
         end
 
         ws.on :close do |event|
