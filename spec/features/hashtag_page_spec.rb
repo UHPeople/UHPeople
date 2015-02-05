@@ -9,19 +9,29 @@ describe "Hashtag page" do
   end
 
   it "has edit topic button" do
-    visit "/hashtags/#{hashtag.id}"
-    click_link('Join')
+    go_to_hashtag_join
 
-    expect(page).to have_content('Click to edit topic!')
+    expect(page).to have_content 'Click to edit topic!'
   end
 
   it "has updated topic" do
-    visit "/hashtags/#{hashtag.id}"
-    click_link('Join')
-    fill_in('topic', with:'This is the topic!')
-    click_button('Update topic!')
-    expect(page).to have_content('This is the topic!')
+    go_to_hashtag_join
+    fill_in 'topic', with: 'This is the topic!'
+    click_button 'Update topic!'
 
+    expect(page).to have_content 'This is the topic!'
+  end
+
+  it "has working leave button" do
+    go_to_hashtag_join
+    click_link 'Leave'
+
+    expect(page).to have_content 'Join'
+  end
+
+  def go_to_hashtag_join
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Join'
   end
 
 end

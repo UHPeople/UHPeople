@@ -5,14 +5,14 @@
   <h3>Topic: <%= @hashtag.topic %></h3>
 
 
-    <% if current_user.hashtags.exists?(@hashtag) %>
+    <% if current_user.hashtags.include? @hashtag %>
       <button class="btn btn-default" onclick="$('#target').toggleClass('hidden');">Click to edit topic!</button>
       <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
     <% else %>  
       <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
     <% end %>
 
-  <% if current_user.hashtags.exists?(@hashtag) %>
+  <% if current_user.hashtags.include? @hashtag %>
   <div id="target" class="hidden">
     <%= form_for(@hashtag) do |f| %>
         <div class="panel panel-default">
