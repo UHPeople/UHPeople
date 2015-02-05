@@ -7,16 +7,17 @@
 			<p><%= link_to h.name, h%></p>
 		<% end %>
 	<% end %>
-	<% unless @hashtags.blank? %>
+	<% if not @hashtags.blank? %>
 		<h1>Search results for: #<%= @searchword %></h1>
 		<% @hashtags.each do |h| %>
 			<p><%= link_to "#" + h.tag, h%></p>
 	  <% end %>
-  <% end %>
+  <% else %>
+	  <h1>What about a new hashtag?</h1>
+	  <p>Create new hashtag: 
+		<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
+	  </p>
+	<% end %>
 
-  <h1>What about a new hashtag?</h1>
-  <p>Create new hashtag: 
-	<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
-  </p>
 
 </div>
