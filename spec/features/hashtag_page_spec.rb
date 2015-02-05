@@ -20,7 +20,6 @@ describe "Hashtag page" do
     click_link('Join')
     fill_in('topic', with:'This is the topic!')
     click_button('Update topic!')
-    expect(page).to have_content('updated')
     expect(page).to have_content('This is the topic!')
 
   end
