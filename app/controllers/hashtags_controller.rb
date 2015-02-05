@@ -1,10 +1,17 @@
 class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show]
 
-  def show
-    
-    
-  end  
+  def join
+    @hashtag = Hashtag.find params[:id]
+    current_user.hashtags << @hashtag
+    redirect_to @hashtag
+  end
+
+  def leave
+    @hashtag = Hashtag.find params[:id]
+    current_user.hashtags.destroy(@hashtag)
+    redirect_to :back
+  end
 
 
   def create

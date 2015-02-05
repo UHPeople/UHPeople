@@ -9,4 +9,8 @@ Rails.application.routes.draw do
 
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
+
+  post 'join', to: 'hashtags#join'
+  delete 'leave', to: 'hashtags#leave'
+
 end
