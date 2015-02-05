@@ -1,14 +1,16 @@
+<div class="jumbotron">
+    <h1>#<%= @hashtag.tag %></h1>
+
+    <p>Solu on kaikkien elävien organismien rakenteellinen ja toiminnallinen perusyksikkö. Solut jaetaan prokaryootteihin eli esitumallisiin ja eukaryootteihin eli aitotumallisiin. Esitumallisiin kuuluvat lähinnä bakteerit ja aitotumallisiin eläin-, sieni- ja kasvisolut. Eläinten solut voidaan jakaa..</p>
+
+    <% if current_user.hashtags.exists?(@hashtag) %>   
+      <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
+    <% else %>  
+      <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
+    <% end %>
+</div>
 <div class="col-xs-12 col-sm-8">
-  <h1>#<%= @hashtag.tag %></h1>
-
-  <% if current_user.hashtags.exists?(@hashtag) %>   
-    <%= link_to 'leave', leave_path(id: @hashtag), method: :delete %>
-  <% else %>  
-    <%= link_to 'join', join_path(id: @hashtag), method: :post %> 
-  <% end %>
-
-
-  <div id="chat-text" class="panel panel-default">
+  <div id="chat-text" class="panel panel-default chatbox">
     <% @hashtag.messages.each do |message| %>
       <div class="panel-body">
         <%= message.content %>

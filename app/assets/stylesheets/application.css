@@ -56,3 +56,10 @@ a.navbar-brand {
 .search{
 	padding-top: 10px;
 }
+
+.chatbox{
+	height: 300px;
+}
+.footer{
+	height: 100px;
+}
