@@ -12,14 +12,14 @@ describe "Hashtag page" do
     visit "/hashtags/#{hashtag.id}"
     click_link('Join')
 
-    expect(page).to have_content('Click to edit topic!')
+    expect(page).to have_content('Edit topic!')
   end
 
   it "has updated topic" do
     visit "/hashtags/#{hashtag.id}"
     click_link('Join')
     fill_in('topic', with:'This is the topic!')
-    click_button('Update topic!')
+    click_button('Update')
     expect(page).to have_content('This is the topic!')
 
   end
