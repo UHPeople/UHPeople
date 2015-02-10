@@ -7,6 +7,7 @@ class SearchController < ApplicationController
 		#@hashtags = Hashtag.find(:all, :conditions => ['tag LIKE ?', "%#{@searchword}%"])
    	@hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
    	@users = User.where("name like ?", "%#{@searchword}%")
+   	@hashtagsexact = Hashtag.where("tag like ?", "#{@searchword}")
 	end
 
 	private
