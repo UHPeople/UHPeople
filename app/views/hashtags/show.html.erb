@@ -15,14 +15,17 @@
       <% end %>
     </h1>
 
-    <blockquote>
-      <p class="lead"><%= @hashtag.topic %>  
+    <blockquote class="lead">
+      <p><%= @hashtag.topic %>  
         <% if @user_has_tag %>
-          <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+          <%= link_to @topic_button_text , "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
         <% end %>
       </p>
-      <footer>Updated by: <cite>Marko</cite></footer>
-    </blockquote>  
+
+      <% if @hashtag.topic_updater_id and not @hashtag.topic.blank? %>
+        <footer>Updated by: <cite><%= @topicker.name %></cite></footer>
+      <% end -%>
+    </blockquote> 
 
     <% if @user_has_tag %>
       <div id="target" class="hidden">

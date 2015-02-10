@@ -1,9 +1,17 @@
 class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show, :update]
-  before_action :user_has_tag, only:[:show]
+  before_action :user_has_tag, only:[:show, :update]
+  before_action :topic_updater, only:[:show, :update]
 
   def show
     @messages = @hashtag.messages.last(20)
+    
+    if @hashtag.topic.blank?
+      @topic_button_text = "Add topic"
+    else
+      @topic_button_text = "Edit topic"
+    end
+
   end
 
   def join
@@ -46,5 +54,9 @@ class HashtagsController < ApplicationController
 
   def hashtag_params
     params.require(:hashtag).permit(:tag, :topic, :topic_updater_id)
+  end
+
+  def topic_updater
+    @topicker = User.find_by id:@hashtag.topic_updater_id
   end
 end
