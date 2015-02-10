@@ -9,7 +9,8 @@
     <% end %>
   </h1>
 
-  <p class="lead"><%= @hashtag.topic %>  
+  <p class="lead"><%= @hashtag.topic %> exit
+    
     <% if @user_has_tag %>
       <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
     <% end %>
@@ -20,6 +21,7 @@
       <%= form_for(@hashtag) do |f| %>
         <div class="form-group">
           <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
+          <%= f.hidden_field :topic_updater_id, value: current_user.id, :id=>'topic_updater_id' %>
         </div>
         <%= f.submit value: "Update", :class=>'btn btn-primary' %>
       <%end%>
