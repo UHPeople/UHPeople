@@ -2,6 +2,10 @@ class HashtagsController < ApplicationController
 	before_action :set_hashtag, only: [:show, :update]
   before_action :user_has_tag, only:[:show]
 
+  def show
+    @messages = @hashtag.messages.last(20)
+  end
+
   def join
     @hashtag = Hashtag.find params[:id]
     current_user.hashtags << @hashtag
