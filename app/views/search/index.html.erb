@@ -17,11 +17,13 @@
 			<% @hashtags.each do |h| %>
 				<p><%= link_to "#" + h.tag, h%></p>
 		  <% end %>
+		  <% if not @searchword.blank? %>
 		  <h1>What about a new hashtag?</h1>
 		  <p>Create new hashtag: 
 			<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
 		  </p>
-	  <% else %>
+		  <% end %>
+	  <% elsif not @searchword.blank? %>
 		  <h1>What about a new hashtag?</h1>
 		  <p>Create new hashtag: 
 			<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
