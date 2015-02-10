@@ -1,31 +1,23 @@
 <div class="jumbotron">
   <div class="container text-center">
     <% if notice %>
+    <!--
     <div class="alert alert-success alert-dismissible" role="alert">
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
       <%= notice %>
-    </div>
+    </div>-->
     <% end %>
 
     <h1>#<%= @hashtag.tag %>
-      <% if @user_has_tag %>
-        <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
-      <% else %>  
-        <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
-      <% end %>
     </h1>
 
-    <blockquote class="lead">
-      <p><%= @hashtag.topic %>  
-        <% if @user_has_tag %>
-          <%= link_to @topic_button_text , "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-        <% end %>
-      </p>
+    <p class="lead">
+      <%= @hashtag.topic %>
 
       <% if @hashtag.topic_updater_id and not @hashtag.topic.blank? %>
         <footer>Updated by: <cite><%= @topicker.name %></cite></footer>
       <% end -%>
-    </blockquote> 
+    </p> 
 
     <% if @user_has_tag %>
       <div id="target" class="hidden">
@@ -34,7 +26,7 @@
             <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
             <%= f.hidden_field :topic_updater_id, value: current_user.id, :id=>'topic_updater_id' %>
           </div>
-          <%= f.submit value: "Update", :class=>'btn btn-primary' %>
+          <%= f.submit value: "Update", :class=>'btn btn-sm btn-primary' %>
         <%end%>
       </div>
     <% end %>
@@ -68,6 +60,16 @@
 
   <div class="col-xs-12 col-sm-4">
     <div class="well sidebar-nav">
+      <% if @user_has_tag %>
+        <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
+      <% else %>  
+        <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
+      <% end %>
+
+      <% if @user_has_tag %>
+        <%= link_to @topic_button_text , "#", :class=>"lead btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+      <% end %>
+
       <h3>Members</h3>
       <ul class="nav nav-list">
         <% @hashtag.users.each do |m| %>
