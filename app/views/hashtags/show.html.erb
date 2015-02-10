@@ -30,7 +30,7 @@
 <div class="col-xs-12 col-sm-8">
   <% if @user_has_tag %>
     <div id="chat-text" class="panel panel-default chatbox">
-      <% @hashtag.messages.each do |message| %>
+      <% @messages.each do |message| %>
         <div class="panel-body">
           <span class="chat-name"><%= message.user.name %></span>
           <%= message.content %>
