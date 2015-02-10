@@ -15,14 +15,17 @@ describe "Hashtag page chat" do
     expect(page).to have_content 'Send'
   end
 
+  it "has related messages" do
+    FactoryGirl.create(:message, user: user, hashtag: hashtag)
+    visit "/hashtags/#{hashtag.id}"
+    expect(page).to have_content 'Hello World!'
+  end
 
-  #it "can be written a message", :js => true do
+  #it "can send a message", :js => true do
   #  visit "/hashtags/#{hashtag.id}"
-
+  #  save_and_open_page
   #  fill_in('input-text', with:'Hello world!')
-  #  click_button('Send')
 
-  #  fill_in('input-text', with:'Hello world!')
   #  click_button('Send')
 
   #  expect(page).to have_content('Hello world!')
