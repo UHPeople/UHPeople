@@ -1,55 +1,57 @@
-<div class="col-lg-9">
+<div class="container">
+  <div class="col-lg-9">
 
-  <div class="col-lg-4">
-    <div class="well">
-      <div class="profileCrop" style="background-image: url('<%= @user.profilePicture %>')"></div>
+    <div class="col-lg-4">
+      <div class="well">
+        <div class="profileCrop" style="background-image: url('<%= @user.profilePicture %>')"></div>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+
+      <%= form_for(@user) do |f| %>
+          <% if @user.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
+
+                <ul>
+                  <% @user.errors.full_messages.each do |msg| %>
+                      <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+          <% end %>
+
+          <div class="field">
+            <%= f.label :name %><br>
+            <%= f.text_field :name %>
+          </div>
+          <div class="field">
+            <%= f.label :title %><br>
+            <%= f.text_field :title %>
+          </div>
+          <div class="field">
+            <%= f.label :email %><br>
+            <%= f.text_field :email %>
+          </div>
+          <div class="field">
+            <%= f.label :campus %><br>
+            <%= f.text_field :campus %>
+          </div>
+          <div class="field">
+            <%= f.label :unit %><br>
+            <%= f.text_field :unit %>
+          </div>
+          <div class="field">
+            <%= f.label :about %><br>
+            <%= f.text_area :about, size: "60x8" %>
+          </div>
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+      <% end %>
+
+
     </div>
   </div>
-
-  <div class="col-lg-3">
-
-    <%= form_for(@user) do |f| %>
-        <% if @user.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
-
-              <ul>
-                <% @user.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-        <% end %>
-
-        <div class="field">
-          <%= f.label :name %><br>
-          <%= f.text_field :name %>
-        </div>
-        <div class="field">
-          <%= f.label :title %><br>
-          <%= f.text_field :title %>
-        </div>
-        <div class="field">
-          <%= f.label :email %><br>
-          <%= f.text_field :email %>
-        </div>
-        <div class="field">
-          <%= f.label :campus %><br>
-          <%= f.text_field :campus %>
-        </div>
-        <div class="field">
-          <%= f.label :unit %><br>
-          <%= f.text_field :unit %>
-        </div>
-        <div class="field">
-          <%= f.label :about %><br>
-          <%= f.text_area :about, size: "60x8" %>
-        </div>
-        <div class="actions">
-          <%= f.submit %>
-        </div>
-    <% end %>
-
-
-  </div>
-</div>
+</div> <!-- /container -->

@@ -11,4 +11,10 @@ FactoryGirl.define do
   factory :hashtag do
   	tag 'avantouinti'
   end
+
+  factory :message do
+    user
+    hashtag
+    content 'Hello World!'
+  end
 end

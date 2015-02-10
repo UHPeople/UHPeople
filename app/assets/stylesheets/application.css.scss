@@ -14,6 +14,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$jumbotron-color: #2B2B2B;
+
+
 /* User image crop*/
 .profileCrop {
   height: 300px;
@@ -51,8 +54,32 @@ a.navbar-brand {
 
 /*Navbar height to logo height + padding*/
 .navbar {
-	min-height:70px !important
+	min-height:70px !important;
+	/*navbar margin fix*/
+	margin-bottom: 0;
 }
+/*navbar margin moved to container top*/
+.container{
+	margin-top: 20px;
+}
+
+
+/* Jumbotron material desing */
+.jumbotron {
+	background: $jumbotron-color;
+
+	h1 {
+		color: #00ACAE;
+	} 
+	p {
+		color: #FFFFFF;
+	} 
+	footer {
+		color: #B2AEB1;
+	}
+}
+
+
 .search{
 	padding-top: 10px;
 }
@@ -69,6 +96,12 @@ a.navbar-brand {
 	height: 100px;
 }
 .chat-name {
-  color: #7D7D7D;
-  font-style: italic;
+	color: #7D7D7D;
+	font-style: italic;
+}
+
+.chat-timestamp {
+	@extend .chat-name;
+	
+	font-size: 70%;
 }

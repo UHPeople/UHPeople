@@ -10,8 +10,14 @@ describe "Hashtag page" do
     click_link 'Join'
   end
 
+  it "has add topic button" do
+    expect(page).to have_content 'Add topic'
+  end
+  
   it "has edit topic button" do
-    expect(page).to have_content 'Edit topic!'
+    fill_in 'topic', with: 'This is the topic!'
+    click_button 'Update'
+    expect(page).to have_content 'Edit topic'
   end
 
   it "has updated topic" do

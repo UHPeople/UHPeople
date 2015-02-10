@@ -1,34 +1,36 @@
-<div class= "col-xs-12 col-sm-4" >
-	<div class="profileCrop well" style="background-image: url('<%= @user.profilePicture %>')"></div>
-</div>
+<div class="container">	
+	<div class= "col-xs-12 col-sm-4" >
+		<div class="profileCrop well" style="background-image: url('<%= @user.profilePicture %>')"></div>
+	</div>
 
-<div class= "col-xs-12 col-sm-4">
-	<div class="userinfo">
-		<h1><%= @user.name %></h1>
-		<p><%=  @user.title %></p>
-		<p><%=  @user.email %></p>
-		<p><%=  @user.campus %>, <%=  @user.unit %></p>
+	<div class= "col-xs-12 col-sm-4">
+		<div class="userinfo">
+			<h1><%= @user.name %></h1>
+			<p><%=  @user.title %></p>
+			<p><%=  @user.email %></p>
+			<p><%=  @user.campus %>, <%=  @user.unit %></p>
+		</div>
+		<div class="aboutme">
+			<% if not @user.about.nil? and not @user.about.empty? %>
+			    <h1>About me</h1>
+			    <p><%= @user.about %></p>
+	  		<% end %>
+		</div>
 	</div>
-	<div class="aboutme">
-		<% if not @user.about.nil? and not @user.about.empty? %>
-		    <h1>About me</h1>
-		    <p><%= @user.about %></p>
-  		<% end %>
-	</div>
-</div>
 
-<div class= "col-xs-12 col-sm-4">
-	<div class="well sidebar-nav">
-		<h3>Hashtags</h3>
-    	<ul class="nav nav-list">
-			<% @user.hashtags.each do |tag| %>
-				<li>
-					<%= link_to "#"+tag.tag, tag, :class => "col-sm-6" %>
-					<%= link_to leave_path(id: tag), method: :delete, :class => "col-sm-6" do %>
-					<span class="glyphicon glyphicon-remove"/>
-					<% end %>
-				</li>
-			<% end %>
-    	</ul>
+	<div class= "col-xs-12 col-sm-4">
+		<div class="well sidebar-nav">
+			<h3>Hashtags</h3>
+	    	<ul class="nav nav-list">
+				<% @user.hashtags.each do |tag| %>
+					<li>
+						<%= link_to "#"+tag.tag, tag, :class => "col-sm-6" %>
+						<%= link_to leave_path(id: tag), method: :delete, :class => "col-sm-6" do %>
+						<span class="glyphicon glyphicon-remove"/>
+						<% end %>
+					</li>
+				<% end %>
+	    	</ul>
+		</div>
 	</div>
-</div>
+</div> <!-- /container -->	
