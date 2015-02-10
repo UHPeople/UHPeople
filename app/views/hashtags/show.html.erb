@@ -32,7 +32,8 @@
     <div id="chat-text" class="panel panel-default chatbox">
       <% @messages.each do |message| %>
         <div class="panel-body">
-          <span class="chat-name"><%= message.user.name %></span>
+          <span class="chat-timestamp"><%= message.timestamp %></span>
+          <span class="chat-name"><%= message.user.name %></span>:
           <%= message.content %>
         </div>
       <% end %>

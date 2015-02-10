@@ -1,4 +1,4 @@
-$(document).ready = ->
+ready = ->
   scheme = 'ws://'
   uri = scheme + window.document.location.host
   ws = new WebSocket(uri)
@@ -16,7 +16,8 @@ $(document).ready = ->
     if data.hashtag != hashtag
       return
     
-    $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-name\'>' + data.user + '</span> ' + data.content + '</div>'
+    $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-timestamp\'>' +
+      data.timestamp + '</span> <span class=\'chat-name\'>' + data.user + '</span>: ' + data.content + '</div>'
     
     $('#chat-text').stop().animate {
       scrollTop: $('#chat-text')[0].scrollHeight
@@ -39,3 +40,5 @@ $(document).ready = ->
     return
   return
 
+$(document).ready(ready)
+$(document).on('page:load', ready)
