@@ -33,6 +33,7 @@ module UHPeople
                                        user_id: data['user']
 
               data['user'] = user.name
+              data['timestamp'] = message.timestamp
 
               if message.valid?
                 @clients.each { |client| client.send(sanitize(data)) }
