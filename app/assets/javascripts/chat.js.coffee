@@ -2,6 +2,9 @@ ready = ->
   scheme = 'ws://'
   uri = scheme + window.document.location.host
   ws = new WebSocket(uri)
+
+  if not $('#hashtag-id').length
+    return
   
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
