@@ -1,39 +1,41 @@
 <div class="jumbotron">
   <div class="container text-center">
-  <% if notice %>
-  <div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <%= notice %>
-  </div>
-  <% end %>
-
-  <h1>#<%= @hashtag.tag %>
-    <% if @user_has_tag %>
-      <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
-    <% else %>  
-      <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
-    <% end %>
-  </h1>
-  <blockquote>
-    <p class="lead"><%= @hashtag.topic %>  
-      <% if @user_has_tag %>
-        <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-      <% end %>
-    </p>
-    <footer>Updated by: <cite>Marko</cite></footer>
-  </blockquote>  
-
-  <% if @user_has_tag %>
-    <div id="target" class="hidden">
-      <%= form_for(@hashtag) do |f| %>
-        <div class="form-group">
-          <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
-        </div>
-        <%= f.submit value: "Update", :class=>'btn btn-primary' %>
-      <%end%>
+    <% if notice %>
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <%= notice %>
     </div>
-  <% end %>
-  </div>
+    <% end %>
+
+    <h1>#<%= @hashtag.tag %>
+      <% if @user_has_tag %>
+        <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
+      <% else %>  
+        <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
+      <% end %>
+    </h1>
+
+    <blockquote>
+      <p class="lead"><%= @hashtag.topic %>  
+        <% if @user_has_tag %>
+          <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+        <% end %>
+      </p>
+      <footer>Updated by: <cite>Marko</cite></footer>
+    </blockquote>  
+
+    <% if @user_has_tag %>
+      <div id="target" class="hidden">
+        <%= form_for(@hashtag) do |f| %>
+          <div class="form-group">
+            <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
+            <%= f.hidden_field :topic_updater_id, value: current_user.id, :id=>'topic_updater_id' %>
+          </div>
+          <%= f.submit value: "Update", :class=>'btn btn-primary' %>
+        <%end%>
+      </div>
+    <% end %>
+  </div><!-- /container -->  
 </div> <!-- /Jumbotron -->  
 
 <div class="container">
