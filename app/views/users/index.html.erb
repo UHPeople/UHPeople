@@ -1,19 +1,21 @@
-<p id="notice"><%= notice %></p>
+<div class="container">  
+  <p id="notice"><%= notice %></p>
 
-<table class="table table-condensed table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @users.each do |user| %>
+  <table class="table table-condensed table-hover">
+    <thead>
       <tr>
-        <td><%= link_to user.name, user %></td>
-        <td><%= link_to 'Edit', edit_user_path(user) %></td>
-        <td><%= link_to 'Login as', "login/#{user.id}" %></td>
+        <th>Name</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, user %></td>
+          <td><%= link_to 'Edit', edit_user_path(user) %></td>
+          <td><%= link_to 'Login as', "login/#{user.id}" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div> <!-- /container -->  

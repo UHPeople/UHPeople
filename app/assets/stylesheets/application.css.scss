@@ -51,8 +51,12 @@ a.navbar-brand {
 
 /*Navbar height to logo height + padding*/
 .navbar {
-	min-height:70px !important
+	min-height:70px !important;
+	/*navbar margin fix*/
+	margin-bottom: 0;
 }
+
+
 .search{
 	padding-top: 10px;
 }

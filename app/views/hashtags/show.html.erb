@@ -1,5 +1,11 @@
-
 <div class="jumbotron">
+  <div class="container text-center">
+  <% if notice %>
+  <div class="alert alert-success alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <%= notice %>
+  </div>
+  <% end %>
 
   <h1>#<%= @hashtag.tag %>
     <% if @user_has_tag %>
@@ -8,12 +14,14 @@
       <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
     <% end %>
   </h1>
-
-  <p class="lead"><%= @hashtag.topic %>  
-    <% if @user_has_tag %>
-      <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-    <% end %>
-  </p>  
+  <blockquote>
+    <p class="lead"><%= @hashtag.topic %>  
+      <% if @user_has_tag %>
+        <%= link_to "Edit topic!", "#", :class=>"btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+      <% end %>
+    </p>
+    <footer>Updated by: <cite>Marko</cite></footer>
+  </blockquote>  
 
   <% if @user_has_tag %>
     <div id="target" class="hidden">
@@ -25,38 +33,42 @@
       <%end%>
     </div>
   <% end %>
-</div>
-
-<div class="col-xs-12 col-sm-8">
-  <% if @user_has_tag %>
-    <div id="chat-text" class="panel panel-default chatbox">
-      <% @hashtag.messages.each do |message| %>
-        <div class="panel-body">
-          <span class="chat-name"><%= message.user.name %></span>
-          <%= message.content %>
-        </div>
-      <% end %>
-    </div>
-    
-    <form id="input-form" class="form-inline">
-      <div class="form-group">
-        <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
-        <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
-        <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-      </div>
-
-      <button class="btn btn-primary" type="submit">Send</button>
-    </form>
-  <% end %>
-</div>
-
-<div class="col-xs-12 col-sm-4">
-  <div class="well sidebar-nav">
-    <h3>Members</h3>
-    <ul class="nav nav-list">
-      <% @hashtag.users.each do |m| %>
-          <li><%= link_to m.name, m %></li>
-      <% end %>
-    </ul>
   </div>
-</div>
+</div> <!-- /Jumbotron -->  
+
+<div class="container">
+
+  <div class="col-xs-12 col-sm-8">
+    <% if @user_has_tag %>
+      <div id="chat-text" class="panel panel-default chatbox">
+        <% @hashtag.messages.each do |message| %>
+          <div class="panel-body">
+            <span class="chat-name"><%= message.user.name %></span>
+            <%= message.content %>
+          </div>
+        <% end %>
+      </div>
+      
+      <form id="input-form" class="form-inline">
+        <div class="form-group">
+          <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
+          <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+          <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+    <% end %>
+  </div>
+
+  <div class="col-xs-12 col-sm-4">
+    <div class="well sidebar-nav">
+      <h3>Members</h3>
+      <ul class="nav nav-list">
+        <% @hashtag.users.each do |m| %>
+            <li><%= link_to m.name, m %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div> <!-- /container -->  
