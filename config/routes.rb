@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
-  root 'users#index'
+
+  root 'frontpage#index'
+
+  get 'login', to: 'user#index'
 
   resources :hashtags, :only => [:show, :create, :update]
   resources :search, :only => [:index]
