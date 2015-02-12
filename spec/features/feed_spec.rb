@@ -11,8 +11,20 @@ describe "Feed page" do
   end
 
   it "has messages" do
-    message = Message.create user: user, hashtag: hashtag, content: 'Asdasd'
-    visit '/feed'
+    create_and_visit
     expect(page).to have_content 'Asdasd'
   end
+
+  it "redirects to right hashtag when tag opened" do
+    create_and_visit
+    click_link 'avantouinti'
+    expect(page).to have_content 'Asdasd'
+    expect(page).to have_content 'Members'
+    expect(page).to have_content 'asd asd'
+  end
+end
+
+def create_and_visit
+  message = Message.create user: user, hashtag: hashtag, content: 'Asdasd'
+  visit '/feed'
 end

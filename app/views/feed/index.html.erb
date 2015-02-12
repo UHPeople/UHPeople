@@ -4,7 +4,7 @@
       <div class="col-md-4">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><%= chat.first.hashtag.tag %></h3>
+            <h3 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h3>
           </div>
 
           <% chat.each do |message| %>
