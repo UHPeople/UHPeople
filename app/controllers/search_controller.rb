@@ -2,18 +2,20 @@ class SearchController < ApplicationController
 	before_action :set_search, only: [:index]
 
 	def index
-		@searchword = params[:search].downcase
+		@searchword = params[:search]
+    @searchword = @searchword.downcase unless @searchword == nil
+
 		@hashtag = Hashtag.new
-		#@hashtags = Hashtag.find(:all, :conditions => ['tag LIKE ?', "%#{@searchword}%"])
+
    	@hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
    	@users = User.where("name like ?", "%#{@searchword}%")
-   	@hashtagsexact = Hashtag.where("tag like ?", "#{@searchword}")
+
+   	@hashtags_exact = Hashtag.where("tag like ?", "#{@searchword}")
 	end
 
 	private
-	# Use callbacks to share common setup or constraints between actions.
+
 	def set_search
 	 @search = params[:search]
 	end
-
 end	

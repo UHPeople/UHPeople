@@ -13,4 +13,5 @@ Rails.application.routes.draw do
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
 
+  resources :feed, :only => [:index]
 end
