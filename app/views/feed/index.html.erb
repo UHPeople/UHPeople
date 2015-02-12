@@ -11,7 +11,7 @@
             <div class="panel-body">
               <span class="chat-timestamp"><%= message.timestamp %></span>
               <span class="chat-name"><%= message.user.name %></span>:
-              <%= message.content %>
+              <%= truncate(split_str(message.content), length: 200) %>
             </div>
           <% end %>
         </div>
