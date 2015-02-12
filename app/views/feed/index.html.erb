@@ -1,11 +1,21 @@
-<div class = "container">
+<div class="container">
   <% @chats.each do |chat| %>
     <% if not chat.empty? %>
-      <h2><%= chat.first.hashtag.tag %></h2>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= chat.first.hashtag.tag %></h3>
+          </div>
 
-      <% chat.each do |message| %>
-        <p><%= message.content %></p>
-      <% end %>
+          <% chat.each do |message| %>
+            <div class="panel-body">
+              <span class="chat-timestamp"><%= message.timestamp %></span>
+              <span class="chat-name"><%= message.user.name %></span>:
+              <%= message.content %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     <% end %>
   <% end %>
 </div>

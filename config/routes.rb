@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
-  root 'users#index'
+  root 'feed#index'
 
-  resources :hashtags, :only => [:show, :create, :update]
-  resources :search, :only => [:index]
-  #get 'hashtag/:id', to: 'hashtag#show'
-
-  resources :users, :only => [:index, :show, :edit, :update]
+  resources :hashtags, only: [:show, :create, :update]
+  resources :users, only: [:index, :show, :edit, :update]
+  resources :feed, only: [:index]
+  resources :search, only: [:index]
 
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
 
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
-
-  resources :feed, :only => [:index]
 end
