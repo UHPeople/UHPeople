@@ -2,7 +2,7 @@ class SessionController < ApplicationController
   def login
     @user = User.find(params[:id])
     session[:user_id] = @user.id
-    redirect_to @user
+    redirect_to feed_index_path
   end
 
   def logout
