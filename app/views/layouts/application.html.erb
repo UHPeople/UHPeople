@@ -35,6 +35,11 @@
 
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
+
+        <% if not current_user.nil? %>
+            <li><%= link_to "Home", root_path %></li>
+        <% end %>
+
         <li>
           <div class="search input-group form-group">
             <%= form_tag(search_index_path, :method => "get", id: "search-form", class: "navbar-form navbar-left") do %>
@@ -45,7 +50,6 @@
         </li>
 
         <% if not current_user.nil? %>
-            <li><%= link_to "Home", root_path %></li>
             <li><%= link_to current_user.name, current_user %></li>
             <li><%= link_to "Logout", "/logout" %></li>
         <% end %>
