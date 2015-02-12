@@ -1,2 +1,11 @@
 <div class = "container">
+  <% @chats.each do |chat| %>
+    <% if not chat.empty? %>
+      <h2><%= chat.first.hashtag.tag %></h2>
+
+      <% chat.each do |message| %>
+        <p><%= message.content %></p>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
