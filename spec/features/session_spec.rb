@@ -4,7 +4,7 @@ describe "User" do
   let!(:user){FactoryGirl.create :user}
 
   it "is not logged in at first" do
-    visit root_path
+    visit "/users"
 
     expect(page).to have_content 'Login as'
   end
@@ -21,7 +21,7 @@ describe "User" do
     visit logout_path
 
     expect(page).not_to have_content 'Logout'
-    expect(page).to have_content 'Login as'
+    expect(page).to have_content 'Login'
   end
 
 end
