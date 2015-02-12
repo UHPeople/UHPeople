@@ -107,8 +107,14 @@ a.navbar-brand {
 }
 .head {
 	height: 100vh;
+	background-image: image-url('bg.jpg');
+	background-position: center;
 
 	.middle{
+		padding-top: 150px;
 
+		h1, p, a{
+			text-shadow: 1px 1px 11px rgba(0, 0, 0, 0.81);
+		}
 	}
 }
