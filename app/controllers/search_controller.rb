@@ -1,4 +1,5 @@
 class SearchController < ApplicationController
+  before_action :require_login
 	before_action :set_search, only: [:index]
 
 	def index
