@@ -1,13 +1,19 @@
-
 require 'spec_helper'
 
 describe "User" do
-  let!(:user){FactoryGirl.create :user}
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:hashtag) { FactoryGirl.create(:hashtag) }
+
+  before :each do
+    visit "/login/#{user.id}"
+  end
 
   it "after editing users name and about, shows right information on user page" do
     visit edit_user_path(user)
+
     fill_in('user_name', with:'Vaihdettu Nimi')
     fill_in('user_about', with:'Hauska tyyppi.')
+
     click_button('Update User')
 
     expect(page).to have_content 'Vaihdettu Nimi'
@@ -16,6 +22,7 @@ describe "User" do
 
   it "fails on invalid changes" do
     visit edit_user_path(user)
+    
     fill_in('user_name', with:'')
     click_button('Update User')
 

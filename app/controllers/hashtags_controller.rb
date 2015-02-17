@@ -1,4 +1,6 @@
 class HashtagsController < ApplicationController
+  before_action :require_login
+  
 	before_action :set_hashtag, only: [:show, :update]
   before_action :user_has_tag, only:[:show, :update]
   before_action :topic_updater, only:[:show, :update]

@@ -1,33 +1,34 @@
 <div class = "container">
 	<div class= "col-xs-12 col-sm-8">
-		
+
 		<% if not @users.blank? %>
-			<h1>Search results for users: <%= @searchword %></h1>
-			<% @users.each do |h| %>
-				<p><%= link_to h.name, h%></p>
-			<% end %>
+			<div id="users">
+				<h1>Search results for users: <%= @search %></h1>
+
+				<% @users.each do |h| %>
+					<h3><%= link_to h.name, h%></h3>
+				<% end %>
+			</div>
 		<% end %>
-		<% if not @hashtagsexact.blank? %>
-			<h1>Search results for: #<%= @searchword %></h1>
-			<% @hashtagsexact.each do |h| %>
-				<p><%= link_to "#" + h.tag, h%></p>
-		  <% end %>
-		<% elsif not @hashtags.blank? %>
-			<h1>Search results for: #<%= @searchword %></h1>
-			<% @hashtags.each do |h| %>
-				<p><%= link_to "#" + h.tag, h%></p>
-		  <% end %>
-		  <% if not @searchword.blank? %>
-		  <h1>What about a new hashtag?</h1>
-		  <p>Create new hashtag: 
-			<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
-		  </p>
-		  <% end %>
-	  <% elsif not @searchword.blank? %>
-		  <h1>What about a new hashtag?</h1>
-		  <p>Create new hashtag: 
-			<%= link_to @searchword, hashtags_path(:tag => @searchword), :method => :post %>
-		  </p>
+
+		<% if not @hashtags.blank? %>
+			<div id="hashtags">
+				<h1>Search results for: #<%= @search %></h1>
+
+				<% @hashtags.each do |h| %>
+					<h3><%= link_to "#" + h.tag, h%></h3>
+			  <% end %>
+		  </div>
+		<% end %>
+
+	  <% if @hashtags_exact.blank? %>
+	  	<div id="new_hashtag">
+			  <h2>What about a new hashtag?</h2>
+
+			  <p>Create new hashtag: 
+					<%= link_to "##{@search}", hashtags_path(:tag => @search), :method => :post %>
+			  </p>
+		  </div>
 		<% end %>
 	</div>
 </div>
