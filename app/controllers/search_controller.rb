@@ -2,15 +2,12 @@ class SearchController < ApplicationController
 	before_action :set_search, only: [:index]
 
 	def index
-		@searchword = params[:search]
-    @searchword = @searchword.downcase unless @searchword == nil
-
 		@hashtag = Hashtag.new
 
-   	@hashtags = Hashtag.where("tag like ?", "%#{@searchword}%")
-   	@users = User.where("name like ?", "%#{@searchword}%")
+   	@hashtags = Hashtag.where("tag ilike ?", "%#{@search}%")
+   	@users = User.where("name ilike ?", "%#{@search}%")
 
-   	@hashtags_exact = Hashtag.where("tag like ?", "#{@searchword}")
+   	@hashtags_exact = Hashtag.where("tag ilike ?", "#{@search}")
 	end
 
 	private
