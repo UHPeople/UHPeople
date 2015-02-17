@@ -23,6 +23,7 @@ end
 gem 'bootstrap-sass'
 gem 'faye-websocket'
 gem 'puma'
+gem 'masonry-rails'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.1'
