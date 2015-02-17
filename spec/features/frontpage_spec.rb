@@ -9,8 +9,13 @@ describe "Frontpage page" do
   it "redirects to feed" do
     user = FactoryGirl.create(:user)
     visit "/login/#{user.id}"
-    
+
     visit root_path
     expect(page.current_path).to eq "/feed"
+  end
+
+  it "gets redirected to from other controllers" do
+    visit "/feed"
+    expect(page.current_path).to eq "/"
   end
 end
