@@ -18,4 +18,9 @@ describe "Frontpage page" do
     visit "/feed"
     expect(page.current_path).to eq "/"
   end
+
+  it "has no search bar" do
+    visit root_path
+    expect(page).to_not have_content 'Search'
+  end
 end
