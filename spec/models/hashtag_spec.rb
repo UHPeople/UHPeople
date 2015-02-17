@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Hashtag do
+describe 'Hashtag' do
   it "has the tag set correctly" do
     hashtag = Hashtag.new tag:"avantouinti"
 
@@ -28,5 +28,11 @@ describe Hashtag do
     expect(hashtag1.valid?).to be(true)
     expect(hashtag2.valid?).to be(false)
     expect(Hashtag.count).to eq(1)
+  end
+
+  it 'is not saved with invalid tag' do
+    hashtag = Hashtag.create tag: '-=sa2c1-##'
+    expect(hashtag.valid?).to be(false)
+    expect(Hashtag.count).to eq(0)
   end
 end

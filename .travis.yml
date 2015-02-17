@@ -3,6 +3,9 @@ language: ruby
 rvm:
  - 2.2.0
 
+before_script:
+  - psql -c 'create database test;' -U postgres
+
 script:
  - bundle exec rake db:migrate --trace
  - RAILS_ENV=test bundle exec rake db:migrate --trace
