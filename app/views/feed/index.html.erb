@@ -1,8 +1,8 @@
-<div class="container">
-  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
+
+<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container">
   <% @chats.each do |chat| %>
     <% if not chat.empty? %>
-      <div class="col-md-4 box">
+      <div class="box col3">
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h3>
@@ -19,5 +19,4 @@
       </div>
     <% end %>
   <% end %>
-  </div>
 </div>

@@ -30,9 +30,10 @@ $(function(){
 
   $('#masonry-container').masonry({
     itemSelector: '.box',
-    //columnWidth: 380,
+    //columnWidth: 100,
     isAnimated: !Modernizr.csstransitions,
     "isOriginTop": true
     //isRTL: true
+
   });
 });
