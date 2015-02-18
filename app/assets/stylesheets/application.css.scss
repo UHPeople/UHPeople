@@ -24,6 +24,7 @@
 $jumbotron-color: #2B2B2B;
 
 
+/* feed box */
 .box{
 	background-color: inherit;
 	font-size: inherit;
@@ -41,7 +42,7 @@ $jumbotron-color: #2B2B2B;
 
 /*UHPeople link*/
 a.navbar-brand { 
-	padding-top: 25px; 
+	padding-top: 23px; 
 	padding-bottom: 10px; 
 	padding-left: 20px; 
 }
@@ -54,7 +55,7 @@ a.navbar-brand {
 
 /*UH logo positioning*/
 .navbar-brand { 
-	padding-top: 10px; 
+	padding-top: 5px; 
 	padding-left: 17px;
 }
 
@@ -66,10 +67,12 @@ a.navbar-brand {
 
 /*Navbar height to logo height + padding*/
 .navbar {
-	min-height:70px !important;
+	height:96px !important;
 	/*navbar margin fix*/
 	margin-bottom: 0;
+
 }
+
 /*navbar margin moved to container top*/
 .container{
 	margin-top: 20px;
