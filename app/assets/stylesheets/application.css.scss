@@ -28,20 +28,11 @@ $jumbotron-color: #2B2B2B;
 }
 
 /* Navbar fix */
-
-/*UHPeople link*/
-/*a.navbar-brand { 
-	padding-top: 23px; 
-	padding-bottom: 10px; 
-	padding-left: 20px; 
-}
-*/
 /*Link color to white*/
 .navbar-inverse .navbar-brand {
 	color: #FFFFFF;
 	font-weight: bold;
 }
-@grid-float-breakpoint: 900px; 
 
 .navbar{
 	margin-bottom: 0;
@@ -53,13 +44,6 @@ $jumbotron-color: #2B2B2B;
 		padding-top: 20px;
 	}
 }
-.collapse .in {
-
-
-		padding-left: 120px;
-	
-}
-
 
 .navbar-brand,
 .navbar-nav li a {
@@ -68,11 +52,11 @@ $jumbotron-color: #2B2B2B;
     padding-top: 0;
 }
 
-/* Navbar links positioning*/
-/*.navbar .navbar-nav > li > a {
-	padding-top:25px !important; 
-	padding-bottom:10px !important;
-}*/
+.dropdown-menu > li > a{
+	line-height: 1.42857143;
+	height: inherit;
+}
+
 .container{
 	padding-top: 20px;
 }
@@ -90,11 +74,6 @@ $jumbotron-color: #2B2B2B;
 	footer {
 		color: #B2AEB1;
 	}
-}
-
-
-.search{
-	padding-top: 10px;
 }
 
 .chatbox{
@@ -118,6 +97,8 @@ $jumbotron-color: #2B2B2B;
 	
 	font-size: 70%;
 }
+
+/* Frontpage setup*/
 
 .head {
 	height: 100vh;
