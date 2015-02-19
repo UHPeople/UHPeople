@@ -1,13 +1,5 @@
 <div class="jumbotron">
   <div class="container text-center">
-    <% if notice %>
-    <!--
-    <div class="alert alert-success alert-dismissible" role="alert">
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <%= notice %>
-    </div>-->
-    <% end %>
-
     <h1>#<%= @hashtag.tag %>
     </h1>
 
@@ -73,7 +65,7 @@
       <h3>Members</h3>
       <ul class="nav nav-list">
         <% @hashtag.users.each do |m| %>
-            <li><%= link_to m.name, m %></li>
+            <li id="<%= m.id %>"><%= link_to m.name, m %></li>
         <% end %>
       </ul>
     </div>
