@@ -1,5 +1,28 @@
 require "spec_helper"
 
 describe InvitationMailer do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Invitation mailer' do
+    let(:user) { FactoryGirl.create(:user) }
+
+    describe 'in sent mail' do
+      let(:mail) { InvitationMailer.invitation_email(user, "@helsinki.fi") }
+
+      it 'has correct sender email' do
+        expect(mail.from).to eql(['uhpeople@gmail.com'])
+      end
+
+      it 'has correct receiver' do
+        expect(mail.to).to eql('@helsinki.fi')
+      end
+
+      it 'has correct subject' do
+        expect(mail.subject).to eql('Invitation to UHPeople from asd asd')
+      end
+
+      it 'has application url in body' do
+        expect(mail.body.encoded).to match('http://uhpeople.herokuapp.com')
+      end
+
+    end
+  end
 end
