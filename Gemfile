@@ -31,6 +31,7 @@ group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'rails_layout'
 end
 
 group :production do

@@ -1,15 +1,4 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- */
+
 @import  'masonry/basic';
 @import  'masonry/centered';
 @import  'masonry/fluid';
@@ -41,43 +30,52 @@ $jumbotron-color: #2B2B2B;
 /* Navbar fix */
 
 /*UHPeople link*/
-a.navbar-brand { 
+/*a.navbar-brand { 
 	padding-top: 23px; 
 	padding-bottom: 10px; 
 	padding-left: 20px; 
 }
-
+*/
 /*Link color to white*/
 .navbar-inverse .navbar-brand {
 	color: #FFFFFF;
 	font-weight: bold;
 }
+@grid-float-breakpoint: 900px; 
 
-/*UH logo positioning*/
-.navbar-brand { 
-	padding-top: 5px; 
-	padding-left: 17px;
+.navbar{
+	margin-bottom: 0;
+
+	.container{
+		padding-top: 0;
+	}
+	.navbar-form{
+		padding-top: 20px;
+	}
+}
+.collapse .in {
+
+
+		padding-left: 120px;
+	
+}
+
+
+.navbar-brand,
+.navbar-nav li a {
+    line-height: 96px;
+    height: 96px;
+    padding-top: 0;
 }
 
 /* Navbar links positioning*/
-.navbar .navbar-nav > li > a {
+/*.navbar .navbar-nav > li > a {
 	padding-top:25px !important; 
 	padding-bottom:10px !important;
-}
-
-/*Navbar height to logo height + padding*/
-.navbar {
-	height:96px !important;
-	/*navbar margin fix*/
-	margin-bottom: 0;
-
-}
-
-/*navbar margin moved to container top*/
+}*/
 .container{
-	margin-top: 20px;
+	padding-top: 20px;
 }
-
 
 /* Jumbotron material desing */
 .jumbotron {
