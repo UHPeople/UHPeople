@@ -10,9 +10,17 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600);
+
 $jumbotron-color: #2B2B2B;
 
-
+body {
+	font-family: 'Open Sans',Helvetica,Arial,sans-serif,Nimbus Sans L;
+	font-size: 12px;
+   	font-weight: 400;
+   	line-height: 17px;
+   	word-spacing: 0.1em;
+}
 /* feed box */
 .box{
 	background-color: inherit;
