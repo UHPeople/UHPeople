@@ -115,3 +115,13 @@ $jumbotron-color: #2B2B2B;
 		}
 	}
 }
+
+.panel{
+	border-radius: 0;
+	background-color: rgba(239, 241, 245, 0.4);
+	margin-bottom: 0;
+
+}
+.panel-default > .panel-heading {
+	background-color: rgba(239, 241, 245, 0.4);
+}

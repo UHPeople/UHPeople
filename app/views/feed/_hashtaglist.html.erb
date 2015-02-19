@@ -1,10 +1,10 @@
-<div>
-	<h4> Groups</h4>
+<div class="col-xs-12 col-sm-3">
+	<h2> Groups</h2>
 	<table class="table table-hover">
 		<% user.hashtags.each do |tag| %>
 			<tr>
 				<td>
-					<%= link_to "#"+tag.tag, tag %>
+						<a class="panel-title"><%= link_to "#"+tag.tag, tag %></a>
 				</td>
 			</tr>
 		<% end %>

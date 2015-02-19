@@ -1,5 +1,5 @@
 <div class="container">
-  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container col-xs-12 col-sm-8">
+  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container col-xs-12 col-sm-9">
     <%if not @chats.any?%>
         <p class="lead">
           Your feed is empty. Follow some hashtags to see something here!
@@ -7,10 +7,10 @@
     <% else %>
       <% @chats.each do |chat| %>
       <% if not chat.empty? %>
-        <div class="box col3">
+        <div class="box col4">
           <div class="panel panel-default">
             <div class="panel-heading">
-              <h3 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h3>
+              <h2 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h2>
             </div>
 
             <% chat.each do |message| %>
@@ -26,7 +26,7 @@
     <% end %>
     <% end %>
   </div>
-  <div class="col-xs-12 col-sm-4 ">
-      <%= render 'hashtaglist', user: current_user %>
-  </div>
+    
+    <%= render 'hashtaglist', user: current_user %>
+
 </div>
