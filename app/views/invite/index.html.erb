@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="col-lg-9">
+
+    <div class="col-lg-3">
+
+      <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
+          <div class="field">
+            <%= label_tag :receiver, "Receiver email" %><br>
+            <%= text_field_tag :receiver %>
+          </div>
+          <div class="actions">
+            <%= submit_tag("send invitation!") %>
+          </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div> <!-- /container -->
