@@ -70,9 +70,10 @@ a.navbar-brand {
 	/*navbar margin fix*/
 	margin-bottom: 0;
 }
+
 /*navbar margin moved to container top*/
 .container{
-	margin-top: 20px;
+	#margin-top: 20px;
 }
 
 
@@ -83,7 +84,7 @@ a.navbar-brand {
 	h1 {
 		color: #00ACAE;
 	} 
-	p {
+	div {
 		color: #FFFFFF;
 	} 
 	footer {
@@ -107,6 +108,7 @@ a.navbar-brand {
 .footer{
 	height: 100px;
 }
+
 .chat-name {
 	color: #7D7D7D;
 	font-style: italic;
@@ -116,6 +118,13 @@ a.navbar-brand {
 	@extend .chat-name;
 	
 	font-size: 70%;
+}
+
+ul#mylist li:before{
+    content: "•";
+    margin-right: 10px;
+    font-weight: bold;
+    color: #00FF00;
 }
 
 .head {

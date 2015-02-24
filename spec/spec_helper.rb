@@ -9,9 +9,6 @@ require 'rspec/autorun'
 
 require 'capybara/rspec'
 
-#require 'capybara/poltergeist'
-#Capybara.javascript_driver = :poltergeist
-
 class ActiveRecord::Base
   mattr_accessor :shared_connection
   @@shared_connection = nil

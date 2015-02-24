@@ -1,15 +1,14 @@
 <div class="jumbotron">
   <div class="container text-center">
-    <h1>#<%= @hashtag.tag %>
-    </h1>
+    <h1>#<%= @hashtag.tag %></h1>
 
-    <p class="lead">
+    <div class="lead">
       <%= @hashtag.topic %>
 
       <% if @hashtag.topic_updater_id and not @hashtag.topic.blank? %>
         <footer>Updated by: <cite><%= @topicker.name %></cite></footer>
       <% end -%>
-    </p> 
+    </div> 
 
     <% if @user_has_tag %>
       <div id="target" class="hidden">
@@ -38,14 +37,17 @@
         <% end %>
       </div>
       
-      <form id="input-form" class="form-inline">
-        <div class="form-group">
-          <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
+      <form>
+        <div class="input-group">
+          <input id="input-text" type="text" class="form-control" placeholder="" />
+
           <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
           <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-        </div>
 
-        <button class="btn btn-primary" type="submit">Send</button>
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="submit">Send</button>
+          </span>
+        </div>
       </form>
     <% end %>
   </div>

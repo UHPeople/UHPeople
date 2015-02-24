@@ -23,7 +23,7 @@ describe "Hashtag page chat" do
 
   #it "can send a message", :js => true do
   #  visit "/hashtags/#{hashtag.id}"
-  #  save_and_open_page
+    #save_and_open_page
   #  fill_in('input-text', with:'Hello world!')
 
   #  click_button('Send')

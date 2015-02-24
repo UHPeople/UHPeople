@@ -5,17 +5,6 @@ require 'erb'
 
 module UHPeople
   class ChatBackend
-    class Client
-      def new(socket, user)
-        @socket = socket
-        @user = user
-      end
-
-      def send(data)
-        @socket.send(data)
-      end
-    end
-
     KEEPALIVE_TIME = 15
 
     def initialize(app)
@@ -25,12 +14,12 @@ module UHPeople
 
     def call(env)
       if Faye::WebSocket.websocket? env
-        ws = Faye::WebSocket.new(env, nil, {ping: KEEPALIVE_TIME })
+        ws = Faye::WebSocket.new(env, nil, { ping: KEEPALIVE_TIME })
 
         ws.on :open do |event|
           p "open"
 
-          @clients << ws #Client.new(ws, nil)
+          #@clients << [ws, nil]
         end
 
         ws.on :message do |event|
@@ -38,17 +27,17 @@ module UHPeople
 
           data = JSON.parse(event.data)
           response = generate_response data
-          @clients.each { |client| client.send(response) }
+          @clients.each { |socket, user| socket.send(response) }
         end
 
         ws.on :close do |event|
           p "close"
 
-          @clients.delete(ws)
+          #@clients.delete(ws)
           ws = nil
 
           onlines = online_users
-          @clients.each { |client| client.send(onlines) }
+          @clients.each { |socket, user| socket.send(onlines) }
         end
 
         ws.rack_response
@@ -60,13 +49,13 @@ module UHPeople
     private
 
     def sanitize(json)
-      json.each {|key, value| json[key] = ERB::Util.html_escape(value) }
+      json.each { |key, value| json[key] = ERB::Util.html_escape(value) }
       JSON.generate(json)
     end
 
     def online_users
-      onlines = @clients.map { |client| client.user.id }
-      json = {'event': 'online', 'onlines': onlines}
+      onlines = @clients.map { |socket, user| user }
+      json = { 'event': 'online', 'onlines': onlines }
       
       p json
 
@@ -94,6 +83,8 @@ module UHPeople
         end
       elsif data['event'] == 'online'
         p "online event"
+
+        @clients << [ws, 1]
 
         return online_users
       end 

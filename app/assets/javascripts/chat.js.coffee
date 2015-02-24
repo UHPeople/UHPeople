@@ -1,5 +1,5 @@
 set_online = (id) ->
-  $('li#' + id).append 'online'
+  $('li#' + id).append ''
 
 add_message = (data) ->
   hashtag = $('#hashtag-id')[0].value
