@@ -17,4 +17,11 @@ describe User do
     expect(User.count).to eq(1)
   end
 
+  it "is not saved without name" do
+    user = User.create username:"terotest"
+
+    expect(user.valid?).to be(false)
+    expect(User.count).to eq(0)
+  end
+
 end
