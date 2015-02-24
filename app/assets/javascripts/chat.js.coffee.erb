@@ -1,5 +1,6 @@
 ready = ->
-  scheme = 'ws://'
+  scheme = <%= ENV['RACK_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
+
   uri = scheme + window.document.location.host
   ws = new WebSocket(uri)
 
