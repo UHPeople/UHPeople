@@ -21,3 +21,6 @@
 
 # Ignore SimpleCov
 coverage/*
+
+# Ignore compiled js css
+public/assets/*
