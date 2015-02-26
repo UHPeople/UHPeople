@@ -1,6 +1,6 @@
 <% @chats.each do |chat| %>
   <% if not chat.empty? %>
-    <div class="box col3 col-sm-12 col-lg-5">
+    <div class="box col3">
       <div class="panel panel-default">
         <div class="panel-heading">
           <h2 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h2>
