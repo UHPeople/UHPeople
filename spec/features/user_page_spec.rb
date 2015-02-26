@@ -35,4 +35,12 @@ describe "Profile page" do
   it "has hashtags" do
   	expect(page).to have_content '#avantouinti'
   end
+
+  it "doesn't have groups title if no hashtags" do
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Leave'
+    visit "/users/#{user.id}"
+
+    expect(page).not_to have_content 'Groups'
+  end
 end

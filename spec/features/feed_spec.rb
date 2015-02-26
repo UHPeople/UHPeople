@@ -23,6 +23,15 @@ describe "Feed page" do
     expect(page).to have_content 'Members'
     expect(page).to have_content 'asd asd'
   end
+
+  it "doesn't have groups title if no hashtags" do
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Leave'
+    visit '/feed'
+
+    expect(page).not_to have_content 'Groups'
+  end
+
 end
 
 def create_and_visit
