@@ -9,13 +9,16 @@
     <% end %>
   </div>
   
-  <form id="input-form" class="form-inline">
-    <div class="form-group">
-      <input id="input-text" type="text" class="form-control" placeholder="" autofocus />
+  <form>
+    <div class="input-group">
+      <input id="input-text" type="text" class="form-control" placeholder="" />
+
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-    </div>
 
-    <button class="btn btn-primary" type="submit">Send</button>
+      <span class="input-group-btn">
+        <button class="btn btn-primary" id="chat-send">Send</button>
+      </span>
+    </div>
   </form>
 <% end %>

@@ -11,6 +11,7 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'jquery-turbolinks'
 gem 'jbuilder', '~> 2.0'
 
 gem 'rb-readline'
@@ -43,6 +44,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
-  # gem 'poltergeist'
+  gem 'selenium-webdriver'
+  gem "codeclimate-test-reporter", require: false
 end
 

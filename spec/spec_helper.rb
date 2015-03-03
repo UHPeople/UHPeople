@@ -1,16 +1,14 @@
 require 'simplecov'
 SimpleCov.start('rails')
 
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
+
 require 'rspec/rails'
-require 'rspec/autorun'
-
 require 'capybara/rspec'
-
-#require 'capybara/poltergeist'
-#Capybara.javascript_driver = :poltergeist
 
 class ActiveRecord::Base
   mattr_accessor :shared_connection

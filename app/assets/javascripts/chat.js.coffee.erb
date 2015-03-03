@@ -1,48 +1,59 @@
+set_online = (id) ->
+  $('li#' + id).append '<span class="chat-online"><span>'
+
+scroll_to_bottom = ->
+  $('#chat-text').stop().animate {
+    scrollTop: $('#chat-text')[0].scrollHeight
+  }, 800
+
+add_message = (data) ->
+  # $('#chat-text .panel-body:first-child')
+
+  $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-timestamp\'>' +
+    data.timestamp + '</span> <span class=\'chat-name\'>' + data.user + '</span>: ' + data.content + '</div>'
+
+  scroll_to_bottom()
+
 ready = ->
-  scheme = <%= ENV['RACK_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
-
-  uri = scheme + window.document.location.host
-  ws = new WebSocket(uri)
-
   if not $('#hashtag-id').length
     return
+
+  scroll_to_bottom()
+
+  scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
+  host = <%= ENV['RAILS_ENV'] == "test" ? '"echo.websocket.org/"' : 'window.document.location.host' %>
+  uri = scheme + host
+  ws = new WebSocket(uri)
   
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
-  # ws.send JSON.stringify(event: 'online', hashtag: hashtag, user: user)
-  
-  $('#chat-text').scrollTop $('#chat-text')[0].scrollHeight
+  ws.onopen = ->
+    ws.send JSON.stringify
+      event: 'online'
+      hashtag: hashtag
+      user: user
 
   ws.onmessage = (message) ->
-    data = JSON.parse(message.data)
-    
-    if data.hashtag != hashtag
-      return
-    
-    $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-timestamp\'>' +
-      data.timestamp + '</span> <span class=\'chat-name\'>' + data.user + '</span>: ' + data.content + '</div>'
-    
-    $('#chat-text').stop().animate {
-      scrollTop: $('#chat-text')[0].scrollHeight
-    }, 800
-    
-    return
+    data = JSON.parse message.data
 
-  $('#input-form').on 'submit', (event) ->
+    if data.event == 'message' and data.hashtag == hashtag
+      add_message data
+    else if data.event == 'online'
+      $('.chat-online').remove()
+      set_online id for id in data.onlines
+
+  $('#chat-send').on 'click', (event) ->
     event.preventDefault()
     
     text = $('#input-text')[0].value
 
-    ws.send JSON.stringify(
+    ws.send JSON.stringify
       event: 'message'
       content: text
       hashtag: hashtag
-      user: user)
+      user: user
 
     $('#input-text')[0].value = ''
-    return
-  return
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
