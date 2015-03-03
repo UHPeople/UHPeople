@@ -28,6 +28,7 @@
 //= require masonry/jquery.loremimages.min
 
 $(document).ready(function() {
+
   $('#masonry-container').masonry({
     itemSelector: '.box',
     //columnWidth: 100,
@@ -35,4 +36,10 @@ $(document).ready(function() {
     "isOriginTop": true
     //isRTL: true
   });
+});
+
+$(document).ready(function() {
+	$('a[data-toggle=tab]').on('shown.bs.tab', function (e) {
+    $(window).trigger("resize");
+	});
 });

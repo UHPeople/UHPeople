@@ -1,4 +1,6 @@
-<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container">
+
+<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix col-md-12">
+  <div class="container col-md-12">
   <% unless @chats.any? %>
     <p class="lead">
       Your feed is empty. Follow some hashtags to see something here!
@@ -8,4 +10,6 @@
       <%= render 'chatbox', chat: chat %>
     <% end %>
   <% end %>
+  </div>
 </div>
+
