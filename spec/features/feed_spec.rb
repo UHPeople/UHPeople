@@ -10,8 +10,14 @@ describe "Feed page" do
     click_link 'Join'
   end
 
-  it "has messages" do
+  it "has messages in feed" do
     create_and_visit
+    expect(page).to have_content 'Asdasd'
+  end
+
+  it "has messages in favourites" do
+    create_and_visit
+    click_link 'Favourites'
     expect(page).to have_content 'Asdasd'
   end
 
@@ -31,7 +37,6 @@ describe "Feed page" do
 
     expect(page).not_to have_content 'Groups'
   end
-
 end
 
 def create_and_visit
