@@ -36,10 +36,6 @@ var ready = function() {
     "isOriginTop": true
     //isRTL: true
   });
-
-  $('a[data-toggle=tab]').on('shown.bs.tab', function (e) {
-    $(window).trigger("resize");
-  });
 };
 
 $(document).ready(ready);
