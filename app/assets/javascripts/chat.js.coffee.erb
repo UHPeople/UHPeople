@@ -1,5 +1,8 @@
 set_online = (id) ->
-  $('li#' + id).append 'online'
+  $('li#' + id).append '<span class="chat-online"><span>'
+
+set_all_offline = ->
+  $('li span.chat-online').remove()
 
 scroll_to_bottom = ->
   $('#chat-text').stop().animate {
@@ -42,6 +45,7 @@ ready = ->
     if data.event == 'message' and data.hashtag == hashtag
       add_message data
     else if data.event == 'online'
+      set_all_offline
       set_online user for user in data.onlines
 
   $('#chat-send').on 'click', (event) ->

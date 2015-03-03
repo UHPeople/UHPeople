@@ -100,6 +100,15 @@ $jumbotron-color: #2B2B2B;
 	font-size: 70%;
 }
 
+.chat-online {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #549E54;
+}
+
 /* Frontpage setup*/
 .head {
 	height: 100vh;
