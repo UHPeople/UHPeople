@@ -1,6 +1,6 @@
 UHPeople - yliopiston sisäinen yhteisöpalvelu
 
-[![Build Status](https://magnum.travis-ci.com/makroma/UHPeople.svg?token=oicMpF1zWwbv5bAh1DKZ&branch=dev)](https://magnum.travis-ci.com/makroma/UHPeople)
+[![Build Status](https://travis-ci.com/makroma/UHPeople.svg?token=oicMpF1zWwbv5bAh1DKZ&branch=dev)](https://travis-ci.com/makroma/UHPeople)
 
 [![Code Climate](https://codeclimate.com/github/makroma/UHPeople/badges/gpa.svg)](https://codeclimate.com/github/makroma/UHPeople)
 

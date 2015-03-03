@@ -12,7 +12,14 @@ describe "Feed page" do
 
   it "has messages in feed" do
     create_and_visit
-    expect(page).to have_content 'Asdasd'
+    expect(page).to have_content "##{hashtag.tag}: #{user.name}: Asdasd"
+  end
+
+  it "has messages in feed in order" do
+    Message.create user: user, hashtag: hashtag, content: 'Asdasd2'
+    create_and_visit
+    
+    expect(find('p:first-child')).to have_content 'Asdasd'
   end
 
   it "has messages in favourites" do
