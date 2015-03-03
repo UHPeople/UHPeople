@@ -15,13 +15,23 @@ describe "Feed page" do
     expect(page).to have_content 'Asdasd'
   end
 
-  it "redirects to right hashtag when tag opened" do
+  it "redirects hashtag box link to right hashtag when tag opened" do
     create_and_visit
-    click_link 'avantouinti'
+
+    first('.panel-title').click_link 'avantouinti'
     expect(page).to have_content 'Asdasd'
     expect(page).to have_content 'Members'
     expect(page).to have_content 'asd asd'
   end
+
+  it "doesn't have groups title if no hashtags" do
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Leave'
+    visit '/feed'
+
+    expect(page).not_to have_content 'Groups'
+  end
+
 end
 
 def create_and_visit

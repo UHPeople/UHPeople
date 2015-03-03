@@ -1,0 +1,24 @@
+<% if @user_has_tag %>
+  <div id="chat-text" class="panel panel-default chatbox">
+    <% @messages.each do |message| %>
+      <div class="panel-body">
+        <span class="chat-timestamp"><%= message.timestamp %></span>
+        <span class="chat-name"><%= message.user.name %></span>:
+        <%= message.content %>
+      </div>
+    <% end %>
+  </div>
+  
+  <form>
+    <div class="input-group">
+      <input id="input-text" type="text" class="form-control" placeholder="" />
+
+      <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+
+      <span class="input-group-btn">
+        <button class="btn btn-primary" id="chat-send">Send</button>
+      </span>
+    </div>
+  </form>
+<% end %>

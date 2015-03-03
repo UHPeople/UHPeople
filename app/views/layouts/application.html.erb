@@ -1,63 +1,20 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>UHPeople</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-
-  <!--
-    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
-    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
-    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>>
-    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
-    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
-    -->
-</head>
-<body>
-
-<div class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-
-    <div class="navbar-brand">
-      <%= link_to image_tag('helsinki53x50.png'), root_path %>
-    </div>
-
-    <a class="navbar-brand" href="/">UHPeople</a>
-
-    <% if not current_user.nil? %>
-      <div class="navbar-collapse collapse navbar-responsive-collapse">
-        <ul class="nav navbar-nav">          
-          <li><%= link_to "Home", root_path %></li>
-      
-          <li>
-            <div class="search input-group form-group">
-              <%= form_tag(search_index_path, :method => "get", id: "search-form", class: "navbar-form navbar-left") do %>
-                  <%= text_field_tag :search, params[:search], placeholder: "Search", :class => "form-control" %>
-                  <%= submit_tag "Search", :name => nil, :class => "btn btn-primary" %>
-              <% end %>
-            </div>
-          </li>
-
-          <li><%= link_to current_user.name, current_user %></li>
-          <li><%= link_to "Logout", "/logout" %></li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-</div>
-
-<%= yield %>
-
-<footer class="footer"></footer>
-
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "UHPeople" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Uh People" %>">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+       <%= render 'layouts/messages' %>
+       <%= yield %>
+    </main>
+  </body>
 </html>

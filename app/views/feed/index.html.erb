@@ -1,22 +1,14 @@
-
-<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container">
-  <% @chats.each do |chat| %>
-    <% if not chat.empty? %>
-      <div class="box col3">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h3>
-          </div>
-
-          <% chat.each do |message| %>
-            <div class="panel-body">
-              <span class="chat-timestamp"><%= message.timestamp %></span>
-              <span class="chat-name"><%= message.user.name %></span>:
-              <%= truncate(split_str(message.content), length: 200) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+<div class="container">
+  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix container col-md-offset-1 col-md-8 col-lg-offset-1 col-lg-7">
+    <%if not @chats.any?%>
+        <p class="lead">
+          Your feed is empty. Follow some hashtags to see something here!
+        </p>
+    <% else %>
+      <%= render 'feedchat', user: current_user %>
     <% end %>
-  <% end %>
+  </div>
+  
+  <%= render 'hashtaglist', user: current_user %>
+
 </div>

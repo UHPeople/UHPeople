@@ -26,7 +26,7 @@
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
 
-$(function(){
+$(document).on("page:change", function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
     //columnWidth: 100,
