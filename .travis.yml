@@ -23,5 +23,4 @@ deploy:
   on: 
     repo: makroma/UHPeople
     branch: dev
-  run: rake db:migrate 
-
+  run: rake db:migrate
