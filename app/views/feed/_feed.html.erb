@@ -1,1 +1,10 @@
-<p>Tää on feed</p>
+<% @messages.each do |message| %>
+  <% if message != nil %>
+    <p>
+      <span class="chat-timestamp"><%= message.timestamp %></span>
+      <span class="chat-name">#<%= message.hashtag.tag %></span>:
+      <span class="chat-name"><%= message.user.name %></span>:
+      <%= truncate(split_str(message.content), length: 200) %>
+    </p>
+  <% end %>
+<% end %>

@@ -1,9 +1,8 @@
-
 <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix">
   <% unless @chats.any? %>
-      <p class="lead">
-        Your feed is empty. Follow some hashtags to see something here!
-      </p>
+    <p class="lead">
+      Your feed is empty. Follow some hashtags to see something here!
+    </p>
   <% else %>
     <% @chats.each do |chat| %>
       <%= render 'chatbox', chat: chat %>
