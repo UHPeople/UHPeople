@@ -9,8 +9,6 @@ scroll_to_bottom = ->
 add_message = (data) ->
   # $('#chat-text .panel-body:first-child')
 
-  hashtag = $('#hashtag-id')[0].value
-  
   $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-timestamp\'>' +
     data.timestamp + '</span> <span class=\'chat-name\'>' + data.user + '</span>: ' + data.content + '</div>'
 
@@ -43,7 +41,7 @@ ready = ->
       add_message data
     else if data.event == 'online'
       $('.chat-online').remove()
-      set_online user for user in data.onlines
+      set_online id for id in data.onlines
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
