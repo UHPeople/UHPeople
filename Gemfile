@@ -42,6 +42,6 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
-  #gem 'selenium-webdriver'
+  gem 'selenium-webdriver'
 end
 

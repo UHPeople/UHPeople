@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require_tree .
 
-//msonry dynamic grid system
+// masonry dynamic grid system
 //= require masonry/jquery.masonry
 //= require masonry/jquery.event-drag
 //= require masonry/jquery.imagesloaded.min
@@ -27,13 +27,11 @@
 //= require masonry/jquery.loremimages.min
 
 $(function(){
-
   $('#masonry-container').masonry({
     itemSelector: '.box',
     //columnWidth: 100,
     isAnimated: !Modernizr.csstransitions,
     "isOriginTop": true
     //isRTL: true
-
   });
 });

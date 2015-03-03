@@ -1,5 +1,4 @@
 require 'faye/websocket'
-require 'thread'
 require 'json'
 require 'erb'
 
@@ -16,28 +15,16 @@ module UHPeople
       if Faye::WebSocket.websocket? env
         ws = Faye::WebSocket.new(env, nil, { ping: KEEPALIVE_TIME })
 
-        ws.on :open do |event|
-          p "open"
-
-          #@clients << [ws, nil]
-        end
-
         ws.on :message do |event|
-          p "message"
-
           data = JSON.parse(event.data)
-          response = generate_response data
-          @clients.each { |socket, user| socket.send(response) }
+          respond ws, data
         end
 
         ws.on :close do |event|
-          p "close"
-
-          #@clients.delete(ws)
+          remove_online_user ws
           ws = nil
 
-          onlines = online_users
-          @clients.each { |socket, user| socket.send(onlines) }
+          broadcast online_users
         end
 
         ws.rack_response
@@ -46,7 +33,12 @@ module UHPeople
       end
     end
 
-    private
+    #private
+
+    def remove_online_user(ws) 
+      client = @clients.find { |socket, user| socket == ws }
+      @clients.delete(client)
+    end
 
     def sanitize(json)
       json.each { |key, value| json[key] = ERB::Util.html_escape(value) }
@@ -57,37 +49,58 @@ module UHPeople
       onlines = @clients.map { |socket, user| user }
       json = { 'event': 'online', 'onlines': onlines }
       
-      p json
-
       return JSON.generate(json)
     end
 
-    def generate_response(data)
-      if data['event'] == 'message'
-        p "message event"
+    def send_error(socket, error)
+      json = { 'event': 'error', 'content': error }
+      socket.send(JSON.generate(json))
+    end
 
+    def broadcast(json)
+      @clients.each { |socket, user| socket.send(json) }
+    end
+
+    def respond(socket, data)
+      begin
         user = User.find(data['user'])
+      rescue ActiveRecord::RecordNotFound
+        send_error socket, 'Invalid user id'
+        return
+      end
+
+      begin
         hashtag = Hashtag.find(data['hashtag'])
+      rescue ActiveRecord::RecordNotFound
+        send_error socket, 'Invalid hashtag id'
+        return
+      end
 
-        if user.hashtags.include? hashtag
-          message = Message.create content: data['content'],
-                                   hashtag_id: data['hashtag'],
-                                   user_id: data['user']
+      unless user.hashtags.include? hashtag
+        send_error socket, 'User not member of hashtag'
+        return
+      end
 
+      if data['event'] == 'message'
+        message = Message.create content: data['content'],
+                                 hashtag_id: data['hashtag'],
+                                 user_id: data['user']
+
+        if message.valid?
           data['user'] = user.name
           data['timestamp'] = message.timestamp
 
-          if message.valid?
-            return sanitize(data)
-          end
+          broadcast sanitize(data)
+        else
+          send_error socket, 'Invalid message'
+          return
         end
       elsif data['event'] == 'online'
-        p "online event"
+        user_id = data['user']
+        @clients << [socket, user_id]
 
-        @clients << [ws, 1]
-
-        return online_users
-      end 
+        broadcast online_users
+      end
     end
   end
 end
