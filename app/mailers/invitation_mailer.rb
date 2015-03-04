@@ -3,7 +3,7 @@ default from: 'uhpeople@gmail.com'
   def invitation_email(user, receiver)
     #@receiver = receiver
     @user = user
-    @url  = 'http://uhpeople.herokuapp.com/'
+    @url  = 'https://limppu.it.helsinki.fi/'
     #email_with_name = %("#{@user.name}" <#{@user.email}>)
     mail(#from: email_with_name,
          to: receiver,
