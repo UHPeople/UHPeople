@@ -1,5 +1,5 @@
 <% if @user_has_tag %>
-  <div id="chat-text" class="panel panel-default chatbox">
+  <div class="panel panel-default chatbox">
     <% @messages.each do |message| %>
       <div class="panel-body">
         <div class="interest_chat_box">
@@ -9,7 +9,7 @@
           <div class="message">
             <h5>
               <%= link_to message.user.name, message.user %>
-              
+                            
               <span class="timestamp"><%= message.timestamp %></span> 
             </h5>
             <p><%= split_str(message.content) %></p>
