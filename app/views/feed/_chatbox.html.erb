@@ -7,9 +7,14 @@
 
       <% chat.each do |message| %>
         <div class="panel-body">
-          <span class="chat-timestamp"><%= message.timestamp %></span>
-          <span class="chat-name"><%= message.user.name %></span>:
-          <%= truncate(split_str(message.content), length: 200) %>
+            <div class="favourites_chat_box">
+              <div class="message">
+                <p><%= link_to message.user.name, message.user, :class => 'user' %>
+                <%= truncate(split_str(message.content), length: 200) %><br>
+                <span><%= message.timestamp %></span>
+                </p>
+              </div>
+            </div>
         </div>
       <% end %>
     </div>
