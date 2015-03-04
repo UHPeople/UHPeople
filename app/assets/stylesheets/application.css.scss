@@ -77,38 +77,9 @@ $jumbotron-color: #2B2B2B;
 	}
 }
 
-.chatbox{
-	height: 300px;
-	overflow: auto;
-}
-.panel-body{
-	padding-top: 5px;
-	padding-bottom: 5px; 
-}
-.footer{
-	height: 100px;
-}
 
-.chat-name {
-	color: #7D7D7D;
-	font-style: italic;
-}
-
-.chat-timestamp {
-	@extend .chat-name;
-	
-	font-size: 70%;
-}
-
-.chat-online {
-  content: "";
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #549E54;
-}
 /* Frontpage setup*/
+
 .head {
 	height: 100vh;
 	background-image: image-url('bg.jpg');
@@ -171,13 +142,13 @@ $jumbotron-color: #2B2B2B;
 
 /*Favourites*/
 
-.panel{
+.panel, .fav{
 	border-radius: 0;
 	background-color: #f6f7f8;
 	margin-bottom: 0;
 
 }
-.panel-default > .panel-heading {
+.panel-default, .fav > .panel-heading {
 	background-color: #f6f7f8;
 }
 
@@ -213,5 +184,69 @@ $jumbotron-color: #2B2B2B;
 		}
 	}
 }
+/* INTEREST Chat*/
 
+.interest_chat_box{
+	width: 100%;
+	min-height: 40px;
+
+	.thumbnail {
+		height: 45px;
+		width: 45px;
+		background-color: #00ACAE;
+		border-radius: 5px;
+		float:left;
+	}
+
+	.message {
+		padding-left: 55px;
+
+		h5 {
+			margin-bottom: 3px;
+		}
+	
+		h5 > a{
+			font-weight: 900;
+			padding-right: .25rem;
+			color: #3d3c40 !important;
+			margin-left: 0;
+			font-style: normal;
+		}
+
+		.timestamp {
+			color: #ABA7A9;
+			font-weight: normal;
+			font-size: 70%;
+		}
+
+		p {
+			font-size: 15px;
+			line-height: 22px;
+			color: #3d3c40;
+			margin: 0;
+		}
+	}
+}
+/* Chatbox */
+
+.chatbox{
+	height: 300px;
+	overflow: auto;
+}
+
+.chat-online {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #549E54;
+}
+
+
+/*OTHER*/
+.panel-body{
+	padding-top: 0px;
+	padding-bottom: 0px; 
+}
 

@@ -27,7 +27,6 @@ describe "Hashtag page chat" do
 
     fill_in('input-text', with:'Hello world!')
     click_button('Send')
-
     expect(page).to have_content('Hello world!')
   end
 end
