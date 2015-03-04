@@ -20,7 +20,7 @@ describe InvitationMailer do
       end
 
       it 'has application url in body' do
-        expect(mail.body.encoded).to match('http://uhpeople.herokuapp.com')
+        expect(mail.body.encoded).to match('https://limppu.it.helsinki.fi/')
       end
 
     end
