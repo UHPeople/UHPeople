@@ -1,5 +1,8 @@
 set_online = (id) ->
-  $('li#' + id).append '<span class="chat-online"><span>'
+  $('div.sidebar-nav li#' + id).addClass('online')
+
+set_all_offline = (id) ->
+  $('div.sidebar-nav li').removeClass('online')
 
 scroll_to_bottom = ->
   $('.chatbox').stop().animate {
