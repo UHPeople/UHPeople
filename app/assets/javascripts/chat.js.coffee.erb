@@ -46,7 +46,7 @@ ready = ->
     if data.event == 'message' and data.hashtag == hashtag
       add_message data
     else if data.event == 'online'
-      $('.chat-online').remove()
+      set_all_offline
       set_online id for id in data.onlines
 
   $('#chat-send').on 'click', (event) ->
