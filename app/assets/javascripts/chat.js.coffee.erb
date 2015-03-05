@@ -1,16 +1,22 @@
 set_online = (id) ->
-  $('li#' + id).append '<span class="chat-online"><span>'
+  $('div.sidebar-nav li#' + id).addClass('online')
+
+set_all_offline = (id) ->
+  $('div.sidebar-nav li').removeClass('online')
 
 scroll_to_bottom = ->
-  $('#chat-text').stop().animate {
-    scrollTop: $('#chat-text')[0].scrollHeight
+  $('.chatbox').stop().animate {
+    scrollTop: $('.chatbox')[0].scrollHeight
   }, 800
 
 add_message = (data) ->
-  # $('#chat-text .panel-body:first-child')
+  # $('.chatbox .panel-body:first-child').remove()
 
-  $('#chat-text').append '<div class=\'panel-body\'><span class=\'chat-timestamp\'>' +
-    data.timestamp + '</span> <span class=\'chat-name\'>' + data.user + '</span>: ' + data.content + '</div>'
+  $('.chatbox').append '<div class="panel-body"><div class="interest_chat_box">' +
+    '<a href="/users/' + data.user + '"><div class="thumbnail"></div></a>' +
+      '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
+       '<span class="timestamp">' + data.timestamp + '</span></h5><p>' +
+        data.content + '</div></div></div>'
 
   scroll_to_bottom()
 

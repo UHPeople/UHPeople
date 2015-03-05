@@ -1,10 +1,19 @@
+
 <% @messages.each do |message| %>
   <% if message != nil %>
-    <p>
-      <span class="chat-timestamp"><%= message.timestamp %></span>
-      <span class="chat-name">#<%= message.hashtag.tag %></span>:
-      <span class="chat-name"><%= message.user.name %></span>:
-      <%= truncate(split_str(message.content), length: 200) %>
-    </p>
+  	<div class="feed_chat_box">
+  		<a href="<%= user_path(message.user) %>">
+  			<div class="thumbnail"></div>
+  		</a>
+  		<div class="message">
+		    <h5>
+		    	<%= link_to message.user.name, message.user %>at <%= link_to '#' + message.hashtag.tag, message.hashtag %>
+		    	
+		    	<span class="timestamp"><%= message.timestamp %></span> 
+		    </h5>
+		    <p><%= split_str(message.content) %></p>
+	    </div>
+    </div>
   <% end %>
 <% end %>
+

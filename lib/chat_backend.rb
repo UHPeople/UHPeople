@@ -87,7 +87,7 @@ module UHPeople
                                  user_id: data['user']
 
         if message.valid?
-          data['user'] = user.name
+          data['username'] = user.name
           data['timestamp'] = message.timestamp
 
           broadcast sanitize(data)
