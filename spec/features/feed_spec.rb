@@ -31,7 +31,7 @@ describe "Feed page" do
   it "redirects hashtag box link to right hashtag when tag opened" do
     create_and_visit
 
-    first('.panel-title').click_link 'avantouinti'
+    first(:link, 'avantouinti').click
     expect(page).to have_content 'Asdasd'
     expect(page).to have_content 'Members'
     expect(page).to have_content 'asd asd'
@@ -44,9 +44,14 @@ describe "Feed page" do
 
     expect(page).not_to have_content 'Groups'
   end
+
+  it "does something" do
+    
+  end
+
 end
 
 def create_and_visit
-  message = Message.create user: user, hashtag: hashtag, content: 'Asdasd'
+  Message.create user: user, hashtag: hashtag, content: 'Asdasd'
   visit '/feed'
 end
