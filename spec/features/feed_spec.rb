@@ -22,12 +22,6 @@ describe "Feed page" do
     expect(find('div.feed_chat_box:first-child')).to have_content 'Asdasd'
   end
 
-  it "has messages in favourites" do
-    create_and_visit
-    click_link 'Favourites'
-    expect(page).to have_content 'Asdasd'
-  end
-
   it "redirects hashtag box link to right hashtag when tag opened" do
     create_and_visit
 
@@ -45,11 +39,43 @@ describe "Feed page" do
     expect(page).not_to have_content 'Groups'
   end
 
-  it "does something" do
-    
+end
+
+describe "favourites page" do
+  let!(:user) { FactoryGirl.create(:user) }
+  let!(:hashtag) { FactoryGirl.create(:hashtag) }
+
+  before :each do
+    visit "/login/#{user.id}"
+    visit "/hashtags/#{hashtag.id}"
+    click_link 'Join'
+  end
+
+  it "is empty when no favorites" do
+    create_and_visit
+    click_link 'Favourites'
+    expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
+  end
+
+  it "has the right content when favourites exist" do
+    create_and_visit
+    find('td a.glyphicon').click
+    click_link 'Favourites'
+    expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
+  end
+
+  it "is empty when favourite removed" do
+    create_and_visit
+    find('td a.glyphicon').click
+    click_link 'Favourites'
+    expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
+    find('td a.glyphicon').click
+    click_link 'Favourites'
+    expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
   end
 
 end
+
 
 def create_and_visit
   Message.create user: user, hashtag: hashtag, content: 'Asdasd'
