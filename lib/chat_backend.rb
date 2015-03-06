@@ -29,11 +29,19 @@ module UHPeople
 
         ws.rack_response
       else
+        env['chat.join_callback'] = env['chat.join_callback'] = Proc.new { |user, hashtag| send_join(user, hashtag) }
+        # = self.send_join
+        
         @app.call(env)
       end
     end
 
     #private
+
+    def send_join(user, hashtag)
+      json = { 'event': 'join', 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
+      broadcast JSON.generate(json)
+    end
 
     def remove_online_user(ws) 
       client = @clients.find { |socket, user| socket == ws }
@@ -48,8 +56,7 @@ module UHPeople
     def online_users
       onlines = @clients.map { |socket, user| user }
       json = { 'event': 'online', 'onlines': onlines }
-      
-      return JSON.generate(json)
+      JSON.generate(json)
     end
 
     def send_error(socket, error)

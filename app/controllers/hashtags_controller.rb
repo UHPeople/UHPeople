@@ -17,9 +17,12 @@ class HashtagsController < ApplicationController
   end
 
   def join
-    @hashtag = Hashtag.find params[:id]
-    current_user.hashtags << @hashtag
-    redirect_to @hashtag
+    hashtag = Hashtag.find params[:id]
+    current_user.hashtags << hashtag
+    
+    request.env['chat.join_callback'].call(current_user, hashtag)
+
+    redirect_to hashtag
   end
 
   def leave
