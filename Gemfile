@@ -25,7 +25,7 @@ gem 'puma'
 gem 'masonry-rails'
 
 gem 'pg'
-
+gem 'omniauth-shibboleth'
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.1'
   gem 'byebug'
