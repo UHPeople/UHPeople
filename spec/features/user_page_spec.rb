@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Profile page" do
+describe 'Profile page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
@@ -12,28 +12,28 @@ describe "Profile page" do
     visit "/users/#{user.id}"
   end
 
-  it "has name" do
+  it 'has name' do
     expect(page).to have_content 'asd asd'
   end
 
-  it "has email" do
-  	expect(page).to have_content 'asd@asd.fi'
+  it 'has email' do
+    expect(page).to have_content 'asd@asd.fi'
   end
 
-  it "has campus" do
-  	expect(page).to have_content 'Viikki'
+  it 'has campus' do
+    expect(page).to have_content 'Viikki'
   end
 
-  it "has unit" do
-  	expect(page).to have_content 'Maametsis'
+  it 'has unit' do
+    expect(page).to have_content 'Maametsis'
   end
 
-  it "has about" do
-  	expect(page).to have_content 'abouttest!!212'
+  it 'has about' do
+    expect(page).to have_content 'abouttest!!212'
   end
 
-  it "has hashtags" do
-  	expect(page).to have_content '#avantouinti'
+  it 'has hashtags' do
+    expect(page).to have_content '#avantouinti'
   end
 
   it "doesn't have groups title if no hashtags" do

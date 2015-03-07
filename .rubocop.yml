@@ -1,0 +1,13 @@
+AllCops:
+  RunRailsCops: true
+
+  Include:
+    - 'db/seeds.rb'
+
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+
+Metrics/LineLength:
+  Enabled: false

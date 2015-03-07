@@ -13,14 +13,14 @@ module UHPeople
 
     def call(env)
       if Faye::WebSocket.websocket? env
-        ws = Faye::WebSocket.new(env, nil, { ping: KEEPALIVE_TIME })
+        ws = Faye::WebSocket.new(env, nil, ping: KEEPALIVE_TIME)
 
         ws.on :message do |event|
           data = JSON.parse(event.data)
           respond ws, data
         end
 
-        ws.on :close do |event|
+        ws.on :close do |_event|
           remove_online_user ws
           ws = nil
 
@@ -29,22 +29,22 @@ module UHPeople
 
         ws.rack_response
       else
-        env['chat.join_callback'] = Proc.new { |user, hashtag| hashtag_callback('join', user, hashtag) }
-        env['chat.leave_callback'] = Proc.new { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-        
+        env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
+        env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
+
         @app.call(env)
       end
     end
 
-    #private
+    # private
 
     def hashtag_callback(event, user, hashtag)
       json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
       broadcast JSON.generate(json)
     end
 
-    def remove_online_user(ws) 
-      client = @clients.find { |socket, user| socket == ws }
+    def remove_online_user(ws)
+      client = @clients.find { |socket, _user| socket == ws }
       @clients.delete(client)
     end
 
@@ -54,7 +54,7 @@ module UHPeople
     end
 
     def online_users
-      onlines = @clients.map { |socket, user| user }
+      onlines = @clients.map { |_socket, user| user }
       json = { 'event': 'online', 'onlines': onlines }
       JSON.generate(json)
     end
@@ -65,7 +65,7 @@ module UHPeople
     end
 
     def broadcast(json)
-      @clients.each { |socket, user| socket.send(json) }
+      @clients.each { |socket, _user| socket.send(json) }
     end
 
     def respond(socket, data)

@@ -1,19 +1,19 @@
 class SearchController < ApplicationController
   before_action :require_login
-	before_action :set_search, only: [:index]
+  before_action :set_search, only: [:index]
 
-	def index
-		@hashtag = Hashtag.new
+  def index
+    @hashtag = Hashtag.new
 
-   	@hashtags = Hashtag.where("tag ilike ?", "%#{@search}%")
-   	@users = User.where("name ilike ?", "%#{@search}%")
+    @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%")
+    @users = User.where('name ilike ?', "%#{@search}%")
 
-   	@hashtags_exact = Hashtag.where("tag ilike ?", "#{@search}")
-	end
+    @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}")
+  end
 
-	private
+  private
 
-	def set_search
-	 @search = params[:search]
-	end
-end	
+  def set_search
+    @search = params[:search]
+  end
+end
