@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Message do
+RSpec.describe Message do
   it 'is not saved without hashtag id' do
     message = described_class.create content: '', hashtag_id: '', user_id: '1'
 

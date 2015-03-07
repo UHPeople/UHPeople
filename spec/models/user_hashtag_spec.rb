@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe UserHashtag do
+RSpec.describe UserHashtag do
   it 'is not saved without hashtag id' do
     user_hashtag = described_class.create user_id: '1'
 

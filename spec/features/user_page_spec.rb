@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+RSpec.describe User do
   context 'Profile page' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:hashtag) { FactoryGirl.create(:hashtag) }

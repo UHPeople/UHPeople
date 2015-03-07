@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Frontpage page' do
+RSpec.describe 'Frontpage page' do
   it 'has login button' do
     visit root_path
     expect(page).to have_content 'Login'

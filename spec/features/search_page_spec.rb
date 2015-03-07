@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Search page' do
+RSpec.describe 'Search page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 

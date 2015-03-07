@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'Feed page' do
+RSpec.describe 'Feed page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 

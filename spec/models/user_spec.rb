@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe User do
+RSpec.describe User do
   it 'has name set correctly' do
     user = described_class.new name: 'Tero Testaaja'
 

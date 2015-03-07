@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Hashtag do
+RSpec.describe Hashtag do
   context 'page' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:hashtag) { FactoryGirl.create(:hashtag) }

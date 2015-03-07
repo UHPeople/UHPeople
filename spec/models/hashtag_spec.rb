@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Hashtag do
+RSpec.describe Hashtag do
   it 'has the tag set correctly' do
     hashtag = described_class.new tag: 'avantouinti'
 
