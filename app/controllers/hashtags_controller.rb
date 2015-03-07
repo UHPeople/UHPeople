@@ -26,9 +26,12 @@ class HashtagsController < ApplicationController
   end
 
   def leave
-    @hashtag = Hashtag.find params[:id]
-    current_user.hashtags.destroy(@hashtag)
-    redirect_to :back
+    hashtag = Hashtag.find params[:id]
+    current_user.hashtags.destroy(hashtag)
+
+    request.env['chat.leave_callback'].call(current_user, hashtag)
+
+    redirect_to hashtag
   end
 
   def update

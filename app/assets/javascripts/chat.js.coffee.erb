@@ -47,6 +47,9 @@ add_message = (data) ->
 add_member = (data) ->
   $('div.sidebar-nav ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
 
+remove_member = (data) ->
+  $('div.sidebar-nav ul li#' + data.user).remove()
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -80,6 +83,8 @@ ready = ->
     else if data.event == 'join'
       add_member data
       sort_members()
+    else if data.event == 'leave'
+      remove_member data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

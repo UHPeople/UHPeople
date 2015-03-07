@@ -29,8 +29,8 @@ module UHPeople
 
         ws.rack_response
       else
-        env['chat.join_callback'] = env['chat.join_callback'] = Proc.new { |user, hashtag| send_join(user, hashtag) }
-        # = self.send_join
+        env['chat.join_callback'] = Proc.new { |user, hashtag| hashtag_callback('join', user, hashtag) }
+        env['chat.leave_callback'] = Proc.new { |user, hashtag| hashtag_callback('leave', user, hashtag) }
         
         @app.call(env)
       end
@@ -38,8 +38,8 @@ module UHPeople
 
     #private
 
-    def send_join(user, hashtag)
-      json = { 'event': 'join', 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
+    def hashtag_callback(event, user, hashtag)
+      json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
       broadcast JSON.generate(json)
     end
 
