@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'User list page' do
-  it 'has users' do
+describe User do
+  it 'list page has users' do
     user = FactoryGirl.create(:user)
     user.save
 

@@ -1,7 +1,7 @@
 class HashtagsController < ApplicationController
   before_action :require_login
 
-  before_action :set_hashtag, only: [:show, :update]
+  before_action :set_hashtag, only: [:show, :update, :join, :leave]
   before_action :user_has_tag, only: [:show, :update]
   before_action :topic_updater, only: [:show, :update]
 
@@ -16,21 +16,15 @@ class HashtagsController < ApplicationController
   end
 
   def join
-    hashtag = Hashtag.find params[:id]
-    current_user.hashtags << hashtag
-
-    request.env['chat.join_callback'].call(current_user, hashtag)
-
-    redirect_to hashtag
+    current_user.hashtags << @hashtag
+    request.env['chat.join_callback'].call(current_user, @hashtag)
+    redirect_to @hashtag
   end
 
   def leave
-    hashtag = Hashtag.find params[:id]
-    current_user.hashtags.destroy(hashtag)
-
-    request.env['chat.leave_callback'].call(current_user, hashtag)
-
-    redirect_to hashtag
+    current_user.hashtags.destroy(@hashtag)
+    request.env['chat.leave_callback'].call(current_user, @hashtag)
+    redirect_to @hashtag
   end
 
   def update
@@ -42,7 +36,8 @@ class HashtagsController < ApplicationController
   end
 
   def create
-    @hashtag = Hashtag.new(tag: params[:tag])
+    @hashtag = Hashtag.new tag: params[:tag]
+
     if @hashtag.save
       current_user.hashtags << @hashtag
       redirect_to @hashtag

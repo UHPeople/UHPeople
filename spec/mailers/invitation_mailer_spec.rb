@@ -5,7 +5,7 @@ describe InvitationMailer do
     let(:user) { FactoryGirl.create(:user) }
 
     describe 'in sent mail' do
-      let(:mail) { InvitationMailer.invitation_email(user, '@helsinki.fi') }
+      let(:mail) { described_class.invitation_email(user, '@helsinki.fi') }
 
       it 'has correct sender email' do
         expect(mail.from).to eql(['uhpeople@gmail.com'])

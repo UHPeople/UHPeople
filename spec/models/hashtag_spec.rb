@@ -1,38 +1,38 @@
 require 'rails_helper'
 
-describe 'Hashtag' do
+describe Hashtag do
   it 'has the tag set correctly' do
-    hashtag = Hashtag.new tag: 'avantouinti'
+    hashtag = described_class.new tag: 'avantouinti'
 
     expect(hashtag.tag).to eq('avantouinti')
   end
 
   it 'is not saved without a tag' do
-    hashtag = Hashtag.create
+    hashtag = described_class.create
 
     expect(hashtag.valid?).to be(false)
-    expect(Hashtag.count).to eq(0)
+    expect(described_class.count).to eq(0)
   end
 
   it 'is saved with a tag' do
-    hashtag = Hashtag.create tag: 'avantouinti'
+    hashtag = described_class.create tag: 'avantouinti'
 
     expect(hashtag.valid?).to be(true)
-    expect(Hashtag.count).to eq(1)
+    expect(described_class.count).to eq(1)
   end
 
   it 'is not saved with non-unique tag' do
-    hashtag1 = Hashtag.create tag: 'avantouinti'
-    hashtag2 = Hashtag.create tag: 'avantouinti'
+    hashtag1 = described_class.create tag: 'avantouinti'
+    hashtag2 = described_class.create tag: 'avantouinti'
 
     expect(hashtag1.valid?).to be(true)
     expect(hashtag2.valid?).to be(false)
-    expect(Hashtag.count).to eq(1)
+    expect(described_class.count).to eq(1)
   end
 
   it 'is not saved with invalid tag' do
-    hashtag = Hashtag.create tag: '-=sa2c1-##'
+    hashtag = described_class.create tag: '-=sa2c1-##'
     expect(hashtag.valid?).to be(false)
-    expect(Hashtag.count).to eq(0)
+    expect(described_class.count).to eq(0)
   end
 end

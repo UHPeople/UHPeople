@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe 'User' do
+describe User do
   let!(:user) { FactoryGirl.create :user }
 
   it 'is not logged in at first' do

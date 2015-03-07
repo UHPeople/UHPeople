@@ -26,8 +26,10 @@ gem 'masonry-rails'
 
 gem 'pg'
 
-group :development, :test do
-  gem 'rspec-rails'
+group :development do
+  gem 'rubocop'
+  gem 'rubocop-rspec'
+  
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -39,6 +41,7 @@ group :production do
 end
 
 group :test do
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'

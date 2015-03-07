@@ -1,7 +1,5 @@
 class FrontpageController < ApplicationController
   def index
-    unless current_user.nil?
-      redirect_to feed_index_path
-   end
+    redirect_to feed_index_path unless current_user.nil?
   end
 end

@@ -1,7 +1,7 @@
 require 'rails_helper'
 require_relative '../../lib/chat_backend'
 
-describe 'ChatBackend' do
+describe ChatBackend do
   class MockSocket
     def initialize
       @sent = []
