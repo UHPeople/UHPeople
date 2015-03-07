@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe InvitationMailer do
   describe 'Invitation mailer' do

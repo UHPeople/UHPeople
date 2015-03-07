@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 require_relative '../../lib/chat_backend'
 
 describe 'ChatBackend' do

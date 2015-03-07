@@ -1,10 +1,10 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Hashtag' do
   it 'has the tag set correctly' do
     hashtag = Hashtag.new tag: 'avantouinti'
 
-    hashtag.tag.should == 'avantouinti'
+    expect(hashtag.tag).to eq('avantouinti')
   end
 
   it 'is not saved without a tag' do

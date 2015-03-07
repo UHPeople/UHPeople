@@ -27,7 +27,7 @@ gem 'masonry-rails'
 gem 'pg'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.14.1'
+  gem 'rspec-rails'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'

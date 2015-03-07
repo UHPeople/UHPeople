@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe UserHashtag do
   it 'is not saved without hashtag id' do

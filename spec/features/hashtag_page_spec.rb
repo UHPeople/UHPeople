@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Hashtag page' do
   let!(:user) { FactoryGirl.create(:user) }

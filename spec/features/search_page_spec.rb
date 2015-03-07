@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Search page' do
   let!(:user) { FactoryGirl.create(:user) }
