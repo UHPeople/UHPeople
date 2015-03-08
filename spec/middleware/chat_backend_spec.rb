@@ -46,9 +46,21 @@ RSpec.describe UHPeople::ChatBackend do
   #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
   # end
 
+  it 'removes duplicate online users' do
+    subject.add_client(socket, user)
+    subject.add_client(socket, user)
+
+    onlines_json = subject.online_users
+    onlines = JSON.parse(onlines_json)
+
+    expect(onlines['event']).to eq 'online'
+    expect(onlines['onlines'].count).to eq 1
+  end
+
   it 'removes online users' do
-    message = { 'event': 'online', 'user': user.id, 'hashtag': hashtag.id }
-    subject.respond(socket, message)
+    # message = { 'event': 'online', 'user': user.id, 'hashtag': hashtag.id }
+    # subject.respond(socket, message)
+    subject.add_client(socket, user)
 
     subject.remove_online_user socket
 

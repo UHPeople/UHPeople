@@ -20,7 +20,7 @@ module UHPeople
           respond ws, data
         end
 
-        ws.on :close do |_event|
+        ws.on :close do |event|
           remove_online_user ws
           ws = nil
 
@@ -43,8 +43,16 @@ module UHPeople
       broadcast JSON.generate(json)
     end
 
-    def remove_online_user(ws)
-      client = @clients.find { |socket, _user| socket == ws }
+    def find_client_by_socket(socket)
+      @clients.find { |s, u| socket == s }
+    end
+
+    def find_client_by_user(user)
+      @clients.find { |s, u| user == u }
+    end
+
+    def remove_online_user(socket)
+      client = find_client_by_socket socket
       @clients.delete(client)
     end
 
@@ -54,7 +62,7 @@ module UHPeople
     end
 
     def online_users
-      onlines = @clients.map { |_socket, user| user }
+      onlines = @clients.map { |socket, user| user }
       json = { 'event': 'online', 'onlines': onlines }
       JSON.generate(json)
     end
@@ -65,7 +73,14 @@ module UHPeople
     end
 
     def broadcast(json)
-      @clients.each { |socket, _user| socket.send(json) }
+      @clients.each { |socket, user| socket.send(json) }
+    end
+
+    def add_client(socket, user)
+      client = find_client_by_user user
+      @clients.delete(client) unless client.nil?
+
+      @clients << [socket, user]
     end
 
     def respond(socket, data)
@@ -103,9 +118,7 @@ module UHPeople
           return
         end
       elsif data['event'] == 'online'
-        user_id = data['user']
-        @clients << [socket, user_id]
-
+        add_client socket, data['user']
         broadcast online_users
       end
     end
