@@ -25,11 +25,11 @@ gem 'puma'
 gem 'masonry-rails'
 
 gem 'pg'
+gem 'omniauth-shibboleth'
 
 group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'
-  
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
