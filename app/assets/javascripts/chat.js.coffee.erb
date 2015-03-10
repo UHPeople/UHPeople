@@ -74,7 +74,7 @@ ready = ->
     data = JSON.parse message.data
     console.log(data)
 
-    if data.event == 'message' and data.hashtag == hashtag
+    if data.event == 'message'
       add_message data
     else if data.event == 'online'
       set_all_offline()
