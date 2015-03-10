@@ -2,13 +2,18 @@ require 'faye/websocket'
 require 'json'
 require 'erb'
 
+require_relative 'support/client.rb'
+require_relative 'support/client_list.rb'
+
 module UHPeople
   class ChatBackend
+    include ClientList
+
     KEEPALIVE_TIME = 15
 
     def initialize(app)
-      @app     = app
-      @clients = []
+      @app = app
+      super
     end
 
     def call(env)
@@ -20,10 +25,8 @@ module UHPeople
           respond ws, data
         end
 
-        ws.on :close do |event|
-          remove_online_user ws
-          ws = nil
-
+        ws.on :close do
+          remove_client ws
           broadcast online_users
         end
 
@@ -43,80 +46,57 @@ module UHPeople
       broadcast JSON.generate(json)
     end
 
-    def find_client_by_socket(socket)
-      @clients.find { |s, u| socket == s }
-    end
-
-    def find_client_by_user(user)
-      @clients.find { |s, u| user == u }
-    end
-
-    def remove_online_user(socket)
-      client = find_client_by_socket socket
-      @clients.delete(client)
-    end
-
-    def sanitize(json)
-      json.each { |key, value| json[key] = ERB::Util.html_escape(value) }
-      JSON.generate(json)
-    end
-
-    def online_users
-      onlines = @clients.map { |socket, user| user }
-      json = { 'event': 'online', 'onlines': onlines }
-      JSON.generate(json)
-    end
-
     def send_error(socket, error)
       json = { 'event': 'error', 'content': error }
       socket.send(JSON.generate(json))
     end
 
-    def broadcast(json)
-      @clients.each { |socket, user| socket.send(json) }
-    end
-
-    def add_client(socket, user)
-      client = find_client_by_user user
-      @clients.delete(client) unless client.nil?
-
-      @clients << [socket, user]
-    end
-
-    def respond(socket, data)
+    def graceful_find(type, id, socket)
       begin
-        user = User.find(data['user'])
+        type.find(id)
       rescue ActiveRecord::RecordNotFound
-        send_error socket, 'Invalid user id'
+        send_error socket, "Invalid #{type} id"
         return
       end
+    end
 
-      begin
-        hashtag = Hashtag.find(data['hashtag'])
-      rescue ActiveRecord::RecordNotFound
-        send_error socket, 'Invalid hashtag id'
-        return
-      end
+    def handle_errors(socket, data)
+      user = graceful_find(User, data['user'], socket)
+      return if user.nil?
+
+      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+      return if hashtag.nil?
 
       unless user.hashtags.include? hashtag
         send_error socket, 'User not member of hashtag'
         return
       end
 
+      return user, hashtag
+    end
+
+    def serialize(message)
+      json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
+        'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
+        'timestamp': message.timestamp }
+      JSON.generate json
+    end
+
+    def respond(socket, data)
+      user, hashtag = handle_errors(socket, data)
+      return if user.nil?
+
       if data['event'] == 'message'
         message = Message.create content: data['content'],
                                  hashtag_id: data['hashtag'],
                                  user_id: data['user']
 
-        if message.valid?
-          data['username'] = user.name
-          data['timestamp'] = message.timestamp
-
-          broadcast sanitize(data)
-        else
+        unless message.valid?
           send_error socket, 'Invalid message'
           return
         end
+
+        broadcast(serialize message)
       elsif data['event'] == 'online'
         add_client socket, data['user']
         broadcast online_users

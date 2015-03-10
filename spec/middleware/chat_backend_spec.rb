@@ -2,6 +2,8 @@ require 'rails_helper'
 require_relative '../../lib/chat_backend'
 
 RSpec.describe UHPeople::ChatBackend do
+
+  # TODO: RSpec Mock
   class MockSocket
     def initialize
       @sent = []
@@ -22,13 +24,13 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:app) { -> { [200, { 'Content-Type' => 'text/plain' }, ['OK']] } }
   subject { UHPeople::ChatBackend.new app  }
 
-  it 'sanitizes messages' do
-    message = { 'event': 'message', 'content': '<h1>asd</h1>', 'user': user.id, 'hashtag': hashtag.id }
+  it 'serializes messages' do
+    message = Message.create content: '<h1>asd</h1>', user: user, hashtag: hashtag
 
-    sanitized_json = subject.sanitize message
-    sanitized = JSON.parse sanitized_json
+    serialized_json = subject.serialize message
+    serialized = JSON.parse serialized_json
 
-    expect(sanitized['content']).to eq '&lt;h1&gt;asd&lt;/h1&gt;'
+    expect(serialized['content']).to eq '&lt;h1&gt;asd&lt;/h1&gt;'
   end
 
   it 'responds with error to invalid user' do
@@ -36,15 +38,15 @@ RSpec.describe UHPeople::ChatBackend do
     subject.respond(socket, message)
 
     expect(socket.sent.last['event']).to eq 'error'
-    expect(socket.sent.last['content']).to eq 'Invalid user id'
+    expect(socket.sent.last['content']).to eq 'Invalid User id'
   end
 
-  # it 'responds with error to invalid hashtag' do
+  #it 'responds with error to invalid hashtag' do
   #  message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
   #  subject.respond(socket, message)
   #  expect(socket.sent.last['event']).to eq 'error'
   #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
-  # end
+  #end
 
   it 'removes duplicate online users' do
     subject.add_client(socket, user)
@@ -58,11 +60,9 @@ RSpec.describe UHPeople::ChatBackend do
   end
 
   it 'removes online users' do
-    # message = { 'event': 'online', 'user': user.id, 'hashtag': hashtag.id }
-    # subject.respond(socket, message)
     subject.add_client(socket, user)
 
-    subject.remove_online_user socket
+    subject.remove_client socket
 
     onlines_json = subject.online_users
     onlines = JSON.parse(onlines_json)
