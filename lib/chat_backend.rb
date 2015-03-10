@@ -52,12 +52,10 @@ module UHPeople
     end
 
     def graceful_find(type, id, socket)
-      begin
-        type.find(id)
-      rescue ActiveRecord::RecordNotFound
-        send_error socket, "Invalid #{type} id"
-        return
-      end
+      type.find(id)
+    rescue ActiveRecord::RecordNotFound
+      send_error socket, "Invalid #{type} id"
+      return
     end
 
     def handle_errors(socket, data)
@@ -72,13 +70,13 @@ module UHPeople
         return
       end
 
-      return user, hashtag
+      [user, hashtag]
     end
 
     def serialize(message)
       json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
-        'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
-        'timestamp': message.timestamp }
+               'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
+               'timestamp': message.timestamp }
       JSON.generate json
     end
 

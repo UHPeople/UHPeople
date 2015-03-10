@@ -2,7 +2,7 @@ class FeedController < ApplicationController
   before_action :require_login
 
   def index
-    fav_tags = current_user.user_hashtags.where(favourite:true)
+    fav_tags = current_user.user_hashtags.where(favourite: true)
     @chats = fav_tags.map { |tag| tag.hashtag.messages.last(5) }
 
     tags = current_user.hashtags
@@ -11,6 +11,5 @@ class FeedController < ApplicationController
     @messages = @messages.reverse!
 
     @tags_in_list = current_user.user_hashtags
-
   end
 end

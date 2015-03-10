@@ -2,7 +2,6 @@ require 'rails_helper'
 require_relative '../../lib/chat_backend'
 
 RSpec.describe UHPeople::ChatBackend do
-
   # TODO: RSpec Mock
   class MockSocket
     def initialize
@@ -22,7 +21,7 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:socket) { MockSocket.new }
 
   let!(:app) { -> { [200, { 'Content-Type' => 'text/plain' }, ['OK']] } }
-  subject { UHPeople::ChatBackend.new app  }
+  subject { described_class.new app  }
 
   it 'serializes messages' do
     message = Message.create content: '<h1>asd</h1>', user: user, hashtag: hashtag
@@ -41,12 +40,12 @@ RSpec.describe UHPeople::ChatBackend do
     expect(socket.sent.last['content']).to eq 'Invalid User id'
   end
 
-  #it 'responds with error to invalid hashtag' do
+  # it 'responds with error to invalid hashtag' do
   #  message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
   #  subject.respond(socket, message)
   #  expect(socket.sent.last['event']).to eq 'error'
   #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
-  #end
+  # end
 
   it 'removes duplicate online users' do
     subject.add_client(socket, user)
