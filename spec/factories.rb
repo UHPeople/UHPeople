@@ -9,7 +9,7 @@ FactoryGirl.define do
   end
 
   factory :hashtag do
-  	tag 'avantouinti'
+    tag 'avantouinti'
   end
 
   factory :message do

@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "Feed page" do
+RSpec.describe 'Feed page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
@@ -10,19 +10,25 @@ describe "Feed page" do
     click_link 'Join'
   end
 
-  it "has messages in feed" do
+  it 'has messages in feed' do
     create_and_visit
-    expect(page).to have_content "Asdasd"
+    expect(page).to have_content 'Asdasd'
   end
 
-  it "has messages in feed in order" do
+  it 'has messages in feed in order' do
     Message.create user: user, hashtag: hashtag, content: 'Asdasd2'
     create_and_visit
-    
+
     expect(find('div.feed_chat_box:first-child')).to have_content 'Asdasd'
   end
 
-  it "redirects hashtag box link to right hashtag when tag opened" do
+  it 'has messages in favourites' do
+    create_and_visit
+    click_link 'Favourites'
+    expect(page).to have_content 'Asdasd'
+  end
+
+  it 'redirects hashtag box link to right hashtag when tag opened' do
     create_and_visit
 
     first(:link, 'avantouinti').click
@@ -38,10 +44,9 @@ describe "Feed page" do
 
     expect(page).not_to have_content 'Groups'
   end
-
 end
 
-describe "favourites page" do
+RSpec.describe 'favourites page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
@@ -51,20 +56,20 @@ describe "favourites page" do
     click_link 'Join'
   end
 
-  it "is empty when no favorites" do
+  it 'is empty when no favorites' do
     create_and_visit
     click_link 'Favourites'
     expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
   end
 
-  it "has the right content when favourites exist" do
+  it 'has the right content when favourites exist' do
     create_and_visit
     find('td a.glyphicon').click
     click_link 'Favourites'
     expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
   end
 
-  it "is empty when favourite removed" do
+  it 'is empty when favourite removed' do
     create_and_visit
     find('td a.glyphicon').click
     click_link 'Favourites'
@@ -73,9 +78,7 @@ describe "favourites page" do
     click_link 'Favourites'
     expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
   end
-
 end
-
 
 def create_and_visit
   Message.create user: user, hashtag: hashtag, content: 'Asdasd'

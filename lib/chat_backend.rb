@@ -2,54 +2,48 @@ require 'faye/websocket'
 require 'json'
 require 'erb'
 
+require_relative 'support/client.rb'
+require_relative 'support/client_list.rb'
+
 module UHPeople
   class ChatBackend
+    include ClientList
+
     KEEPALIVE_TIME = 15
 
     def initialize(app)
-      @app     = app
-      @clients = []
+      @app = app
+      super
     end
 
     def call(env)
       if Faye::WebSocket.websocket? env
-        ws = Faye::WebSocket.new(env, nil, { ping: KEEPALIVE_TIME })
+        ws = Faye::WebSocket.new(env, nil, ping: KEEPALIVE_TIME)
 
         ws.on :message do |event|
           data = JSON.parse(event.data)
           respond ws, data
         end
 
-        ws.on :close do |event|
-          remove_online_user ws
-          ws = nil
-
+        ws.on :close do
+          remove_client ws
           broadcast online_users
         end
 
         ws.rack_response
       else
+        env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
+        env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
+
         @app.call(env)
       end
     end
 
-    #private
+    # private
 
-    def remove_online_user(ws) 
-      client = @clients.find { |socket, user| socket == ws }
-      @clients.delete(client)
-    end
-
-    def sanitize(json)
-      json.each { |key, value| json[key] = ERB::Util.html_escape(value) }
-      JSON.generate(json)
-    end
-
-    def online_users
-      onlines = @clients.map { |socket, user| user }
-      json = { 'event': 'online', 'onlines': onlines }
-      
-      return JSON.generate(json)
+    def hashtag_callback(event, user, hashtag)
+      json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
+      broadcast JSON.generate(json)
     end
 
     def send_error(socket, error)
@@ -57,48 +51,52 @@ module UHPeople
       socket.send(JSON.generate(json))
     end
 
-    def broadcast(json)
-      @clients.each { |socket, user| socket.send(json) }
+    def graceful_find(type, id, socket)
+      type.find(id)
+    rescue ActiveRecord::RecordNotFound
+      send_error socket, "Invalid #{type} id"
+      return
     end
 
-    def respond(socket, data)
-      begin
-        user = User.find(data['user'])
-      rescue ActiveRecord::RecordNotFound
-        send_error socket, 'Invalid user id'
-        return
-      end
+    def handle_errors(socket, data)
+      user = graceful_find(User, data['user'], socket)
+      return if user.nil?
 
-      begin
-        hashtag = Hashtag.find(data['hashtag'])
-      rescue ActiveRecord::RecordNotFound
-        send_error socket, 'Invalid hashtag id'
-        return
-      end
+      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+      return if hashtag.nil?
 
       unless user.hashtags.include? hashtag
         send_error socket, 'User not member of hashtag'
         return
       end
 
+      [user, hashtag]
+    end
+
+    def serialize(message)
+      json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
+               'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
+               'timestamp': message.timestamp }
+      JSON.generate json
+    end
+
+    def respond(socket, data)
+      user, hashtag = handle_errors(socket, data)
+      return if user.nil?
+
       if data['event'] == 'message'
         message = Message.create content: data['content'],
                                  hashtag_id: data['hashtag'],
                                  user_id: data['user']
 
-        if message.valid?
-          data['username'] = user.name
-          data['timestamp'] = message.timestamp
-
-          broadcast sanitize(data)
-        else
+        unless message.valid?
           send_error socket, 'Invalid message'
           return
         end
-      elsif data['event'] == 'online'
-        user_id = data['user']
-        @clients << [socket, user_id]
 
+        broadcast(serialize message)
+      elsif data['event'] == 'online'
+        add_client socket, data['user']
         broadcast online_users
       end
     end

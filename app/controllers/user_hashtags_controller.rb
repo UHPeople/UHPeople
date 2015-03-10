@@ -5,13 +5,11 @@ class UserHashtagsController < ApplicationController
     @user_hashtag = UserHashtag.find(params[:id])
 
     if @user_hashtag.favourite?
-      @user_hashtag.update(:favourite=>false)
+      @user_hashtag.update(favourite: false)
     else
-      @user_hashtag.update(:favourite=>true)
+      @user_hashtag.update(favourite: true)
     end
 
     redirect_to :back
   end
-
 end
-
