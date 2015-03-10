@@ -11,5 +11,13 @@ class FeedController < ApplicationController
     @messages = @messages.reverse!
 
     @tags_in_list = current_user.user_hashtags
+
+    if params[:tab] == 'favourites'
+      @feed_tab_class = ""
+      @favourites_tab_class = "active"
+    else
+      @feed_tab_class = "active"
+      @favourites_tab_class = ""
+    end
   end
 end
