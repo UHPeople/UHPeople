@@ -21,4 +21,11 @@ RSpec.describe UserHashtag do
     expect(user_hashtag.valid?).to be(true)
     expect(described_class.count).to eq(1)
   end
+
+  it "is saved with favourite_bool" do
+    userHashtag = UserHashtag.create hashtag_id: "1", user_id: "1", favourite: true
+
+    expect(userHashtag.valid?).to be(true)
+    expect(UserHashtag.count).to eq(1)
+  end
 end
