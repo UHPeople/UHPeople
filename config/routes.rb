@@ -13,11 +13,8 @@ Rails.application.routes.draw do
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
 
-<<<<<<< HEAD
   get 'auth/shibboleth/callback', to: 'session#callback'
 
-=======
->>>>>>> dev
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
 
