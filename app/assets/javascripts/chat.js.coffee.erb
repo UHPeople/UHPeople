@@ -34,7 +34,11 @@ sort_members = ->
   $.each(items, (idx, itm) -> list.append(itm))
 
 add_message = (data) ->
-  # $('.chatbox .panel-body:first-child').remove()
+  size = $('.chatbox .panel-body').length
+
+  if ( size > 20)
+    $('.chatbox .panel-body:first-child').remove()
+  
 
   $('.chatbox').append '<div class="panel-body"><div class="interest_chat_box">' +
     '<a href="/users/' + data.user + '"><div class="thumbnail"></div></a>' +
