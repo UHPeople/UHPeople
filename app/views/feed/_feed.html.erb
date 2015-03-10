@@ -1,6 +1,6 @@
+<input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+
 <div id="feed">
-  <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-  
   <% @messages.each do |message| %>
     <% if message != nil %>
     	<div class="feed_chat_box">

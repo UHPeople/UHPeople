@@ -19,7 +19,7 @@ RSpec.describe 'Feed page' do
     Message.create user: user, hashtag: hashtag, content: 'Asdasd2'
     create_and_visit
 
-    expect(find('div.feed_chat_box:first-child')).to have_content 'Asdasd'
+    expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
   end
 
   it 'has messages in favourites' do
@@ -59,7 +59,7 @@ RSpec.describe 'favourites page' do
   it 'is empty when no favorites' do
     create_and_visit
     click_link 'Favourites'
-    expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
+    expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
   end
 
   it 'has the right content when favourites exist' do
@@ -76,7 +76,7 @@ RSpec.describe 'favourites page' do
     expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
     find('td a.glyphicon').click
     click_link 'Favourites'
-    expect(page).to have_content 'Your feed is empty. Follow some hashtags to see something here!'
+    expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
   end
 end
 
