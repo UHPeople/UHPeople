@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
-  end  
+  end
 
   def update
     respond_to do |format|
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   private
 
   def set_user
-     @user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def user_params

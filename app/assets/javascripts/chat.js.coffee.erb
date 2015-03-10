@@ -9,6 +9,30 @@ scroll_to_bottom = ->
     scrollTop: $('.chatbox')[0].scrollHeight
   }, 800
 
+compare_text = (a, b) ->
+  $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
+
+compare_status = (a, b) ->
+  if (a.className == "online")
+    if (b.className == "online")
+      return 0
+    else
+      return -1
+  else if (b.className == "online")
+    return 1
+
+sort_members = ->
+  list = $('div.sidebar-nav ul')
+
+  items = list.children('li').get()
+  items.sort (a, b) ->
+    if a.className != b.className
+      compare_status(a, b)
+    else
+      compare_text(a, b)
+
+  $.each(items, (idx, itm) -> list.append(itm))
+
 add_message = (data) ->
   # $('.chatbox .panel-body:first-child').remove()
 
@@ -19,6 +43,12 @@ add_message = (data) ->
         data.content + '</div></div></div>'
 
   scroll_to_bottom()
+
+add_member = (data) ->
+  $('div.sidebar-nav ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
+
+remove_member = (data) ->
+  $('div.sidebar-nav ul li#' + data.user).remove()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -42,12 +72,19 @@ ready = ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
+    console.log(data)
 
     if data.event == 'message' and data.hashtag == hashtag
       add_message data
     else if data.event == 'online'
-      $('.chat-online').remove()
+      set_all_offline()
       set_online id for id in data.onlines
+      sort_members()
+    else if data.event == 'join'
+      add_member data
+      sort_members()
+    else if data.event == 'leave'
+      remove_member data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

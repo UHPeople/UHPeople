@@ -256,3 +256,18 @@ div.sidebar-nav li.online a::before {
 	padding-bottom: 0px; 
 }
 
+/* favourite star */
+.star{
+
+	color: magenta;
+	text-decoration: none !important;
+	opacity: 1;
+   	transition: opacity .25s ease-in-out;
+   		-moz-transition: opacity .25s ease-in-out;
+   		-webkit-transition: opacity .25s ease-in-out;
+
+}
+.star:hover {
+   	color: magenta;
+    opacity: 0.5;
+}
