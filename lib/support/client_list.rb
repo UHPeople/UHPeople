@@ -4,7 +4,7 @@ module ClientList
   end
 
   def broadcast(json, hashtag)
-    @clients.each { |client| client.send(json) if client.hashtag == hashtag }
+    @clients.each { |client| client.send(json) if client.hashtag.include? hashtag }
   end
 
   def remove_client(socket)
@@ -17,6 +17,8 @@ module ClientList
   end
 
   def add_client(socket, user, hashtag)
+    hashtag = [hashtag] if hashtag.class == Fixnum
+    
     client = @clients.find { |client| client.user == user and client.hashtag == hashtag }
     unless client.nil?
       client.socket.close()
@@ -27,7 +29,7 @@ module ClientList
   end
 
   def online_users(hashtag)
-    onlines = @clients.map { |client| client.user if client.hashtag == hashtag }.compact
+    onlines = @clients.map { |client| client.user if client.hashtag.include? hashtag }.compact
     json = { 'event': 'online', 'hashtag': hashtag, 'onlines': onlines }
     JSON.generate(json)
   end

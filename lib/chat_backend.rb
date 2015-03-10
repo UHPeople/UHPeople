@@ -57,9 +57,24 @@ module UHPeople
       return
     end
 
-    def handle_errors(socket, data)
+    def serialize(message)
+      json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
+               'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
+               'timestamp': message.timestamp }
+      JSON.generate json
+    end
+
+    def respond(socket, data)
       user = graceful_find(User, data['user'], socket)
       return if user.nil?
+
+      if data['event'] == 'feed'
+        hashtags = user.hashtags.map(&:id)
+        add_client socket, user.id, hashtags
+
+        socket.send(JSON.generate(data))
+        return
+      end
 
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
       return if hashtag.nil?
@@ -69,24 +84,10 @@ module UHPeople
         return
       end
 
-      [user, hashtag]
-    end
-
-    def serialize(message)
-      json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
-               'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
-               'timestamp': message.timestamp }
-      JSON.generate json
-    end
-
-    def respond(socket, data)
-      user, hashtag = handle_errors(socket, data)
-      return if user.nil?
-
       if data['event'] == 'message'
         message = Message.create content: data['content'],
-                                 hashtag_id: data['hashtag'],
-                                 user_id: data['user']
+                                 hashtag_id: hashtag.id,
+                                 user_id: user.id
 
         unless message.valid?
           send_error socket, 'Invalid message'

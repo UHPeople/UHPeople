@@ -65,6 +65,13 @@ RSpec.describe UHPeople::ChatBackend do
   #  expect(socket.sent.last['content'].count).to eq 'asd'
   # end
 
+  # it 'responds to feed event' do
+    # message = { 'event': 'feed', 'user': user.id }
+    # subject.respond(socket, message)
+
+    # expect(socket.sent.last['event']).to eq 'feed'
+  # end
+
   context 'ClientList' do
     it 'adds one online user' do
       subject.add_client(socket, user.id, hashtag.id)
@@ -123,6 +130,19 @@ RSpec.describe UHPeople::ChatBackend do
       expect(onlines['event']).to eq 'online'
       expect(onlines['hashtag']).to eq hashtag.id+1
       expect(onlines['onlines'].count).to eq 0
+    end
+
+    it 'handles multiple hashtags' do
+      # hashtags = user.hashtags.map(&:id)
+      subject.add_client socket, user.id, [1, 2]
+
+      onlines_json = subject.online_users(1)
+      onlines = JSON.parse(onlines_json)
+      expect(onlines['onlines'].count).to eq 1
+
+      onlines_json = subject.online_users(2)
+      onlines = JSON.parse(onlines_json)
+      expect(onlines['onlines'].count).to eq 1
     end
   end
 end
