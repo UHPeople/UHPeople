@@ -70,6 +70,9 @@ ready = ->
       hashtag: hashtag
       user: user
 
+  ws.onclose = ->
+    console.log("on close")
+
   ws.onmessage = (message) ->
     data = JSON.parse message.data
     console.log(data)

@@ -12,6 +12,10 @@ RSpec.describe UHPeople::ChatBackend do
       @sent << JSON.parse(data)
     end
 
+    def close()
+      @sent << 'closed'
+    end
+
     attr_reader :sent
   end
 
@@ -62,7 +66,7 @@ RSpec.describe UHPeople::ChatBackend do
   # end
 
   context 'ClientList' do
-    it 'adds online users' do
+    it 'adds one online user' do
       subject.add_client(socket, user.id, hashtag.id)
 
       onlines_json = subject.online_users(hashtag.id)
@@ -72,15 +76,30 @@ RSpec.describe UHPeople::ChatBackend do
       expect(onlines['onlines'].count).to eq 1
     end
 
+    it 'adds two online users' do
+      subject.add_client(socket, user.id, hashtag.id)
+      subject.add_client(socket, user.id + 1, hashtag.id)
+
+      onlines_json = subject.online_users(hashtag.id)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['onlines'].count).to eq 2
+    end
+
     it 'removes duplicate online users' do
       subject.add_client(socket, user.id, hashtag.id)
-      subject.add_client(socket, user.id, hashtag.id)
+
+      socket2 = MockSocket.new
+      subject.add_client(socket2, user.id, hashtag.id)
 
       onlines_json = subject.online_users(hashtag.id)
       onlines = JSON.parse(onlines_json)
 
       expect(onlines['event']).to eq 'online'
       expect(onlines['onlines'].count).to eq 1
+
+      expect(socket.sent.last).to eq 'closed'
     end
 
     it 'removes online users' do

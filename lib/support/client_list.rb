@@ -18,7 +18,10 @@ module ClientList
 
   def add_client(socket, user, hashtag)
     client = @clients.find { |client| client.user == user and client.hashtag == hashtag }
-    @clients.delete(client) unless client.nil?
+    unless client.nil?
+      client.socket.close()
+      @clients.delete(client)
+    end
 
     @clients << Client.new(socket, user, hashtag)
   end
