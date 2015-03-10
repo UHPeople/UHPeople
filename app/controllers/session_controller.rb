@@ -19,8 +19,9 @@ class SessionController < ApplicationController
     @user = User.find_by username: uid
 
     if @user.nil?
-			@user = User.create username: uid
-			redirect_to new_user_path(@user), notice: 'Wellcome new user.'
+			@user = User.create username: uid, name: uid
+			session[:user_id] = @user.id
+			redirect_to edit_user_path(@user.id), :notice => "Welcome #{@user.name}! Please fill your userprofile"
     else
 			session[:user_id] = @user.id
 			redirect_to feed_index_path
