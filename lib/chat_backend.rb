@@ -27,7 +27,6 @@ module UHPeople
 
         ws.on :close do
           remove_client ws
-          broadcast online_users
         end
 
         ws.rack_response
@@ -43,7 +42,7 @@ module UHPeople
 
     def hashtag_callback(event, user, hashtag)
       json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
-      broadcast JSON.generate(json)
+      broadcast(JSON.generate(json), hashtag.id)
     end
 
     def send_error(socket, error)
@@ -94,10 +93,10 @@ module UHPeople
           return
         end
 
-        broadcast(serialize message)
+        broadcast(serialize(message), hashtag.id)
       elsif data['event'] == 'online'
-        add_client socket, data['user']
-        broadcast online_users
+        add_client socket, user.id, hashtag.id
+        broadcast(online_users(hashtag.id), hashtag.id)
       end
     end
   end

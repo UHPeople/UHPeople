@@ -12,6 +12,10 @@ RSpec.describe UHPeople::ChatBackend do
       @sent << JSON.parse(data)
     end
 
+    def close()
+      @sent << 'closed'
+    end
+
     attr_reader :sent
   end
 
@@ -47,29 +51,6 @@ RSpec.describe UHPeople::ChatBackend do
   #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
   # end
 
-  it 'removes duplicate online users' do
-    subject.add_client(socket, user)
-    subject.add_client(socket, user)
-
-    onlines_json = subject.online_users
-    onlines = JSON.parse(onlines_json)
-
-    expect(onlines['event']).to eq 'online'
-    expect(onlines['onlines'].count).to eq 1
-  end
-
-  it 'removes online users' do
-    subject.add_client(socket, user)
-
-    subject.remove_client socket
-
-    onlines_json = subject.online_users
-    onlines = JSON.parse(onlines_json)
-
-    expect(onlines['event']).to eq 'online'
-    expect(onlines['onlines'].count).to eq 0
-  end
-
   # it 'responds to online event' do
   #  message = { 'event': 'online', 'user': user.id, 'hashtag': hashtag.id }
   #  subject.respond(socket, message)
@@ -83,4 +64,65 @@ RSpec.describe UHPeople::ChatBackend do
   #  expect(socket.sent.last['event']).to eq 'message'
   #  expect(socket.sent.last['content'].count).to eq 'asd'
   # end
+
+  context 'ClientList' do
+    it 'adds one online user' do
+      subject.add_client(socket, user.id, hashtag.id)
+
+      onlines_json = subject.online_users(hashtag.id)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['onlines'].count).to eq 1
+    end
+
+    it 'adds two online users' do
+      subject.add_client(socket, user.id, hashtag.id)
+      subject.add_client(socket, user.id + 1, hashtag.id)
+
+      onlines_json = subject.online_users(hashtag.id)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['onlines'].count).to eq 2
+    end
+
+    it 'removes duplicate online users' do
+      subject.add_client(socket, user.id, hashtag.id)
+
+      socket2 = MockSocket.new
+      subject.add_client(socket2, user.id, hashtag.id)
+
+      onlines_json = subject.online_users(hashtag.id)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['onlines'].count).to eq 1
+
+      expect(socket.sent.last).to eq 'closed'
+    end
+
+    it 'removes online users' do
+      subject.add_client(socket, user.id, hashtag.id)
+
+      subject.remove_client socket
+
+      onlines_json = subject.online_users(hashtag.id)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['onlines'].count).to eq 0
+    end
+
+    it 'empty hashtag gives empty onlines' do
+      subject.add_client(socket, user.id, hashtag.id)
+
+      onlines_json = subject.online_users(hashtag.id + 1)
+      onlines = JSON.parse(onlines_json)
+
+      expect(onlines['event']).to eq 'online'
+      expect(onlines['hashtag']).to eq hashtag.id+1
+      expect(onlines['onlines'].count).to eq 0
+    end
+  end
 end
