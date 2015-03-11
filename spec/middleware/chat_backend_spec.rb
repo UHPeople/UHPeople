@@ -138,11 +138,11 @@ RSpec.describe UHPeople::ChatBackend do
 
       onlines_json = subject.online_users(1)
       onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 1
+      expect(onlines['onlines'].count).to eq 0
 
       onlines_json = subject.online_users(2)
       onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 1
+      expect(onlines['onlines'].count).to eq 0
     end
   end
 end
