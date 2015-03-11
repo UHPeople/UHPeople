@@ -1,4 +1,3 @@
-
 @import  'masonry/basic';
 @import  'masonry/centered';
 @import  'masonry/fluid';
@@ -234,7 +233,15 @@ $jumbotron-color: #2B2B2B;
 	overflow: auto;
 }
 
-.chat-online {
+div.sidebar-nav li:not(.online) a {
+  padding-left: 30px;
+}
+
+div.sidebar-nav li.online a::before {
+  float: left;
+  margin-top: 5px;
+  margin-right: 5px;
+
   content: "";
   display: block;
   width: 10px;
@@ -243,10 +250,24 @@ $jumbotron-color: #2B2B2B;
   background: #549E54;
 }
 
-
 /*OTHER*/
 .panel-body{
 	padding-top: 0px;
 	padding-bottom: 0px; 
 }
 
+/* favourite star */
+.star{
+
+	color: magenta;
+	text-decoration: none !important;
+	opacity: 1;
+   	transition: opacity .25s ease-in-out;
+   		-moz-transition: opacity .25s ease-in-out;
+   		-webkit-transition: opacity .25s ease-in-out;
+
+}
+.star:hover {
+   	color: magenta;
+    opacity: 0.5;
+}
