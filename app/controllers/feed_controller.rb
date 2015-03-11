@@ -15,9 +15,15 @@ class FeedController < ApplicationController
     if params[:tab] == 'favourites'
       @feed_tab_class = ""
       @favourites_tab_class = "active"
+
+      @feed_panel_class = ""
+      @favourites_panel_class = "in active"
     else
       @feed_tab_class = "active"
       @favourites_tab_class = ""
+
+      @feed_panel_class = "in active"
+      @favourites_panel_class = "active"
     end
   end
 end
