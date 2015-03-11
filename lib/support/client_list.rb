@@ -29,8 +29,7 @@ module ClientList
   end
 
   def online_users(hashtag)
-
-    onlines = @clients.map { |client| client.user if client.hashtag == [hashtag] }.compact
+    onlines = @clients.map { |client| client.user if client.hashtag.include? hashtag }.compact
     json = { 'event': 'online', 'hashtag': hashtag, 'onlines': onlines }
     JSON.generate(json)
   end
