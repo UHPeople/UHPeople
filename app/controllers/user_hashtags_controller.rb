@@ -10,6 +10,6 @@ class UserHashtagsController < ApplicationController
       @user_hashtag.update(favourite: true)
     end
 
-    redirect_to :back
+    redirect_to feed_index_path(tab: 'favourites')
   end
 end

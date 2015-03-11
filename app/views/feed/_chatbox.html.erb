@@ -1,20 +1,23 @@
 <% if not chat.empty? %>
   <div class="box col3">
-    <div class="panel panel-default fav">
+    <div class="panel panel-default fav" id="box-<%= chat.first.hashtag.id %>">
       <div class="panel-heading">
-        <h2 class="panel-title"><%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %></h2>
+        <h2 class="panel-title">
+          <%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %>
+        </h2>
       </div>
 
       <% chat.each do |message| %>
         <div class="panel-body fav">
-            <div class="favourites_chat_box">
-              <div class="message">
-                <p><%= link_to message.user.name, message.user, :class => 'user' %>
+          <div class="favourites_chat_box">
+            <div class="message">
+              <p>
+                <%= link_to message.user.name, message.user, class: 'user' %>
                 <%= truncate(split_str(message.content), length: 200) %><br>
                 <span><%= message.timestamp %></span>
-                </p>
-              </div>
+              </p>
             </div>
+          </div>
         </div>
       <% end %>
     </div>
