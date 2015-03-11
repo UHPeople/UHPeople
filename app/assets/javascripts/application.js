@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require_tree .
 
-//msonry dynamic grid system
+// masonry dynamic grid system
 //= require masonry/jquery.masonry
 //= require masonry/jquery.event-drag
 //= require masonry/jquery.imagesloaded.min
@@ -26,14 +26,17 @@
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
 
-$(document).on("page:change", function() {
+Turbolinks.enableProgressBar();
 
+var ready = function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
     //columnWidth: 100,
     isAnimated: !Modernizr.csstransitions,
     "isOriginTop": true
     //isRTL: true
-
   });
-});
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);

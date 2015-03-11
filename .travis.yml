@@ -3,6 +3,10 @@ language: ruby
 rvm:
  - 2.2.0
 
+before_install:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+
 before_script:
   - psql -c 'create database test;' -U postgres
 
@@ -19,5 +23,8 @@ deploy:
   on: 
     repo: makroma/UHPeople
     branch: dev
-  run: rake db:migrate 
+  run: rake db:migrate
 
+addons:
+  code_climate:
+    repo_token: 5c8ff237806a7b04e164c0832123cea60a6b7e8a0b298413d3bc344462f153cc

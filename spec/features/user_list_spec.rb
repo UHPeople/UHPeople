@@ -1,11 +1,11 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "User list page" do
-  it "has users" do
-  	user = FactoryGirl.create(:user)
-  	user.save
-  	
-    visit "/users/"
+RSpec.describe User do
+  it 'list page has users' do
+    user = FactoryGirl.create(:user)
+    user.save
+
+    visit '/users/'
 
     expect(page).to have_content 'asd asd'
   end

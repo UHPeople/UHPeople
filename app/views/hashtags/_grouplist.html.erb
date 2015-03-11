@@ -12,7 +12,7 @@
   <h3>Members</h3>
   <ul class="nav nav-list">
     <% @hashtag.users.each do |m| %>
-        <li><%= link_to m.name, m %></li>
+        <li id='<%= m.id %>'><%= link_to m.name, m %></li>
     <% end %>
   </ul>
 </div>

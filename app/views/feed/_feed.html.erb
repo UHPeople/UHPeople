@@ -1,0 +1,21 @@
+<input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+
+<div id="feed">
+  <% @messages.each do |message| %>
+    <% if message != nil %>
+    	<div class="feed_chat_box">
+    		<a href="<%= user_path(message.user) %>">
+    			<div class="thumbnail"></div>
+    		</a>
+    		<div class="message">
+  		    <h5>
+  		    	<%= link_to message.user.name, message.user %>at <%= link_to '#' + message.hashtag.tag, message.hashtag %>
+  		    	
+  		    	<span class="timestamp"><%= message.timestamp %></span> 
+  		    </h5>
+  		    <p><%= split_str(message.content) %></p>
+  	    </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

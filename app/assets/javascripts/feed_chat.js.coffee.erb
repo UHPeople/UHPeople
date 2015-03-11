@@ -1,0 +1,38 @@
+add_message = (data) ->
+  hashtag_name = $('td a#' + data.hashtag).text()
+
+  $('#feed').prepend '<div class="feed_chat_box"><a href="/users/' + data.user + '"><div class="thumbnail"></div></a>' +
+      '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>at ' +
+        '<a href="/hashtags/' + data.hashtag + '">' + hashtag_name + '</a>' +
+        '<span class="timestamp">' + data.timestamp + '</span></h5><p>' + data.content + '</p></div></div>'
+
+  $('div.panel.fav#box-' + data.hashtag).append '<div class="panel-body fav"><div class="favourites_chat_box"><div class="message"><p>' +
+    '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' + data.content +
+      '<br><span>' + data.timestamp + '</span></p></div></div</div>'
+
+ready = ->
+  if not $('#feed').length
+    return
+
+  scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
+  uri = 'ws://' + window.document.location.host
+  ws = new WebSocket(uri)
+
+  user = $('#user-id')[0].value
+
+  ws.onopen = ->
+    console.log("on open")
+
+    ws.send JSON.stringify
+      event: 'feed'
+      user: user
+
+  ws.onmessage = (message) ->
+    data = JSON.parse message.data
+    console.log(data)
+
+    if data.event == 'message'
+      add_message data
+
+$(document).ready(ready)
+$(document).on('page:load', ready)
