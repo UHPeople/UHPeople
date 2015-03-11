@@ -1,6 +1,6 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "Search page" do
+RSpec.describe 'Search page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
@@ -11,32 +11,32 @@ describe "Search page" do
     click_link 'Join'
   end
 
-  it "creates hashtags" do
-    visit "/search?search=asd"
+  it 'creates hashtags' do
+    visit '/search?search=asd'
     find("//div[@id='new_hashtag']/p/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.id + 1}"
   end
 
-  it "finds user with exact match" do
+  it 'finds user with exact match' do
     visit "/search?search=#{user.name}"
     find("//div[@id='users']/h3/a").click
     expect(page.current_path).to eq "/users/#{user.id}"
   end
 
-  it "finds user with non-exact match" do
-    visit "/search?search=a"
+  it 'finds user with non-exact match' do
+    visit '/search?search=a'
     find("//div[@id='users']/h3/a").click
     expect(page.current_path).to eq "/users/#{user.id}"
   end
 
-  it "finds hashtag with exact match" do
+  it 'finds hashtag with exact match' do
     visit "/search?search=#{hashtag.tag}"
     find("//div[@id='hashtags']/h3/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.id}"
   end
 
-  it "finds hashtag with non-exact match" do
-    visit "/search?search=a"
+  it 'finds hashtag with non-exact match' do
+    visit '/search?search=a'
     find("//div[@id='hashtags']/h3/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.id}"
   end

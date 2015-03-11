@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :feed, only: [:index]
   resources :search, only: [:index]
   resources :invite, only: [:index, :send_email]
+  resources :user_hashtags, only: [:update]
 
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
@@ -17,5 +18,5 @@ Rails.application.routes.draw do
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
 
-  match '/invite', to: 'invite#send_email', via:'post'
+  match '/invite', to: 'invite#send_email', via: 'post'
 end

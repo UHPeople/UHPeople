@@ -1,32 +1,34 @@
-require 'spec_helper'
+require 'rails_helper'
 
-describe "Hashtag page chat" do
-  let!(:user) { FactoryGirl.create(:user) }
-  let!(:hashtag) { FactoryGirl.create(:hashtag) }
+RSpec.describe Hashtag do
+  context 'chat page' do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
-  before :each do
-    user.hashtags << hashtag
-    visit "/login/#{user.id}"
-  end
+    before :each do
+      user.hashtags << hashtag
+      visit "/login/#{user.id}"
+    end
 
-  it "has send button" do
-    visit "/hashtags/#{hashtag.id}"
+    it 'has send button' do
+      visit "/hashtags/#{hashtag.id}"
 
-    expect(page).to have_content 'Send'
-  end
+      expect(page).to have_content 'Send'
+    end
 
-  it "has related messages" do
-    FactoryGirl.create(:message, user: user, hashtag: hashtag)
-    visit "/hashtags/#{hashtag.id}"
+    it 'has related messages' do
+      FactoryGirl.create(:message, user: user, hashtag: hashtag)
+      visit "/hashtags/#{hashtag.id}"
 
-    expect(page).to have_content 'Hello World!'
-  end
+      expect(page).to have_content 'Hello World!'
+    end
 
-  it "can send a message", :js => true do
-    visit "/hashtags/#{hashtag.id}"
+    it 'can send a message', js: true do
+      visit "/hashtags/#{hashtag.id}"
 
-    fill_in('input-text', with:'Hello world!')
-    click_button('Send')
-    expect(page).to have_content('Hello world!')
+      fill_in('input-text', with: 'Hello world!')
+      click_button('Send')
+      expect(page).to have_content('Hello world!')
+    end
   end
 end

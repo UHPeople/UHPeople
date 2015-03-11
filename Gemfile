@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
 
-ruby "2.2.0"
+ruby '2.2.0'
 
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -26,8 +26,10 @@ gem 'masonry-rails'
 
 gem 'pg'
 gem 'omniauth-shibboleth'
-group :development, :test do
-  gem 'rspec-rails', '~> 2.14.1'
+
+group :development do
+  gem 'rubocop'
+  gem 'rubocop-rspec'
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -39,11 +41,11 @@ group :production do
 end
 
 group :test do
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'launchy'
   gem 'simplecov', require: false
   gem 'selenium-webdriver'
-  gem "codeclimate-test-reporter", require: false
+  gem 'codeclimate-test-reporter', require: false
 end
-
