@@ -25,7 +25,7 @@ RSpec.describe User do
       visit edit_user_path(user)
 
       fill_in('user_name', with: '')
-      click_button('Update User')
+      click_button('Update')
 
       expect(page).to have_content '1 error prohibited changes from being saved:'
     end
