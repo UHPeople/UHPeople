@@ -15,7 +15,7 @@ RSpec.describe User do
       fill_in('user_name', with: 'Vaihdettu Nimi')
       fill_in('user_about', with: 'Hauska tyyppi.')
 
-      click_button('Update User')
+      click_button('Update')
 
       expect(page).to have_content 'Vaihdettu Nimi'
       expect(page).to have_content 'Hauska tyyppi.'
