@@ -1,12 +1,12 @@
 class Client
   attr_accessor :socket
   attr_accessor :user
-  attr_accessor :hashtag
+  attr_accessor :hashtags
 
-  def initialize(socket, user, hashtag)
+  def initialize(socket, user, hashtags)
     @socket = socket
     @user = user
-    @hashtag = hashtag
+    @hashtags = hashtags
   end
 
   def send(data)
