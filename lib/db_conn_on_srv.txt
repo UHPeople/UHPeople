@@ -1,0 +1,10 @@
+Tarvittavilla oikeuksilla sisään
+> sudo su - postgres
+
+Yhdistetään bashissä kantaan
+> psql
+
+Psql:ssä connectataan meidän ohjelman tietokantaan
+> \c production
+
+Do the magic.
