@@ -15,6 +15,6 @@ class UserHashtagsController < ApplicationController
       end
     end
 
-    redirect_to feed_index_path(tab: 'favourites')
+    redirect_to request.referer + params[:backurl]
   end
 end

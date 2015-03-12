@@ -1,4 +1,9 @@
 add_message = (data) ->
+  size = $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length
+
+  if ( size >= 5)
+    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
+
   hashtag_name = $('td a#' + data.hashtag).text()
 
   $('#feed').prepend '<div class="feed_chat_box"><a href="/users/' + data.user + '"><div class="thumbnail"></div></a>' +
@@ -10,6 +15,8 @@ add_message = (data) ->
     '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' + data.content +
       '<br><span>' + data.timestamp + '</span></p></div></div</div>'
 
+  $container.masonry('reloadItems')
+  
 ready = ->
   if not $('#feed').length
     return

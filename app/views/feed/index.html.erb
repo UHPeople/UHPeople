@@ -3,19 +3,19 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="<%= @feed_tab_class %>">
+      <li role="presentation" class="active">
         <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab">Feed</a>
       </li>
-      <li role="presentation" class="<%= @favourites_tab_class %>">
+      <li role="presentation" >
         <a href="#favourites" aria-controls="favourites" role="tab" data-toggle="tab">Favourites</a>
       </li>
     </ul>
 
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane fade <%= @feed_panel_class %>" id="feed">
+      <div role="tabpanel" class="tab-pane fade in active" id="feed">
         <%= render 'feed' %>
       </div>
-      <div role="tabpanel" class="tab-pane fade <%= @favourites_panel_class %>" id="favourites">
+      <div role="tabpanel" class="tab-pane fade active" id="favourites">
         <%= render 'favourites' %>
       </div>
     </div> 
@@ -23,3 +23,17 @@
 
   <%= render 'hashtaglist' %>
 </div>
+
+<script>
+  var url = document.location.toString();
+  if (url.match('#')) {
+      $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+
+  } 
+
+  // Change hash for page-reload
+  $('.nav-tabs a').on('shown.bs.tab', function (e) {
+      window.location.hash = e.target.hash;
+      window.scrollTo(0, 0);
+  })
+</script>
