@@ -1,4 +1,6 @@
 class SessionController < ApplicationController
+  before_action :require_non_production, only: :login
+
   def login
     @user = User.find(params[:id])
     session[:user_id] = @user.id
