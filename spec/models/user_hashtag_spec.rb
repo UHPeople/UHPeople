@@ -28,4 +28,13 @@ RSpec.describe UserHashtag do
     expect(userHashtag.valid?).to be(true)
     expect(described_class.count).to eq(1)
   end
+
+  it 'is not saved twice on same person and hashtag' do
+    described_class.create hashtag_id: '1', user_id: '1'
+    user_hashtag = described_class.create hashtag_id: '1', user_id: '1'
+
+    expect(user_hashtag.valid?).to be(false)
+    expect(described_class.count).to eq(1)
+  end
 end
+

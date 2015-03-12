@@ -9,27 +9,27 @@ module ClientList
 
   def remove_client(socket)
     client = @clients.find { |client| client.socket == socket }
-    hashtags = client.hashtags
+    hashtag = client.hashtag
 
     @clients.delete(client)
 
-    broadcast(online_users(hashtags.first), hashtags.first) if hashtags.count == 1
+    broadcast(online_users(hashtag), hashtag)
   end
 
-  def add_client(socket, user, hashtags)
-    hashtags = [hashtags] if hashtags.class == Fixnum
+  def add_client(socket, user, hashtag)
+    hashtag = [hashtag] if hashtag.class == Fixnum
     
-    client = @clients.find { |client| client.user == user and client.hashtags == hashtags }
+    client = @clients.find { |client| client.user == user and client.hashtag == hashtag }
     unless client.nil?
       client.socket.close()
       @clients.delete(client)
     end
 
-    @clients << Client.new(socket, user, hashtags)
+    @clients << Client.new(socket, user, hashtag)
   end
 
   def online_users(hashtag)
-    onlines = @clients.map { |client| client.user if client.hashtags == [hashtag] }.compact
+    onlines = @clients.map { |client| client.user if client.hashtag.include? hashtag }.compact
     json = { 'event': 'online', 'hashtag': hashtag, 'onlines': onlines }
     JSON.generate(json)
   end
