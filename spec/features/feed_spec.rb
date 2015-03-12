@@ -44,6 +44,13 @@ RSpec.describe 'Feed page' do
 
     expect(page).not_to have_content 'Groups'
   end
+
+  it 'redirects to favourites tab when changing favourites' do
+    create_and_visit
+    find('td a.glyphicon').click
+
+    expect(URI.parse(page.current_url).query).to eq 'tab=favourites'
+  end
 end
 
 RSpec.describe 'favourites page' do
@@ -73,9 +80,11 @@ RSpec.describe 'favourites page' do
     create_and_visit
     find('td a.glyphicon').click
     click_link 'Favourites'
+
     expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
     find('td a.glyphicon').click
     click_link 'Favourites'
+
     expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
   end
 end
