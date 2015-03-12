@@ -8,7 +8,7 @@ class UserHashtagsController < ApplicationController
     if @user_hashtag.favourite?
       @user_hashtag.update(favourite: false)
     else
-      if (UserHashtag.where :user_id => current_user.id, :favourite => true).count < @max_faves
+      if (UserHashtag.where(user_id: current_user.id, favourite: true)).count < @max_faves
         @user_hashtag.update(favourite: true)
       else
         redirect_to feed_index_path(tab: 'favourites'), notice: "You already have #{@max_faves} favourites, remove some to add a new one!" and return
