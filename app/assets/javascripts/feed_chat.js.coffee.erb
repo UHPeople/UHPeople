@@ -15,7 +15,7 @@ add_message = (data) ->
     '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' + data.content +
       '<br><span>' + data.timestamp + '</span></p></div></div</div>'
 
-  $container.masonry('reloadItems')
+  $('#masonry-container').masonry()
   
 ready = ->
   if not $('#feed').length
