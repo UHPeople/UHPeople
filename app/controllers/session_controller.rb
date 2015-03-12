@@ -19,12 +19,16 @@ class SessionController < ApplicationController
     @user = User.find_by username: uid
 
     if @user.nil?
-			@user = User.create username: uid, name: uid
-			session[:user_id] = @user.id
-			redirect_to edit_user_path(@user.id), :notice => "Welcome #{@user.name}! Please fill your userprofile"
+      name = request.env["omniauth.auth"]["info"]["name"].force_encoding('utf-8')
+      mail = request.env["omniauth.auth"]["info"]["mail"]
+
+      @user = User.create username: uid, name: name, email: mail
+      session[:user_id] = @user.id
+
+      redirect_to edit_user_path(@user), notice: "Welcome #{@user.name}! Please fill your userprofile"
     else
-			session[:user_id] = @user.id
-			redirect_to feed_index_path
+      session[:user_id] = @user.id
+      redirect_to feed_index_path
     end     
   end
 end

@@ -1,13 +1,9 @@
 <div class="container">
-  <div class="col-lg-9">
-
-    <div class="col-lg-4">
-      <div class="well">
-        <div class="profileCrop" style="background-image: url('<%= @user.profilePicture %>')"></div>
-      </div>
+    <div class="col-sm-4">
+        <div class="profileCrop well" style="background-image: url('<%= @user.profilePicture %>')"></div>
     </div>
 
-    <div class="col-lg-3">
+    <div class="col-sm-5">
 
       <%= form_for(@user) do |f| %>
           <% if @user.errors.any? %>
@@ -24,38 +20,38 @@
 
           <div class="field">
             <%= f.label :name %><br>
-            <%= f.text_field :name %>
+            <%= f.text_field :name, :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :title %><br>
-            <%= f.text_field :title %>
+            <%= f.text_field :title, :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :email %><br>
-            <%= f.text_field :email %>
+            <%= f.text_field :email, :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :campus %><br>
-            <%= f.text_field :campus %>
+            <%= f.text_field :campus, :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :unit %><br>
-            <%= f.text_field :unit %>
+            <%= f.text_field :unit, :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :about %><br>
-            <%= f.text_area :about, size: "60x8" %>
+            <%= f.text_area :about, size: "60x8", :class => "form-control" %>
           </div>
           <div class="field">
             <%= f.label :profilePicture %><br>
-            <%= f.text_field :profilePicture %>
+            <%= f.text_field :profilePicture, :class => "form-control" %>
           </div>
           <div class="actions">
-            <%= f.submit %>
+            <%= f.button :Update,  :class => 'btn btn-primary' %>
           </div>
       <% end %>
 
 
     </div>
-  </div>
+    <%= render "hashtaglist", user: @user %>
 </div> <!-- /container -->

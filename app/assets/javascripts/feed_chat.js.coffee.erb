@@ -15,22 +15,20 @@ ready = ->
     return
 
   scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
-  uri = 'ws://' + window.document.location.host
+  host = <%= ENV['RAILS_ENV'] == "test" ? '"echo.websocket.org/"' : 'window.document.location.host' %>
+  uri = scheme + host
   ws = new WebSocket(uri)
 
   user = $('#user-id')[0].value
 
   ws.onopen = ->
-    console.log("on open")
-
     ws.send JSON.stringify
       event: 'feed'
       user: user
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    console.log(data)
-
+    
     if data.event == 'message'
       add_message data
 

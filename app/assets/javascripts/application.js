@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
-//= require turbolinks
 //= require_tree .
 
 // masonry dynamic grid system
@@ -25,8 +24,6 @@
 
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
-
-Turbolinks.enableProgressBar();
 
 var ready = function() {
   $('#masonry-container').masonry({
