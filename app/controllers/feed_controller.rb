@@ -3,7 +3,10 @@ class FeedController < ApplicationController
 
   def index
     fav_tags = current_user.user_hashtags.where(favourite: true)
-    @chats = fav_tags.map { |tag| tag.hashtag.messages.last(5) }
+    @chats = fav_tags.map do |tag| 
+      messages = tag.hashtag.messages.last(5)
+      messages unless messages.empty?
+    end
     @chats.compact.sort_by { |chat| chat.last.timestamp unless chat.empty? }
 
     tags = current_user.hashtags

@@ -18,10 +18,10 @@ module ClientList
 
   def add_client(socket, user, hashtag)
     hashtag = [hashtag] if hashtag.class == Fixnum
-    
-    client = @clients.find { |client| client.user == user and client.hashtag == hashtag }
+
+    client = @clients.find { |client| client.user == user && client.hashtag == hashtag }
     unless client.nil?
-      client.socket.close()
+      client.socket.close
       @clients.delete(client)
     end
 

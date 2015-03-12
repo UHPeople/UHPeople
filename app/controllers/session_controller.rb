@@ -15,12 +15,12 @@ class SessionController < ApplicationController
   end
 
   def callback
-    uid = request.env["omniauth.auth"]["uid"]
+    uid = request.env['omniauth.auth']['uid']
     @user = User.find_by username: uid
 
     if @user.nil?
-      name = request.env["omniauth.auth"]["info"]["name"].force_encoding('utf-8')
-      mail = request.env["omniauth.auth"]["info"]["mail"]
+      name = request.env['omniauth.auth']['info']['name'].force_encoding('utf-8')
+      mail = request.env['omniauth.auth']['info']['mail']
 
       @user = User.create username: uid, name: name, email: mail
       session[:user_id] = @user.id
@@ -29,6 +29,6 @@ class SessionController < ApplicationController
     else
       session[:user_id] = @user.id
       redirect_to feed_index_path
-    end     
+    end
   end
 end

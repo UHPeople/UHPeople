@@ -37,4 +37,3 @@ RSpec.describe UserHashtag do
     expect(described_class.count).to eq(1)
   end
 end
-

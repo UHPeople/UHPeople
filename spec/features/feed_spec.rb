@@ -94,14 +94,22 @@ RSpec.describe 'favourites page' do
       visit "/hashtags/#{hashtag.id}"
       click_link 'Join'
     end
+
     visit '/feed'
-    click_link 'Favourites'
-    page.all(:css, 'td a.glyphicon').each do |el|
-      el.click
-    end
+    page.all(:css, 'td a.glyphicon').each(&:click)
+    
     expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
   end
 
+  it 'has chatboxes in order' do
+    hashtag2 = Hashtag.create tag: 'asd2000'
+    Message.create user: user, hashtag: hashtag2, content: 'Asdasd2'
+    create_and_visit
+    
+    page.all(:css, 'td a.glyphicon').each(&:click)
+
+    expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
+  end
 end
 
 def create_and_visit

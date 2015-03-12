@@ -12,7 +12,7 @@ RSpec.describe UHPeople::ChatBackend do
       @sent << JSON.parse(data)
     end
 
-    def close()
+    def close
       @sent << 'closed'
     end
 
@@ -66,10 +66,10 @@ RSpec.describe UHPeople::ChatBackend do
   # end
 
   # it 'responds to feed event' do
-    # message = { 'event': 'feed', 'user': user.id }
-    # subject.respond(socket, message)
+  # message = { 'event': 'feed', 'user': user.id }
+  # subject.respond(socket, message)
 
-    # expect(socket.sent.last['event']).to eq 'feed'
+  # expect(socket.sent.last['event']).to eq 'feed'
   # end
 
   context 'ClientList' do
@@ -128,7 +128,7 @@ RSpec.describe UHPeople::ChatBackend do
       onlines = JSON.parse(onlines_json)
 
       expect(onlines['event']).to eq 'online'
-      expect(onlines['hashtag']).to eq hashtag.id+1
+      expect(onlines['hashtag']).to eq hashtag.id + 1
       expect(onlines['onlines'].count).to eq 0
     end
 
