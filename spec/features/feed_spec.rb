@@ -78,6 +78,21 @@ RSpec.describe 'favourites page' do
     click_link 'Favourites'
     expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
   end
+
+  it 'wont let add more than 5 favourites' do
+    for i in 1..5
+      hashtag =  FactoryGirl.create(:hashtag, tag: i)
+      visit "/hashtags/#{hashtag.id}"
+      click_link 'Join'
+    end
+    visit '/feed'
+    click_link 'Favourites'
+    page.all(:css, 'td a.glyphicon').each do |el|
+      el.click
+    end
+    expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
+  end
+
 end
 
 def create_and_visit
