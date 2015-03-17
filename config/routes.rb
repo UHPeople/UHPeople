@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :search, only: [:index]
   resources :invite, only: [:index, :send_email]
   resources :user_hashtags, only: [:update]
+  resources :notifications, only: [:index]
 
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
@@ -19,4 +20,6 @@ Rails.application.routes.draw do
   delete 'leave', to: 'hashtags#leave'
 
   match '/invite', to: 'invite#send_email', via: 'post'
+
+
 end
