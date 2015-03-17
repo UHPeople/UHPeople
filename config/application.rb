@@ -29,11 +29,11 @@ module UHPeople
     # Configure these for smtp
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address:              'smtp.gmail.com',
+      address:              'smtp.helsinki.fi',
       port:                 587,
-      domain:               'gmail.com',
-      user_name:            ENV['GMAILUSR'],
-      password:             ENV['GMAILPASSWD'],
+      domain:               'helsinki.fi',
+      user_name:            ENV['HKIUSR'],
+      password:             ENV['HKIPASSWD'],
       authentication:       'plain',
       enable_starttls_auto: true  }
     config.action_mailer.perform_deliveries = true
