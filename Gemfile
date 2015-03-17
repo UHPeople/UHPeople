@@ -11,7 +11,7 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
-gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
+# gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 
 gem 'rb-readline'
 
