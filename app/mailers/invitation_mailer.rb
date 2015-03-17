@@ -1,5 +1,5 @@
 class InvitationMailer < ApplicationMailer
-  default from: 'uhpeople@gmail.com'
+  default from: 'uh.people@helsinki.fi'
   def invitation_email(user, receiver)
     @user = user
     @url  = 'https://limppu.it.helsinki.fi/'
