@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
   helper_method :split_str
-  helper_method :require_login
 
   def current_user
     return nil if session[:user_id].nil?
@@ -20,9 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def require_non_production
-    if ENV['RAILS_ENV'] == 'production'
-      redirect_to root_path
-      return
-    end
+    redirect_to root_path if ENV['RAILS_ENV'] == 'production'
   end
 end

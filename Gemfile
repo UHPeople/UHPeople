@@ -11,6 +11,7 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
+gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 
 gem 'rb-readline'
 
@@ -33,6 +34,8 @@ group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rails_layout'
+
+  gem 'rack-mini-profiler'
 end
 
 group :production do

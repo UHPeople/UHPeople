@@ -25,6 +25,17 @@
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
 
+var url = document.location.toString();
+if (url.match('#')) {
+    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+} 
+
+// Change hash for page-reload
+$('.nav-tabs a').on('shown.bs.tab', function (e) {
+    window.location.hash = e.target.hash;
+    window.scrollTo(0, 0);
+})
+
 var ready = function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
@@ -32,6 +43,11 @@ var ready = function() {
     isAnimated: !Modernizr.csstransitions,
     "isOriginTop": true
     //isRTL: true
+  });
+
+  $(".star").hover(function () {
+  	$(this).toggleClass("glyphicon-star-empty");
+  	$(this).toggleClass("glyphicon-star");
   });
 };
 

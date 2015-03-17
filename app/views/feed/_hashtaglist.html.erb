@@ -1,9 +1,9 @@
-<% backurl = '#favourites'%>
+<% backurl = '#favourites' %>
 
 <div class="col-md-3">
   <h2>Interests</h2>
   <table class="table table-hover">
-    <% @tags_in_list.each do |tag| %>
+    <% @user_tags.each do |tag| %>
         <tr>
           <td>
             <%= link_to "#"+tag.hashtag.tag, tag.hashtag, id: tag.hashtag.id %>

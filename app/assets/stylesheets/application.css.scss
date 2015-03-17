@@ -152,7 +152,6 @@ $jumbotron-color: #2B2B2B;
 }
 
 /*Favourites Chatbox*/
-
 .favourites_chat_box{
 	width: 100%;
 
@@ -183,8 +182,8 @@ $jumbotron-color: #2B2B2B;
 		}
 	}
 }
-/* INTEREST Chat*/
 
+/* INTEREST Chat*/
 .interest_chat_box{
 	width: 100%;
 	min-height: 40px;
@@ -226,8 +225,8 @@ $jumbotron-color: #2B2B2B;
 		}
 	}
 }
-/* Chatbox */
 
+/* Chatbox */
 .chatbox{
 	height: 300px;
 	overflow: auto;
@@ -256,18 +255,30 @@ div.sidebar-nav li.online a::before {
 	padding-bottom: 0px; 
 }
 
+.alert{
+	margin-bottom: 0px;
+}
+
+.jumbotron {
+	margin-bottom: 0px;
+}
+
 /* favourite star */
 .star{
-
-	color: magenta;
+	color: gold;
 	text-decoration: none !important;
 	opacity: 1;
-   	transition: opacity .25s ease-in-out;
-   		-moz-transition: opacity .25s ease-in-out;
-   		-webkit-transition: opacity .25s ease-in-out;
+   	
+   	-webkit-transition: all .25s ease-in-out;
+   	   -moz-transition: all .25s ease-in-out;
+	        transition: all .25s ease-in-out;
 
+   	float: right;
+   	margin-top: 3px;
 }
 .star:hover {
-   	color: magenta;
-    opacity: 0.5;
+   	color: gold;
+}
+.star.glyphicon-star-empty{
+	opacity: 0.5;
 }

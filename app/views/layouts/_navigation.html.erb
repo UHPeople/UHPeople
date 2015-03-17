@@ -15,21 +15,21 @@
       <%= link_to 'UHPeople', root_path, class: 'navbar-brand' %>
     </div>
     
-    <div class="collapse navbar-collapse">
-      <% if not current_user.nil? %>
-      <div class="navbar-form navbar-left" role="search">
-        <div class="form-group">
-          <%= form_tag(search_index_path, :method => "get") do %>
-              <%= text_field_tag :search, params[:search], placeholder: "Search", :class => "form-control" %>
-              <%= submit_tag "Search", :name => nil, :class => "btn btn-primary" %>
-          <% end %>
+    <% unless current_user.nil? %>
+      <div class="collapse navbar-collapse">      
+        <div class="navbar-form navbar-left" role="search">
+          <div class="form-group">
+            <%= form_tag(search_index_path, :method => "get") do %>
+                <%= text_field_tag :search, params[:search], placeholder: "Search", :class => "form-control" %>
+                <%= submit_tag "Search", :name => nil, :class => "btn btn-primary" %>
+            <% end %>
+          </div>
         </div>
-        <% end %>  
-      </div>   
 
-      <ul class="nav navbar-nav">
-        <%= render 'layouts/navigation_links' if not current_user.nil? %>
-      </ul>
-    </div>
+        <ul class="nav navbar-nav">
+          <%= render 'layouts/navigation_links' %>
+        </ul>
+      </div>
+    <% end %>
   </div>
 </nav>

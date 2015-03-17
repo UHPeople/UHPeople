@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_non_production, only: :index
+  before_action :require_non_production, only: [:index, :new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
 

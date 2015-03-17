@@ -4,4 +4,6 @@ class UserHashtag < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :hashtag
+
+  scope :favourite, -> { where favourite: true }
 end
