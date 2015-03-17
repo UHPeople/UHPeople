@@ -93,6 +93,8 @@ GEM
     jbuilder (2.2.11)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
+    jqcloud-rails (1.0.0)
+      jquery-rails
     jquery-rails (4.0.3)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -255,6 +257,7 @@ DEPENDENCIES
   factory_girl_rails
   faye-websocket
   jbuilder (~> 2.0)
+  jqcloud-rails
   jquery-rails
   launchy
   masonry-rails

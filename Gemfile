@@ -51,3 +51,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'codeclimate-test-reporter', require: false
 end
+
+gem 'jqcloud-rails'
