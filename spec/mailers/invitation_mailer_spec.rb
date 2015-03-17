@@ -7,7 +7,7 @@ RSpec.describe InvitationMailer do
     let(:mail) { described_class.invitation_email(user, '@helsinki.fi') }
 
     it 'has correct sender email' do
-      expect(mail.from).to eql(['uhpeople@gmail.com'])
+      expect(mail.from).to eql(['uh.people@helsinki.fi'])
     end
 
     it 'has correct receiver' do
