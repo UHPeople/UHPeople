@@ -28,6 +28,7 @@ RSpec.describe UHPeople::ChatBackend do
   subject { described_class.new app  }
 
   it 'serializes messages' do
+    hashtag.users << user
     message = Message.create content: '<h1>asd</h1>', user: user, hashtag: hashtag
 
     serialized_json = subject.serialize message
