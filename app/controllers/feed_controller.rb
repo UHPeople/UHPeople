@@ -3,7 +3,6 @@ class FeedController < ApplicationController
 
   def index
     @user_tags = current_user.user_hashtags.includes(hashtag: :messages)
-      .group('user_hashtags.id, hashtags.id, messages.id')
       .order('user_hashtags.favourite desc', 'hashtags.updated_at desc')
 
     fav_user_tags = @user_tags.favourite.joins(hashtag: :messages).uniq
