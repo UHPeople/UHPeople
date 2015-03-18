@@ -12,7 +12,7 @@
           <div class="message">
             <p>
               <%= link_to message.user.name, message.user, class: 'user' %>
-              <%= auto_link(message.content) do |text| truncate(text, length: 200) end %><br>
+              <%= message.formatted_content %><br>
               <span><%= message.timestamp %></span>
             </p>
           </div>
