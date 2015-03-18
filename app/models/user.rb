@@ -4,4 +4,5 @@ class User < ActiveRecord::Base
   has_many :user_hashtags, dependent: :destroy
   has_many :hashtags, through: :user_hashtags
   has_many :messages, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 end
