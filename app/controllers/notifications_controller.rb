@@ -1,6 +1,8 @@
 class NotificationsController < ApplicationController
 
-  def index
+	before_action :require_login
 
+  def index
+  	@notifications = current_user.notifications.all
   end
 end

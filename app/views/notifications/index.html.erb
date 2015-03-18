@@ -1,1 +1,7 @@
 <h1>Notifiacaatiot</h1>
+
+<% unless @notifications.nil? %>
+	<% @notifications.each do |n| %>
+		<p><%= n.notification_type %></p> 
+	<% end %>
+<% end %>
