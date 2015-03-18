@@ -1,7 +1,12 @@
-<h1>Notifiacaatiot</h1>
+<div class="container">
+	<h1>Your notifications</h1>
 
-<% unless @notifications.nil? %>
-	<% @notifications.each do |notif| %>
-		<%= render 'invite', notification: notif %>
+	<% unless @notifications.nil? %>
+		<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix col-md-12">
+			<% @notifications.each do |notif| %>
+
+				<%= render 'invite', notification: notif %>
+			<% end %>
+		</div>
 	<% end %>
-<% end %>
+</div>
