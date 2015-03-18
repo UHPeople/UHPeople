@@ -14,6 +14,7 @@ gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 
 gem 'rails_autolink'
+gem 'momentjs-rails'
 
 gem 'rb-readline'
 

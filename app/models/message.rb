@@ -21,7 +21,7 @@ class Message < ActiveRecord::Base
   validates_with UserHashtagValidator
 
   def timestamp
-    created_at.strftime('%b %e, %Y %k:%M:%S')
+    created_at.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   after_save do
