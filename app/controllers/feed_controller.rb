@@ -16,6 +16,6 @@ class FeedController < ApplicationController
       .order(created_at: :desc).limit(20)
 
     cloud = TagcloudLogic.new
-    @word_array = cloud.make_cloud(cloud.count_cloud)
+    @word_array = cloud.make_cloud(cloud.touch_cloud)
   end
 end
