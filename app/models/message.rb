@@ -28,7 +28,7 @@ class Message < ActiveRecord::Base
     hashtag.update_attribute(:updated_at, Time.now)
   end
 
-  def scontent
+  def formatted_content
     auto_link(ERB::Util.html_escape(content)) do |text|
       truncate(text, length: 200)
     end
@@ -36,7 +36,7 @@ class Message < ActiveRecord::Base
 
   def serialize
     json = { 'event': 'message',
-             'content': scontent,
+             'content': formatted_content,
              'hashtag': hashtag_id,
              'user': user_id,
              'username': user.name,
