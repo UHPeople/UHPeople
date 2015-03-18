@@ -15,14 +15,16 @@
 
 </div>
 
-  <link rel="stylesheet" type="text/css" href="jqcloud.css" />
-  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-  <script type="text/javascript" src="jqcloud-1.0.4.js"></script>
-  <script type="text/javascript">
+<div class="col-md-3">
+  <div id="tagCloud" style="width: 285px; height: 350px;"></div>
+</div>
 
-     var word_array = <%= raw @word_array.to_json %>
-      $(function() {
-          $("#example").jQCloud(word_array);
-      });
-  </script>
-<div id="example" style="width: 285px; height: 350px;"></div>
+<link rel="stylesheet" type="text/css" href="jqcloud.css" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="jqcloud-1.0.4.js"></script>
+<script type="text/javascript">
+    var word_array = <%= raw @word_array.to_json %>
+            $(function() {
+                $("#tagCloud").jQCloud(word_array);
+            });
+</script>
