@@ -1,6 +1,7 @@
 class FeedController < ApplicationController
   before_action :require_login
 
+  require 'tagcloud_logic'
   def index
     @user_tags = current_user.user_hashtags.includes(hashtag: :messages)
       .group('user_hashtags.id, hashtags.id, messages.id')
@@ -13,5 +14,8 @@ class FeedController < ApplicationController
     @messages = Message.includes(:hashtag, :user)
       .where(hashtag: tags)
       .order(created_at: :desc).limit(20)
+
+    cloud = TagcloudLogic.new
+    @word_array = cloud.make_cloud(cloud.count_cloud)
   end
 end
