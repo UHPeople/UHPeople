@@ -57,11 +57,30 @@ module UHPeople
       return
     end
 
-    def serialize(message)
-      json = { 'event': 'message', 'content': ERB::Util.html_escape(message.content),
-               'hashtag': message.hashtag_id, 'user': message.user_id, 'username': message.user.name,
-               'timestamp': message.timestamp }
-      JSON.generate json
+    def feed_event(user, socket)
+      hashtags = user.hashtags.map(&:id)
+      add_client socket, user.id, hashtags
+
+      json = { 'event': 'feed', 'user': user.id }
+      socket.send(JSON.generate(json))
+    end
+
+    def message_event(user, hashtag, socket, content)
+      message = Message.create content: content,
+                               hashtag_id: hashtag.id,
+                               user_id: user.id
+
+      unless message.valid?
+        send_error socket, 'Invalid message'
+        return
+      end
+
+      broadcast(message.serialize, hashtag.id)
+    end
+
+    def online_event(user, hashtag, socket)
+      add_client socket, user.id, hashtag.id
+      broadcast(online_users(hashtag.id), hashtag.id)
     end
 
     def respond(socket, data)
@@ -69,10 +88,7 @@ module UHPeople
       return if user.nil?
 
       if data['event'] == 'feed'
-        hashtags = user.hashtags.map(&:id)
-        add_client socket, user.id, hashtags
-
-        socket.send(JSON.generate(data))
+        feed_event(user, socket)
         return
       end
 
@@ -85,19 +101,9 @@ module UHPeople
       end
 
       if data['event'] == 'message'
-        message = Message.create content: data['content'],
-                                 hashtag_id: hashtag.id,
-                                 user_id: user.id
-
-        unless message.valid?
-          send_error socket, 'Invalid message'
-          return
-        end
-
-        broadcast(serialize(message), hashtag.id)
+        message_event(user, hashtag, socket, data['content'])
       elsif data['event'] == 'online'
-        add_client socket, user.id, hashtag.id
-        broadcast(online_users(hashtag.id), hashtag.id)
+        online_event(user, hashtag, socket)
       end
     end
   end

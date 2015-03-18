@@ -27,16 +27,6 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:app) { -> { [200, { 'Content-Type' => 'text/plain' }, ['OK']] } }
   subject { described_class.new app  }
 
-  it 'serializes messages' do
-    hashtag.users << user
-    message = Message.create content: '<h1>asd</h1>', user: user, hashtag: hashtag
-
-    serialized_json = subject.serialize message
-    serialized = JSON.parse serialized_json
-
-    expect(serialized['content']).to eq '&lt;h1&gt;asd&lt;/h1&gt;'
-  end
-
   it 'responds with error to invalid user' do
     message = { 'event': 'online', 'user': -1, 'hashtag': hashtag.id }
     subject.respond(socket, message)
@@ -72,6 +62,31 @@ RSpec.describe UHPeople::ChatBackend do
 
   # expect(socket.sent.last['event']).to eq 'feed'
   # end
+
+  context 'Events' do
+    it 'feed event adds all hashtags' do
+      subject.feed_event(user, socket)
+
+      expect(socket.sent.last['event']).to eq 'feed'
+    end
+
+    it 'message event adds new message' do
+      user.hashtags << hashtag
+      subject.online_event(user, hashtag, socket)
+
+      subject.message_event(user, hashtag, socket, 'asd')
+
+      expect(Message.count).to eq 1
+      expect(socket.sent.last['content']).to eq 'asd'
+      expect(socket.sent.last['event']).to eq 'message'
+    end
+
+    it 'online event adds new client' do
+      subject.online_event(user, hashtag, socket)
+
+      expect(socket.sent.last['event']).to eq 'online'
+    end
+  end
 
   context 'ClientList' do
     it 'adds one online user' do
