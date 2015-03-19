@@ -25,6 +25,8 @@
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
 
+//= require moment
+
 var url = document.location.toString();
 if (url.match('#')) {
     $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
@@ -45,7 +47,7 @@ var ready = function() {
     //isRTL: true
   });
 
-  $(".star").hover(function () {
+  $('.star').hover(function () {
   	$(this).toggleClass("glyphicon-star-empty");
   	$(this).toggleClass("glyphicon-star");
   });
@@ -54,6 +56,12 @@ var ready = function() {
     //$(this).parent().remove();
     $('#masonry-container').masonry('remove', $(this).parent(".box"));
     $('#masonry-container').masonry();
+  });
+  
+
+  $('span.timestamp').each(function() {
+    var text = $(this).text();
+    $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
   });
 };
 

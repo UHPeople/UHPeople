@@ -13,13 +13,16 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 
+gem 'rails_autolink'
+gem 'momentjs-rails'
+
 gem 'rb-readline'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '= 3.3.3'
 gem 'faye-websocket'
 gem 'puma'
 gem 'masonry-rails'
