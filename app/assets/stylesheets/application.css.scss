@@ -159,7 +159,7 @@ $jumbotron-color: #2B2B2B;
 
 	.message {
 		margin-bottom: 0px;
-	
+
 		.user{
 			padding-right: .25rem;
 			color: #3d3c40 !important;
@@ -175,6 +175,7 @@ $jumbotron-color: #2B2B2B;
 			line-height: 22px;
 			color: #3d3c40;
 			margin-bottom: 0;
+			word-wrap: break-word;
 		}
 
 		span {

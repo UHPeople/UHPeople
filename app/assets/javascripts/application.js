@@ -26,6 +26,7 @@
 //= require masonry/jquery.loremimages.min
 
 //= require jqcloud
+//= require moment
 
 var url = document.location.toString();
 if (url.match('#')) {
@@ -47,9 +48,15 @@ var ready = function() {
     //isRTL: true
   });
 
-  $(".star").hover(function () {
+  $('.star').hover(function () {
   	$(this).toggleClass("glyphicon-star-empty");
   	$(this).toggleClass("glyphicon-star");
+  });
+  
+
+  $('span.timestamp').each(function() {
+    var text = $(this).text();
+    $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
   });
 };
 
