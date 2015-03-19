@@ -288,14 +288,14 @@ div.sidebar-nav li.online a::before {
 	font-size: 4px;
 	padding-bottom: 10px;
 }
+
 // Autocomplete
 .typeahead,
 .tt-query,
 .tt-hint {
   width: 396px;
-  height: 30px;
   padding: 8px 12px;
-  font-size: 12px;
+  font-size: 24px;
   line-height: 30px;
   border: 2px solid #ccc;
   -webkit-border-radius: 8px;
@@ -329,9 +329,11 @@ div.sidebar-nav li.online a::before {
   background-color: #fff;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
+
   -webkit-border-radius: 8px;
      -moz-border-radius: 8px;
           border-radius: 8px;
+          
   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
           box-shadow: 0 5px 10px rgba(0,0,0,.2);
@@ -346,7 +348,6 @@ div.sidebar-nav li.online a::before {
 .tt-suggestion.tt-cursor {
   color: #fff;
   background-color: #0097cf;
-
 }
 
 .tt-suggestion p {

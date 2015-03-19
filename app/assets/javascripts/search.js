@@ -1,7 +1,7 @@
 var users = new Bloodhound({
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag'),
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/hashtags/'
+  prefetch: '/users/'
 });
  
 var hashtags = new Bloodhound({
@@ -29,7 +29,7 @@ $(document).ready(function() {
 
   {
     name: 'users',
-    displayKey: 'tag',
+    displayKey: 'name',
     source: users.ttAdapter(),
     templates: {
       header: '<h3>Users</h3>'

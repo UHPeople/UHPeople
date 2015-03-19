@@ -1,10 +1,18 @@
 class UsersController < ApplicationController
-  before_action :require_non_production, only: [:index, :new, :create]
+  before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
 
   def index
     @users = User.all
+
+    respond_to do |format|
+      format.json do
+        render json: current_user.nil? ? 'Not logged in' : @users
+      end
+
+      format.html { require_non_production }
+    end
   end
 
   def new
