@@ -49,7 +49,14 @@ var ready = function() {
   	$(this).toggleClass("glyphicon-star-empty");
   	$(this).toggleClass("glyphicon-star");
   });
+
+  $('.alert .close').on("click", function(e) {
+    //$(this).parent().remove();
+    $('#masonry-container').masonry('remove', $(this).parent(".box"));
+    $('#masonry-container').masonry();
+  });
 };
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+

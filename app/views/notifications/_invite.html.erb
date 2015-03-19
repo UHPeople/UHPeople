@@ -1,10 +1,8 @@
-<div class="box col3">
-	<div class="alert alert-success alert-dismissible" role="alert">
-	  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<div class="box col3 alert alert-success alert-dismissible" role="alert" >
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
 
-	 	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
+	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
 	  	has invited you to join 
-	  	<%= link_to notification.tricker_hashtag.tag, notification.tricker_hashtag, class: 'alert-link' %>!
-	</div>
+	<%= link_to notification.tricker_hashtag.tag, notification.tricker_hashtag, class: 'alert-link' %>!
 </div>
 
