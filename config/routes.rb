@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   delete 'leave', to: 'hashtags#leave'
 
   match '/invite', to: 'invite#send_email', via: 'post'
+  
+  post 'notifications/:id', to: 'notifications#update', via: 'post'
 end
