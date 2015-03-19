@@ -11,17 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150319072045) do
+ActiveRecord::Schema.define(version: 20150319122729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "hashtags", force: :cascade do |t|
     t.string   "tag"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.string   "topic"
     t.integer  "topic_updater_id"
+    t.string   "cover_photo_file_name"
+    t.string   "cover_photo_content_type"
+    t.integer  "cover_photo_file_size"
+    t.datetime "cover_photo_updated_at"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -30,16 +34,6 @@ ActiveRecord::Schema.define(version: 20150319072045) do
     t.integer  "hashtag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.integer  "notification_type",                 null: false
-    t.integer  "user_id",                           null: false
-    t.integer  "tricker_user_id"
-    t.integer  "tricker_hashtag_id"
-    t.boolean  "visible",            default: true, null: false
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
   end
 
   create_table "user_hashtags", force: :cascade do |t|
