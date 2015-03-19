@@ -22,17 +22,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
+    session[:user_id] = @user.id
 
     respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @user, notice: 'User was successfully created.' }
     end
   end
 
