@@ -5,6 +5,13 @@ class HashtagsController < ApplicationController
   before_action :user_has_tag, only: [:show, :update]
   before_action :topic_updater, only: [:show, :update]
 
+  def index
+    respond_to do |format|
+      format.json { @hashtags = Hashtag.all }
+      format.html { redirect_to ass }
+    end
+  end
+
   def show
     @messages = @hashtag.messages.last(20)
 
