@@ -283,11 +283,29 @@ div.sidebar-nav li.online a::before {
 .star.glyphicon-star-empty{
 	opacity: 0.5;
 }
+/* navbar notification link */
 
-.nav-notif a {
-	font-size: 4px;
-	padding-bottom: 10px;
+.navbar-inverse .navbar-nav > li > .notif-link{
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 1px !important;
 }
+.navbar-inverse .navbar-nav > li > .notif-link > .notif-count{
+	font-size: 10px !important;
+}
+.navbar-inverse .navbar-nav > li > .notif-link:hover, 
+.navbar-inverse .navbar-nav > li > .notif-link:focus {
+	color:#00F4F2 !important;
+}
+a.notif-link:hover{
+	color:#FFFFFF;
+}
+
+/* notification hover */
+.notif > .alert:hover{
+	background-color: RGBA(208, 237, 197, 0.1);
+} 
+
 // Autocomplete
 .typeahead,
 .tt-query,

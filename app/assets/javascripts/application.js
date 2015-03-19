@@ -48,6 +48,15 @@ var ready = function() {
     $.post( "notifications/" + box);
     $('#masonry-container').masonry('remove', $(this).parent(".box"));
     $('#masonry-container').masonry();
+    $( ".notif-count" ).text(function(i, t) {
+      if (t>1){
+        return Number(t) - 1;
+      } else {
+        $( ".notif-icon" ).css("color", "#9D9D9D");
+        $( ".empty-notif" ).append( "<p>You don't have any new notifications.</p>" );  
+        return ""
+      }
+    });
   });
   
 
