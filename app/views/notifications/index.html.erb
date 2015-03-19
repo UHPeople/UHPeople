@@ -8,6 +8,9 @@
 			<% end %>
 		</div>
 	<% end %>
+	<% if current_user.notifications.unread_count == 0 %>
+		<p>You dont have any new notifications.</p>
+	<% end %>		
 </div>
 
 
