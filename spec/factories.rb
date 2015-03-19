@@ -17,4 +17,5 @@ FactoryGirl.define do
     hashtag
     content 'Hello World!'
   end
+
 end
