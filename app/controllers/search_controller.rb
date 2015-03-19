@@ -9,11 +9,6 @@ class SearchController < ApplicationController
     @users = User.where('name ilike ?', "%#{@search}%")
 
     @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}")
-
-    respond_to do |format|
-      format.json { render json: to_json(@hashtags, @users) }
-      format.html { render :index }
-    end
   end
 
   private
@@ -21,11 +16,4 @@ class SearchController < ApplicationController
   def set_search
     @search = params[:search]
   end
-
-  def to_json(hashtags, users)
-    json = { 'hashtags': hashtags, 'users': users }
-    return JSON.generate(json)
-  end
-
-
 end

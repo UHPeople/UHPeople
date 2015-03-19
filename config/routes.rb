@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   get 'login', to: 'user#index'
 
-  resources :hashtags, only: [:show, :create, :update]
+  resources :hashtags, only: [:index, :show, :create, :update]
   resources :users
   resources :feed, only: [:index]
   resources :search, only: [:index]
@@ -20,6 +20,4 @@ Rails.application.routes.draw do
   delete 'leave', to: 'hashtags#leave'
 
   match '/invite', to: 'invite#send_email', via: 'post'
-
-
 end

@@ -23,6 +23,8 @@ group :doc do
 end
 
 gem 'bootstrap-sass', '= 3.3.3'
+gem 'twitter-typeahead-rails'
+
 gem 'faye-websocket'
 gem 'puma'
 gem 'masonry-rails'
