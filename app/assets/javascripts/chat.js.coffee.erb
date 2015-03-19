@@ -38,12 +38,13 @@ add_message = (data) ->
 
   if ( size > 20)
     $('.chatbox .panel-body:first-child').remove()
-  
+
+  timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
 
   $('.chatbox').append '<div class="panel-body"><div class="interest_chat_box">' +
     '<a href="/users/' + data.user + '"><div class="thumbnail"></div></a>' +
       '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
-       '<span class="timestamp">' + data.timestamp + '</span></h5><p>' +
+       '<span class="timestamp">' + timestamp + '</span></h5><p>' +
         data.content + '</div></div></div>'
 
   scroll_to_bottom()
