@@ -1,6 +1,6 @@
 <li><%= link_to "Home", root_path, class:"hidden-sm" %></li>
 <li>
-<%= link_to "#{current_user.notifications.unread_count if current_user.notifications.unread_count > 0}", notifications_path, {style: "#{'color:#00B2B1' if current_user.notifications.unread_count > 0}", class: "nav-notif glyphicon glyphicon-globe"}%>
+	<%= link_to "#{current_user.notifications.unread_count if current_user.notifications.unread_count > 0}", notifications_path, {style: "#{'color:#00B2B1' if current_user.notifications.unread_count > 0}", class: "nav-notif glyphicon glyphicon-globe"}%>
 </li>
 
 <li class="dropdown">
