@@ -25,5 +25,5 @@ coverage/*
 # Ignore compiled js, css
 public/assets/*
 
-# Ignore user avatas
+# Ignore user avatars
 public/system/*

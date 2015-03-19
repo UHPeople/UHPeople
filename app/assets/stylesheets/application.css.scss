@@ -31,17 +31,17 @@ $timestamp-color: #aba7a9;
 }
 
 .avatar-45 {
-    background-color: white;
-    border: 1px solid $avatar-border-color;
-    border-radius: 22px;
-    -moz-border-radius: 22px;
-    -webkit-border-radius: 22px;
-    height: 45px;
-    width: 45px;
-    overflow: hidden;
-    text-align: center;
-    img { width: 100% };
-    float: left;
+  background-color: white;
+  border: 1px solid $avatar-border-color;
+  border-radius: 22px;
+  -moz-border-radius: 22px;
+  -webkit-border-radius: 22px;
+  height: 45px;
+  width: 45px;
+  overflow: hidden;
+  text-align: center;
+  img { width: 100% };
+  float: left;
 }
 
 /* Navbar fix */
@@ -106,7 +106,7 @@ $timestamp-color: #aba7a9;
     padding-top: 150px;
 
     h1, p, a {
-      text-shadow: 1px 1px 11px rgba(0, 0, 0, 0.81);
+      text-shadow: 1px 1px 11px rgba(0, 0, 0, .81);
     }
   }
 }
@@ -301,6 +301,6 @@ div.sidebar-nav li.online a::before {
     color: $star-color;
 }
 
-.star.glyphicon-star-empty{
+.star.glyphicon-star-empty {
   opacity: .5;
 }
