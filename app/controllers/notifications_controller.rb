@@ -7,7 +7,6 @@ class NotificationsController < ApplicationController
   end
 
   def update
-
   	notif = Notification.find_by_id(params[:id])
   	notif.visible = false
   	notif.save

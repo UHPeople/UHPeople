@@ -1,7 +1,7 @@
 class HashtagsController < ApplicationController
   before_action :require_login
 
-  before_action :set_hashtag, only: [:show, :update, :join, :leave]
+  before_action :set_hashtag, only: [:show, :update, :join, :leave, :invite]
   before_action :user_has_tag, only: [:show, :update]
   before_action :topic_updater, only: [:show, :update]
 
@@ -49,6 +49,16 @@ class HashtagsController < ApplicationController
       current_user.hashtags << @hashtag
       redirect_to @hashtag
     end
+  end
+
+  def invite
+    user_id = User.find_by(name: params[:user]).id
+
+    Notification.create notification_type: 1,
+                        user_id: user_id,
+                        tricker_user_id: current_user.id,
+                        tricker_hashtag_id: params[:id]
+    redirect_to @hashtag
   end
 
   private

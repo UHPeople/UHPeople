@@ -15,4 +15,15 @@
         <li id='<%= m.id %>'><%= link_to m.name, m %></li>
     <% end %>
   </ul>
+
+  <h3>Invite</h3>
+  <%= form_tag({controller: "hashtags", action: "invite"}, method: "post") do %>
+    <div class="field">
+      <%= text_field_tag :user %>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag("Send invitation!", class: "btn btn-info") %>
+    </div>
+  <% end %>
 </div>

@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get 'auth/shibboleth/callback', to: 'session#callback'
 
+  post 'hashtags/:id/invite', to: 'hashtags#invite'
+
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
 
