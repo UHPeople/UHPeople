@@ -22,7 +22,7 @@ group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '= 3.3.3'
 gem 'faye-websocket'
 gem 'puma'
 gem 'masonry-rails'
