@@ -5,7 +5,7 @@ RSpec.describe 'Notifications page' do
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
   before :each do
-    nofir = Notification.create(notification_type:1, user:user, tricker_user:user, tricker_hashtag:hashtag)
+    Notification.create(notification_type:1, user:user, tricker_user:user, tricker_hashtag:hashtag)
     visit "/login/#{user.id}"
   end
 
@@ -18,5 +18,22 @@ RSpec.describe 'Notifications page' do
     visit "/notifications"
     expect(page).to have_content 'asd asd has invited you to join avantouinti!'
   end  
+
+  it 'has notification disappeard when clicked', js: true do
+    visit "/notifications"
+    find('.close',:visible => true).click
+    expect(page).to have_content "You don't have any new notifications."
+  end
+
+  it 'has count of unread notification in nav bar' do
+    visit "/notifications"
+    expect(page).to have_content('1')
+  end  
+
+  it 'has count of unread notification in nav bar disappears if none', js: true do
+    visit "/notifications"
+    find('.close',:visible => true).click
+    expect(page).not_to have_content('1')
+  end
 end
 
