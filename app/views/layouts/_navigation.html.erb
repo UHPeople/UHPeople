@@ -18,12 +18,13 @@
     <% unless current_user.nil? %>
       <div class="collapse navbar-collapse">      
         <div class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <%= form_tag search_index_path, method: "get" do %>
-                <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
-                <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
-            <% end %>
-          </div>
+          <%= form_tag search_index_path, method: "get" do %>
+            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
+            
+            <div style="width: 0; height: 0; overflow: hidden;">
+              <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+            </div>
+          <% end %>
         </div>
 
         <ul class="nav navbar-nav">

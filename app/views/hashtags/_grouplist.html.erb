@@ -17,11 +17,12 @@
   </ul>
 
   <% if @user_has_tag %>
-    <div class="form-group">
-      <%= form_tag({controller: 'hashtags', action: 'invite'}, method: "post") do %>
-        <%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
+    <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post') do %>
+      <%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
+      
+      <div style="width: 0; height: 0; overflow: hidden;">
         <%= submit_tag('Invite', class: 'btn btn-primary') %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

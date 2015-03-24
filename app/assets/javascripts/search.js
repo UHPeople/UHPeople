@@ -23,7 +23,8 @@ $(document).ready(function() {
     displayKey: 'tag',
     source: hashtags.ttAdapter(),
     templates: {
-      header: '<h3>Hashtags</h3>'
+      header: '<h4 class="asd">Hashtags</h4>'
+      // suggestion: Handlebars.compile('<p><strong>#{{value}}</strong></p>')
     }
   },
 
@@ -32,7 +33,7 @@ $(document).ready(function() {
     displayKey: 'name',
     source: users.ttAdapter(),
     templates: {
-      header: '<h3>Users</h3>'
+      header: '<h4 class="asd">Users</h4>'
     }
   });
 });
