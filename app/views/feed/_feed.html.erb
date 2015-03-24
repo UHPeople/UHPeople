@@ -3,9 +3,10 @@
 <div id="feed">
   <% @messages.each do |message| %>
   	<div class="feed_chat_box">
-  		<a href="<%= user_path(message.user) %>">
-  			<div class="thumbnail"></div>
+  		<a href="<%= user_path(message.user) %>" class="avatar-link">
+  			<%= image_tag message.user.avatar.url(:thumb), class: "avatar-45" %>
   		</a>
+
   		<div class="message">
 		    <h5>
 		    	<%= link_to message.user.name, message.user %>at
