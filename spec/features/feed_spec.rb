@@ -11,27 +11,26 @@ RSpec.describe 'Feed page' do
   end
 
   context 'feed tab' do
-    it 'has messages in feed' do
+    before :each do
       create_and_visit
+    end
+
+    it 'has messages in feed' do
       expect(page).to have_content 'Asdasd'
     end
 
     it 'has messages in feed in order' do
       Message.create user: user, hashtag: hashtag, content: 'Asdasd2'
-      create_and_visit
 
       expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
     end
 
     it 'has messages in favourites' do
-      create_and_visit
       click_link 'Favourites'
       expect(page).to have_content 'Asdasd'
     end
 
     it 'redirects hashtag box link to right hashtag when tag opened' do
-      create_and_visit
-
       first(:link, 'avantouinti').click
       expect(page).to have_content 'Asdasd'
       expect(page).to have_content 'Members'
@@ -43,14 +42,17 @@ RSpec.describe 'Feed page' do
       click_link 'Leave'
       visit '/feed'
 
-      expect(page).not_to have_content 'Groups'
+      expect(page).not_to have_content 'Interests'
     end
 
     it 'redirects to favourites tab when changing favourites', js: true do
-      create_and_visit
       find('td a.glyphicon').click
 
       expect(URI.parse(page.current_url).fragment).to eq 'favourites'
+    end
+
+    it 'has thumbnails' do
+      expect(find('.avatar-45:first')).to have_content ''
     end
   end
 
