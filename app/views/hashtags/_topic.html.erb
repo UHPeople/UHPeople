@@ -1,5 +1,4 @@
-<div class="jumbotron" style="background-image: url('<%= @hashtag.cover_photo.url %>')">
-
+<div class="jumbotron">
   <div class="container text-center">
     <% if notice %>
     <% end %>
@@ -14,11 +13,10 @@
 
     <% if @user_has_tag %>
       <div id="target" class="hidden">
-        <%= form_for @hashtag, html: { multipart: true } do |f| %>
+        <%= form_for(@hashtag) do |f| %>
           <div class="form-group">
-            <%= f.text_area :topic, value: @hashtag.topic, class:'form-control input-large', id: 'topic' %>
-            <%= f.file_field :cover_photo, label: 'Upload cover photo:', id: 'cover_photo' %>
-            <%= f.hidden_field :topic_updater_id, value: current_user.id, id: 'topic_updater_id' %>
+            <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
+            <%= f.hidden_field :topic_updater_id, value: current_user.id, :id=>'topic_updater_id' %>
           </div>
           <%= f.submit value: "Update", :class=>'btn btn-sm btn-primary' %>
         <%end%>
