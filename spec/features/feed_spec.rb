@@ -130,7 +130,6 @@ RSpec.describe 'favourites page' do
     visit '/feed'
     expect(find('span#tag_cloud_word_0')).to have_content 'cloudtag2'
   end
-
 end
 
 def create_and_visit
