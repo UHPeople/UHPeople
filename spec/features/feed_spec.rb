@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Feed' do
+RSpec.describe 'Feed page' do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
@@ -93,14 +93,23 @@ RSpec.describe 'Feed' do
       expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
     end
 
-    it 'has chatboxes in order' do
-      hashtag2 = Hashtag.create tag: 'asd2000'
-      Message.create user: user, hashtag: hashtag2, content: 'Asdasd2'
-      create_and_visit
+    context 'chatboxes' do
+      let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
+      let!(:message) { Message.create user: user, hashtag: hashtag2, content: 'Asdasd2' }
 
-      page.all(:css, 'td a.glyphicon').each(&:click)
+      before :each do 
+        create_and_visit
+        page.all(:css, 'td a.glyphicon').each(&:click)
+      end
 
-      expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
+      it 'are in order' do
+        expect(find('.fav:first')).to have_content 'Asdasd'
+      end
+
+      it 'have timestamps formatted', js: true do
+        # is not do things
+        #expect(find('.fav')).to_not have_content message.timestamp
+      end
     end
   end
 
