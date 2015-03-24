@@ -22,7 +22,7 @@
       #feed onboard: header, tabs, hashtaglist
     %>
     <script>
-    var first_time = <%= current_user.first_time %>
+    var first_time = <%= !current_user.nil? ? current_user.first_time : false %>
     </script>
 
     <%= render 'layouts/feed_onboard' if current_page? '/feed' %>
