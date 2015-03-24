@@ -1,0 +1,18 @@
+<div class="container">
+	<h1>Your notifications</h1>
+
+	<% unless @notifications.nil? %>
+		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix col-md-12">
+			<% @notifications.each do |notif| %>
+				<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
+			<% end %>
+		</div>
+	<% end %>
+	<p class="empty-notif">
+	<% if current_user.notifications.unread_count == 0 %>
+		You don't have any new notifications.
+	<% end %>
+	</p>		
+</div>
+
+

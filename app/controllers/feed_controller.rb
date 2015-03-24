@@ -4,7 +4,7 @@ class FeedController < ApplicationController
   require 'tagcloud_logic'
   def index
     @user_tags = current_user.user_hashtags.includes(hashtag: :messages)
-      .order('user_hashtags.favourite desc', 'hashtags.updated_at desc')
+                 .order('user_hashtags.favourite desc', 'hashtags.updated_at desc')
 
     fav_user_tags = @user_tags.favourite.joins(hashtag: :messages).uniq
     @chats = fav_user_tags.map { |tag| tag.hashtag.messages.last(5) }

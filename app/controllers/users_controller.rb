@@ -1,10 +1,18 @@
 class UsersController < ApplicationController
-  before_action :require_non_production, only: [:index, :new, :create]
+  before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
 
   def index
     @users = User.all
+
+    respond_to do |format|
+      format.json do
+        render json: current_user.nil? ? 'Not logged in' : @users
+      end
+
+      format.html { require_non_production }
+    end
   end
 
   def new
@@ -22,17 +30,11 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.create(user_params)
+    session[:user_id] = @user.id
 
     respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @user, notice: 'User was successfully created.' }
     end
   end
 
@@ -43,6 +45,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePicture)
+    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :avatar)
   end
 end

@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_autolink'
 gem 'momentjs-rails'
+gem "paperclip", "~> 4.2"
 
 gem 'rb-readline'
 
@@ -23,6 +24,8 @@ group :doc do
 end
 
 gem 'bootstrap-sass', '= 3.3.3'
+gem 'twitter-typeahead-rails'
+
 gem 'faye-websocket'
 gem 'puma'
 gem 'masonry-rails'
@@ -33,6 +36,9 @@ gem 'omniauth-shibboleth'
 group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'
+
+  gem 'scss-lint'
+
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'

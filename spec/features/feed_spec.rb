@@ -97,7 +97,7 @@ RSpec.describe 'favourites page' do
 
     visit '/feed'
     page.all(:css, 'td a.glyphicon').each(&:click)
-    
+
     expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
   end
 
