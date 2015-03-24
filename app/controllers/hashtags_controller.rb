@@ -8,7 +8,7 @@ class HashtagsController < ApplicationController
   def index
     respond_to do |format|
       format.json { @hashtags = Hashtag.all }
-      format.html { redirect_to ass }
+      format.html { redirect_to root_path }
     end
   end
 
@@ -56,8 +56,9 @@ class HashtagsController < ApplicationController
 
     Notification.create notification_type: 1,
                         user_id: user_id,
-                        tricker_user_id: current_user.id,
-                        tricker_hashtag_id: params[:id]
+                        tricker_user: current_user,
+                        tricker_hashtag: @hashtag
+
     redirect_to @hashtag
   end
 
