@@ -15,7 +15,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_autolink'
 gem 'momentjs-rails'
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 4.2'
 
 gem 'rb-readline'
 
