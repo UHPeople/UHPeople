@@ -1,7 +1,8 @@
+require 'tagcloud_logic'
+
 class FeedController < ApplicationController
   before_action :require_login
-
-  require 'tagcloud_logic'
+  
   def index
     @user_tags = current_user.user_hashtags.includes(hashtag: :messages)
                  .order('user_hashtags.favourite desc', 'hashtags.updated_at desc')

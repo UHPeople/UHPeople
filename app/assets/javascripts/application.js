@@ -60,10 +60,10 @@ var ready = function() {
     });
   });
   
-
   $('span.timestamp').each(function() {
     var text = $(this).text();
-    $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
+    var timestamp = moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss');
+    $(this).text(timestamp);
   });
 };
 
