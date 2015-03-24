@@ -15,11 +15,21 @@ class TagcloudLogic
       find_duplicates(i, most_usrs, newest_msgs)
     end
 
+    set_weights(newest_msgs)
+    set_weights(most_new_users)
+    set_weights(most_usrs)
+
     newest_msgs.concat(most_new_users)
     newest_msgs.concat(most_usrs)
     newest_msgs.sort_by{|k|k[1]}
 
     return newest_msgs.first(20)
+  end
+
+  def set_weights(tag)
+    for j in 0..(tag.length-1)
+      tag[j][1] = 30-j
+    end
   end
 
   def make_arrays(most_new_users, most_usrs, newest_msgs)
@@ -45,15 +55,15 @@ class TagcloudLogic
 
   def make_cloud(tag_array)
     word_array = []
-    for i in 0..(tag_array.size-1)
-      word_array.push({text: tag_array[i][0], weight: tag_array[i][1], link: "/hashtags/#{tag_array[i][2]}"})
+    tag_array.each do |tag|
+      word_array.push({text: tag[0], weight: tag[1], link: "/hashtags/#{tag[2]}"})
     end
     return word_array
   end
 
-  def sort_and_first(tosort)
-    tosort.sort_by{|k|k[1]}
-    tosort.first(30)
+  def sort_and_first(to_sort)
+    to_sort = to_sort.sort_by{|k| k[1]}.reverse!
+    to_sort.first(30)
   end
 
 end
