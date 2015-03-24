@@ -42,7 +42,7 @@ var ready = function() {
   	$(this).toggleClass("glyphicon-star");
   });
 
-  $('.alert .close').on("click", function(e) {
+  $('.alert .close').click(function(e) {
     //$(this).parent().remove();
     var box = $('.alert .close').first().parent().get(0).id;
     $.post( "notifications/" + box);

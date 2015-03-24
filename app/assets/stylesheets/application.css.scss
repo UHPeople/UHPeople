@@ -286,8 +286,9 @@ div.sidebar-nav li.online a::before {
 /* navbar notification link */
 
 .navbar-inverse .navbar-nav > li > .notif-link{
-	padding-left: 0;
-	padding-right: 0;
+	width: 30px;
+	padding-left: 0px;
+	padding-right: 0px;
 	padding-top: 1px !important;
 }
 .navbar-inverse .navbar-nav > li > .notif-link > .notif-count{
