@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="1">
   <div role="tabpanel " class="col-md-offset-1 col-md-8 col-lg-offset-1 col-lg-7">
 
     <!-- Nav tabs -->
@@ -20,6 +20,17 @@
       </div>
     </div> 
   </div>
-
   <%= render 'hashtaglist' %>
 </div>
+
+  <%= render 'onboard' %>
+
+  <script type="text/javascript">
+    $(window).load(function() {
+      $('#joy').joyride({
+        autoStart : true,
+        modal:true,
+        expose: true
+      });
+    });
+  </script>

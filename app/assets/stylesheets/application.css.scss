@@ -8,6 +8,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "joyride/joyride-2.1";
 
 @import 'font-gotham';
 
@@ -297,7 +298,7 @@ div.sidebar-nav li.online a::before {
 }
 .navbar-inverse .navbar-nav > li > .notif-link:hover, 
 .navbar-inverse .navbar-nav > li > .notif-link:focus {
-	color:#00F4F2 !important;
+	color:#E2E274 !important;
 }
 a.notif-link:hover{
 	color:#FFFFFF;

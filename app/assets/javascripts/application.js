@@ -14,6 +14,7 @@
 
 //= require moment
 //= require twitter/typeahead
+//= require joyride/jquery.joyride-2.1
 
 //= require_tree .
 
