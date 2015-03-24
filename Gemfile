@@ -15,6 +15,7 @@ gem 'jbuilder', '~> 2.0'
 
 gem 'rails_autolink'
 gem 'momentjs-rails'
+gem "paperclip", "~> 4.2"
 
 gem 'rb-readline'
 
@@ -35,6 +36,9 @@ gem 'omniauth-shibboleth'
 group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'
+
+  gem 'scss-lint'
+
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
@@ -56,3 +60,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'codeclimate-test-reporter', require: false
 end
+
+gem 'jqcloud-rails'

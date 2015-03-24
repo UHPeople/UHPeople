@@ -24,3 +24,6 @@ coverage/*
 
 # Ignore compiled js, css
 public/assets/*
+
+# Ignore user avatars
+public/system/*

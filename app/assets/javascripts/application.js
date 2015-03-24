@@ -12,6 +12,7 @@
 //= require masonry/box-maker
 //= require masonry/jquery.loremimages.min
 
+//= require jqcloud
 //= require moment
 //= require twitter/typeahead
 //= require joyride/jquery.joyride-2.1

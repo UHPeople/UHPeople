@@ -97,7 +97,7 @@ RSpec.describe 'favourites page' do
 
     visit '/feed'
     page.all(:css, 'td a.glyphicon').each(&:click)
-    
+
     expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
   end
 
@@ -105,10 +105,30 @@ RSpec.describe 'favourites page' do
     hashtag2 = Hashtag.create tag: 'asd2000'
     Message.create user: user, hashtag: hashtag2, content: 'Asdasd2'
     create_and_visit
-    
+
     page.all(:css, 'td a.glyphicon').each(&:click)
 
     expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
+  end
+
+  it 'has tagcloud', js: true do
+    hashtag2 = Hashtag.create tag: 'cloudtag'
+    Message.create user: user, hashtag: hashtag2, content: 'Asdasd2'
+    visit '/feed'
+    expect(find('span#tag_cloud_word_0')).to have_content 'cloudtag'
+  end
+
+  it 'has tagcloud with hottest tag biggest', js: true do
+    hashtag2 = Hashtag.create tag: 'cloudtag'
+    Message.create user: user, hashtag: hashtag2, content: 'Asdasd2'
+    visit '/feed'
+    expect(find('span#tag_cloud_word_0')).to have_content 'cloudtag'
+    hashtag3 = Hashtag.create tag: 'cloudtag2'
+    Message.create user: user, hashtag: hashtag3, content: 'Asdasd3'
+    Message.create user: user, hashtag: hashtag3, content: 'Asdasd4'
+    Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
+    visit '/feed'
+    expect(find('span#tag_cloud_word_0')).to have_content 'cloudtag2'
   end
 end
 
