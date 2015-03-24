@@ -66,6 +66,24 @@ var ready = function() {
     var text = $(this).text();
     $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
   });
+    //Onboarding for feed page
+  if(first_time){
+    $(window).load(function() {
+      if(window.location.pathname == "/feed"){
+
+        $('#joy').joyride({
+          autoStart : true,
+          modal:true,
+          expose: true
+        });
+      }
+    });
+  }
+  //HashCloud 
+  $(function() {
+    $("#tag_cloud").jQCloud(word_array);
+  });
+
 };
 
 $(document).ready(ready);

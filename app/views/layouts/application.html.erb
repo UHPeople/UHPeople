@@ -5,17 +5,29 @@
     <meta name="description" content="UHPeople">
     <title>UHPeople</title>
 
-    <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <header>
+    <header id="help1">
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+
+    <% 
+      #onboarding #help1
+      #feed onboard: header, tabs, hashtaglist
+    %>
+    <script>
+    var first_time = <%= current_user.first_time %>
+    </script>
+
+    <%= render 'layouts/feed_onboard' if current_page? '/feed' %>
+
+   
   </body>
+  <%= javascript_include_tag 'application' %>
 </html>
