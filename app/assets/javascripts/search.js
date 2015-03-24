@@ -10,7 +10,7 @@ var hashtags = new Bloodhound({
   prefetch: '/hashtags/'
 });
 
-$(document).ready(function() { 
+$(document).ready(function() {
   users.initialize();
   hashtags.initialize();
 
@@ -34,5 +34,18 @@ $(document).ready(function() {
     templates: {
       header: '<h3>Users</h3>'
     }
+  });
+});
+
+$(document).ready(function() {
+  users.initialize();
+
+  $('.typeahead-invite').typeahead({
+    highlight: true
+  },
+  {
+    name: 'users',
+    displayKey: 'name',
+    source: users.ttAdapter(),
   });
 });
