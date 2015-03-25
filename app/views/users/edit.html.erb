@@ -1,1 +1,53 @@
-<%= render 'form' %>
+<div class="container">
+  <div class="col-sm-4">
+    <%= image_tag @user.avatar.url(:medium), class: "profileCrop well" %>
+  </div>
+
+  <div class="col-sm-5">
+    <%= form_for @user, html: { :multipart => true } do |f| %>
+        <% if @user.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
+
+              <ul>
+                <% @user.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.label :name %><br>
+          <%= @user.name %>
+        </div>
+        <div class="field">
+          <%= f.label :title %><br>
+          <%= f.text_field :title, :class => "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :email %><br>
+          <%= f.text_field :email, :class => "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :campus %><br>
+          <%= f.text_field :campus, :class => "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :unit %><br>
+          <%= f.text_field :unit, :class => "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :about %><br>
+          <%= f.text_area :about, size: "60x8", :class => "form-control" %>
+        </div>
+        <div class="field">
+          <%= f.label :avatar %><br>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class="actions">
+          <%= f.button :Update,  :class => 'btn btn-primary' %>
+        </div>
+    <% end %>
+  </div>
+</div> <!-- /container -->
