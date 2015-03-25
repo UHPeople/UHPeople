@@ -33,5 +33,12 @@ RSpec.describe Hashtag do
 
       expect(page).to have_content 'Join'
     end
+
+    it 'has invitation box' do
+      fill_in 'user', with: user.name
+      click_button 'Invite'
+
+      expect(find('.notif-count')).to have_content '1'
+    end
   end
 end

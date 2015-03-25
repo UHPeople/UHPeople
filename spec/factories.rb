@@ -1,3 +1,5 @@
+include ActionDispatch::TestProcess
+
 FactoryGirl.define do
   factory :user do
     name 'asd asd'
@@ -7,6 +9,7 @@ FactoryGirl.define do
     unit 'Maametsis'
     about 'abouttest!!212'
     first_time false
+    avatar { fixture_file_upload(Rails.root.join('spec', 'test.png'), 'image/png') }
   end
 
   factory :hashtag do
@@ -14,8 +17,6 @@ FactoryGirl.define do
   end
 
   factory :message do
-    user
-    hashtag
     content 'Hello World!'
   end
 end

@@ -16,14 +16,22 @@ RSpec.describe Hashtag do
       expect(page).to have_content 'Send'
     end
 
-    it 'has related messages' do
-      FactoryGirl.create(:message, user: user, hashtag: hashtag)
-      visit "/hashtags/#{hashtag.id}"
+    context 'messages' do
+      before :each do
+        FactoryGirl.create(:message, user: user, hashtag: hashtag)
+        visit "/hashtags/#{hashtag.id}"
+      end
 
-      expect(page).to have_content 'Hello World!'
+      it 'have content' do
+        expect(page).to have_content 'Hello World!'
+      end
+
+      it 'have a thumbnail' do
+        expect(find('.avatar-45')).to have_content ''
+      end
     end
 
-    it 'can send a message', js: true do
+    it 'can send a message', type: :feature, js: true do
       visit "/hashtags/#{hashtag.id}"
 
       fill_in('input-text', with: 'Hello world!')

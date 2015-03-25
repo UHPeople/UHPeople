@@ -33,7 +33,8 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-
+        env['chat.notification_callback'] = proc { |user| notification_callback(user) }
+        
         @app.call(env)
       end
     end
@@ -45,6 +46,11 @@ module UHPeople
       broadcast(JSON.generate(json), hashtag.id)
     end
 
+    def notification_callback(user)
+      json = { 'event': 'notification' }
+      send(JSON.generate(json), user)
+    end
+
     def send_error(socket, error)
       json = { 'event': 'error', 'content': error }
       socket.send(JSON.generate(json))
@@ -52,9 +58,9 @@ module UHPeople
 
     def graceful_find(type, id, socket)
       type.find(id)
-    rescue ActiveRecord::RecordNotFound
-      send_error socket, "Invalid #{type} id"
-      return
+      rescue ActiveRecord::RecordNotFound
+        send_error socket, "Invalid #{type} id"
+        return
     end
 
     def feed_event(user, socket)
