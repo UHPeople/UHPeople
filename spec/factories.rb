@@ -16,8 +16,6 @@ FactoryGirl.define do
   end
 
   factory :message do
-    user
-    hashtag
     content 'Hello World!'
   end
 end

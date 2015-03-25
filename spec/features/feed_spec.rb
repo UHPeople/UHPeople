@@ -99,7 +99,7 @@ RSpec.describe 'Feed page' do
       let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
       let!(:message) { Message.create user: user, hashtag: hashtag2, content: 'Asdasd2' }
 
-      before :each do 
+      before :each do
         create_and_visit
         page.all(:css, 'td a.glyphicon').each(&:click)
       end
@@ -132,7 +132,7 @@ RSpec.describe 'Feed page' do
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd3'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd4'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
-    
+
     visit '/feed'
     expect(find('span.w10')).to have_content 'cloudtag2'
   end

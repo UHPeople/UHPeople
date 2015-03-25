@@ -76,7 +76,7 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id)
+    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id, :cover_photo)
   end
 
   def topic_updater
