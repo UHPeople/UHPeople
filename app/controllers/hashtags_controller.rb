@@ -65,6 +65,8 @@ class HashtagsController < ApplicationController
 
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
+  rescue
+    redirect_to root_path
   end
 
   def user_has_tag
@@ -72,7 +74,7 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id)
+    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id, :cover_photo)
   end
 
   def topic_updater

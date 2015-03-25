@@ -85,6 +85,7 @@ $timestamp-color: #aba7a9;
 
   h1 {
     color: #00ACAE;
+    text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
   }
 
   div {
@@ -94,6 +95,10 @@ $timestamp-color: #aba7a9;
   footer {
     color: #B2AEB1;
   }
+
+  background-position: center;
+  /* Make the background image cover the area of the <div>, and clip the excess */
+  background-size: cover;
 }
 
 

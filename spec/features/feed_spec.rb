@@ -48,7 +48,6 @@ RSpec.describe 'Feed page' do
   it 'redirects to favourites tab when changing favourites', js: true do
     create_and_visit
     find('td a.glyphicon').click
-
     expect(URI.parse(page.current_url).fragment).to eq 'favourites'
   end
 end
