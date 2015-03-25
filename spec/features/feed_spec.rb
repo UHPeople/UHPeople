@@ -127,7 +127,7 @@ RSpec.describe 'Feed page' do
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
     
     visit '/feed'
-    expect(find('span#tag_cloud_word_0')).to have_content 'cloudtag2'
+    expect(find('span.w1')).to have_content 'cloudtag2'
   end
 end
 

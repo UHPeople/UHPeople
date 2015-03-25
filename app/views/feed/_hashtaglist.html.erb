@@ -15,13 +15,11 @@
     </table>
   <% end %>
 
-  <% cache 'cloud', expires_in:30.minutes do %>
-      <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
-      <script type="text/javascript">
-          var word_array = <%= raw @word_array.to_json %>
-              $(function() {
-                  $("#tag_cloud").jQCloud(word_array);
-              });
-      </script>
-  <% end %>
+  <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
+  <script type="text/javascript">
+      var word_array = <%= raw @word_array.to_json %>
+          $(function() {
+              $("#tag_cloud").jQCloud(word_array);
+          });
+  </script>
 </div>

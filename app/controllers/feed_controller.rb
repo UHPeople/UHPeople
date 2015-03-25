@@ -16,7 +16,7 @@ class FeedController < ApplicationController
                 .order(created_at: :desc).limit(20)
 
     cloud = TagcloudLogic.new
-    Rails.cache.write('hashtag_cloud', cloud.make_cloud(cloud.touch_cloud))
-    @word_array = Rails.cache.read 'hashtag_cloud'
+    # Rails.cache.write('hashtag_cloud', cloud.make_cloud(cloud.touch_cloud))
+    @word_array = cloud.make_cloud(cloud.touch_cloud) # Rails.cache.read 'hashtag_cloud'
   end
 end
