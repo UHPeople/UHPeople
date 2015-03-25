@@ -42,6 +42,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def set_first_time_use
+    current_user.update_attribute(:first_time, false)
+    redirect_to notifications_path
+  end 
+
   private
 
   def set_user

@@ -130,8 +130,7 @@
             settings.$document.on('click.joyride', '.joyride-close-tip', function (e) {
               e.preventDefault();
               /*This is gointo be place for ajax post current_user.first_time = false */
-
-
+              $.post( "firsttime");
               methods.end(true /* isAborted */);
             });
 
