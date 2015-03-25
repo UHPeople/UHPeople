@@ -9,7 +9,7 @@
     <%= csrf_meta_tags %>
     <script>
       var first_time = <%= !current_user.nil? ? current_user.first_time : false %>;
-      var new_user_path = "<%= edit_user_path(current_user) %>";
+      var new_user_path = '#{<%= !current_user.nil? ? edit_user_path(current_user) : false %>}';
     </script>
   </head>
   <body>

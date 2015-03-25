@@ -6,6 +6,7 @@ FactoryGirl.define do
     campus 'Viikki'
     unit 'Maametsis'
     about 'abouttest!!212'
+    first_time false
   end
 
   factory :hashtag do
