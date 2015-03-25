@@ -116,18 +116,24 @@ RSpec.describe 'Feed page' do
   end
 
   it 'has tagcloud', js: true do
+    Rails.cache.clear
+
     create_and_visit
     expect(find('span#tag_cloud_word_0')).to have_content 'avantouinti'
   end
 
   it 'has tagcloud with hottest tag biggest', js: true do
+    Rails.cache.clear
+
     hashtag3 = Hashtag.create tag: 'cloudtag2'
+    user.hashtags << hashtag3
+    user.save
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd3'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd4'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
     
     visit '/feed'
-    expect(find('span.w1')).to have_content 'cloudtag2'
+    expect(find('span.w10')).to have_content 'cloudtag2'
   end
 end
 
