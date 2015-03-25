@@ -52,9 +52,9 @@ module UHPeople
 
     def graceful_find(type, id, socket)
       type.find(id)
-    rescue ActiveRecord::RecordNotFound
-      send_error socket, "Invalid #{type} id"
-      return
+      rescue ActiveRecord::RecordNotFound
+        send_error socket, "Invalid #{type} id"
+        return
     end
 
     def feed_event(user, socket)

@@ -42,7 +42,8 @@ add_message = (data) ->
   timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
 
   $('.chatbox').append '<div class="panel-body">' +
-    '<a href="/users/' + data.user + '" class="avatar-link"><img class="avatar-45" src=""></img></a>' +
+    '<a href="/users/' + data.user + '" class="avatar-link">' +
+      '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
       '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
        '<span class="timestamp">' + timestamp + '</span></h5><p>' +
         data.content + '</div></div>'
