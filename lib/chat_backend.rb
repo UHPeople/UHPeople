@@ -33,7 +33,8 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-
+        env['chat.notification_callback'] = proc { |user| notification_callback(user) }
+        
         @app.call(env)
       end
     end
@@ -43,6 +44,11 @@ module UHPeople
     def hashtag_callback(event, user, hashtag)
       json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
       broadcast(JSON.generate(json), hashtag.id)
+    end
+
+    def notification_callback(user)
+      json = { 'event': 'notification' }
+      send(JSON.generate(json), user)
     end
 
     def send_error(socket, error)

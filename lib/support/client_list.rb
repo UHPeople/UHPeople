@@ -7,6 +7,10 @@ module ClientList
     @clients.each { |client| client.send(json) if client.hashtags.include? hashtag }
   end
 
+  def send(json, user)
+    @clients.each { |client| client.send(json) if client.user == user }
+  end
+
   def remove_client(socket)
     client = @clients.find { |client| client.socket == socket }
     hashtags = client.hashtags

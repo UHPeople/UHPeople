@@ -59,6 +59,7 @@ class HashtagsController < ApplicationController
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
+    request.env['chat.notification_callback'].call(user_id)
     redirect_to @hashtag
   end
 
