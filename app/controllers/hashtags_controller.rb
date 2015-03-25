@@ -8,7 +8,7 @@ class HashtagsController < ApplicationController
   def index
     respond_to do |format|
       format.json { @hashtags = Hashtag.all }
-      format.html { redirect_to ass }
+      format.html { redirect_to root_path }
     end
   end
 
@@ -56,8 +56,10 @@ class HashtagsController < ApplicationController
 
     Notification.create notification_type: 1,
                         user_id: user_id,
-                        tricker_user_id: current_user.id,
-                        tricker_hashtag_id: params[:id]
+                        tricker_user: current_user,
+                        tricker_hashtag: @hashtag
+
+    request.env['chat.notification_callback'].call(user_id)
     redirect_to @hashtag
   end
 
@@ -65,8 +67,8 @@ class HashtagsController < ApplicationController
 
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
-  rescue
-    redirect_to root_path
+    rescue
+      redirect_to root_path
   end
 
   def user_has_tag

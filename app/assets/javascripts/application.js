@@ -49,8 +49,9 @@ var ready = function() {
     $.post( "notifications/" + box);
     $('#masonry-container').masonry('remove', $(this).parent(".box"));
     $('#masonry-container').masonry();
+
     $( ".notif-count" ).text(function(i, t) {
-      if (t>1){
+      if (t > 1){
         return Number(t) - 1;
       } else {
         $( ".notif-icon" ).css("color", "#9D9D9D");
@@ -60,11 +61,13 @@ var ready = function() {
     });
   });
   
-
   $('span.timestamp').each(function() {
     var text = $(this).text();
-    $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
+    var timestamp = moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss');
+    $(this).text(timestamp);
   });
+
+  $("#tag_cloud").jQCloud(word_array);
 };
 
 $(document).ready(ready);

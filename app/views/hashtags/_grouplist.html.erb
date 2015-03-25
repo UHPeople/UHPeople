@@ -1,12 +1,12 @@
 <div class="well sidebar-nav">
   <% if @user_has_tag %>
-    <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, :class => "btn btn-danger" %>
-  <% else %>  
-    <%= link_to 'Join', join_path(id: @hashtag), method: :post, :class => "btn btn-success" %> 
+    <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, class: 'btn btn-danger' %>
+  <% else %>
+    <%= link_to 'Join', join_path(id: @hashtag), method: :post, class: 'btn btn-success' %> 
   <% end %>
 
   <% if @user_has_tag %>
-    <%= link_to @topic_button_text , "#", :class=>"lead btn btn-default", :onclick=>"$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+    <%= link_to @topic_button_text , '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
   <% end %>
 
   <h3>Members</h3>
@@ -16,14 +16,13 @@
     <% end %>
   </ul>
 
-  <h3>Invite</h3>
-  <%= form_tag({controller: "hashtags", action: "invite"}, method: "post") do %>
-    <div class="field">
-      <%= text_field_tag :user %>
-    </div>
+  <% if @user_has_tag %>
+    <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', remote: true) do %>
+      <%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
 
-    <div class="actions">
-      <%= submit_tag("Send invitation!", class: "btn btn-info") %>
-    </div>
+      <div style="width: 0; height: 0; overflow: hidden;">
+        <%= submit_tag('Invite', class: 'btn btn-primary') %>
+      </div>
+    <% end %>
   <% end %>
 </div>

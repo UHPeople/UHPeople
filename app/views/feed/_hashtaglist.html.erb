@@ -1,25 +1,22 @@
 <% backurl = '#favourites' %>
 
 <div class="col-md-3">
-  <h2>Interests</h2>
-  <table class="table table-hover">
-    <% @user_tags.each do |tag| %>
-        <tr>
-          <td>
-            <%= link_to "#"+tag.hashtag.tag, tag.hashtag, id: tag.hashtag.id %>
-            <%= link_to "", {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
-          </td>
-        </tr>
-    <% end %>
-  </table>
-
-  <% cache 'cloud', expires_in:30.minutes do %>
-      <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
-      <script type="text/javascript">
-          var word_array = <%= raw @word_array.to_json %>
-              $(function() {
-                  $("#tag_cloud").jQCloud(word_array);
-              });
-      </script>
+  <% unless @user_tags.empty? %>
+    <h2>Interests</h2>
+    <table class="table table-hover">
+      <% @user_tags.each do |tag| %>
+          <tr>
+            <td>
+              <%= link_to '#'+tag.hashtag.tag, tag.hashtag, id: tag.hashtag.id %>
+              <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
   <% end %>
+
+  <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
+  <script type="text/javascript">
+    var word_array = <%= raw @word_array.to_json %>
+  </script>
 </div>

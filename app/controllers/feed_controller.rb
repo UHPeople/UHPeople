@@ -1,7 +1,8 @@
+require 'tagcloud_logic'
+
 class FeedController < ApplicationController
   before_action :require_login
-
-  require 'tagcloud_logic'
+  
   def index
     @user_tags = current_user.user_hashtags.includes(hashtag: :messages)
                  .order('user_hashtags.favourite desc', 'hashtags.updated_at desc')
@@ -14,8 +15,13 @@ class FeedController < ApplicationController
                 .where(hashtag: tags)
                 .order(created_at: :desc).limit(20)
 
-    cloud = TagcloudLogic.new
-    Rails.cache.write('hashtag_cloud', cloud.make_cloud(cloud.touch_cloud))
-    @word_array = Rails.cache.read 'hashtag_cloud'
+    @word_array = cloud_cache
+  end
+
+  def cloud_cache
+    Rails.cache.fetch('hashtag_cloud', expires_in: 30.minutes) do
+      cloud = TagcloudLogic.new
+      cloud.make_cloud(cloud.touch_cloud)
+    end
   end
 end
