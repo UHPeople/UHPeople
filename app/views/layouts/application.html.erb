@@ -5,7 +5,6 @@
     <meta name="description" content="UHPeople">
     <title>UHPeople</title>
 
-    <%= javascript_include_tag 'application' %>
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
   </head>
@@ -17,5 +16,7 @@
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+
+    <%= javascript_include_tag 'application' %>
   </body>
 </html>

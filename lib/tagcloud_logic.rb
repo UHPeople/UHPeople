@@ -1,6 +1,7 @@
 class TagcloudLogic
   def touch_cloud
-    hashtags = Hashtag.all.map { |tag| [tag.tag, score(tag), tag.id] }
+    hashtags = Hashtag.joins(:user_hashtags).includes(:messages, :user_hashtags)
+              .all.map { |tag| [tag.tag, score(tag), tag.id] }
     top(hashtags)
   end
 

@@ -15,8 +15,13 @@ class FeedController < ApplicationController
                 .where(hashtag: tags)
                 .order(created_at: :desc).limit(20)
 
-    cloud = TagcloudLogic.new
-    # Rails.cache.write('hashtag_cloud', cloud.make_cloud(cloud.touch_cloud))
-    @word_array = cloud.make_cloud(cloud.touch_cloud) # Rails.cache.read 'hashtag_cloud'
+    @word_array = cloud_cache
+  end
+
+  def cloud_cache
+    Rails.cache.fetch('hashtag_cloud', expires_in: 30.minutes) do
+      cloud = TagcloudLogic.new
+      cloud.make_cloud(cloud.touch_cloud)
+    end
   end
 end

@@ -66,6 +66,8 @@ var ready = function() {
     var timestamp = moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss');
     $(this).text(timestamp);
   });
+
+  $("#tag_cloud").jQCloud(word_array);
 };
 
 $(document).ready(ready);
