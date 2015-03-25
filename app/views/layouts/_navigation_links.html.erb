@@ -1,6 +1,6 @@
-<li><%= link_to "Home", root_path, class:"hidden-sm" %></li>
+<li><%= link_to "Home", root_path, class:"hidden-sm", id:"feed-onboard-home" %></li>
 <li>
-	<a href="<%= notifications_path %>" style="<%='color:#FFDB00' if current_user.notifications.unread_count > 0 %>" class="notif-link">
+	<a href="<%= notifications_path %>" style="<%='color:#FFDB00' if current_user.notifications.unread_count > 0 %>" class="notif-link feed-onboard-notif">
 		<span class="notif-icon glyphicon glyphicon-asterisk"></span>
 		<span class="notif-count">
 			<%= current_user.notifications.unread_count if current_user.notifications.unread_count > 0 %>

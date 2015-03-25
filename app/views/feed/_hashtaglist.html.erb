@@ -1,7 +1,7 @@
 <% backurl = '#favourites' %>
 
 <div class="col-md-3">
-  <h2>Interests</h2>
+  <h2 id="feed-onboard-interest">Interests</h2>
   <table class="table table-hover">
     <% @user_tags.each do |tag| %>
         <tr>
@@ -13,7 +13,7 @@
     <% end %>
   </table>
 
-  <div id="help4"></div>
+  <div id="feed-onboard-hot"></div>
   <% cache 'cloud', expires_in:30.minutes do %>
       <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
       <script type="text/javascript">

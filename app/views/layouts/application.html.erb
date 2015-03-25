@@ -7,9 +7,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
+    <script>
+      var first_time = <%= !current_user.nil? ? current_user.first_time : false %>;
+      var new_user_path = "<%= edit_user_path(current_user) %>";
+    </script>
   </head>
   <body>
-    <header id="help1">
+    <header id="feed-onboard-header">
       <%= render 'layouts/navigation' %>
     </header>
     <main role="main">
@@ -19,14 +23,15 @@
 
     <% 
       #onboarding #help1
+      #new user onboard:
       #feed onboard: header, tabs, hashtaglist
+      #hashtag onboard:
     %>
-    <script>
-    var first_time = <%= !current_user.nil? ? current_user.first_time : false %>
-    </script>
 
-    <%= render 'layouts/feed_onboard' if current_page? '/feed' %>
-
+    <% if !current_user.nil? && current_user.first_time %>
+      <%= render 'onboards/feed_onboard' if  current_page?(feed_index_path) %>
+      <%= render 'onboards/new_user_onboard' if current_page?(edit_user_path(current_user)) %>
+    <% end %>
    
   </body>
   <%= javascript_include_tag 'application' %>

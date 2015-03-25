@@ -66,12 +66,28 @@ var ready = function() {
     var text = $(this).text();
     $(this).text(moment.utc(text).local().format('MMMM Do YYYY, H:mm:ss'));
   });
-    //Onboarding for feed page
+  
+  //Onboarding
   if(first_time){
     $(window).load(function() {
-      if(window.location.pathname == "/feed"){
 
-        $('#joy').joyride({
+      if(window.location.pathname.indexOf("feed") > -1){
+
+        $('#feed-onboard').joyride({
+          autoStart : true,
+          modal:true,
+          expose: true
+        });
+      } else if(window.location.pathname.indexOf("edit") > -1){
+
+        $('#new-user-onboard').joyride({
+          autoStart : true,
+          modal:true,
+          expose: true
+        });
+      } else if(window.location.pathname.indexOf("hashtag") > -1){
+
+        $('#hashtag-onboard').joyride({
           autoStart : true,
           modal:true,
           expose: true
