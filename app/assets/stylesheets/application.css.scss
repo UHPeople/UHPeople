@@ -331,6 +331,8 @@ a.notif-link:hover{
 }
 
 // Autocomplete
+.navbar-left,
+.navbar-form,
 .typeahead-invite,
 .typeahead,
 .tt-query,
@@ -348,9 +350,9 @@ a.notif-link:hover{
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
 
-  -webkit-border-radius: 8px;
-     -moz-border-radius: 8px;
-          border-radius: 8px;
+  -webkit-border-radius: 2px;
+     -moz-border-radius: 2px;
+          border-radius: 2px;
           
   -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
      -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
