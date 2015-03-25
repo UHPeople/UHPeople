@@ -31,7 +31,7 @@ RSpec.describe Hashtag do
       end
     end
 
-    it 'can send a message', js: true do
+    it 'can send a message', type: :feature, js: true do
       visit "/hashtags/#{hashtag.id}"
 
       fill_in('input-text', with: 'Hello world!')

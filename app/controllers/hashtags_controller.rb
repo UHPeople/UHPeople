@@ -67,6 +67,8 @@ class HashtagsController < ApplicationController
 
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
+    rescue
+      @hashtag = Hashtag.new
   end
 
   def user_has_tag
