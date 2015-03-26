@@ -26,6 +26,8 @@ module UHPeople
 
     config.middleware.use UHPeople::ChatBackend
 
+    config.exceptions_app = self.routes
+
     # Configure these for smtp
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
