@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root 'frontpage#index'
 
+  match "/404", :to => "errors#not_found", via: :all
+  match "/422", :to => "errors#unacceptable", via: :all
+  match "/500", :to => "errors#internal_error", via: :all
+
   get 'login', to: 'user#index'
 
   resources :hashtags, only: [:index, :show, :create, :update]
@@ -26,7 +30,4 @@ Rails.application.routes.draw do
   post 'notifications/:id', to: 'notifications#update', via: 'post'
   post 'firsttime', to: 'users#set_first_time_use', as: 'first_time'
 
-  %w( 404 422 500 ).each do |code|
-    get code, to: 'errors#show', code: code
-  end
 end

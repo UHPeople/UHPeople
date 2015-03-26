@@ -1,13 +1,16 @@
 class ErrorsController < ApplicationController
  
-  def show
-    render status_code.to_s, :status => status_code
+   def not_found
+    render :status => 404
   end
  
-protected
- 
-  def status_code
-    params[:code] || 500
+  def unacceptable
+    render :status => 422
   end
+ 
+  def internal_error
+    render :status => 500
+  end
+
  
 end
