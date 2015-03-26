@@ -1,26 +1,23 @@
 <div class="jumbotron" style="background-image: url(<%=@hashtag.cover_photo.url%>);">
   <div class="container text-center">
-    <% if notice %>
-    <% end %>
-
     <h1>#<%= @hashtag.tag %></h1>
     <p class="lead">
       <%= @hashtag.topic %>
       <% if @hashtag.topic_updater_id and not @hashtag.topic.blank? %>
         <footer>Updated by: <cite><%= @topicker.name %></cite></footer>
-      <% end -%>
+      <% end %>
     </p> 
 
     <% if @user_has_tag %>
       <div id="target" class="hidden">
-        <%= form_for @hashtag, html: { multipart: true } do |f| %>
+        <%= form_for @hashtag, url: { tag: @hashtag.tag }, html: { multipart: true } do |f| %>
           <div class="form-group">
-            <%= f.text_area :topic, value: @hashtag.topic, :class=>'form-control input-large', :id=>'topic' %>
+            <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
             <%= f.file_field :cover_photo, label: 'Upload cover photo:', id: 'cover_photo' %>
-            <%= f.hidden_field :topic_updater_id, value: current_user.id, :id=>'topic_updater_id' %>
+            <%= f.hidden_field :topic_updater_id, value: current_user.id, id: 'topic_updater_id' %>
           </div>
-          <%= f.submit value: "Update", :class=>'btn btn-sm btn-primary' %>
-        <%end%>
+          <%= f.submit value: "Update", class: 'btn btn-sm btn-primary' %>
+        <% end %>
       </div>
     <% end %>
   </div> 

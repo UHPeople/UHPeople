@@ -11,7 +11,7 @@ add_message = (data) ->
       '<a href="/users/' + data.user + '" class="avatar-link">' +
       '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
       '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-        '<a href="/hashtags/' + data.hashtag + '">' + hashtag_name + '</a>' +
+        '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
         '<span class="timestamp">' + timestamp + '</span></h5><p>' + data.content + '</p></div></div>'
 
   $('div.panel.fav#box-' + data.hashtag).append '<div class="panel-body fav"><div class="favourites_chat_box"><div class="message"><p>' +

@@ -25,13 +25,13 @@ class HashtagsController < ApplicationController
   def join
     current_user.hashtags << @hashtag
     request.env['chat.join_callback'].call(current_user, @hashtag)
-    redirect_to @hashtag
+    redirect_to hashtag_path(@hashtag.tag)
   end
 
   def leave
     current_user.hashtags.destroy(@hashtag)
     request.env['chat.leave_callback'].call(current_user, @hashtag)
-    redirect_to @hashtag
+    redirect_to hashtag_path(@hashtag.tag)
   end
 
   def update
@@ -47,7 +47,7 @@ class HashtagsController < ApplicationController
 
     if @hashtag.save
       current_user.hashtags << @hashtag
-      redirect_to @hashtag
+      redirect_to hashtag_path(@hashtag.tag)
     end
   end
 
@@ -60,13 +60,13 @@ class HashtagsController < ApplicationController
                         tricker_hashtag: @hashtag
 
     request.env['chat.notification_callback'].call(user_id)
-    redirect_to @hashtag
+    redirect_to hashtag_path(@hashtag.tag)
   end
 
   private
 
   def set_hashtag
-    @hashtag = Hashtag.find(params[:id])
+    @hashtag = Hashtag.find_by(tag: params[:tag])
     rescue
       redirect_to root_path
   end

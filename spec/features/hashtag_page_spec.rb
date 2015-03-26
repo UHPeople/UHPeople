@@ -7,7 +7,7 @@ RSpec.describe Hashtag do
 
     before :each do
       visit "/login/#{user.id}"
-      visit "/hashtags/#{hashtag.id}"
+      visit "/hashtags/#{hashtag.tag}"
       click_link 'Join'
     end
 

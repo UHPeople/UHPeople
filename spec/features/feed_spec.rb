@@ -6,7 +6,7 @@ RSpec.describe 'Feed page' do
 
   before :each do
     visit "/login/#{user.id}"
-    visit "/hashtags/#{hashtag.id}"
+    visit "/hashtags/#{hashtag.tag}"
     click_link 'Join'
   end
 
@@ -38,7 +38,7 @@ RSpec.describe 'Feed page' do
     end
 
     it "doesn't have groups title if no hashtags" do
-      visit "/hashtags/#{hashtag.id}"
+      visit "/hashtags/#{hashtag.tag}"
       click_link 'Leave'
       visit '/feed'
 
@@ -85,7 +85,7 @@ RSpec.describe 'Feed page' do
     it 'wont let add more than 5 favourites' do
       for i in 1..5
         hashtag =  FactoryGirl.create(:hashtag, tag: i)
-        visit "/hashtags/#{hashtag.id}"
+        visit "/hashtags/#{hashtag.tag}"
         click_link 'Join'
       end
 

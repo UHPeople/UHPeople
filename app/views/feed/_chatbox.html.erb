@@ -2,7 +2,7 @@
   <div class="panel panel-default fav" id="box-<%= chat.first.hashtag.id %>">
     <div class="panel-heading">
       <h2 class="panel-title">
-        <%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %>
+        <%= link_to "#"+chat.first.hashtag.tag, hashtag_path(chat.first.hashtag.tag) %>
       </h2>
     </div>
 
