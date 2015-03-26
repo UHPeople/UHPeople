@@ -12,7 +12,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
-
+gem 'twitter-bootstrap-rails-confirm'
 gem 'rails_autolink'
 gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
