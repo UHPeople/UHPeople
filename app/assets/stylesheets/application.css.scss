@@ -13,10 +13,7 @@
 @import 'font-gotham';
 @import 'jqcloud';
 
-$jumbotron-color: #2b2b2b;
-$star-color: #ffd700;
-$avatar-border-color: #d9d9d9;
-$timestamp-color: #aba7a9;
+@import 'material-colors';
 
 /* feed box */
 .box {
@@ -83,20 +80,6 @@ $timestamp-color: #aba7a9;
 /* Jumbotron material desing */
 .jumbotron {
   background: $jumbotron-color;
-
-  h1 {
-    color: #00ACAE;
-    text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
-  }
-
-  div {
-    color: #FFFFFF;
-  }
-
-  footer {
-    color: #B2AEB1;
-  }
-
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
   background-size: cover;
@@ -171,13 +154,10 @@ $timestamp-color: #aba7a9;
 /*Favourites*/
 .panel, .fav {
   border-radius: 0;
-  background-color: #f6f7f8;
   margin-bottom: 0;
 
 }
-.panel-default, .fav > .panel-heading {
-  background-color: #f6f7f8;
-}
+
 
 /*Favourites Chatbox*/
 .favourites_chat_box {
@@ -323,18 +303,7 @@ div.sidebar-nav li.online a::before {
 .navbar-inverse .navbar-nav > li > .notif-link > .notif-count{
 	font-size: 10px !important;
 }
-.navbar-inverse .navbar-nav > li > .notif-link:hover, 
-.navbar-inverse .navbar-nav > li > .notif-link:focus {
-	color:#E2E274 !important;
-}
-a.notif-link:hover{
-	color:#FFFFFF;
-}
 
-/* notification hover */
-.notif > .alert:hover{
-	background-color: RGBA(208, 237, 197, 0.1);
-}
 
 // Autocomplete
 .navbar-left,

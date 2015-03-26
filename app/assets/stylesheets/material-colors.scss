@@ -1,0 +1,109 @@
+
+$navbar-link: #FFFFFF;
+
+
+
+$color-50: #E0F7FA;
+$color-100: #B2EBF2;
+$color-200: #80DEEA;
+$color-300: #4DD0E1;
+$color-400: #26C6DA;
+$color-500: #00BCD4;
+$color-600: #00ACC1;
+$color-700: #0097A7;
+$color-800: #00838F;
+$color-900: #006064;
+
+$primary: $color-600;
+$accent: #FFC107;
+$jumbotron-color: $color-500;
+
+$fallback: RGBA(255,255,255, 0.5);
+$primary-link: #FFFFFF;
+
+
+$star-color: #ffd700;
+$avatar-border-color: #d9d9d9;
+$timestamp-color: #aba7a9;
+$body: RGBA(0, 167, 248, 0.02);
+
+/* notification types */
+$type1: #AED581;
+$type2: #B39DDB;
+$type3: #BA68C8;
+
+
+/* Color overrides */ 
+html body {
+	background-color: $body;
+}
+.navbar {
+	background-color: $primary !important;
+	border: none !important;
+	box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+}
+.navbar a {
+	color: $navbar-link !important;
+}
+
+h2, h3{
+	color: $primary !important;
+	text-transform: uppercase;
+	font-weight: normal !important;
+}
+.jumbotron{
+	h1 {
+    	color: $primary-link;
+    	/*text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;*/
+ 	}
+
+  	div {
+    	color: $primary-link; 
+  	}
+
+	footer{
+		color: $fallback !important;
+	}
+}
+
+.well, .panel-default{
+	background-color: #FFFFFF !important;
+}
+.panel-heading {
+	background-color: $primary !important;
+
+}
+#feed {
+	background-color: #FFFFFF !important;
+}
+.panel-title > a {
+	color: $primary-link;
+}
+
+/* Notification Colouring */
+.navbar-inverse .navbar-nav > li > a.accent{
+	color: $accent !important;
+}
+.navbar-inverse .navbar-nav > li > .notif-link:hover, 
+.navbar-inverse .navbar-nav > li > .notif-link:focus {
+	color:#E2E274 !important;
+}
+a.notif-link:hover{
+	color:#FFFFFF;
+}
+
+/* notification hover */
+.notif > .alert:hover{
+	background-color: RGBA(208, 237, 197, 0.1);
+}
+
+.type1{
+	background-color: $type1 !important;
+}
+.type2{
+	background-color: $type2 !important;
+}
+.type3{
+	background-color: $type3 !important;
+}
+

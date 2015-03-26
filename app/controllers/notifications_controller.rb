@@ -2,7 +2,7 @@ class NotificationsController < ApplicationController
   before_action :require_login
 
   def index
-    @notifications = current_user.notifications.all
+    @notifications = current_user.notifications.all.order('created_at desc')
   end
 
   def update
