@@ -37,9 +37,9 @@ class HashtagsController < ApplicationController
   def update
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
-                        user_id: user.id,
+                        user: user,
                         tricker_user_id: @hashtag.topic_updater_id,
-                        tricker_hashtag_id: @hashtag.id
+                        tricker_hashtag: @hashtag
       request.env['chat.notification_callback'].call(user.id)
     end  
 

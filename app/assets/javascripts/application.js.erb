@@ -47,7 +47,7 @@ var ready = function() {
 
   $('.notif > .alert .close').click(function(e) {
     //$(this).parent().remove();
-    var box = $('.notif > .alert .close').first().parent().get(0).id;
+    var box = $(this).parent().get(0).id;
     $.post( "notifications/" + box);
     $('#masonry-container').masonry('remove', $(this).parent(".box"));
     $('#masonry-container').masonry();
