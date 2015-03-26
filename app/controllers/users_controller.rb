@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :user_is_current, only: [:edit, :update]
 
   def index
     @users = User.all
@@ -48,6 +49,10 @@ class UsersController < ApplicationController
   end 
 
   private
+
+  def user_is_current
+    redirect_to root_path unless params[:id].to_s === session[:user_id].to_s
+  end
 
   def set_user
     @user = User.find(params[:id])
