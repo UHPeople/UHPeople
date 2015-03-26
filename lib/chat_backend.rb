@@ -81,12 +81,28 @@ module UHPeople
         return
       end
 
+      find_mentions(message)
       broadcast(message.serialize, hashtag.id)
     end
 
     def online_event(user, hashtag, socket)
       add_client socket, user.id, hashtag.id
       broadcast(online_users(hashtag.id), hashtag.id)
+    end
+
+    def find_mentions(message)
+      message.hashtag.users.each { |user|
+        send_mention(user.id, message.user_id, message.hashtag_id) if message.content.include? "@#{user.name}"
+      }
+    end
+
+    def send_mention(user, tricker, hashtag)
+      Notification.create notification_type: 3,
+                        user_id: user,
+                        tricker_user_id: tricker,
+                        tricker_hashtag_id: hashtag
+
+      notification_callback(user)
     end
 
     def respond(socket, data)
