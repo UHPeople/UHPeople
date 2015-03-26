@@ -40,4 +40,9 @@ RSpec.describe 'Search page' do
     find("//div[@id='hashtags']/h3/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.id}"
   end
+
+  it 'doesn\'t suggest invalid hashtags' do
+    visit '/search?search=%23asd'
+    expect(page).to have_content 'No results for: #asd'
+  end
 end
