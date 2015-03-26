@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_units, only: [:show, :edit, :update]
 
   def index
     @users = User.all
@@ -51,4 +52,24 @@ class UsersController < ApplicationController
   def edit_user_params
     params.require(:user).permit(:title, :email, :campus, :unit, :about, :avatar)
   end
+
+  def set_units
+    @campuses = ["City Centre Campus",
+        "Kumpula Campus",
+        "Meilahti Campus",
+        "Viikki Campus", ""]
+
+    @faculties = ["Faculty of Agriculture andForestry",
+        "Faculty of Arts",
+        "Faculty of Behavioural Sciences",
+        "Faculty of Biological and Environmental Sciences",
+        "Faculty of Law",
+        "Faculty of Medicine",
+        "Faculty of Pharmacy",
+        "Faculty of Science",
+        "Faculty of Social Sciences",
+        "Faculty of Theology",
+        "Faculty of Veterinary Medicine", ""]
+  end
+
 end
