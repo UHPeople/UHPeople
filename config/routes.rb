@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'frontpage#index'
 
-  match "/404", :to => "errors#not_found", via: :all
-  match "/422", :to => "errors#unacceptable", via: :all
-  match "/500", :to => "errors#internal_error", via: :all
+  get '/404', to: 'errors#not_found'
+  get '/422', to: 'errors#unacceptable'
+  get '/500', to: 'errors#internal_error'
 
   get 'login', to: 'user#index'
 
