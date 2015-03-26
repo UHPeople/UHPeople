@@ -6,6 +6,7 @@
 			<% @notifications.each do |notif| %>
 				<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
 				<%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
+				<%= render 'mention', notification: notif if notif.notification_type == 3 && notif.visible %>
 			<% end %>
 		</div>
 	<% end %>

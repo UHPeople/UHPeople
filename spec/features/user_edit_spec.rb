@@ -29,5 +29,11 @@ RSpec.describe User do
 
       expect(page).to have_content '1 error prohibited changes from being saved:'
     end
+
+    it 'is not shown with not logged in user' do
+      user2 = User.create username: 'asd', name: 'asd'
+      visit edit_user_path(user2)
+      expect(current_path).to eq '/feed'
+    end
   end
 end
