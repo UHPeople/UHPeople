@@ -5,6 +5,7 @@
 		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix col-md-12">
 			<% @notifications.each do |notif| %>
 				<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
+				<%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
 			<% end %>
 		</div>
 	<% end %>
