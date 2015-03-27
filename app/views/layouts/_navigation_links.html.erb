@@ -1,4 +1,4 @@
-<li><%= link_to "Home", root_path, class:"hidden-sm", id:"feed-onboard-home" %></li>
+<li><%= link_to "Home", root_path, id:"feed-onboard-home" %></li>
 <li>
 	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif <%=  'accent' if current_user.notifications.unread_count > 0 %>">
 		<span class="notif-icon glyphicon glyphicon-asterisk"></span>

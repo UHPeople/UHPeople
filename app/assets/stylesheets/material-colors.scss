@@ -1,4 +1,7 @@
 
+/* Color override file */ 
+
+
 $black: RGBA(0, 0, 0, 1);
 $white: RGBA(255, 255, 255, 1);
 
@@ -34,15 +37,11 @@ $type1: #EF9A9A; // red 200
 $type2: #CE93D8; // purple 200
 $type3: #FFF59D; // yellow 200
 
-
-
-
-/* Color overrides */ 
 html body {
 	background-color: $body;
 
 	a {
-		color: $color-800;// !important;
+		color: $color-800;
 	}
 }
 .navbar {
