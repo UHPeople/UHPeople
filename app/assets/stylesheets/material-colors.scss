@@ -26,7 +26,8 @@ $accent: #FFC107;
 $jumbotron-color: $color-500;
 
 
-$star-color: #ffd700;
+//$star-color: #ffd700;
+$star-color: $accent;
 $avatar-border-color: #d9d9d9;
 //$timestamp-color: #aba7a9;
 $timestamp-color: $fallback-negative;
@@ -59,6 +60,9 @@ h2, h3{
 	font-weight: normal !important;
 }
 .jumbotron{
+
+	background: $jumbotron-color;
+
 	h1 {
     	color: $primary-link;
     	/*text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;*/
