@@ -363,3 +363,16 @@ div.sidebar-nav li.online a::before {
 .nav-tabs {
     margin-bottom: 0;
 }
+
+// chat input moved inside chat panel
+
+.input-group.input-chat {
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 5px 5px 5px 5px !important;
+}
+.panel-chat {
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-radius: 5px 5px 5px 5px !important;
+}
