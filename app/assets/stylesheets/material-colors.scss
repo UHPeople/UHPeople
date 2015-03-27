@@ -53,6 +53,12 @@ html body {
 .navbar a {
 	color: $navbar-link !important;
 }
+.dropdown-menu > li > a {
+	color: $color-900 !important;
+}
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
+	background-color: $color-400 !important;
+}
 
 h2, h3{
 	color: $primary !important;
