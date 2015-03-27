@@ -1,7 +1,10 @@
 
-$navbar-link: #FFFFFF;
+$black: RGBA(0, 0, 0, 1);
+$white: RGBA(255, 255, 255, 1);
 
-
+$fallback: RGBA(255,255,255, 0.55);
+$fallback-negative: RGBA(0, 0, 0, 0.50);
+$navbar-link: $white;
 
 $color-50: #E0F7FA;
 $color-100: #B2EBF2;
@@ -15,27 +18,32 @@ $color-800: #00838F;
 $color-900: #006064;
 
 $primary: $color-600;
+$primary-link: $white;
 $accent: #FFC107;
 $jumbotron-color: $color-500;
-
-$fallback: RGBA(255,255,255, 0.5);
-$primary-link: #FFFFFF;
 
 
 $star-color: #ffd700;
 $avatar-border-color: #d9d9d9;
-$timestamp-color: #aba7a9;
+//$timestamp-color: #aba7a9;
+$timestamp-color: $fallback-negative;
 $body: RGBA(0, 167, 248, 0.02);
 
 /* notification types */
-$type1: #AED581;
-$type2: #B39DDB;
-$type3: #BA68C8;
+$type1: #EF9A9A; // red 200
+$type2: #CE93D8; // purple 200
+$type3: #FFF59D; // yellow 200
+
+
 
 
 /* Color overrides */ 
 html body {
 	background-color: $body;
+
+	a {
+		color: $color-800;// !important;
+	}
 }
 .navbar {
 	background-color: $primary !important;
@@ -67,14 +75,14 @@ h2, h3{
 }
 
 .well, .panel-default{
-	background-color: #FFFFFF !important;
+	background-color: $white !important;
 }
 .panel-heading {
 	background-color: $primary !important;
 
 }
 #feed {
-	background-color: #FFFFFF !important;
+	background-color: $white !important;
 }
 .panel-title > a {
 	color: $primary-link;
@@ -89,12 +97,16 @@ h2, h3{
 	color:#E2E274 !important;
 }
 a.notif-link:hover{
-	color:#FFFFFF;
+	color: $white;
 }
 
 /* notification hover */
 .notif > .alert:hover{
 	background-color: RGBA(208, 237, 197, 0.1);
+}
+
+.alert-success .alert-link {
+	color: $black !important;
 }
 
 .type1{
