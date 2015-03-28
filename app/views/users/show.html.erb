@@ -1,7 +1,5 @@
 <div class="container">	
-	<div class="col-sm-4">
-		<%= image_tag @user.avatar.url(:medium), class: "profileCrop well" %>
-	</div>
+	<div class="col-sm-4 profileCrop well" style="background-image: url('<%= @user.avatar.url(:medium) %>');"></div>
 
 	<div class="col-sm-5">
 		<div class="userinfo">
