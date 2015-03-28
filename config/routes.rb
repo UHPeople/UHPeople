@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   root 'frontpage#index'
 
-  get '/404', to: 'errors#not_found'
-  get '/422', to: 'errors#unacceptable'
-  get '/500', to: 'errors#internal_error'
+  %w( 404 422 500 ).each do |code|
+    get "/#{code}", to: 'errors#error', code: code
+  end
 
   get 'login', to: 'user#index'
 
@@ -29,5 +29,4 @@ Rails.application.routes.draw do
   
   post 'notifications/:id', to: 'notifications#update', via: 'post'
   post 'firsttime', to: 'users#set_first_time_use', as: 'first_time'
-
 end
