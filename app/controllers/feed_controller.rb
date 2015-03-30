@@ -21,7 +21,7 @@ class FeedController < ApplicationController
   def cloud_cache
     Rails.cache.fetch('hashtag_cloud', expires_in: 30.minutes) do
       cloud = TagcloudLogic.new
-      cloud.make_cloud(cloud.touch_cloud)
+      cloud.make_cloud
     end
   end
 end
