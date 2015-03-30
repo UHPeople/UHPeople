@@ -1,14 +1,9 @@
 @import 'masonry/basic';
-@import 'masonry/centered';
-@import 'masonry/fluid';
-@import 'masonry/gutters';
-@import 'masonry/infinitescroll';
-@import 'masonry/right-to-left';
 @import 'masonry/transitions';
 
 @import 'joyride/joyride-2.1';
 @import 'bootstrap-sprockets';
-@import 'bootstrap';
+@import 'bootstrap-custom';
 
 @import 'font-gotham';
 @import 'jqcloud';
@@ -31,16 +26,24 @@
 }
 
 .avatar-45 {
-  background-color: white;
+  background-color: $white;
+  
   border: 1px solid $avatar-border-color;
+  
   border-radius: 22px;
   -moz-border-radius: 22px;
   -webkit-border-radius: 22px;
+
   height: 45px;
   width: 45px;
+  
   overflow: hidden;
   text-align: center;
-  img { width: 100% };
+  
+  img {
+    width: 100%
+  };
+
   float: left;
 }
 
@@ -153,6 +156,7 @@
       font-size: 15px;
       line-height: 22px;
       color: #3d3c40;
+      word-wrap: break-word;
     }
   }
 }
@@ -205,8 +209,10 @@
   width: 100%;
   min-height: 40px;
 
+
   height: 500px;
   overflow: auto;
+  overflow-x: hidden;
 
   div.panel-body {
     padding: 0;
@@ -237,7 +243,6 @@
       font-style: normal;
     }
 
-
     .timestamp {
       color: $timestamp-color;
       font-size: 70%;
@@ -248,6 +253,7 @@
       font-size: 15px;
       line-height: 22px;
       color: #3d3c40;
+      word-wrap: break-word;
     }
   }
 }
@@ -317,13 +323,13 @@ div.sidebar-nav li.online a::before {
 
 
 // Autocomplete
-.navbar-left,
-.navbar-form,
 .typeahead-invite,
-.typeahead,
-.tt-query,
-.tt-hint {
-  width: 200px;
+.typeahead {
+  width: 100% !important;
+}
+
+.twitter-typeahead {
+  width: 100%;
 }
 
 .tt-hint {
@@ -331,8 +337,8 @@ div.sidebar-nav li.online a::before {
 }
 
 .tt-dropdown-menu {
-  width: 200px;
-  background-color: #fff;
+  width: 100%;
+  background-color: $white;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
 
@@ -346,12 +352,39 @@ div.sidebar-nav li.online a::before {
 }
 
 .tt-suggestion.tt-cursor {
-  color: #fff;
-  background-color: #0097cf;
+  color: $white;
+  background-color: $primary;
 }
 
-.tt-suggestion p {
-  margin: 0;
+.tt-suggestion div {
+  height: 64px;
+  width: 100%;
+}
+
+.tt-suggestion a {
+  text-decoration: none;
+  color: $black !important;
+}
+
+.tt-suggestion .avatar-45 {
+  float: right !important;
+}
+
+.suggest-tag {
+  padding-top: 22px;
+  padding-left: 16px;
+}
+
+.suggest-name {
+  padding-top: 22px;
+  width: 150px !important;
+}
+
+.suggest-asd {
+  //width: 100%;
+  min-width: 45px;
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .asd {
@@ -365,7 +398,7 @@ div.sidebar-nav li.online a::before {
     border-right: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
     border-radius: 0px 0px 5px 5px;
-    padding: 10px;
+    padding-right: 16px;
 }
 
 .nav-tabs {

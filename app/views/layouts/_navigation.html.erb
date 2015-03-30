@@ -1,30 +1,32 @@
 <%# navigation styled for Bootstrap 3.0 %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
-    <div class="navbar-header">
-
+    <div class="col-md-3 col-sm-2 col-xs-2">
       <div class="navbar-brand">
         <%= link_to image_tag('helsinki53x50.png'), root_path %>
       </div>
-      <%= link_to 'UHPeople', root_path, class: 'navbar-brand' %>
 
-      <div class="navbar-form navbar-left" role="search">
-        <%= form_tag search_index_path, method: "get" do %>
-          <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
-          
-          <div style="width: 0; height: 0; overflow: hidden;">
-            <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+      <%= link_to 'UHPeople', root_path, class: 'navbar-brand hidden-xs hidden-sm visible-md visible-lg' %>
+    </div>
+
+    <% unless current_user.nil? %>
+      <div class="navbar-right col-md-3 col-sm-3 col-xs-3">
+        <ul class="nav navbar-nav">
+          <%= render 'layouts/navigation_links' %>
+        </ul>
+      </div>
+
+      <div class="navbar-left col-md-6 col-sm-6 col-xs-6">
+        <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
+          <div class="form-group" style="display:inline; width: 100%;">
+            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
+
+            <div style="width: 0; height: 0; overflow: hidden;" class="hidden">
+              <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+            </div>
           </div>
         <% end %>
       </div>
-    </div>
-    
-    <% unless current_user.nil? %>
-    <div class="navbar-header">
-      <ul class="nav navbar-nav">
-        <%= render 'layouts/navigation_links' %>
-      </ul>
-    </div>
     <% end %>
   </div>
 </nav>

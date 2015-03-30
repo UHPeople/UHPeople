@@ -25,6 +25,7 @@ end
 
 gem 'bootstrap-sass', '= 3.3.3'
 gem 'twitter-typeahead-rails'
+gem 'handlebars_assets'
 
 gem 'faye-websocket'
 gem 'puma'
@@ -59,6 +60,10 @@ group :test do
   gem 'simplecov', require: false
   gem 'selenium-webdriver'
   gem 'codeclimate-test-reporter', require: false
+
+  # gem 'mutant'
+  # gem 'mutant-rspec'
+  gem 'database_cleaner'
 end
 
 gem 'jqcloud-rails'

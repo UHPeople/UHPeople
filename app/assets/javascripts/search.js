@@ -1,13 +1,19 @@
 var users = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/users/'
+  prefetch: {
+    url: '/users/',
+    ttl: 1
+  }
 });
  
 var hashtags = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/hashtags/'
+  prefetch: {
+    url: '/hashtags/',
+    ttl: 1
+  }
 });
 
 $(document).ready(function() {
@@ -23,8 +29,8 @@ $(document).ready(function() {
     displayKey: 'tag',
     source: hashtags.ttAdapter(),
     templates: {
-      header: '<h4 class="asd">Hashtags</h4>'
-      // suggestion: Handlebars.compile('<p><strong>#{{value}}</strong></p>')
+      suggestion: Handlebars.compile(
+        '<a href="/hashtags/{{id}}"><div class="suggest-tag">#{{tag}}</div></a>')
     }
   },
 
@@ -33,32 +39,46 @@ $(document).ready(function() {
     displayKey: 'name',
     source: users.ttAdapter(),
     templates: {
-      header: '<h4 class="asd">Users</h4>'
+      suggestion: Handlebars.compile(
+        '<a href="/users/{{id}}">' +
+          '<div class="suggest-asd">' +
+            '<div class="suggest-name">{{name}}</div>' + 
+            '<img class="avatar-45" src="{{avatar}}"></img>'+
+          '</div>'+
+        '</a>')
     }
   });
 });
 
 function makeSexy() {
-  $('form[data-remote=true] span input#user').click(function() {
+  var input = $('form[data-remote=true] span input#user');
+  var form = $('form[data-remote=true]');
+
+  input.click(function() {
     $('form[data-remote=true] span span.glyphicon-ok').remove();
-    $('form[data-remote=true]').parent().removeClass('has-success');
+    form.parent().removeClass('has-success');
     // $(this).val('');
   });
 
-  $('form[data-remote=true]').submit(function() {
-    var input = $('form[data-remote=true] span input#user');
+  form.submit(function() {
     // input.prop('disabled', true);
     input.blur();
   });
 
   $('form[data-remote=true]').bind('ajax:complete', function() {
-    var form = $(this);
-    var span = form.children('span');
-    span.children('input#user').prop('disabled', false);
+    // input.prop('disabled', false);
 
-    span.append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
+    form.children('span').append(
+      '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
+    );
+
     form.parent().addClass('has-success');
   });
+}
+
+function send(name) {
+  $('form[data-remote=true] span input#user').text(name);
+  $('form[data-remote=true]').ajaxSend();
 }
 
 $(document).ready(function() {
@@ -71,6 +91,15 @@ $(document).ready(function() {
     name: 'users',
     displayKey: 'name',
     source: users.ttAdapter(),
+    templates: {
+      suggestion: Handlebars.compile(
+        '<a onclick="send({{name}});">' +
+          '<div class="suggest-asd">' +
+            '<div class="suggest-name">{{name}}</div>' + 
+            '<img class="avatar-45" src="{{avatar}}"></img>'+
+          '</div>'+
+        '</a>')
+    }
   });
 
   makeSexy();
