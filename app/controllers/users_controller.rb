@@ -6,10 +6,15 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
-
     respond_to do |format|
       format.json do
-        render json: current_user.nil? ? 'Not logged in' : @users
+        render json: 'Not logged in' if current_user.nil?
+
+        users = @users.collect { |user|
+          { id: user.id, name: user.name, avatar: user.avatar.url(:thumb) }
+        }
+
+        render json: users
       end
 
       format.html { require_non_production }

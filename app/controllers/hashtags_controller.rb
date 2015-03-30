@@ -7,7 +7,16 @@ class HashtagsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { @hashtags = Hashtag.all }
+      format.json do
+        render json: 'Not logged in' if current_user.nil?
+
+        tags = Hashtag.all.collect { |tag|
+          { id: tag.id, tag: tag.tag }
+        }
+        
+        render json: tags
+      end
+
       format.html { redirect_to root_path }
     end
   end

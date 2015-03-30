@@ -37,7 +37,7 @@ RSpec.describe 'Feed page' do
       expect(page).to have_content 'asd asd'
     end
 
-    it "doesn't have groups title if no hashtags" do
+    it 'doesn\'t have groups title if no hashtags' do
       visit "/hashtags/#{hashtag.id}"
       click_link 'Leave'
       visit '/feed'

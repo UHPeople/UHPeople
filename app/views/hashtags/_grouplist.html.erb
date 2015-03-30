@@ -1,4 +1,4 @@
-<div class="well sidebar-nav">
+<div class="well">
   <% if @user_has_tag %>
     <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
   <% else %>
