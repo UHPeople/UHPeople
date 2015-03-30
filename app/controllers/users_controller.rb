@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :set_units, only: [:show, :edit, :update]
+  before_action :set_campuses, only: [:new, :show, :edit, :update]
   before_action :user_is_current, only: [:edit, :update]
 
   def index
@@ -27,14 +27,18 @@ class UsersController < ApplicationController
 
   def update
     respond_to do |format|
-      if @user.update(user_params)
-        if @user.first_time
+      if @user.first_time
+        if @user.update(user_params)
           format.html { redirect_to feed_index_path }
-        else   
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        else
+          format.html { render action: 'edit' }
         end
       else
-        format.html { render action: 'edit' }
+        if @user.update(edit_user_params)
+          format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        else
+          format.html { render action: 'edit' }
+        end
       end
     end
   end
@@ -51,7 +55,7 @@ class UsersController < ApplicationController
   def set_first_time_use
     current_user.update_attribute(:first_time, false)
     redirect_to notifications_path
-  end 
+  end
 
   private
 
@@ -67,23 +71,15 @@ class UsersController < ApplicationController
     params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :avatar)
   end
 
-  def set_units
-    @campuses = ["City Centre Campus",
-        "Kumpula Campus",
-        "Meilahti Campus",
-        "Viikki Campus", ""]
-
-    @faculties = ["Faculty of Agriculture andForestry",
-        "Faculty of Arts",
-        "Faculty of Behavioural Sciences",
-        "Faculty of Biological and Environmental Sciences",
-        "Faculty of Law",
-        "Faculty of Medicine",
-        "Faculty of Pharmacy",
-        "Faculty of Science",
-        "Faculty of Social Sciences",
-        "Faculty of Theology",
-        "Faculty of Veterinary Medicine"]
+  def edit_user_params
+    params.require(:user).permit(:title, :email, :campus, :unit, :about, :avatar)
   end
 
+  def set_campuses
+    @campuses = ["",
+                 "City Centre Campus",
+                 "Kumpula Campus",
+                 "Meilahti Campus",
+                 "Viikki Campus"]
+  end
 end
