@@ -21,11 +21,16 @@ RSpec.describe User do
       expect(page).to have_content 'Hauska tyyppi.'
     end
 
-
     it 'is not shown with not logged in user' do
       user2 = User.create username: 'asd', name: 'asd'
       visit edit_user_path(user2)
       expect(current_path).to eq '/feed'
+    end
+
+    it 'prevents changing name on first login' do
+      visit edit_user_path(user)
+
+      expect(page).not_to have_field('name')
     end
 
   end
