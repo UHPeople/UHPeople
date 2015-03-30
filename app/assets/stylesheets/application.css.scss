@@ -80,11 +80,17 @@
 
 /* Jumbotron material desing */
 .jumbotron {
+  height: 200px;
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
   background-size: cover;
+  border-radius: 0 !important;
+  margin-top: -20px;
 }
-
+.well.sidebar-nav {
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
 
 /* Frontpage setup*/
 .head {
@@ -152,10 +158,12 @@
 }
 
 /*Favourites*/
-.panel, .fav {
+.panel.fav {
   border-radius: 0;
   margin-bottom: 0;
-
+  .panel-heading{
+    border-radius: 0;
+  }
 }
 
 
@@ -197,7 +205,7 @@
   width: 100%;
   min-height: 40px;
 
-  height: 300px;
+  height: 500px;
   overflow: auto;
 
   div.panel-body {
@@ -372,6 +380,8 @@ div.sidebar-nav li.online a::before {
   border-radius: 5px 5px 5px 5px !important;
 }
 .panel-chat {
+  position: absolute;
+  margin-top: -100px; 
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-radius: 5px 5px 5px 5px !important;
