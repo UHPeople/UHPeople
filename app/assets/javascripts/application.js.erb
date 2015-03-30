@@ -1,6 +1,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap-sprockets
+//= require twitter/bootstrap/rails/confirm
 
 // masonry dynamic grid system
 //= require masonry/jquery.masonry
@@ -44,9 +45,9 @@ var ready = function() {
   	$(this).toggleClass("glyphicon-star");
   });
 
-  $('.alert .close').click(function(e) {
+  $('.notif > .alert .close').click(function(e) {
     //$(this).parent().remove();
-    var box = $('.alert .close').first().parent().get(0).id;
+    var box = $('.notif > .alert .close').first().parent().get(0).id;
     $.post( "notifications/" + box);
     $('#masonry-container').masonry('remove', $(this).parent(".box"));
     $('#masonry-container').masonry();
@@ -92,7 +93,8 @@ var ready = function() {
         $('#hashtag-onboard').joyride({
           autoStart : true,
           modal:true,
-          expose: true
+          expose: true,
+          nextButton : false
         });
       }
     });

@@ -164,7 +164,9 @@ body {
 
 .joyride-close-tip {
   right: 10px;
+  margin-bottom: 10px !important;
 }
+
 
 
 .joyride-modal-bg {
