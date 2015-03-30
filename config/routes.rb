@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   root 'frontpage#index'
 
+  %w( 404 422 500 ).each do |code|
+    get "/#{code}", to: 'errors#error', code: code
+  end
+
   get 'login', to: 'user#index'
 
   resources :hashtags, only: [:index, :show, :create, :update]
