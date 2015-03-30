@@ -45,10 +45,16 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(user_params)
-    session[:user_id] = @user.id
+    if @user.save
+      session[:user_id] = @user.id
 
-    respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully created.' }
+      respond_to do |format|
+        format.html { redirect_to @user, notice: 'User was successfully created.' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. User couldn't be created." }
+      end
     end
   end
 

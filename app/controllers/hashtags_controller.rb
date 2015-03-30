@@ -60,6 +60,10 @@ class HashtagsController < ApplicationController
     if @hashtag.save
       current_user.hashtags << @hashtag
       redirect_to @hashtag
+    else
+      respond_to do |format|
+        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. Hashtag couldn't be created." }
+      end
     end
   end
 
