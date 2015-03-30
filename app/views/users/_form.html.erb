@@ -33,7 +33,7 @@
         </div>
         <div class="option_class">
           <%= f.label :campus %><br>
-          <%= f.select :campus, options_for_select(@campuses) %>
+          <%= f.select :campus, options_for_select(@campuses, f.object.campus) %>
         </div>
         <div class="field">
           <%= f.label :unit %><br>
