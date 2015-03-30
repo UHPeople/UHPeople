@@ -196,21 +196,15 @@ main {
   padding-top: 70px;
 }
 
-@media (max-width: 604px){
+@media (max-width: 992px){
   main {
-    //padding-top: 140px;
+    padding-top: 140px;
   }
-  .navbar{
-        height: 140px;
-    }
 
 }
 @media (max-width: 995px){
     .hidden-sm{
         visibility: hidden;
-    }
-    .navbar{
-        height: 70px;
     }
 }
 
