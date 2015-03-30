@@ -259,11 +259,11 @@
   }
 }
 
-div.sidebar-nav li:not(.online) a {
+li:not(.online) a {
   padding-left: 30px;
 }
 
-div.sidebar-nav li.online a::before {
+li.online a::before {
   float: left;
   margin-top: 5px;
   margin-right: 5px;
