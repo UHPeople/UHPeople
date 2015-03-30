@@ -181,6 +181,12 @@
     .navbar-text.navbar-right:last-child {
         margin-right: 0;
     } 
+    .navbar{
+        height: 140px;
+    }
+    .hidden-sm{
+        visibility: hidden;
+    }
 
 }
 
@@ -194,5 +200,26 @@ main {
   main {
     padding-top: 140px;
   }
+  .navbar{
+        height: 140px;
+    }
+
+}
+@media (max-width: 995px){
+    .hidden-sm{
+        visibility: hidden;
+    }
+    .navbar{
+        height: 70px;
+    }
+}
+
+@media (max-width: 580px){
+    .small-right{
+        padding-right: 0;
+    }
+    .small-left{
+        padding-left: 0;
+    }
 }
 

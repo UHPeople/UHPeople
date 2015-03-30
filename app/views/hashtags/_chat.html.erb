@@ -20,18 +20,12 @@
   
     <form>
       <div class="input-group input-chat">
-<<<<<<< HEAD
         <input id="input-text" type="text" class="form-control" placeholder="Write a message..." />
-=======
-        <input id="input-text" type="text" class="form-control" placeholder="" autocomplete="false" />
->>>>>>> 137dc44fae443b902ad3dac56ee993b776bcf5e4
 
         <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
         <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
 
-        <div style="width: 0; height: 0; overflow: hidden;" >
-          <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
-        </div>
+        <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
       </div>
     </form>
   </div>

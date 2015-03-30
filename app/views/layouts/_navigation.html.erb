@@ -1,22 +1,19 @@
 <%# navigation styled for Bootstrap 3.0 %>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container">
-    <div class="col-md-3 col-sm-2 col-xs-2">
+    <div class="col-md-3 col-sm-1 col-xs-2">
       <div class="navbar-brand">
         <%= link_to image_tag('helsinki53x50.png'), root_path %>
       </div>
-
-      <%= link_to 'UHPeople', root_path, class: 'navbar-brand hidden-xs hidden-sm visible-md visible-lg' %>
+      <div class="hidden-xs hidden-sm visible-lg-block">
+        <%= link_to 'UHPeople', root_path, class: 'navbar-brand'  %>
+      </div>
     </div>
 
     <% unless current_user.nil? %>
-      <div class="navbar-right col-md-3 col-sm-3 col-xs-3">
-        <ul class="nav navbar-nav">
-          <%= render 'layouts/navigation_links' %>
-        </ul>
-      </div>
 
-      <div class="navbar-left col-md-6 col-sm-6 col-xs-6">
+
+      <div class="col-md-5 col-sm-5 col-xs-4 small-right">
         <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
           <div class="form-group" style="display:inline; width: 100%;">
             <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
@@ -26,6 +23,11 @@
             </div>
           </div>
         <% end %>
+      </div>
+      <div class="col-md-3 col-sm-5 col-xs-6 small-left">
+        <ul class="nav navbar-nav">
+          <%= render 'layouts/navigation_links' %>
+        </ul>
       </div>
     <% end %>
   </div>
