@@ -8,7 +8,8 @@ FactoryGirl.define do
     campus 'Viikki'
     unit 'Maametsis'
     about 'abouttest!!212'
-    avatar { fixture_file_upload(Rails.root.join('spec', 'test.png'), 'image/png') }
+    first_time false
+    # avatar { fixture_file_upload(Rails.root.join('spec', 'test.png'), 'image/png') }
   end
 
   factory :hashtag do

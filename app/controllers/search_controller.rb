@@ -3,7 +3,7 @@ class SearchController < ApplicationController
   before_action :set_search, only: [:index]
 
   def index
-    @hashtag = Hashtag.new
+    @hashtag = Hashtag.new tag: @search
 
     @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%")
     @users = User.where('name ilike ?', "%#{@search}%")

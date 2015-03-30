@@ -109,8 +109,9 @@ RSpec.describe 'Feed page' do
       end
 
       it 'have timestamps formatted', js: true do
-        # is not do things
-        #expect(find('.fav')).to_not have_content message.timestamp
+        page.all(:css, 'span.timestamp').each { |e|
+          expect(e).to_not have_content 'T'
+        }
       end
     end
   end

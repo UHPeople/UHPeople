@@ -2,7 +2,7 @@
 
 <div class="col-md-3">
   <% unless @user_tags.empty? %>
-    <h2>Interests</h2>
+    <h2 id="feed-onboard-interest">Interests</h2>
     <table class="table table-hover">
       <% @user_tags.each do |tag| %>
           <tr>
@@ -14,7 +14,7 @@
       <% end %>
     </table>
   <% end %>
-
+  <div id="feed-onboard-hot"></div>
   <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
   <script type="text/javascript">
     var word_array = <%= raw @word_array.to_json %>

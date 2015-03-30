@@ -12,13 +12,20 @@ RSpec.describe User do
     it 'after editing users unit and about, shows right information on user page' do
       visit edit_user_path(user)
 
-      fill_in('unit', with: 'Uusi Yksikkö')
+      fill_in('user_title', with: 'Ope')
       fill_in('user_about', with: 'Hauska tyyppi.')
 
       click_button('Update')
 
-      expect(page).to have_content 'Uusi Yksikkö'
+      expect(page).to have_content 'Ope'
       expect(page).to have_content 'Hauska tyyppi.'
+    end
+
+
+    it 'is not shown with not logged in user' do
+      user2 = User.create username: 'asd', name: 'asd'
+      visit edit_user_path(user2)
+      expect(current_path).to eq '/feed'
     end
 
   end
