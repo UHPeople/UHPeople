@@ -4,11 +4,9 @@
 	<% unless @notifications.nil? %>
 		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix">
 			<% @notifications.each do |notif| %>
-				<div class="row">
 					<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
 					<%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
 					<%= render 'mention', notification: notif if notif.notification_type == 3 && notif.visible %>
-				</div>
 			<% end %>
 		</div>
 	<% end %>
