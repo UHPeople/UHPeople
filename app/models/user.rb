@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
                              default_url: 'missing.png'
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
   validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :avatar, in: 0..10.megabytes
 end

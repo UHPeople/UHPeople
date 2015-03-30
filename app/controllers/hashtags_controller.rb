@@ -44,19 +44,23 @@ class HashtagsController < ApplicationController
   end
 
   def update
+    unless @hashtag.update(hashtag_params)
+      redirect_to :back, notice: 'Something went wrong!'
+      return
+    end
+
+    @hashtag.topic_updater_id = current_user.id
+
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
                         user: user,
-                        tricker_user_id: @hashtag.topic_updater_id,
+                        tricker_user: current_user,
                         tricker_hashtag: @hashtag
+
       request.env['chat.notification_callback'].call(user.id)
     end  
-
-    respond_to do |format|
-      if @hashtag.update(hashtag_params)
-        format.html { redirect_to :back, notice: 'Topic was successfully updated.' }
-      end
-    end
+  
+    redirect_to :back, notice: 'Topic was successfully updated.'
   end
 
   def create
