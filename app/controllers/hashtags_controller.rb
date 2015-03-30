@@ -85,7 +85,11 @@ class HashtagsController < ApplicationController
                         tricker_hashtag: @hashtag
 
     request.env['chat.notification_callback'].call(user_id)
-    redirect_to @hashtag
+
+    respond_to do |format|
+      format.html { redirect_to @hashtag }
+      format.json { render json: { message: 'Sent!' } }
+    end
   end
 
   private

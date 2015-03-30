@@ -357,9 +357,9 @@ div.sidebar-nav li.online a::before {
   background-color: $primary;
 }
 
-.tt-suggestion div {
-  height: 64px;
-  width: 100%;
+.tt-suggestion {
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .tt-suggestion a {
@@ -367,25 +367,23 @@ div.sidebar-nav li.online a::before {
   color: $black !important;
 }
 
-.tt-suggestion .avatar-45 {
-  float: right !important;
+.tt-suggestion div {
+  height: 64px;
+  width: 100%;
+  padding-top: 10px;
+  display: inline-block;
 }
 
-.suggest-tag {
-  padding-top: 22px;
-  padding-left: 16px;
+.tt-suggestion span {
+  padding-top: 12px;
+  display: inline-block;
 }
 
-.suggest-name {
-  padding-top: 22px;
-  width: 150px !important;
-}
+.tt-suggestion img {
+  float: right;
 
-.suggest-asd {
-  //width: 100%;
-  min-width: 45px;
-  padding-left: 16px;
-  padding-right: 16px;
+  width: 45px;
+  height: 45px;
 }
 
 .asd {

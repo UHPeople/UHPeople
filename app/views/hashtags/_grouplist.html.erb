@@ -17,7 +17,7 @@
   </ul>
 
   <% if @user_has_tag %>
-    <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', remote: true, "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.") do %>
+    <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.", id: 'invite-form') do %>
       <%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
 
       <div style="width: 0; height: 0; overflow: hidden;" >
