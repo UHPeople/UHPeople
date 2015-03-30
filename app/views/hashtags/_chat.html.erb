@@ -24,8 +24,9 @@
 
         <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
         <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-
-        <%= submit_tag('Send', class: 'btn btn-primary input-group-addon', id: 'chat-send') %>
+        <span class="input-group-btn">
+          <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
+        </span>
       </div>
     </form>
   </div>
