@@ -52,7 +52,7 @@ RSpec.describe 'Feed page' do
     end
 
     it 'has thumbnails' do
-      expect(find('.avatar-45:first')).to have_content ''
+      expect(find('.img-circle:first')).to have_content ''
     end
   end
 
