@@ -10,6 +10,8 @@
 
 @import 'material-colors';
 @import 'mobile-first';
+@import 'navbar';
+
 
 /* feed box */
 .box {
@@ -45,37 +47,6 @@
   };
 
   float: left;
-}
-
-/* Navbar fix */
-/*Link color to white*/
-.navbar-inverse .navbar-brand {
-  color: #FFFFFF;
-  font-weight: bold;
-}
-
-.navbar {
-  
-  margin-bottom: 0;
-
-  .container {
-    padding-top: 0;
-  }
-  .navbar-form {
-    padding-top: 10px;
-  }
-}
-
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 70px;
-    height: 70px;
-    padding-top: 0;
-}
-
-.dropdown-menu > li > a {
-  line-height: 1.42857143;
-  height: inherit;
 }
 
 .container{
@@ -306,22 +277,6 @@ div.sidebar-nav li.online a::before {
 .star.glyphicon-star-empty {
   opacity: .5;
 }
-
-/* navbar notification link */
-.navbar-inverse .navbar-nav > li > .notif-link{
-	width: 32px;
-	padding-left: 0px;
-	padding-right: 0px;
-	padding-top: 1px !important;
-}
-
-.navbar-inverse .navbar-nav > li > .notif-link > .notif-count{
-	font-size: 14px !important;
-  position: absolute;
-  padding-left: -4px;
-  font-weight: bold;
-}
-
 
 // Autocomplete
 .typeahead-invite,
