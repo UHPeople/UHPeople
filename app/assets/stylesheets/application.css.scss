@@ -14,76 +14,46 @@
 @import 'autocomplete';
 @import 'chat';
 @import 'feed';
+@import 'user-style';
 
-/* User image crop*/
-.profileCrop {
-  height: 300px;
-  background-position: center;
-  /* Make the background image cover the area of the <div>, and clip the excess */
-  background-size: cover;
-}
 
-.avatar-45 {
-  background-color: $white;
-  
-  border: 1px solid $avatar-border-color;
-  
-  border-radius: 22px;
-  -moz-border-radius: 22px;
-  -webkit-border-radius: 22px;
-
-  height: 45px;
-  width: 45px;
-  
-  overflow: hidden;
-  text-align: center;
-  
-  img {
-    width: 100%
-  };
-
-  float: left;
-}
-
-.container{
+.container {
   padding-top: 20px;
 }
 
-/* Jumbotron material desing */
+// Jumbotron material desing 
+
 .jumbotron {
-  height: 320px;
+ 
   background-position: center;
-  /* Make the background image cover the area of the <div>, and clip the excess */
+  // Make the background image cover the area of the <div>, and clip the excess 
   background-size: cover;
   border-radius: 0 !important;
+  height: 320px;
+  margin-bottom: 0;
   margin-top: -20px;
-}
-.well.sidebar-nav {
-  border-top-right-radius: 0 !important;
-  border-top-left-radius: 0 !important;
+ 
 }
 
-/* Frontpage setup*/
+// Frontpage setup
+
 .head {
-  height: 100vh;
   background-image: image-url('bg.jpg');
   background-position: center;
+  height: 100vh;
 
   .middle {
     padding-top: 150px;
 
     h1, p, a {
-      text-shadow: 1px 1px 11px rgba(0, 0, 0, .81);
+      text-shadow:  1px 1px 11px rgba(0, 0, 0, .81);
     }
   }
 }
 
 // other
-.alert {
-  margin-bottom: 0;
-}
 
-.jumbotron {
+.alert {
   margin-bottom: 0;
 }
 
