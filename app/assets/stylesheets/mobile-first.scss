@@ -227,6 +227,14 @@ main {
   .hidden-sm {
     visibility: hidden;
   }
+
+  .hashtaglist-position {
+  margin-top: 0 !important;
+  }
+
+  .tab-line {
+    margin-left: -5px;
+  }
 }
 
 @media (max-width: 767px) {
