@@ -5,13 +5,7 @@
 
     <table class="table table-hover">
       <% @user.photos.each do |pic| %>
-          <tr>
-            <td>
-              <div class="col-sm-4">
-                <%= link_to image_tag(pic.photo.url(:thumb)), photo_path(:id=>pic.id)%>
-              </div>
-            </td>
-          </tr>
+          <%= link_to image_tag(pic.image.url(:thumb)), photo_path(:id=>pic.id)%>
       <% end %>
     </table>
 

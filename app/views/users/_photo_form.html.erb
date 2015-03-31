@@ -1,14 +1,12 @@
 <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
         <div class="field">
-      <%= label_tag :photo_text, "Image title" %><br>
-      <%= text_field_tag :photo_text %>
+      <%= label_tag :image_text, "Photo title" %><br>
+      <%= text_field_tag :image_text %>
     </div>
     <div class="field">
-      <%= label_tag :photo %><br>
-      <%= file_field_tag :photo %>
+      <%= label_tag :image %><br>
+      <%= file_field_tag :image %>
     </div>
-    <%= hidden_field_tag :user_id, value: current_user.id %>
-    byebug
     <div class="actions">
       <%= submit_tag("Add photo", :class=>"btn btn-primary") %>
     </div>
