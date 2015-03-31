@@ -57,7 +57,7 @@ class UsersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. User couldn't be created." }
+        format.html { redirect_to feed_index_path, alert: "Oops, something went wrong. User couldn't be created." }
       end
     end
   end
