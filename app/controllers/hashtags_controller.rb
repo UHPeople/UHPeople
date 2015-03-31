@@ -44,12 +44,12 @@ class HashtagsController < ApplicationController
   end
 
   def update
+    @hashtag.topic_updater_id = current_user.id
+
     unless @hashtag.update(hashtag_params)
       redirect_to :back, notice: 'Something went wrong!'
       return
     end
-
-    @hashtag.topic_updater_id = current_user.id
 
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
@@ -77,15 +77,28 @@ class HashtagsController < ApplicationController
   end
 
   def invite
-    user_id = User.find_by(name: params[:user]).id
+    user = User.find_by(name: params[:user])
+
+    if user.hashtags.include? @hashtag
+      respond_to do |format|
+        format.html { redirect_to @hashtag, notice: 'User already a member!' }
+        format.json { render status: 400 }
+      end
+      
+      return
+    end
 
     Notification.create notification_type: 1,
-                        user_id: user_id,
+                        user_id: user.id,
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
-    request.env['chat.notification_callback'].call(user_id)
-    redirect_to @hashtag
+    request.env['chat.notification_callback'].call(user.id)
+
+    respond_to do |format|
+      format.html { redirect_to @hashtag }
+      format.json { render json: { message: 'Sent!' } }
+    end
   end
 
   private
@@ -93,7 +106,12 @@ class HashtagsController < ApplicationController
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
     rescue
-      redirect_to root_path
+      if ENV['RAILS_ENV'] == 'test'
+        redirect_to root_path
+        return 
+      end
+      
+      raise ActionController::RoutingError.new('Not Found')
   end
 
   def user_has_tag

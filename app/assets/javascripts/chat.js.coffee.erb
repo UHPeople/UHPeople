@@ -1,8 +1,8 @@
 set_online = (id) ->
-  $('div.sidebar-nav li#' + id).addClass('online')
+  $('.nav-list li#' + id).addClass('online')
 
 set_all_offline = (id) ->
-  $('div.sidebar-nav li').removeClass('online')
+  $('.nav-list li').removeClass('online')
 
 scroll_to_bottom = ->
   $('.chatbox').stop().animate {
@@ -22,7 +22,7 @@ compare_status = (a, b) ->
     return 1
 
 sort_members = ->
-  list = $('div.sidebar-nav ul')
+  list = $('ul.nav-list')
 
   items = list.children('li').get()
   items.sort (a, b) ->
