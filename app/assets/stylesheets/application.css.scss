@@ -277,8 +277,16 @@ li.online a::before {
 }
 
 .scrollable {
-  overflow: scroll;
-  height:283px; 
+  overflow: auto;
+  height:390px;
+}
+
+.grouplist-position {
+  margin-top: -160px;
+}
+
+.chat-button {
+  margin-bottom: 10px;
 }
 
 // other
@@ -415,11 +423,11 @@ li.online a::before {
   width: 95%;
   margin: 0 auto;
   border-radius: 5px 5px 5px 5px !important;
+  padding-bottom: 8px;
 }
 .panel-chat {
   margin-top: -160px; 
   margin-bottom: 20px;
   padding-bottom: 10px;
-  border-radius: 5px 5px 5px 5px !important;
 }
 
