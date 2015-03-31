@@ -109,9 +109,9 @@ RSpec.describe 'Feed page' do
       end
 
       it 'have timestamps formatted', js: true do
-        page.all(:css, 'span.timestamp').each { |e|
+        page.all(:css, 'span.timestamp').each do |e|
           expect(e).to_not have_content 'T'
-        }
+        end
       end
     end
   end

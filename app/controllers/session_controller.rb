@@ -27,7 +27,7 @@ class SessionController < ApplicationController
       @user = User.create username: uid, name: name, email: mail
       session[:user_id] = @user.id
 
-      redirect_to edit_user_path(@user) #, notice: "Welcome #{@user.name}! Please fill your userprofile"
+      redirect_to edit_user_path(@user) # , notice: "Welcome #{@user.name}! Please fill your userprofile"
     else
       session[:user_id] = @user.id
       redirect_to feed_index_path

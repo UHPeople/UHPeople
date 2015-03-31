@@ -10,10 +10,10 @@ class HashtagsController < ApplicationController
       format.json do
         render json: 'Not logged in' && return if current_user.nil?
 
-        tags = Hashtag.all.collect { |tag|
+        tags = Hashtag.all.collect do |tag|
           { id: tag.id, tag: tag.tag }
-        }
-        
+        end
+
         render json: tags
       end
 
@@ -53,13 +53,13 @@ class HashtagsController < ApplicationController
 
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
-                        user: user,
-                        tricker_user: current_user,
-                        tricker_hashtag: @hashtag
+                          user: user,
+                          tricker_user: current_user,
+                          tricker_hashtag: @hashtag
 
       request.env['chat.notification_callback'].call(user.id)
-    end  
-  
+    end
+
     redirect_to :back, notice: 'Topic was successfully updated.'
   end
 
@@ -84,7 +84,7 @@ class HashtagsController < ApplicationController
         format.html { redirect_to @hashtag, notice: 'User already a member!' }
         format.json { render status: 400 }
       end
-      
+
       return
     end
 
@@ -108,9 +108,9 @@ class HashtagsController < ApplicationController
     rescue
       if ENV['RAILS_ENV'] == 'test'
         redirect_to root_path
-        return 
+        return
       end
-      
+
       raise ActionController::RoutingError.new('Not Found')
   end
 
