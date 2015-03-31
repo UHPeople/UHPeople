@@ -1,1 +1,1 @@
-json.array! @users, :name, :id
+json.array! @users, :name, :id, :avatar.url(:thumb)

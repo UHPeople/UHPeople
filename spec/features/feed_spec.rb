@@ -37,7 +37,7 @@ RSpec.describe 'Feed page' do
       expect(page).to have_content 'asd asd'
     end
 
-    it "doesn't have groups title if no hashtags" do
+    it 'doesn\'t have groups title if no hashtags' do
       visit "/hashtags/#{hashtag.id}"
       click_link 'Leave'
       visit '/feed'
@@ -52,7 +52,7 @@ RSpec.describe 'Feed page' do
     end
 
     it 'has thumbnails' do
-      expect(find('.avatar-45:first')).to have_content ''
+      expect(find('.img-circle:first')).to have_content ''
     end
   end
 
@@ -99,7 +99,7 @@ RSpec.describe 'Feed page' do
       let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
       let!(:message) { Message.create user: user, hashtag: hashtag2, content: 'Asdasd2' }
 
-      before :each do 
+      before :each do
         create_and_visit
         page.all(:css, 'td a.glyphicon').each(&:click)
       end
@@ -109,8 +109,9 @@ RSpec.describe 'Feed page' do
       end
 
       it 'have timestamps formatted', js: true do
-        # is not do things
-        #expect(find('.fav')).to_not have_content message.timestamp
+        page.all(:css, 'span.timestamp').each { |e|
+          expect(e).to_not have_content 'T'
+        }
       end
     end
   end
@@ -131,7 +132,7 @@ RSpec.describe 'Feed page' do
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd3'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd4'
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
-    
+
     visit '/feed'
     expect(find('span.w10')).to have_content 'cloudtag2'
   end

@@ -1,12 +1,12 @@
 <div class="box col3">
-  <div class="panel panel-default fav" id="box-<%= chat.first.hashtag.id %>">
+  <div class="panel panel-default fav" id="box-<%= chat[:tag].id %>">
     <div class="panel-heading">
       <h2 class="panel-title">
-        <%= link_to "#"+chat.first.hashtag.tag, chat.first.hashtag %>
+        <%= link_to '#' + chat[:tag].tag, chat[:tag] %>
       </h2>
     </div>
 
-    <% chat.each do |message| %>
+    <% chat[:messages].each do |message| %>
       <div class="panel-body fav">
         <div class="favourites_chat_box">
           <div class="message">

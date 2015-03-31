@@ -13,7 +13,7 @@ RSpec.describe Hashtag do
     it 'has send button' do
       visit "/hashtags/#{hashtag.id}"
 
-      expect(page).to have_content 'Send'
+      expect(find("//form/div/span/input")).to have_content ''
     end
 
     context 'messages' do
@@ -31,7 +31,7 @@ RSpec.describe Hashtag do
       end
     end
 
-    it 'can send a message', js: true do
+    it 'can send a message', type: :feature, js: true do
       visit "/hashtags/#{hashtag.id}"
 
       fill_in('input-text', with: 'Hello world!')

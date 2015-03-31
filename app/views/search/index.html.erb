@@ -1,34 +1,39 @@
 <div class = "container">
 	<div class= "col-xs-12 col-sm-8">
-
-		<% if not @users.blank? %>
+		<% unless @users.blank? %>
 			<div id="users">
 				<h1>Search results for users: <%= @search %></h1>
 
 				<% @users.each do |h| %>
-					<h3><%= link_to h.name, h%></h3>
+					<h4><%= link_to h.name, h%></h4>
 				<% end %>
 			</div>
 		<% end %>
 
-		<% if not @hashtags.blank? %>
+		<% unless @hashtags.blank? %>
 			<div id="hashtags">
 				<h1>Search results for: #<%= @search %></h1>
 
 				<% @hashtags.each do |h| %>
-					<h3><%= link_to "#" + h.tag, h%></h3>
+					<h4><%= link_to "#" + h.tag, h%></h4>
 			  <% end %>
 		  </div>
 		<% end %>
 
-	  <% if @hashtags_exact.blank? %>
+	  <% if @hashtags_exact.blank? and @hashtag.valid? %>
 	  	<div id="new_hashtag">
-			  <h2>What about a new hashtag?</h2>
+			  <h1>What about a new hashtag?</h2>
 
 			  <p>Create new hashtag: 
-					<%= link_to "##{@search}", hashtags_path(:tag => @search), :method => :post %>
+					<%= link_to "##{@search}", hashtags_path(tag: @search), method: :post %>
 			  </p>
 		  </div>
+		<% end %>
+
+		<% if @users.blank? and @hashtags.blank? and not @hashtag.valid? %>
+			<div>
+				<h1>No results for: <%= @search %>
+			</div>
 		<% end %>
 	</div>
 </div>

@@ -1,16 +1,16 @@
-<li><%= link_to "Home", root_path, class:"hidden-sm" %></li>
+<li><%= link_to "Home", root_path, id:"feed-onboard-home" %></li>
 <li>
-	<a href="<%= notifications_path %>" style="<%='color:#00B2B1' if current_user.notifications.unread_count > 0 %>" class="notif-link">
-		<span class="notif-icon glyphicon glyphicon-globe"></span>
+	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif <%=  'accent' if current_user.notifications.unread_count > 0 %>">
+		<span class="notif-icon glyphicon glyphicon-bell"></span>
 		<span class="notif-count">
 			<%= current_user.notifications.unread_count if current_user.notifications.unread_count > 0 %>
 		</span>
 	</a>
 </li>
 
-<li class="dropdown">
+<li class="dropdown" >
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
-  <ul class="dropdown-menu" role="menu">
+  <ul id="non-transparent" class="dropdown-menu" role="menu">
     <li><%= link_to 'Profile' , current_user %></li>
     <li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
     <li><%= link_to "Invite", "/invite" %></li>

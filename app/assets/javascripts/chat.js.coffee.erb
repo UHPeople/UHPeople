@@ -1,8 +1,8 @@
 set_online = (id) ->
-  $('div.sidebar-nav li#' + id).addClass('online')
+  $('.nav-list li#' + id).addClass('online')
 
 set_all_offline = (id) ->
-  $('div.sidebar-nav li').removeClass('online')
+  $('.nav-list li').removeClass('online')
 
 scroll_to_bottom = ->
   $('.chatbox').stop().animate {
@@ -22,7 +22,7 @@ compare_status = (a, b) ->
     return 1
 
 sort_members = ->
-  list = $('div.sidebar-nav ul')
+  list = $('ul.nav-list')
 
   items = list.children('li').get()
   items.sort (a, b) ->
@@ -42,7 +42,8 @@ add_message = (data) ->
   timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
 
   $('.chatbox').append '<div class="panel-body">' +
-    '<a href="/users/' + data.user + '" class="avatar-link"><img class="avatar-45" src=""></img></a>' +
+    '<a href="/users/' + data.user + '" class="avatar-link">' +
+      '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
       '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
        '<span class="timestamp">' + timestamp + '</span></h5><p>' +
         data.content + '</div></div>'
@@ -54,6 +55,9 @@ add_member = (data) ->
 
 remove_member = (data) ->
   $('div.sidebar-nav ul li#' + data.user).remove()
+
+add_notification = () ->
+  
 
 ready = ->
   if not $('#hashtag-id').length
@@ -93,6 +97,12 @@ ready = ->
       sort_members()
     else if data.event == 'leave'
       remove_member data
+    else if data.event == 'notification'
+      t = Number($('.notif-count').text())
+      $('.notif-count').text(t + 1)
+      if t == 0
+        $('.notif-icon').css('color', '#FFDB00');
+        $('.notif-count').css('color', '#FFDB00');
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

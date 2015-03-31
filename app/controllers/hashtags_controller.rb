@@ -7,7 +7,16 @@ class HashtagsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { @hashtags = Hashtag.all }
+      format.json do
+        render json: 'Not logged in' && return if current_user.nil?
+
+        tags = Hashtag.all.collect { |tag|
+          { id: tag.id, tag: tag.tag }
+        }
+        
+        render json: tags
+      end
+
       format.html { redirect_to root_path }
     end
   end
@@ -35,11 +44,23 @@ class HashtagsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @hashtag.update(hashtag_params)
-        format.html { redirect_to :back, notice: 'Topic was successfully updated.' }
-      end
+    @hashtag.topic_updater_id = current_user.id
+
+    unless @hashtag.update(hashtag_params)
+      redirect_to :back, notice: 'Something went wrong!'
+      return
     end
+
+    @hashtag.users.each do |user|
+      Notification.create notification_type: 2,
+                        user: user,
+                        tricker_user: current_user,
+                        tricker_hashtag: @hashtag
+
+      request.env['chat.notification_callback'].call(user.id)
+    end  
+  
+    redirect_to :back, notice: 'Topic was successfully updated.'
   end
 
   def create
@@ -48,6 +69,10 @@ class HashtagsController < ApplicationController
     if @hashtag.save
       current_user.hashtags << @hashtag
       redirect_to @hashtag
+    else
+      respond_to do |format|
+        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. Hashtag couldn't be created." }
+      end
     end
   end
 
@@ -59,13 +84,25 @@ class HashtagsController < ApplicationController
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
-    redirect_to @hashtag
+    request.env['chat.notification_callback'].call(user_id)
+
+    respond_to do |format|
+      format.html { redirect_to @hashtag }
+      format.json { render json: { message: 'Sent!' } }
+    end
   end
 
   private
 
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
+    rescue
+      if ENV['RAILS_ENV'] == 'test'
+        redirect_to root_path
+        return 
+      end
+      
+      raise ActionController::RoutingError.new('Not Found')
   end
 
   def user_has_tag
@@ -73,7 +110,7 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id)
+    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id, :cover_photo)
   end
 
   def topic_updater

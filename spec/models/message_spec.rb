@@ -56,7 +56,7 @@ RSpec.describe Message do
       serialized_json = @message.serialize
       serialized = JSON.parse serialized_json
 
-      expect(serialized['content']).to include '<a href="http://localhost:3000/hashtags/2">http://localhost:3000/hashtags/2</a>'
+      expect(serialized['content']).to include '<a target="_blank" href="http://localhost:3000/hashtags/2">http://localhost:3000/hashtags/2</a>'
     end
   end
 end

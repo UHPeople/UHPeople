@@ -1,16 +1,24 @@
 var users = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/users/'
+  prefetch: {
+    url: '/users/',
+    ttl: 1
+  }
 });
  
 var hashtags = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
-  prefetch: '/hashtags/'
+  prefetch: {
+    url: '/hashtags/',
+    ttl: 1
+  }
 });
 
 $(document).ready(function() {
+  users.clearPrefetchCache();
+
   users.initialize();
   hashtags.initialize();
 
@@ -23,8 +31,8 @@ $(document).ready(function() {
     displayKey: 'tag',
     source: hashtags.ttAdapter(),
     templates: {
-      header: '<h4 class="asd">Hashtags</h4>'
-      // suggestion: Handlebars.compile('<p><strong>#{{value}}</strong></p>')
+      suggestion: Handlebars.compile(
+        '<a href="/hashtags/{{id}}"><div><span>#{{tag}}</span></div></a>')
     }
   },
 
@@ -33,32 +41,61 @@ $(document).ready(function() {
     displayKey: 'name',
     source: users.ttAdapter(),
     templates: {
-      header: '<h4 class="asd">Users</h4>'
+      suggestion: Handlebars.compile(
+        '<a href="/users/{{id}}">' +
+          '<div>' + 
+            '<span>{{name}}</span>' + 
+            '<img class="img-circle" src="{{avatar}}"></img>' +
+          '</div>' +
+        '</a>')
     }
   });
 });
 
 function makeSexy() {
-  $('form[data-remote=true] span input#user').click(function() {
-    $('form[data-remote=true] span span.glyphicon-ok').remove();
-    $('form[data-remote=true]').parent().removeClass('has-success');
+  var input = $('form#invite-form span input#user');
+  var form = $('form#invite-form');
+
+  input.click(function() {
+    $('form#invite-form span span.glyphicon').remove();
+    form.parent().removeClass('has-success');
+    form.parent().removeClass('has-error');
     // $(this).val('');
   });
 
-  $('form[data-remote=true]').submit(function() {
-    var input = $('form[data-remote=true] span input#user');
-    // input.prop('disabled', true);
+  form.submit(function() {
     input.blur();
-  });
 
-  $('form[data-remote=true]').bind('ajax:complete', function() {
-    var form = $(this);
-    var span = form.children('span');
-    span.children('input#user').prop('disabled', false);
+    $.ajax({
+      type: "POST",
+      url: form.attr('action'),
+      data: form.serialize(),
+      dataType: "JSON"
+    }).done(function() {
+      // input.prop('disabled', false);
 
-    span.append('<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>');
-    form.parent().addClass('has-success');
+      form.children('span').append(
+        '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
+      );
+
+      form.parent().addClass('has-success');
+    }).fail(function() {
+      // input.prop('disabled', false);
+
+      form.children('span').append(
+        '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
+      );
+
+      form.parent().addClass('has-error');
+    });
+
+    return false;
   });
+}
+
+function send(name) {
+  $('form#invite-form span input#user').text(name);
+  $('form#invite-form').submit();
 }
 
 $(document).ready(function() {
@@ -71,6 +108,13 @@ $(document).ready(function() {
     name: 'users',
     displayKey: 'name',
     source: users.ttAdapter(),
+    templates: {
+      suggestion: Handlebars.compile(
+        '<div onclick="send({{name}});">' + 
+          '<span>{{name}}</span>' + 
+          '<img class="img-circle" src="{{avatar}}"></img>' +
+        '</div>')
+    }
   });
 
   makeSexy();

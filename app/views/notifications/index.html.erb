@@ -1,10 +1,12 @@
 <div class="container">
-	<h1>Your notifications</h1>
+	<h2>Your notifications</h2>
 
 	<% unless @notifications.nil? %>
-		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix col-md-12">
+		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix">
 			<% @notifications.each do |notif| %>
 				<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
+				<%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
+				<%= render 'mention', notification: notif if notif.notification_type == 3 && notif.visible %>
 			<% end %>
 		</div>
 	<% end %>

@@ -1,32 +1,33 @@
 <% if @user_has_tag %>
-  <div class="panel panel-default chatbox interest-chatbox">
-    <% @messages.each do |message| %>
-      <div class="panel-body">
-        <a href="<%= user_path(message.user) %>", class="avatar-link">
-          <%= image_tag message.user.avatar.url(:thumb), class: "avatar-45" %>
-        </a>
-        
-        <div class="message">
-          <h5>
-            <%= link_to message.user.name, message.user %>
-            <span class="timestamp"><%= message.timestamp %></span> 
-          </h5>
-          <%= message.formatted_content %><br>
+  <div class="panel panel-default panel-chat">
+    <div class="chatbox interest-chatbox">
+      <% @messages.each do |message| %>
+        <div class="panel-body">
+          <a href="<%= user_path(message.user) %>", class="avatar-link">
+            <%= image_tag message.user.avatar.url(:thumb), class: "avatar-45" %>
+          </a>
+          
+          <div class="message">
+            <h5>
+              <%= link_to message.user.name, message.user %>
+              <span class="timestamp"><%= message.timestamp %></span> 
+            </h5>
+            <%= message.formatted_content %><br>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
-  
-  <form>
-    <div class="input-group">
-      <input id="input-text" type="text" class="form-control" placeholder="" />
-
-      <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
-      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
-
-      <span class="input-group-btn">
-        <button class="btn btn-primary" id="chat-send">Send</button>
-      </span>
+      <% end %>
     </div>
-  </form>
+  
+    <form>
+      <div class="input-group input-chat">
+        <input id="input-text" type="text" class="form-control" placeholder="Write a message..." />
+
+        <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+        <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+        <span class="input-group-btn">
+          <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
+        </span>
+      </div>
+    </form>
+  </div>
 <% end %>
