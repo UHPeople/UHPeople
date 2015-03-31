@@ -1,23 +1,40 @@
-<div class="container">	
-	<div class="col-sm-4">
-		<%= image_tag @user.avatar.url(:medium), class: "profileCrop well" %>
-	</div>
+<div class="container">
+  <div class="col-sm-4">
+    <%= image_tag @user.avatar.url(:medium), class: "profileCrop well" %>
+    <table class="table table-hover">
+      <% @user.photos.each do |pic| %>
+          <tr>
+            <td>
+              <div class="col-sm-4">
+                <%= link_to image_tag(pic.photo.url(:thumb)), photo_path(:id=>pic.id)%>
+              </div>
+            </td>
+          </tr>
+      <% end %>
+    </table>
 
-	<div class="col-sm-5">
-		<div class="userinfo">
-			<h1><%= @user.name %></h1>
-			<p><%= @user.title %></p>
-			<p><%= @user.email %></p>
-			<p><%= @user.campus %><%= ", " + @user.unit unless @user.unit.blank? %></p>
-		</div>
+    <%= link_to "Add photos" , '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
 
-		<div class="aboutme">
-			<% unless @user.about.blank? %>
-			    <h1>About me</h1>
-			    <p><%= @user.about %></p>
-	  		<% end %>
-		</div>
-	</div>
+    <div id="target" class="hidden">
+      <%= render "photo_form" %>
+    </div>
+  </div>
 
-	<%= render "hashtaglist", user: @user %>
+  <div class="col-sm-5">
+    <div class="userinfo">
+      <h1><%= @user.name %></h1>
+      <p><%= @user.title %></p>
+      <p><%= @user.email %></p>
+      <p><%= @user.campus %><%= ", " + @user.unit unless @user.unit.blank? %></p>
+    </div>
+
+    <div class="aboutme">
+      <% unless @user.about.blank? %>
+          <h1>About me</h1>
+          <p><%= @user.about %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <%= render "hashtaglist", user: @user %>
 </div> <!-- /container -->	

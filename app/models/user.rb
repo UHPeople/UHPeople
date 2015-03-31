@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :hashtags, through: :user_hashtags
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   has_attached_file :avatar, styles: { medium: '300x300>', thumb: '45x45>' },
                              default_url: 'missing.png'
