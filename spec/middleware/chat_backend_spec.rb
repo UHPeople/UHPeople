@@ -206,7 +206,7 @@ RSpec.describe UHPeople::ChatBackend do
 
   it 'finds mentions' do
     subject.add_client(socket, user.id, hashtag.id)
-    
+
     message = Message.create user: user, hashtag: hashtag, content: "@#{user.name}"
     subject.find_mentions(message)
 
