@@ -9,7 +9,7 @@
     <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
         <div class="field">
           <%= label :receiver, "Recipient email address: "%><br>
-          <%= text_field :receiver, :class => "form-control" %>
+          <%= text_field_tag :receiver %>
         </div>
         <br />
         <div class="actions">

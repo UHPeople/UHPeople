@@ -18,6 +18,7 @@
 var url = document.location.toString();
 if (url.match('#')) {
     $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
+    $('#masonry-container').masonry();
 } 
 
 // Change hash for page-reload
@@ -25,6 +26,17 @@ $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.location.hash = e.target.hash;
     window.scrollTo(0, 0);
 })
+
+function clearAllMasonryBricks (){
+  //var bricks = [];
+  var bricks = document.getElementsByClassName("masonry-brick");
+  for(var b in bricks){
+    $('#masonry-container').masonry('remove', bricks[0]);
+    //$.post( "notifications/" + bricks[0].id);
+    $('#masonry-container').masonry();
+    console.log('removed: ' + bricks[0])
+  }
+};
 
 var ready = function() {
   $('#masonry-container').masonry({
