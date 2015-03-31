@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well grouplist-position">
   <% if @user_has_tag %>
     <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
   <% else %>
