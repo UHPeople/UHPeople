@@ -276,6 +276,11 @@ li.online a::before {
   background: #549E54;
 }
 
+.scrollable {
+  overflow: scroll;
+  height:283px; 
+}
+
 // other
 .alert {
   margin-bottom: 0;
