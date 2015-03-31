@@ -137,6 +137,22 @@
     }
   }
 }
+
+
+/* Interest page members list */
+
+.grouplist-position {
+  margin-top: -160px;
+}
+
+.chat-button {
+  margin-bottom: 10px;
+}
+.scrollable {
+    overflow: scroll;
+    height:390px; 
+}
+
 .nav-list{
   li:not(.online) a {
     padding-left: 30px;
@@ -155,8 +171,20 @@
     background: #549E54;
   }
 }
-.scrollable {
-    overflow: scroll;
-    height:390px; 
+
+// chat input moved inside chat panel
+
+.input-group.input-chat {
+  width: 95%;
+  margin: 0 auto;
+  border-radius: 5px 5px 5px 5px !important;
+  padding-bottom: 8px;
 }
+.panel-chat {
+  margin-top: -160px; 
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+
 

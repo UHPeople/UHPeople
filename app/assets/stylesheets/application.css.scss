@@ -13,13 +13,7 @@
 @import 'navbar';
 @import 'autocomplete';
 @import 'chat';
-
-
-/* feed box */
-.box {
-  background-color: inherit;
-  font-size: inherit;
-}
+@import 'feed';
 
 /* User image crop*/
 .profileCrop {
@@ -84,23 +78,6 @@
   }
 }
 
-/*Favourites*/
-.panel.fav {
-  border-radius: 0;
-  margin-bottom: 0;
-  .panel-heading{
-    border-radius: 0;
-  }
-}
-
-.grouplist-position {
-  margin-top: -160px;
-}
-
-.chat-button {
-  margin-bottom: 10px;
-}
-
 // other
 .alert {
   margin-bottom: 0;
@@ -110,57 +87,5 @@
   margin-bottom: 0;
 }
 
-// favourite star
-.star {
-  color: $star-color;
-  text-decoration: none !important;
-  opacity: 1;
 
-  -webkit-transition: all .25s ease-in-out;
-  -moz-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-
-  float: right;
-  margin-top: 3px;
-}
-
-.star:hover {
-    color: $star-color;
-}
-
-.star.glyphicon-star-empty {
-  opacity: .5;
-}
-
-.asd {
-  border-bottom: 1px solid #ccc;
-}
-
-// TAB border
-#feed.tab-pane {
-
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-radius: 0px 0px 5px 5px;
-    padding-right: 16px;
-}
-
-.nav-tabs {
-    margin-bottom: 0;
-}
-
-// chat input moved inside chat panel
-
-.input-group.input-chat {
-  width: 95%;
-  margin: 0 auto;
-  border-radius: 5px 5px 5px 5px !important;
-  padding-bottom: 8px;
-}
-.panel-chat {
-  margin-top: -160px; 
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-}
 
