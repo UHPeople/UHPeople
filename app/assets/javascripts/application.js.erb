@@ -26,6 +26,17 @@ $('.nav-tabs a').on('shown.bs.tab', function (e) {
     window.scrollTo(0, 0);
 })
 
+function clearAllMasonryBricks (){
+  //var bricks = [];
+  var bricks = document.getElementsByClassName("masonry-brick");
+  for(var b in bricks){
+    $('#masonry-container').masonry('remove', bricks[0]);
+    //$.post( "notifications/" + bricks[0].id);
+    $('#masonry-container').masonry();
+    console.log('removed: ' + bricks[0])
+  }
+};
+
 var ready = function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
