@@ -15,7 +15,8 @@
 .panel.fav {
   border-radius: 0;
   margin-bottom: 0;
-  .panel-heading{
+
+  .panel-heading {
     border-radius: 0;
   }
 }
@@ -24,36 +25,36 @@
 
 .star {
   color: $star-color;
-  text-decoration: none !important;
-  opacity: 1;
-
-  -webkit-transition: all .25s ease-in-out;
-  -moz-transition: all .25s ease-in-out;
-  transition: all .25s ease-in-out;
-
   float: right;
   margin-top: 3px;
+  opacity: 1;
+  text-decoration: none !important;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+  transition: all .25s ease-in-out;
+
+  .glyphicon-star-empty {
+    opacity: .5;
+  }
 }
 
 .star:hover {
     color: $star-color;
 }
 
-.star.glyphicon-star-empty {
-  opacity: .5;
-}
-
 // TAB border
+
+$border-color: #ddd;
 
 #feed.tab-pane {
 
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-    border-radius: 0px 0px 5px 5px;
-    padding-right: 16px;
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-radius: 0 0 5px 5px;
+  border-right: 1px solid $border-color;
+  padding-right: 16px;
 }
 
 .nav-tabs {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }

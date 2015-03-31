@@ -1,8 +1,7 @@
-/* 
 
-  Autocomplete css
 
-*/
+// Autocomplete css
+
 
 .typeahead-invite,
 .typeahead {
@@ -14,55 +13,55 @@
 
 
   .tt-hint {
-    color: #999
+    color: $fallback-negative;
   }
 
   .tt-dropdown-menu {
-    width: 100%;
     background-color: $white;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.2);
+    
+    border: 1px solid $fallback;
 
     -webkit-border-radius: 2px;
        -moz-border-radius: 2px;
             border-radius: 2px;
-            
-    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-       -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
-            box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  }
 
-  .tt-suggestion.tt-cursor {
-    color: $white;
-    background-color: $primary;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+    width: 100%;        
   }
 
   .tt-suggestion {
     padding-left: 16px;
     padding-right: 16px;
-  }
 
-  .tt-suggestion a {
-    text-decoration: none;
-    color: $black !important;
-  }
+    .tt-cursor {
+      background-color: $primary;
+      color: $white;
+    }
 
-  .tt-suggestion div {
-    height: 64px;
-    width: 100%;
-    padding-top: 10px;
-    display: inline-block;
-  }
+    a {
+      color: $black !important;
+      text-decoration: none; 
+    }
 
-  .tt-suggestion span {
-    padding-top: 12px;
-    display: inline-block;
-  }
+    div {
+      display: inline-block;
+      height: 64px;
+      padding-top: 10px;
+      width: 100%;
+    }
 
-  .tt-suggestion img {
-    float: right;
+    span {
+      display: inline-block;
+      padding-top: 12px;
+    }
 
-    width: 45px;
-    height: 45px;
+    img {
+      float: right;
+      height: 45px;
+      width: 45px;
+    }
   }
 }
