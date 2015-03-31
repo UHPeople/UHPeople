@@ -6,7 +6,19 @@
   <% end %>
 
   <% if @user_has_tag %>
-    <%= link_to @topic_button_text , '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+    <%= link_to @topic_button_text , '#target', class: 'edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
+    <%= link_to 'Cancel' , '#target', class: 'hidden edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
+
+    <div id="target" class="hidden" style="padding-top: 5px">
+      <%= form_for @hashtag, html: { multipart: true } do |f| %>
+        <div class="form-group">
+          <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
+          <%= f.file_field :cover_photo, label: 'Upload cover photo:', id: 'cover_photo' %>
+        </div>
+
+        <%= f.submit value: "Update", class: 'btn btn-sm btn-primary' %>
+      <% end %>
+    </div>
   <% end %>
 
   <h3>Members</h3>

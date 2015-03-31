@@ -44,12 +44,12 @@ class HashtagsController < ApplicationController
   end
 
   def update
+    @hashtag.topic_updater_id = current_user.id
+
     unless @hashtag.update(hashtag_params)
       redirect_to :back, notice: 'Something went wrong!'
       return
     end
-
-    @hashtag.topic_updater_id = current_user.id
 
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
