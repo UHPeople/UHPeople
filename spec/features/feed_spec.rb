@@ -22,7 +22,7 @@ RSpec.describe 'Feed page' do
     it 'has messages in feed in order' do
       Message.create user: user, hashtag: hashtag, content: 'Asdasd2'
 
-      expect(find('div.feed_chat_box:first')).to have_content 'Asdasd'
+      expect(find('div.feed-chat-box:first')).to have_content 'Asdasd'
     end
 
     it 'has messages in favourites' do
@@ -67,7 +67,7 @@ RSpec.describe 'Feed page' do
       create_and_visit
       find('td a.glyphicon').click
       click_link 'Favourites'
-      expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
+      expect(find('div.favourites-chat-box:first-child')).to have_content 'Asdasd'
     end
 
     it 'is empty when favourite removed' do
@@ -75,7 +75,7 @@ RSpec.describe 'Feed page' do
       find('td a.glyphicon').click
       click_link 'Favourites'
 
-      expect(find('div.favourites_chat_box:first-child')).to have_content 'Asdasd'
+      expect(find('div.favourites-chat-box:first-child')).to have_content 'Asdasd'
       find('td a.glyphicon').click
       click_link 'Favourites'
 
