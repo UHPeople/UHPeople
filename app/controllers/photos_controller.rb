@@ -8,12 +8,13 @@ class PhotosController < ApplicationController
 
   def create
     @photo = Photo.create(photo_params)
-
-    respond_to do |format|
-      if @photo.save
+    if @photo.save
+      respond_to do |format|
         format.html { redirect_to current_user, notice: 'Photo was successfully added.' }
-      else
-        format.html { redirect_to current_user, notice: 'an error occured while saving photo.' }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to current_user, notice: 'An error occured while saving photo.' }
       end
     end
   end
