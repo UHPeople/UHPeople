@@ -70,9 +70,7 @@ class HashtagsController < ApplicationController
       current_user.hashtags << @hashtag
       redirect_to @hashtag
     else
-      respond_to do |format|
-        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. Hashtag couldn't be created." }
-      end
+      redirect_to :back, notice: 'Oops, something went wrong. Hashtag couldn\'t be created.'
     end
   end
 
@@ -123,6 +121,8 @@ class HashtagsController < ApplicationController
   end
 
   def topic_updater
-    @topicker = User.find_by id: @hashtag.topic_updater_id
+    @topicker = User.find(@hashtag.topic_updater_id)
+    rescue
+      @topicker = nil
   end
 end
