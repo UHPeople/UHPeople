@@ -1,10 +1,9 @@
 <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
         <div class="field">
-      <%= label_tag :image_text, "Photo title" %><br>
+      <%= label_tag :image_text, "Photo title" %>
       <%= text_field_tag :image_text %>
     </div>
     <div class="field">
-      <%= label_tag :image %><br>
       <%= file_field_tag :image %>
     </div>
     <div class="actions">
