@@ -17,14 +17,14 @@
   }
 
   .nav-tabs-justified > li > a {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $fallback;
     border-radius: 4px 4px 0 0;
   }
 
   .nav-tabs-justified > .active > a,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus {
-    border-bottom-color: #fff;
+    border-bottom-color: $white;
   }
 
   .nav-justified > li {
@@ -37,14 +37,14 @@
   }
 
   .nav-tabs.nav-justified > li > a {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid $fallback;
     border-radius: 4px 4px 0 0;
   }
 
   .nav-tabs.nav-justified > .active > a,
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #fff;
+    border-bottom-color: $white;
   }
 
   .nav-tabs.nav-justified > li {
@@ -57,13 +57,13 @@
   }
 
   .navbar-right .dropdown-menu {
-    right: 0;
     left: auto;
+    right: 0; 
   }
 
   .navbar-right .dropdown-menu-left {
-    right: auto;
     left: 0;
+    right: auto;
   }
 
   .container {
@@ -203,11 +203,11 @@
     margin-right: 0;
   } 
 
-  .navbar{
+  .navbar {
     height: 140px;
   }
 
-  .hidden-sm{
+  .hidden-sm {
     visibility: hidden;
   }
 }
@@ -224,22 +224,22 @@ main {
     padding-top: 140px;
   }
 
-  .hidden-sm{
+  .hidden-sm {
     visibility: hidden;
   }
 }
 
 @media (max-width: 767px) {
 
-  .small-right{
-      padding-right: 0;
+  .small-right {
+    padding-right: 0;
   }
 
-  .small-left{
-      padding-left: 0;
+  .small-left {
+    padding-left: 0;
   }
 
-  #non-transparent{
+  #non-transparent {
     position: absolute;
     top: 100%;
     left: 0;
@@ -251,17 +251,17 @@ main {
     list-style: none;
     font-size: 14px;
     text-align: left;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: $white;
+    border: 1px solid $fallback;
+    //border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 4px;
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     background-clip: padding-box;
   }
 
   .grouplist-position {
-      margin-top: 0px !important;
+    margin-top: 0 !important;
   }
 }
 
