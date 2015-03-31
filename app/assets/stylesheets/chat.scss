@@ -1,45 +1,48 @@
-
-/*FEED*/
-
-.feed_chat_box {
+@mixin chat {
   width: 100%;
   min-height: 40px;
-  padding-bottom: 5px;
-  padding-left: 20px;
 
-  div.panel-body {
+  .panel-body {
+    margin: 0;
+    min-height: 72px;
     padding: 0;
     padding-left: 16px;
-    margin: 0;
-    min-height: 72px
   }
 
   .avatar-link {
+    float: left;
     padding-top: 14px;
-    float:left;
   }
 
+  .timestamp {
+    color: $timestamp-color;
+    font-size: 70%;
+    font-weight: normal;
+  }
+}
+
+// Feed chat
+.feed-chat-box {
+  @include chat;
+  
+  padding-bottom: 5px;
+  padding-left: 20px;
+
   .message {
-    padding-top: 16px;
     padding-left: 56px;
+    padding-top: 16px;
 
     h5 {
       margin-top: 0;
       margin-bottom: 4px;
-    }
   
-    h5 > a{
-      font-weight: 900;
-      padding-right: .25rem;
-      color: #3d3c40 !important;
-      margin-left: 0;
-      font-style: normal;
-    }
-
-    .timestamp {
-      color: #ABA7A9;
-      font-weight: normal;
-      font-size: 70%;
+      a {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+      }  
     }
 
     p {
@@ -51,9 +54,9 @@
   }
 }
 
-/*Favourites Chatbox*/
-.favourites_chat_box {
-  width: 100%;
+// Favourites Chatbox
+.favourites-chat-box {
+  @include chat;
 
   .message {
     margin-bottom: 0;
@@ -75,36 +78,16 @@
       margin-bottom: 0;
       word-wrap: break-word;
     }
-
-    span {
-      color: #ABA7A9;
-      font-weight: normal;
-      font-size: 70%;
-    }
   }
 }
 
 // INTEREST Chat
 .interest-chatbox {
-  width: 100%;
-  min-height: 40px;
-
+  @include chat;
 
   height: 500px;
   overflow: auto;
   overflow-x: hidden;
-
-  div.panel-body {
-    padding: 0;
-    padding-left: 16px;
-    margin: 0;
-    min-height: 72px
-  }
-
-  .avatar-link {
-    padding-top: 14px;
-    float:left;
-  }
 
   .message {
     padding-top: 16px;
@@ -113,22 +96,16 @@
     h5 {
       margin-top: 0;
       margin-bottom: 4px;
-    }
-  
-    h5 > a{
-      font-weight: 900;
-      padding-right: .25rem;
-      color: #3d3c40 !important;
-      margin-left: 0;
-      font-style: normal;
-    }
 
-    .timestamp {
-      color: $timestamp-color;
-      font-size: 70%;
-      font-weight: normal;
+      a {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+      }
     }
-
+    
     p {
       font-size: 15px;
       line-height: 22px;
@@ -138,22 +115,7 @@
   }
 }
 
-
-/* Interest page members list */
-
-.grouplist-position {
-  margin-top: -160px;
-}
-
-.chat-button {
-  margin-bottom: 10px;
-}
-.scrollable {
-    overflow: scroll;
-    height:390px; 
-}
-
-.nav-list{
+.nav-list {
   li:not(.online) a {
     padding-left: 30px;
   }
@@ -173,18 +135,30 @@
 }
 
 // chat input moved inside chat panel
-
 .input-group.input-chat {
   width: 95%;
   margin: 0 auto;
-  border-radius: 5px 5px 5px 5px !important;
+  border-radius: 5px !important;
   padding-bottom: 8px;
 }
+
 .panel-chat {
   margin-top: -160px; 
   margin-bottom: 20px;
   padding-bottom: 10px;
 }
 
+// Interest page members list
+.grouplist-position {
+  margin-top: -160px;
+}
 
+.chat-button {
+  margin-bottom: 10px;
+}
+
+.scrollable {
+  overflow: scroll;
+  height:390px;
+}
 

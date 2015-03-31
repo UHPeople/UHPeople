@@ -1,22 +1,39 @@
 add_message = (data) ->
   size = $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length
 
-  if ( size >= 5)
+  if size >= 5
     $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
   hashtag_name = $('td a#' + data.hashtag).text()
-  timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
+  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
-  $('#feed').prepend '<div class="feed_chat_box">' + 
+  $('#feed').prepend ''+
+    '<div class="feed-chat-box">' + 
       '<a href="/users/' + data.user + '" class="avatar-link">' +
-      '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
-      '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-        '<a href="/hashtags/' + data.hashtag + '">' + hashtag_name + '</a>' +
-        '<span class="timestamp">' + timestamp + '</span></h5><p>' + data.content + '</p></div></div>'
+        '<img class="img-circle" src="' + data.avatar + '"></img>' +
+      '</a>' +
+      '<div class="message">' +
+        '<h5>' +
+          '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
+          '<a href="/hashtags/' + data.hashtag + '">' + hashtag_name + '</a>' +
+          '<span class="timestamp">' + timestamp + '</span>' +
+        '</h5>' +
+        '<p>' + data.content + '</p>' +
+      '</div>' +
+    '</div>'
 
-  $('div.panel.fav#box-' + data.hashtag).append '<div class="panel-body fav"><div class="favourites_chat_box"><div class="message"><p>' +
-    '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' + data.content +
-      '<br><span>' + timestamp + '</span></p></div></div</div>'
+  $('div.panel.fav#box-' + data.hashtag).append ''+
+    '<div class="panel-body fav">' + 
+      '<div class="favourites-chat-box">' +
+        '<div class="message">' + 
+          '<p>' +
+            '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' +
+            data.content +
+            '<br><span>' + timestamp + '</span>' +
+          '</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>'
 
   $('#masonry-container').masonry()
   
@@ -47,7 +64,6 @@ ready = ->
       if t == 0
         $('.notif-icon').css('color', '#FFDB00');
         $('.notif-count').css('color', '#FFDB00');
-
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
