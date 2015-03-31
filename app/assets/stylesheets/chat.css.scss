@@ -22,7 +22,7 @@
 }
 
 // Feed chat
-.feed_chat_box {
+.feed-chat-box {
   @include chat;
   
   padding-bottom: 5px;
@@ -55,7 +55,7 @@
 }
 
 // Favourites Chatbox
-.favourites_chat_box {
+.favourites-chat-box {
   @include chat;
 
   .message {
