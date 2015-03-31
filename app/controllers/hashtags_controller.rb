@@ -69,8 +69,6 @@ class HashtagsController < ApplicationController
     if @hashtag.save
       current_user.hashtags << @hashtag
       redirect_to @hashtag
-    else
-      redirect_to :back, notice: 'Oops, something went wrong. Hashtag couldn\'t be created.'
     end
   end
 
@@ -117,7 +115,7 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id, :cover_photo)
+    params.require(:hashtag).permit(:topic, :topic_updater_id, :cover_photo)
   end
 
   def topic_updater

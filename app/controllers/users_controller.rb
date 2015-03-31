@@ -44,7 +44,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to @user, notice: 'User was successfully created.'
     else
-      render action: 'new'
+      redirect_to action: 'new'
     end
   end
 
