@@ -55,7 +55,7 @@
 
 /* Jumbotron material desing */
 .jumbotron {
-  height: 200px;
+  height: 320px;
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
   background-size: cover;
@@ -230,11 +230,11 @@
   }
 }
 
-div.sidebar-nav li:not(.online) a {
+li:not(.online) a {
   padding-left: 30px;
 }
 
-div.sidebar-nav li.online a::before {
+li.online a::before {
   float: left;
   margin-top: 5px;
   margin-right: 5px;
@@ -245,6 +245,11 @@ div.sidebar-nav li.online a::before {
   height: 10px;
   border-radius: 50%;
   background: #549E54;
+}
+
+.scrollable {
+  overflow: scroll;
+  height:283px; 
 }
 
 // other
@@ -312,9 +317,9 @@ div.sidebar-nav li.online a::before {
   background-color: $primary;
 }
 
-.tt-suggestion div {
-  height: 64px;
-  width: 100%;
+.tt-suggestion {
+  padding-left: 16px;
+  padding-right: 16px;
 }
 
 .tt-suggestion a {
@@ -322,25 +327,23 @@ div.sidebar-nav li.online a::before {
   color: $black !important;
 }
 
-.tt-suggestion .avatar-45 {
-  float: right !important;
+.tt-suggestion div {
+  height: 64px;
+  width: 100%;
+  padding-top: 10px;
+  display: inline-block;
 }
 
-.suggest-tag {
-  padding-top: 22px;
-  padding-left: 16px;
+.tt-suggestion span {
+  padding-top: 12px;
+  display: inline-block;
 }
 
-.suggest-name {
-  padding-top: 22px;
-  width: 150px !important;
-}
+.tt-suggestion img {
+  float: right;
 
-.suggest-asd {
-  //width: 100%;
-  min-width: 45px;
-  padding-left: 16px;
-  padding-right: 16px;
+  width: 45px;
+  height: 45px;
 }
 
 .asd {
@@ -369,7 +372,7 @@ div.sidebar-nav li.online a::before {
   border-radius: 5px 5px 5px 5px !important;
 }
 .panel-chat {
-  margin-top: -100px; 
+  margin-top: -160px; 
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-radius: 5px 5px 5px 5px !important;

@@ -1,25 +1,12 @@
-<div class="jumbotron" style="background-image: url('<%= @hashtag.cover_photo.url(:medium) %>'); padding-top: 0;">
+<div class="jumbotron" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0;">
   <div class="container text-center">
     <h1>#<%= @hashtag.tag %></h1>
-    <p class="lead">
-      <%= @hashtag.topic %>
 
-      <% if @hashtag.topic_updater_id and not @hashtag.topic.blank? %>
-        <footer>Updated by: <cite><%= @topicker.name %></cite></footer>
+    <p>
+      <% unless @hashtag.topic.blank? %>
+        <%= @hashtag.topic %>
+        <cite style="font-size: 60%">- <%= @topicker.name %></cite>
       <% end %>
-    </p> 
-
-    <% if @user_has_tag %>
-      <div id="target" class="hidden">
-        <%= form_for @hashtag, html: { multipart: true } do |f| %>
-          <div class="form-group">
-            <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
-            <%= f.file_field :cover_photo, label: 'Upload cover photo:', id: 'cover_photo' %>
-          </div>
-
-          <%= f.submit value: "Update", class: 'btn btn-sm btn-primary' %>
-        <% end %>
-      </div>
-    <% end %>
+    </p>
   </div> 
 </div>
