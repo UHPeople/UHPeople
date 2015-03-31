@@ -277,8 +277,12 @@ li.online a::before {
 }
 
 .scrollable {
-  overflow: scroll;
-  height:283px; 
+  overflow: auto;
+  height:381px;
+}
+
+.grouplist-position {
+  margin-top: -160px;
 }
 
 // other
