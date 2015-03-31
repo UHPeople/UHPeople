@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :invite, only: [:index, :send_email]
   resources :user_hashtags, only: [:update]
   resources :notifications, only: [:index]
-  resources :photos, only: [:show, :create]
+  resources :photos, only: [:show, :create, :destroy]
 
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
