@@ -6,6 +6,7 @@ class InviteController < ApplicationController
     @user = current_user
     @receiver = params[:receiver]
     # tarkista että receiver loppuu @helsinki.fi
+    byebug
     if @receiver.include? '@helsinki.fi' or @receiver.include? '@cs.helsinki.fi'
       if InvitationMailer.invitation_email(@user, @receiver).deliver_now
         redirect_to :root, notice: 'Invitation was sent succesfully.'
