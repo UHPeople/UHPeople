@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331115844) do
+ActiveRecord::Schema.define(version: 20150401084804) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,12 +71,12 @@ ActiveRecord::Schema.define(version: 20150331115844) do
     t.string   "campus"
     t.string   "unit"
     t.text     "about"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.string   "name"
     t.string   "title"
-    t.boolean  "first_time",   default: true
-    t.integer  "profilePhoto"
+    t.boolean  "first_time",     default: true
+    t.integer  "profilePicture"
   end
 
 end
