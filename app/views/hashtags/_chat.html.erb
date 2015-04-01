@@ -4,7 +4,7 @@
       <% @messages.each do |message| %>
         <div class="panel-body">
           <a href="<%= user_path(message.user) %>", class="avatar-link">
-            <%= image_tag message.user.avatar.url(:thumb), class: "avatar-45" %>
+            <%= image_tag show_user_thumbnail(message.user), class: "avatar-45" %>
           </a>
           
           <div class="message">
