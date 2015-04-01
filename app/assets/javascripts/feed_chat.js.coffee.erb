@@ -59,11 +59,11 @@ ready = ->
     if data.event == 'message'
       add_message data
     else if data.event == 'notification'
-      t = Number($('.notif-count').text())
-      $('.notif-count').text(t + 1)
+      count = $('.notif-count')
+      t = Number(count.text())
+      count.text(t + 1)
       if t == 0
-        $('.notif-icon').css('color', '#FFDB00');
-        $('.notif-count').css('color', '#FFDB00');
+        $('.notif-link').addClass('accent')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

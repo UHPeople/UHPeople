@@ -102,11 +102,11 @@ ready = ->
     else if data.event == 'leave'
       remove_member data
     else if data.event == 'notification'
-      t = Number($('.notif-count').text())
-      $('.notif-count').text(t + 1)
+      count = $('.notif-count')
+      t = Number(count.text())
+      count.text(t + 1)
       if t == 0
-        $('.notif-icon').css('color', '#FFDB00');
-        $('.notif-count').css('color', '#FFDB00');
+        $('.notif-link').addClass('accent')
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
