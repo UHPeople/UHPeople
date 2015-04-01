@@ -24,7 +24,7 @@ RSpec.describe User do
     it 'is not shown with not logged in user' do
       user2 = described_class.create username: 'asd', name: 'asd'
       visit edit_user_path(user2)
-      expect(current_path).to eq '/feed'
+      expect(current_path).to eq feed_index_path
     end
 
     it 'prevents changing name on first login' do

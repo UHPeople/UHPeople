@@ -67,7 +67,7 @@ class UsersController < ApplicationController
       redirect_to :back, alert: 'Invalid photo!'
     else
       current_user.update_attribute(:profilePicture, id)
-      redirect_to current_user
+      redirect_to current_user, notice: 'Profile picture changed.'
     end
   end
 

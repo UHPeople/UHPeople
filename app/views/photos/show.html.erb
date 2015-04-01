@@ -1,28 +1,30 @@
 <div class="container">
   <div class="col-sm-8">
     <%= image_tag @photo.image.url(:medium), class: "img-rounded" %>
+
     <%= form_tag({controller: "photos", action: "update"}, method: "patch") do %>
         <div class="field">
           <%= label_tag :image_text, "Photo title:" %>
           <%= text_field_tag :image_text, @photo.image_text %>
         </div>
+
         <div class="actions">
-          <%= submit_tag("Change title", :class=>"btn btn-primary") %>
+          <%= submit_tag "Change title", class: "btn btn-primary" %>
         </div>
-    <%end%>
+    <% end %>
   </div>
 
   <div>
     <%= form_tag({controller: "users", action: "set_profile_picture"}, method: "post") do %>
-          <%= hidden_field_tag :pic_id, @photo.id %>
-        <div class="actions">
-          <%= submit_tag("Change this photo to your profile picture", :class=>"btn btn-primary") %>
-        </div>
+      <%= hidden_field_tag :pic_id, @photo.id %>
+
+      <div class="actions">
+        <%= submit_tag "Change this photo to your profile picture", class: "btn btn-primary" %>
+      </div>
     <% end %>
 
-  <%if current_user == @photo.user%>
+    <% if current_user == @photo.user %>
       <%= link_to 'Delete photo', photo_path(photo: @photo), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to delete this photo?', "data-confirm-title": 'Delete photo' %>
-  <%end%>
+    <% end %>
   </div>
-
 </div> <!-- /container -->

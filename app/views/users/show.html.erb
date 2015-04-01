@@ -1,21 +1,5 @@
 <div class="container">
-
-  <div class="col-sm-4 well">
-    <div class="profileCrop img-rounded" style="background-image: url('<%= @user_photo %>');"></div>
-    <p><%= @photo_text %></p>
-
-    <div>
-      <% @user.photos.each do |pic| %>
-          <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), photo_path(:id=>pic.id) %>
-      <% end %>
-    </div>
-
-    <%= link_to "Add photos" , '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-
-    <div id="target" class="hidden">
-      <%= render "photo_form" %>
-    </div>
-  </div>
+  <%= render 'profile_well' %>
 
   <div class="col-sm-5">
     <div class="userinfo">
@@ -27,8 +11,8 @@
 
     <div class="aboutme">
       <% unless @user.about.blank? %>
-          <h1>About me</h1>
-          <p><%= @user.about %></p>
+        <h1>About me</h1>
+        <p><%= @user.about %></p>
       <% end %>
     </div>
   </div>
