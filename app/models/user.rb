@@ -6,5 +6,5 @@ class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :photos, dependent: :destroy
-
+  
 end
