@@ -19,4 +19,13 @@ RSpec.describe User do
 
     expect(described_class.count).to eq 1
   end
+
+  it 'user creation fails with no name' do
+    visit users_path
+    click_link('Add new user')
+
+    click_button('Update')
+
+    expect(described_class.count).to eq 0
+  end
 end

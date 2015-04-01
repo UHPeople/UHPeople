@@ -1,3 +1,15 @@
+var normalize = function(str) {
+  if (/^#[^#]*$/.test(str)) {
+    return str.substring(1);
+  }
+  return str;
+}
+
+var queryTokenizer = function(q) {
+  var normalized = normalize(q);
+  return Bloodhound.tokenizers.whitespace(normalized);
+};
+
 var users = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -9,7 +21,7 @@ var users = new Bloodhound({
  
 var hashtags = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag'),
-  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  queryTokenizer: queryTokenizer,
   prefetch: {
     url: '/hashtags/',
     ttl: 1

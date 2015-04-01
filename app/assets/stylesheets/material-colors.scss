@@ -1,12 +1,12 @@
 
-/* Color override file */ 
+// Color override file 
 
 
-$black: RGBA(0, 0, 0, 1);
-$white: RGBA(255, 255, 255, 1);
+$black: rgba(0, 0, 0, 1);
+$white: rgba(255, 255, 255, 1);
 
-$fallback: RGBA(255,255,255, 0.55);
-$fallback-negative: RGBA(0, 0, 0, 0.50);
+$fallback: rgba(255, 255, 255, .55);
+$fallback-negative: rgba(0, 0, 0, .50);
 $navbar-link: $white;
 
 $color-50: #E0F7FA;
@@ -26,105 +26,117 @@ $accent: #FFC107;
 $jumbotron-color: $color-500;
 
 
-//$star-color: #ffd700;
+// $star-color: #ffd700;
 $star-color: $accent;
 $avatar-border-color: #d9d9d9;
-//$timestamp-color: #aba7a9;
+// $timestamp-color: #aba7a9;
 $timestamp-color: $fallback-negative;
-$body: RGBA(0, 167, 248, 0.02);
+$body: rgba(0, 167, 248, .02);
 
-/* notification types */
+// notification types
 $type1: #EF9A9A; // red 200
 $type2: #CE93D8; // purple 200
 $type3: #FFF59D; // yellow 200
 
 html body {
-	background-color: $body;
+  background-color: $body;
 
-	a {
-		color: $color-800;
-	}
+  a {
+    color: $color-800;
+  }
 }
+
 .navbar {
-	background-color: $primary !important;
-	border: none !important;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.26);
+  background-color: $primary !important;
+  border: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+  
+  a {
+    color: $navbar-link !important;
+  }
 }
-.navbar a {
-	color: $navbar-link !important;
-}
+
 .dropdown-menu > li > a {
-	color: $color-900 !important;
+  color: $color-900 !important;
 }
+
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
-	background-color: $color-400 !important;
+  background-color: $color-400 !important;
 }
 
-h2, h3{
-	color: $primary !important;
-	text-transform: uppercase;
-	font-weight: normal !important;
-}
-.jumbotron{
-
-	background: $jumbotron-color;
-
-	h1 {
-    	color: $primary-link;
-    	/*text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;*/
- 	}
-
-  	div {
-    	color: $primary-link; 
-  	}
-
-	footer{
-		color: $fallback !important;
-	}
+h2, h3 {
+  color: $primary !important;
+  text-transform: uppercase;
+  font-weight: normal !important;
 }
 
-.well, .panel-default{
-	background-color: $white !important;
+.jumbotron {
+
+  background: $jumbotron-color;
+
+  h1 {
+      color: $primary-link;
+      //text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
+  }
+
+  div {
+    color: $primary-link; 
+  }
+
+  footer {
+    color: $fallback !important;
+  }
 }
+
+.well, .panel-default {
+  background-color: $white !important;
+}
+
 .panel-heading {
-	background-color: $primary !important;
+  background-color: $primary !important;
 
 }
+
 #feed {
-	background-color: $white !important;
+  background-color: $white !important;
 }
+
 .panel-title > a {
-	color: $primary-link;
+  color: $primary-link;
 }
 
 /* Notification Colouring */
-.navbar-inverse .navbar-nav > li > a.accent{
-	color: $accent !important;
+.navbar-inverse .navbar-nav > li > a.accent {
+  color: $accent !important;
 }
+
 .navbar-inverse .navbar-nav > li > .notif-link:hover, 
 .navbar-inverse .navbar-nav > li > .notif-link:focus {
-	color:#E2E274 !important;
+  color: #E2E274 !important;
 }
-a.notif-link:hover{
-	color: $white;
+
+a.notif-link:hover {
+  color: $white;
 }
 
 /* notification hover */
-.notif > .alert:hover{
-	background-color: RGBA(208, 237, 197, 0.1);
+.notif > .alert:hover {
+  background-color: rgba(208, 237, 197, .1);
 }
 
 .alert-success .alert-link {
-	color: $black !important;
+  color: $black !important;
 }
 
-.type1{
-	background-color: $type1 !important;
+.type1 {
+  background-color: $type1 !important;
 }
-.type2{
-	background-color: $type2 !important;
+
+.type2 {
+  background-color: $type2 !important;
 }
-.type3{
-	background-color: $type3 !important;
+
+.type3 {
+  background-color: $type3 !important;
 }
 

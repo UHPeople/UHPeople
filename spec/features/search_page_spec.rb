@@ -42,7 +42,12 @@ RSpec.describe 'Search page' do
   end
 
   it 'doesn\'t suggest invalid hashtags' do
-    visit '/search?search=%23asd'
-    expect(page).to have_content 'No results for: #asd'
+    visit '/search?search=%23%23asd'
+    expect(page).to have_content 'No results for: ##asd'
+  end
+
+  it 'strips hashtag' do
+    visit "/search?search=%23#{hashtag.tag}"
+    expect(page).to have_content "Search results for: ##{hashtag.tag}"
   end
 end

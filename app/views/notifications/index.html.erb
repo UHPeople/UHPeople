@@ -1,20 +1,31 @@
 <div class="container">
-	<h2>Your notifications</h2>
+  
 
-	<% unless @notifications.nil? %>
-		<div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix">
-			<% @notifications.each do |notif| %>
-				<%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
-				<%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
-				<%= render 'mention', notification: notif if notif.notification_type == 3 && notif.visible %>
-			<% end %>
-		</div>
-	<% end %>
-	<p class="empty-notif">
-	<% if current_user.notifications.unread_count == 0 %>
-		You don't have any new notifications.
-	<% end %>
-	</p>		
+  <h2>Your notifications</h2>
+
+    <p class="empty-notif"></p> 
+    <% if current_user.notifications.unread_count == 0 %>
+      You don't have any new notifications.
+    <% else %>
+      <a href="#" onclick="clearAllMasonryBricks ()" class="clearAll">
+        <span class="glyphicon glyphicon-trash"></span>
+        Clear all
+      </a>
+    <% end %>
+       
+
+  
+  <% unless @notifications.nil? %>
+    
+    <div id="masonry-container" class="notif transitions-enabled infinite-scroll clearfix">
+      <% @notifications.each do |notif| %>
+        <%= render 'invite', notification: notif if notif.notification_type == 1 && notif.visible %>
+        <%= render 'new_topic', notification: notif if notif.notification_type == 2 && notif.visible %>
+        <%= render 'mention', notification: notif if notif.notification_type == 3 && notif.visible %>
+      <% end %>
+    </div>
+  <% end %>
+
 </div>
 
 

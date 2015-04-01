@@ -4,7 +4,7 @@
       <% @messages.each do |message| %>
         <div class="panel-body">
           <a href="<%= user_path(message.user) %>", class="avatar-link">
-            <%= image_tag message.user.avatar.url(:thumb), class: "avatar-45" %>
+            <%= image_tag message.user.avatar.url(:thumb), class: "img-circle" %>
           </a>
           
           <div class="message">
@@ -24,6 +24,7 @@
 
         <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
         <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+
         <span class="input-group-btn">
           <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
         </span>

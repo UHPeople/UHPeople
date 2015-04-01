@@ -36,28 +36,32 @@ sort_members = ->
 add_message = (data) ->
   size = $('.chatbox .panel-body').length
 
-  if ( size > 20)
+  if size > 20
     $('.chatbox .panel-body:first-child').remove()
 
-  timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
+  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
-  $('.chatbox').append '<div class="panel-body">' +
-    '<a href="/users/' + data.user + '" class="avatar-link">' +
-      '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
-      '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
-       '<span class="timestamp">' + timestamp + '</span></h5><p>' +
-        data.content + '</div></div>'
+  $('.chatbox').append ''+
+    '<div class="panel-body">' +
+      '<a href="/users/' + data.user + '" class="avatar-link">' +
+        '<img class="img-circle" src="' + data.avatar + '"></img>' +
+      '</a>' +
+      '<div class="message">' +
+        '<h5>' + 
+          '<a href="/users/' + data.user + '">' + data.username + '</a>' +
+          '<span class="timestamp">' + timestamp + '</span>' +
+        '</h5>' + 
+        '<p>' + data.content + '</p>' +
+      '</div>' +
+    '</div>'
 
   scroll_to_bottom()
 
 add_member = (data) ->
-  $('div.sidebar-nav ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
+  $('.nav-list ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
 
 remove_member = (data) ->
-  $('div.sidebar-nav ul li#' + data.user).remove()
-
-add_notification = () ->
-  
+  $('.nav-list ul li#' + data.user).remove()
 
 ready = ->
   if not $('#hashtag-id').length

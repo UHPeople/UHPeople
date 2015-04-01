@@ -1,0 +1,61 @@
+@import 'masonry/basic';
+@import 'masonry/transitions';
+
+@import 'joyride/joyride-2.1';
+@import 'bootstrap-sprockets';
+@import 'bootstrap-custom';
+
+@import 'font-gotham';
+@import 'jqcloud';
+
+@import 'material-colors';
+@import 'mobile-first';
+@import 'navbar';
+@import 'autocomplete';
+@import 'chat';
+@import 'feed';
+@import 'user-style';
+
+
+.container {
+  padding-top: 20px;
+}
+
+// Jumbotron material desing 
+
+.jumbotron {
+ 
+  background-position: center;
+  // Make the background image cover the area of the <div>, and clip the excess 
+  background-size: cover;
+  border-radius: 0 !important;
+  height: 320px;
+  margin-bottom: 0;
+  margin-top: -20px;
+ 
+}
+
+// Frontpage setup
+
+.head {
+  background-image: image-url('bg.jpg');
+  background-position: center;
+  height: 100vh;
+
+  .middle {
+    padding-top: 150px;
+
+    h1, p, a {
+      text-shadow:  1px 1px 11px rgba(0, 0, 0, .81);
+    }
+  }
+}
+
+// other
+
+.alert {
+  margin-bottom: 0;
+}
+
+
+
