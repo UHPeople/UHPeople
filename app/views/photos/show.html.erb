@@ -12,8 +12,17 @@
     <%end%>
   </div>
 
+  <div>
+    <%= form_tag({controller: "users", action: "set_profile_picture"}, method: "post") do %>
+          <%= hidden_field_tag :pic_id, @photo.id %>
+        <div class="actions">
+          <%= submit_tag("Change this photo to your profile picture", :class=>"btn btn-primary") %>
+        </div>
+    <% end %>
+
   <%if current_user == @photo.user%>
       <%= link_to 'Delete photo', photo_path(photo: @photo), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to delete this photo?', "data-confirm-title": 'Delete photo' %>
   <%end%>
+  </div>
 
 </div> <!-- /container -->

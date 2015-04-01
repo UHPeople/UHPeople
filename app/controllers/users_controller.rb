@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :set_campuses, only: [:new, :show, :edit, :update]
   before_action :user_is_current, only: [:edit, :update]
+  before_action :show_profile_photo, only: [:show, :edit]
 
   def index
     @users = User.all
@@ -12,7 +13,7 @@ class UsersController < ApplicationController
         render json: 'Not logged in' if current_user.nil?
 
         users = @users.collect { |user|
-          { id: user.id, name: user.name, avatar: user.avatar.url(:thumb) }
+          { id: user.id, name: user.name }
         }
 
         render json: users
@@ -68,6 +69,13 @@ class UsersController < ApplicationController
     redirect_to notifications_path
   end
 
+  def set_profile_picture
+    u = current_user
+    u.profilePhoto = params[:pic_id].to_i
+    u.save
+    redirect_to user_path(id: u.id)
+  end
+
   private
 
   def user_is_current
@@ -79,11 +87,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :avatar)
+    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePhoto)
   end
 
   def edit_user_params
-    params.require(:user).permit(:title, :email, :campus, :unit, :about, :avatar)
+    params.require(:user).permit(:title, :email, :campus, :unit, :about, :profilePhoto)
   end
 
   def set_campuses
@@ -92,5 +100,16 @@ class UsersController < ApplicationController
                  "Kumpula Campus",
                  "Meilahti Campus",
                  "Viikki Campus"]
+  end
+
+  def show_profile_photo
+      photo = Photo.find_by id: @user.profilePhoto
+      if photo != nil
+        @user_photo = photo.image.url(:medium)
+        @photo_text = photo.image_text
+      else
+        @user_photo = ""
+        @photo_text = ""
+      end
   end
 end
