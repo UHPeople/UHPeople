@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-sm-4 well">
-    <div class="profileCrop" style="background-image: url('<%= @user_photo %>');"></div>
+    <div class="profileCrop" style="background-image: url('<%= @user.profile_picture_url %>');"></div>
 
     <table class="table table-hover">
       <% @user.photos.each do |pic| %>
@@ -32,27 +32,27 @@
         <div class="field">
           <h2><%= @user.name %></h2>
 
-          <%= f.text_field :name, :class => "form-control" if !Rails.env.production?%>
+          <%= f.text_field :name, class: "form-control" if !Rails.env.production?%>
 
         </div>
         <div class="field">
           <%= f.label :title %><br>
-          <%= f.text_field :title, :class => "form-control" %>
+          <%= f.text_field :title, class: "form-control" %>
         </div>
         <div class="option_class">
           <%= f.label :campus %><br>
-          <%= f.select :campus, options_for_select(@campuses, f.object.campus), {include_blank: true} %>
+          <%= f.select :campus, options_for_select(@campuses, f.object.campus), { include_blank: true } %>
         </div>
         <div class="field">
           <%= f.label :unit %><br>
-          <%= f.text_field :unit, :class => "form-control" %>
+          <%= f.text_field :unit, class: "form-control" %>
         </div>
         <div class="field">
           <%= f.label :about %><br>
-          <%= f.text_area :about, size: "60x8", :class => "form-control" %>
+          <%= f.text_area :about, size: "60x8", class: "form-control" %>
         </div>
         <div class="actions">
-          <%= f.button :Update,  :class => 'btn btn-primary' %>
+          <%= f.button :Update, class: 'btn btn-primary' %>
         </div>
     <% end %>
   </div>

@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update]
   before_action :set_campuses, only: [:new, :show, :edit, :update]
   before_action :user_is_current, only: [:edit, :update]
-  before_action :show_profile_photo, only: [:show, :edit]
 
   def index
     @users = User.all
@@ -13,7 +12,7 @@ class UsersController < ApplicationController
         render json: 'Not logged in' if current_user.nil?
 
         users = @users.collect { |user|
-          { id: user.id, name: user.name }
+          { id: user.id, name: user.name, avatar: user.profile_picture_url }
         }
 
         render json: users
@@ -61,10 +60,15 @@ class UsersController < ApplicationController
   end
 
   def set_profile_picture
-    u = current_user
-    u.profilePicture = params[:pic_id].to_i
-    u.save
-    redirect_to user_path(id: u.id)
+    id = params[:pic_id].to_i
+    photo = Photo.find id
+
+    if photo.nil?
+      redirect_to :back, alert: 'Invalid photo!'
+    else
+      current_user.update_attribute(:profilePicture, id)
+      redirect_to current_user
+    end
   end
 
   private
@@ -90,16 +94,5 @@ class UsersController < ApplicationController
                  'Kumpula Campus',
                  'Meilahti Campus',
                  'Viikki Campus']
-  end
-
-  def show_profile_photo
-      photo = Photo.find_by id: @user.profilePicture
-      if photo != nil
-        @user_photo = photo.image.url(:medium)
-        @photo_text = photo.image_text
-      else
-        @user_photo = ""
-        @photo_text = ""
-      end
   end
 end

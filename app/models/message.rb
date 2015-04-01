@@ -41,7 +41,7 @@ class Message < ActiveRecord::Base
              'user': user_id,
              'username': user.name,
              'timestamp': timestamp,
-             'avatar': user.show_user_thumbnail }
+             'avatar': user.profile_picture_url }
 
     JSON.generate json
   end

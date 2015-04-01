@@ -1,10 +1,9 @@
 <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
 
-
 <% @messages.each do |message| %>
     <div class="feed-chat-box">
       <a href="<%= user_path(message.user) %>" class="avatar-link">
-        <%= image_tag message.user.show_user_thumbnail, class: "img-circle" %>
+        <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
       </a>
 
       <div class="message">

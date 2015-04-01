@@ -17,5 +17,4 @@ class ApplicationController < ActionController::Base
   def require_non_production
     redirect_to root_path if ENV['RAILS_ENV'] == 'production'
   end
-
 end

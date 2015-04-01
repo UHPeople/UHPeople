@@ -7,17 +7,14 @@ class User < ActiveRecord::Base
   has_many :notifications, dependent: :destroy
   has_many :photos, dependent: :destroy
 
-  def unread_notifications
+  def unread_notifications?
     notifications.unread_count > 0
   end
 
-  def show_user_thumbnail
+  def profile_picture_url
     photo = Photo.find_by id: profilePicture
-    if photo != nil
-      @user_photo = photo.image.url(:thumb)
-    else
-      @user_photo = ""
-    end
-  end
+    return ActionController::Base.helpers.asset_path('missing.png') if photo.nil?
 
+    photo.image.url(:thumb)
+  end
 end
