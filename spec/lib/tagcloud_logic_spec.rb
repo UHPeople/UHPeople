@@ -3,11 +3,11 @@ require_relative '../../lib/tagcloud_logic'
 
 RSpec.describe TagcloudLogic do
   subject { described_class.new }
-  
+
   let!(:user) { FactoryGirl.create :user }
   let!(:hashtag) { FactoryGirl.create :hashtag }
 
-  before :each do  
+  before :each do
     user.hashtags << hashtag
     Message.create user: user, hashtag: hashtag, content: 'asd'
   end

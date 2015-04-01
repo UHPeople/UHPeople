@@ -13,7 +13,7 @@ RSpec.describe Hashtag do
     it 'has send button' do
       visit "/hashtags/#{hashtag.id}"
 
-      expect(find("//form/div/span/input")).to have_content ''
+      expect(find('//form/div/span/input')).to have_content ''
     end
 
     context 'messages' do
@@ -27,7 +27,7 @@ RSpec.describe Hashtag do
       end
 
       it 'have a thumbnail' do
-        expect(find('.avatar-45')).to have_content ''
+        expect(find('.img-circle')).to have_content ''
       end
     end
 

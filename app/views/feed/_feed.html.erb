@@ -2,7 +2,7 @@
 
 <div id="feed">
   <% @messages.each do |message| %>
-  	<div class="feed_chat_box">
+  	<div class="feed-chat-box">
   		<a href="<%= user_path(message.user) %>" class="avatar-link">
   			<%= image_tag show_user_thumbnail(message.user), class: "img-circle" %>
   		</a>

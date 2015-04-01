@@ -1,0 +1,67 @@
+
+
+// Autocomplete css
+
+
+.typeahead-invite,
+.typeahead {
+  width: 100% !important;
+}
+
+.twitter-typeahead {
+  width: 100%;
+
+
+  .tt-hint {
+    color: $fallback-negative;
+  }
+
+  .tt-dropdown-menu {
+    background-color: $white;
+    
+    border: 1px solid $fallback;
+
+    -webkit-border-radius: 2px;
+       -moz-border-radius: 2px;
+            border-radius: 2px;
+
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+
+    width: 100%;        
+  }
+
+  .tt-suggestion {
+    padding-left: 16px;
+    padding-right: 16px;
+
+    .tt-cursor {
+      background-color: $primary;
+      color: $white;
+    }
+
+    a {
+      color: $black !important;
+      text-decoration: none; 
+    }
+
+    div {
+      display: inline-block;
+      height: 64px;
+      padding-top: 10px;
+      width: 100%;
+    }
+
+    span {
+      display: inline-block;
+      padding-top: 12px;
+    }
+
+    img {
+      float: right;
+      height: 45px;
+      width: 45px;
+    }
+  }
+}

@@ -22,7 +22,7 @@ RSpec.describe User do
     end
 
     it 'is not shown with not logged in user' do
-      user2 = User.create username: 'asd', name: 'asd'
+      user2 = described_class.create username: 'asd', name: 'asd'
       visit edit_user_path(user2)
       expect(current_path).to eq '/feed'
     end
@@ -32,6 +32,5 @@ RSpec.describe User do
 
       expect(page).not_to have_field('name')
     end
-
   end
 end

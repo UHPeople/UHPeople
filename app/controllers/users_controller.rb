@@ -27,46 +27,37 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  def edit
-
-  end
-
   def update
-    respond_to do |format|
+    if @user.update(@user.first_time ? user_params : edit_user_params)
       if @user.first_time
-        if @user.update(user_params)
-          format.html { redirect_to feed_index_path }
-        else
-          format.html { render action: 'edit' }
-        end
+        redirect_to feed_index_path
       else
-        if @user.update(edit_user_params)
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        else
-          format.html { render action: 'edit' }
-        end
+        redirect_to @user, notice: 'User was successfully updated.'
       end
+    else
+      render action: 'edit'
     end
   end
 
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-
-      respond_to do |format|
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-      end
+      redirect_to @user, notice: 'User was successfully created.'
     else
-      respond_to do |format|
-        format.html { redirect_to feed_index_path, notice: "Oops, something went wrong. User couldn't be created." }
-      end
+      redirect_to action: 'new'
     end
   end
 
   def set_first_time_use
-    current_user.update_attribute(:first_time, false)
-    redirect_to notifications_path
+    value = params[:value]
+    current_user.update_attribute(:first_time, value)
+
+    if value
+      redirect_to feed_index_path
+    else
+      redirect_to notifications_path
+    end
   end
 
   def set_profile_picture
@@ -95,11 +86,11 @@ class UsersController < ApplicationController
   end
 
   def set_campuses
-    @campuses = ["",
-                 "City Centre Campus",
-                 "Kumpula Campus",
-                 "Meilahti Campus",
-                 "Viikki Campus"]
+    @campuses = ['',
+                 'City Centre Campus',
+                 'Kumpula Campus',
+                 'Meilahti Campus',
+                 'Viikki Campus']
   end
 
   def show_profile_photo

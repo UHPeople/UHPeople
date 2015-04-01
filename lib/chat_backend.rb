@@ -34,7 +34,7 @@ module UHPeople
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
         env['chat.notification_callback'] = proc { |user| notification_callback(user) }
-        
+
         @app.call(env)
       end
     end
@@ -91,16 +91,16 @@ module UHPeople
     end
 
     def find_mentions(message)
-      message.hashtag.users.each { |user|
+      message.hashtag.users.each do |user|
         send_mention(user.id, message.user_id, message.hashtag_id) if message.content.include? "@#{user.name}"
-      }
+      end
     end
 
     def send_mention(user, tricker, hashtag)
       Notification.create notification_type: 3,
-                        user_id: user,
-                        tricker_user_id: tricker,
-                        tricker_hashtag_id: hashtag
+                          user_id: user,
+                          tricker_user_id: tricker,
+                          tricker_hashtag_id: hashtag
 
       notification_callback(user)
     end
