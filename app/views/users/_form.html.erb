@@ -17,6 +17,9 @@
 
         <div class="field">
           <h2><%= @user.name %></h2>
+
+          <%= f.text_field :name, :class => "form-control" if !Rails.env.production?%>
+
         </div>
         <div class="field">
           <%= f.label :title %><br>
