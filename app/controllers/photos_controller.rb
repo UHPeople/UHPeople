@@ -1,8 +1,16 @@
 class PhotosController < ApplicationController
   before_action :require_login
-  before_action :set_photo, only: [:show, :destroy]
+  before_action :set_photo, only: [:show, :destroy, :update]
 
   def show
+  end
+
+  def update
+    unless @photo.update(image_text: params[:image_text])
+      redirect_to :back, notice: 'Something went wrong!'
+      return
+    end
+    redirect_to :back, notice: 'Title was successfully updated.'
   end
 
   def destroy

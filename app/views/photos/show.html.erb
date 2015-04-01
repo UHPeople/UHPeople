@@ -1,6 +1,15 @@
 <div class="container">
   <div class="col-sm-8">
-    <%= image_tag @photo.image.url(:medium) %>
+    <%= image_tag @photo.image.url(:medium), class: "img-rounded" %>
+    <%= form_tag({controller: "photos", action: "update"}, method: "patch") do %>
+        <div class="field">
+          <%= label_tag :image_text, "Photo title:" %>
+          <%= text_field_tag :image_text, @photo.image_text %>
+        </div>
+        <div class="actions">
+          <%= submit_tag("Change title", :class=>"btn btn-primary") %>
+        </div>
+    <%end%>
   </div>
 
   <%if current_user == @photo.user%>
