@@ -6,7 +6,7 @@
 
     <div>
       <% @user.photos.each do |pic| %>
-          <%= link_to image_tag(pic.image.url(:thumb), class: "img-rounded"), photo_path(:id=>pic.id) %>
+          <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), photo_path(:id=>pic.id) %>
       <% end %>
     </div>
 
