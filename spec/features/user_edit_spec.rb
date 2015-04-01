@@ -30,7 +30,7 @@ RSpec.describe User do
     it 'prevents changing name on first login' do
       visit edit_user_path(user)
 
-      expect(page).not_to have_field('name')
+      expect(page).not_to have_field 'name'
     end
   end
 end
