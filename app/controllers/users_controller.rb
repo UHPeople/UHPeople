@@ -106,8 +106,10 @@ class UsersController < ApplicationController
       photo = Photo.find_by id: @user.profilePhoto
       if photo != nil
         @user_photo = photo.image.url(:medium)
+        @photo_text = photo.image_text
       else
         @user_photo = ""
+        @photo_text = ""
       end
   end
 end

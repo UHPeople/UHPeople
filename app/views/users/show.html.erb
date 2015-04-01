@@ -2,11 +2,11 @@
 
   <div class="col-sm-4 well">
     <div class="profileCrop img-rounded" style="background-image: url('<%= @user_photo %>');"></div>
+    <p><%= @photo_text %></p>
 
     <div>
       <% @user.photos.each do |pic| %>
           <%= link_to image_tag(pic.image.url(:thumb), class: "img-rounded"), photo_path(:id=>pic.id) %>
-          <p><%= pic.image_text%></p>
       <% end %>
     </div>
 
