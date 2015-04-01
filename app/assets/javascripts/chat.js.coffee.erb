@@ -84,7 +84,10 @@ ready = ->
       user: user
 
   ws.onclose = ->
-    console.log("on close")
+    input = $('#input-text')
+    input.addClass('has-error')
+    input.prop('disabled', true)
+    input[0].value = 'Connection lost!'
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
