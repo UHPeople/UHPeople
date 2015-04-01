@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
   def set_profile_picture
     u = current_user
-    u.profilePhoto = params[:pic_id].to_i
+    u.profilePicture = params[:pic_id].to_i
     u.save
     redirect_to user_path(id: u.id)
   end
@@ -87,11 +87,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePhoto)
+    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePicture)
   end
 
   def edit_user_params
-    params.require(:user).permit(:title, :email, :campus, :unit, :about, :profilePhoto)
+    params.require(:user).permit(:title, :email, :campus, :unit, :about, :profilePicture)
   end
 
   def set_campuses
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
   end
 
   def show_profile_photo
-      photo = Photo.find_by id: @user.profilePhoto
+      photo = Photo.find_by id: @user.profilePicture
       if photo != nil
         @user_photo = photo.image.url(:medium)
         @photo_text = photo.image_text

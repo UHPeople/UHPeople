@@ -14,6 +14,11 @@ class PhotosController < ApplicationController
   end
 
   def destroy
+    if @photo.id == current_user.profilePicture
+      u = current_user
+      u.profilePicture = nil
+      u.save
+    end
     current_user.photos.destroy(@photo)
     redirect_to current_user, notice: 'Photo was successfully deleted.'
   end
