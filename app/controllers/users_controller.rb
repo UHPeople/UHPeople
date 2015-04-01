@@ -78,8 +78,7 @@ class UsersController < ApplicationController
   end
 
   def set_campuses
-    @campuses = ['',
-                 'City Centre Campus',
+    @campuses = ['City Centre Campus',
                  'Kumpula Campus',
                  'Meilahti Campus',
                  'Viikki Campus']
