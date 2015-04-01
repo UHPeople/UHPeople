@@ -93,7 +93,7 @@ class HashtagsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @hashtag }
-      format.json { render json: { message: 'Sent!' } }
+      format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
 

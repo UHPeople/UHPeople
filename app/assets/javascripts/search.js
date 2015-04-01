@@ -64,6 +64,19 @@ $(document).ready(function() {
   });
 });
 
+function addNotice(name, avatar) {
+  $('.modal-body').append('' +
+    '<div class="alert alert-success alert-dismissible invite-notice" role="alert">' +
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+      '</button>' + 
+      '<div>' + 
+        '<span>' + name + ' invited</span>' + 
+        '<img class="img-circle" src="' + avatar + '"></img>' +
+      '</div>' +
+    '</div>');
+}
+
 function makeSexy() {
   var input = $('form#invite-form span input#user');
   var form = $('form#invite-form');
@@ -79,21 +92,19 @@ function makeSexy() {
     input.blur();
 
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: form.attr('action'),
       data: form.serialize(),
-      dataType: "JSON"
-    }).done(function() {
-      // input.prop('disabled', false);
-
+      dataType: 'JSON'
+    }).done(function(json) {
       form.children('span').append(
         '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
       );
 
       form.parent().addClass('has-success');
-    }).fail(function() {
-      // input.prop('disabled', false);
 
+      addNotice(json['name'], json['avatar']);
+    }).fail(function() {
       form.children('span').append(
         '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
       );
