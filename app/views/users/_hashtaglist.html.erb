@@ -4,7 +4,7 @@
       <% user.hashtags.each do |tag| %>
         <tr>
           <td>
-            <a class="panel-title"><%= link_to "#"+tag.tag, tag %></a>
+            <%= link_to "#"+tag.tag, tag %>
           </td>
         </tr>
       <% end %>
