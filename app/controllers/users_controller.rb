@@ -49,8 +49,14 @@ class UsersController < ApplicationController
   end
 
   def set_first_time_use
-    current_user.update_attribute(:first_time, false)
-    redirect_to notifications_path
+    value = params[:value]
+    current_user.update_attribute(:first_time, value)
+
+    if value
+      redirect_to feed_index_path
+    else
+      redirect_to notifications_path
+    end
   end
 
   private
