@@ -18,12 +18,4 @@ class ApplicationController < ActionController::Base
     redirect_to root_path if ENV['RAILS_ENV'] == 'production'
   end
 
-  def show_user_thumbnail(user)
-    photo = Photo.find_by id: user.profilePicture
-    if photo != nil
-      @user_photo = photo.image.url(:thumb)
-    else
-      @user_photo = ""
-    end
-  end
 end

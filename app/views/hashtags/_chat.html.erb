@@ -5,7 +5,7 @@
         <div class="panel-body">
           <a href="<%= user_path(message.user) %>", class="avatar-link">
 
-            <%= image_tag show_user_thumbnail(message.user), class: "img-circle" %>
+            <%= image_tag message.user.show_user_thumbnail, class: "img-circle" %>
 
           </a>
           
