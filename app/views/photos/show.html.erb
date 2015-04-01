@@ -3,4 +3,13 @@
     <%= image_tag @photo.image.url %>
   </div>
 
+  <div>
+    <%= form_tag({controller: "users", action: "set_profile_picture"}, method: "post") do %>
+          <%= hidden_field_tag :pic_id, @photo.id %>
+        <div class="actions">
+          <%= submit_tag("Change this photo to your profile picture", :class=>"btn btn-primary") %>
+        </div>
+    <% end %>
+  </div>
+
 </div> <!-- /container -->

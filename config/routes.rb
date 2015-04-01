@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'login', to: 'user#index'
 
   resources :hashtags, only: [:index, :show, :create, :update]
-  resources :users
+  resources :users, only: [:index, :show, :new, :create, :edit, :update]
   resources :feed, only: [:index]
   resources :search, only: [:index]
   resources :invite, only: [:index, :send_email]
@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   
   post 'notifications/:id', to: 'notifications#update', via: 'post'
   post 'firsttime', to: 'users#set_first_time_use', as: 'first_time'
+  post 'set_profile_picture', to: 'users#set_profile_picture'
 end
