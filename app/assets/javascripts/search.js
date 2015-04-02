@@ -77,15 +77,19 @@ function addNotice(name, avatar) {
     '</div>');
 }
 
+function clearInviteBox() {
+  $('form#invite-form span span.glyphicon').remove();
+  $('form#invite-form').parent().removeClass('has-success');
+  $('form#invite-form').parent().removeClass('has-error');
+  $('form#invite-form span input#user').val('');
+}
+
 function makeSexy() {
   var input = $('form#invite-form span input#user');
   var form = $('form#invite-form');
 
   input.click(function() {
-    $('form#invite-form span span.glyphicon').remove();
-    form.parent().removeClass('has-success');
-    form.parent().removeClass('has-error');
-    // $(this).val('');
+    clearInviteBox();   
   });
 
   form.submit(function() {

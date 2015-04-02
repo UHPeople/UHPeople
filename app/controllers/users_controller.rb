@@ -11,9 +11,9 @@ class UsersController < ApplicationController
       format.json do
         render json: 'Not logged in' if current_user.nil?
 
-        users = @users.collect { |user|
+        users = @users.collect do |user|
           { id: user.id, name: user.name, avatar: user.profile_picture_url }
-        }
+        end
 
         render json: users
       end

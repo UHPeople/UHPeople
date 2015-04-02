@@ -107,7 +107,7 @@ class HashtagsController < ApplicationController
         return
       end
 
-      raise ActionController::RoutingError.new('Not Found')
+      raise ActionController::RoutingError.new, 'Not Found'
   end
 
   def user_has_tag

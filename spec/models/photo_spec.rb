@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Photo do
-
   file = File.new(File.join(Rails.root, '/spec/fixtures/paperclip', 'blank.jpg'), 'rb')
 
   it 'has title' do
@@ -10,7 +9,7 @@ RSpec.describe Photo do
   end
 
   it 'is saved with all needed variables' do
-    photo = Photo.create!(user_id: '1', image: file)
+    photo = described_class.create!(user_id: '1', image: file)
     assert_equal 'blank.jpg', photo.image_file_name
   end
 
