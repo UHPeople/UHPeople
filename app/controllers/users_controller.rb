@@ -64,7 +64,7 @@ class UsersController < ApplicationController
 
   def set_profile_picture
     id = params[:pic_id].to_i
-    photo = Photo.find id
+    photo = Photo.find(id)
 
     if photo.nil?
       redirect_to :back, alert: 'Invalid photo!'

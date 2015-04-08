@@ -2,6 +2,7 @@ var normalize = function(str) {
   if (/^#[^#]*$/.test(str)) {
     return str.substring(1);
   }
+  
   return str;
 }
 
@@ -66,7 +67,7 @@ $(document).ready(function() {
 
 function addNotice(name, avatar) {
   $('.modal-body').append('' +
-    '<div class="alert alert-success alert-dismissible invite-notice" role="alert">' +
+    '<div class="alert alert-success alert-dismissible invite-notice" role="alert" style="display: none;">' +
       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
         '<span aria-hidden="true">&times;</span>' +
       '</button>' + 
@@ -75,6 +76,12 @@ function addNotice(name, avatar) {
         '<img class="img-circle" src="' + avatar + '"></img>' +
       '</div>' +
     '</div>');
+
+  $('.invite-notice').slideDown('slow');
+
+  $('.invite-notice button').on('click', function() {
+    $(this).parent().hide('slow');
+  });
 }
 
 function clearInviteBox() {

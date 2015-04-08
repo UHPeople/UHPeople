@@ -102,12 +102,7 @@ class HashtagsController < ApplicationController
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
     rescue
-      if ENV['RAILS_ENV'] == 'test'
-        redirect_to root_path
-        return
-      end
-
-      raise ActionController::RoutingError.new, 'Not Found'
+      render 'errors/error'
   end
 
   def user_has_tag

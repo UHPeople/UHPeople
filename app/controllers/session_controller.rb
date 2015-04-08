@@ -11,6 +11,4 @@ class SessionController < ApplicationController
     session[:user_id] = nil
     redirect_to (ENV['RAILS_ENV'] == 'production') ? '/Shibboleth.sso/Logout' : root_path
   end
-
-  
 end
