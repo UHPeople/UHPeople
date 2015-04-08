@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     request.env['omniauth.auth'] = {}
     request.env['omniauth.auth']['info'] = {}
 
-    request.env['omniauth.auth']['uid'] = 'asd'
+    request.env['omniauth.auth']['uid'] = random_string
     request.env['omniauth.auth']['info']['name'] = ''
     request.env['omniauth.auth']['info']['mail'] = ''
 
@@ -91,6 +91,12 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def random_string
+    # from http://codereview.stackexchange.com/questions/15958/
+    range = ((48..57).to_a+(65..90).to_a+(97..122).to_a)
+    5.times { ([nil]*8).map { range.sample.chr }.join }
+  end
 
   def user_is_current
     redirect_to root_path unless params[:id].to_s === session[:user_id].to_s
