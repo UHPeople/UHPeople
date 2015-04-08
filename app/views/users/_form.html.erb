@@ -1,5 +1,5 @@
 <div class="container">
-  <%= render 'profile_well' %>
+  <%= render 'users/profile_well' %>
 
   <div class="col-sm-5">
     <%= form_for @user, html: { :multipart => true } do |f| %>
@@ -15,10 +15,16 @@
         </div>
       <% end %>
 
+      <% if action == 'new' %>
       <div class="field">
-        <h2><%= @user.name %></h2>
-        <%= f.text_field :name, class: "form-control" if !Rails.env.production? %>
+        <%= f.label :name %><br>
+        <%= f.text_field :name, class: "form-control" %>
       </div>
+      <div class="field">
+        <%= f.label :email %><br>
+        <%= f.text_field :email, class: "form-control" %>
+      </div>
+      <% end %>
       <div class="field">
         <%= f.label :title %><br>
         <%= f.text_field :title, class: "form-control" %>

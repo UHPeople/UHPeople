@@ -23,16 +23,19 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    request.env['omniauth.auth'] = {}
+    request.env['omniauth.auth']['info'] = {}
+
+    request.env['omniauth.auth']['uid'] = 'asd'
+    request.env['omniauth.auth']['info']['name'] = ''
+    request.env['omniauth.auth']['info']['mail'] = ''
+
+    shibboleth_callback
   end
 
   def update
-    if @user.update(@user.first_time ? user_params : edit_user_params)
-      if @user.first_time
-        redirect_to feed_index_path
-      else
-        redirect_to @user, notice: 'User was successfully updated.'
-      end
+    if @user.update(edit_user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: 'edit'
     end
@@ -42,7 +45,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to feed_index_path
     else
       redirect_to action: 'new'
     end
@@ -71,6 +74,22 @@ class UsersController < ApplicationController
     end
   end
 
+  def shibboleth_callback
+    uid = request.env['omniauth.auth']['uid']
+    @user = User.find_by username: uid
+
+    if @user.nil?
+      name = request.env['omniauth.auth']['info']['name'].force_encoding('utf-8')
+      mail = request.env['omniauth.auth']['info']['mail']
+
+      @user = User.new username: uid, name: name, email: mail
+      render action: 'new'
+    else
+      session[:user_id] = @user.id
+      redirect_to feed_index_path
+    end
+  end
+
   private
 
   def user_is_current
@@ -86,7 +105,7 @@ class UsersController < ApplicationController
   end
 
   def edit_user_params
-    params.require(:user).permit(:title, :email, :campus, :unit, :about, :profilePicture)
+    params.require(:user).permit(:title, :campus, :unit, :about, :profilePicture)
   end
 
   def set_campuses

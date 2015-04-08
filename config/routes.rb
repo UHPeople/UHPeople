@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
 
-  get 'auth/shibboleth/callback', to: 'session#callback'
+  get 'auth/shibboleth/callback', to: 'users#shibboleth_callback'
 
   post 'hashtags/:id/invite', to: 'hashtags#invite'
 
