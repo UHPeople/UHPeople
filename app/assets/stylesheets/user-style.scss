@@ -1,6 +1,4 @@
-
 // User styles
-
 
 // User image crop
 
@@ -9,4 +7,10 @@
   background-position: center;
   /* Make the background image cover the area of the <div>, and clip the excess */
   background-size: cover;
+}
+
+// Thumbnail image size
+a img.img-circle {
+  width: 45px;
+  height: 45px;
 }
