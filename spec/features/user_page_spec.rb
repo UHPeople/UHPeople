@@ -45,13 +45,13 @@ RSpec.describe User do
       expect(page).not_to have_content 'Interests'
     end
 
-    it 'has button and form for adding photos' do
-      click_link 'Add photos'
+    it "has button and form for adding photos" do
+      click_link 'Add photo'
       expect(page).to have_content 'Photo title'
     end
 
-    it 'can add photos to album' do
-      click_link 'Add photos'
+    it "can add photos to album" do
+      click_link 'Add photo'
       expect(page).to have_content 'Photo title'
     end
   end
