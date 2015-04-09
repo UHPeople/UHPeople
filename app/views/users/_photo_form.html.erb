@@ -1,4 +1,5 @@
 <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
+<<<<<<< HEAD
   <div class="field">
     <%= label_tag :image_text, "Photo title" %>
     <%= text_field_tag :image_text %>
@@ -11,4 +12,16 @@
   <div class="actions">
     <%= submit_tag "Add photo", class: "btn btn-primary" %>
   </div>
+=======
+    <div class="field element-position">
+      <%= label_tag :image_text, "Photo title" %>
+      <%= text_field_tag :image_text %>
+    </div>
+    <div class="field element-position">
+      <%= file_field_tag :image %>
+    </div>
+    <div class="actions element-position">
+      <%= submit_tag("Add photo", :class=>"btn btn-primary") %>
+    </div>
+>>>>>>> editprofile
 <% end %>
