@@ -2,6 +2,7 @@ var normalize = function(str) {
   if (/^#[^#]*$/.test(str)) {
     return str.substring(1);
   }
+  
   return str;
 }
 
@@ -64,36 +65,57 @@ $(document).ready(function() {
   });
 });
 
+function addNotice(name, avatar) {
+  $('.modal-body').append('' +
+    '<div class="alert alert-success alert-dismissible invite-notice" role="alert" style="display: none;">' +
+      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+        '<span aria-hidden="true">&times;</span>' +
+      '</button>' + 
+      '<div>' + 
+        '<span>' + name + ' invited</span>' + 
+        '<img class="img-circle" src="' + avatar + '"></img>' +
+      '</div>' +
+    '</div>');
+
+  $('.invite-notice').slideDown('slow');
+
+  $('.invite-notice button').on('click', function() {
+    $(this).parent().hide('slow');
+  });
+}
+
+function clearInviteBox() {
+  $('form#invite-form span span.glyphicon').remove();
+  $('form#invite-form').parent().removeClass('has-success');
+  $('form#invite-form').parent().removeClass('has-error');
+  $('form#invite-form span input#user').val('');
+}
+
 function makeSexy() {
   var input = $('form#invite-form span input#user');
   var form = $('form#invite-form');
 
   input.click(function() {
-    $('form#invite-form span span.glyphicon').remove();
-    form.parent().removeClass('has-success');
-    form.parent().removeClass('has-error');
-    // $(this).val('');
+    clearInviteBox();   
   });
 
   form.submit(function() {
     input.blur();
 
     $.ajax({
-      type: "POST",
+      type: 'POST',
       url: form.attr('action'),
       data: form.serialize(),
-      dataType: "JSON"
-    }).done(function() {
-      // input.prop('disabled', false);
-
+      dataType: 'JSON'
+    }).done(function(json) {
       form.children('span').append(
         '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
       );
 
       form.parent().addClass('has-success');
-    }).fail(function() {
-      // input.prop('disabled', false);
 
+      addNotice(json['name'], json['avatar']);
+    }).fail(function() {
       form.children('span').append(
         '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
       );

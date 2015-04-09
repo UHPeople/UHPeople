@@ -93,7 +93,7 @@ class HashtagsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to @hashtag }
-      format.json { render json: { message: 'Sent!' } }
+      format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
 
@@ -102,12 +102,7 @@ class HashtagsController < ApplicationController
   def set_hashtag
     @hashtag = Hashtag.find(params[:id])
     rescue
-      if ENV['RAILS_ENV'] == 'test'
-        redirect_to root_path
-        return
-      end
-
-      raise ActionController::RoutingError.new('Not Found')
+      render 'errors/error'
   end
 
   def user_has_tag

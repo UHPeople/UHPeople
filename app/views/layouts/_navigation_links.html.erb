@@ -1,16 +1,17 @@
 <li><%= link_to "Home", root_path, id:"feed-onboard-home" %></li>
 
 <li>
-	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif <%= 'accent' if current_user.unread_notifications %>">
+	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif <%= 'accent' if current_user.unread_notifications? %>">
 		<span class="notif-icon glyphicon glyphicon-bell"></span>
 		<span class="notif-count">
-			<%= current_user.notifications.unread_count if current_user.unread_notifications %>
+			<%= current_user.notifications.unread_count if current_user.unread_notifications? %>
 		</span>
 	</a>
 </li>
 
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= current_user.name %>
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <%= current_user.name %>
     <span class="caret"></span>
   </a>
 
