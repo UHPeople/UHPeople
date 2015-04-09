@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :set_campuses, only: [:new, :show, :edit, :update]
+  before_action :set_campuses, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
 
   def index
@@ -115,9 +115,6 @@ class UsersController < ApplicationController
   end
 
   def set_campuses
-    @campuses = ['City Centre Campus',
-                 'Kumpula Campus',
-                 'Meilahti Campus',
-                 'Viikki Campus']
+    @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
   end
 end
