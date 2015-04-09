@@ -1,21 +1,20 @@
 <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
 
-<div id="feed">
-  <% @messages.each do |message| %>
-  	<div class="feed-chat-box">
-  		<a href="<%= user_path(message.user) %>" class="avatar-link">
-  			<%= image_tag message.user.avatar.url(:thumb), class: "img-circle" %>
-  		</a>
+<% @messages.each do |message| %>
+    <div class="feed-chat-box">
+      <a href="<%= user_path(message.user) %>" class="avatar-link">
+        <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
+      </a>
 
-  		<div class="message">
-		    <h5>
-		    	<%= link_to message.user.name, message.user %>at
+      <div class="message">
+        <h5>
+          <%= link_to message.user.name, message.user %>at
           <%= link_to '#' + message.hashtag.tag, message.hashtag %>
-		    	
-		    	<span class="timestamp"><%= message.timestamp %></span> 
-		    </h5>
+
+          <span class="timestamp"><%= message.timestamp %></span>
+        </h5>
         <p><%= message.formatted_content %></p>
-	    </div>
+      </div>
     </div>
-  <% end %>
-</div>
+<% end %>
+

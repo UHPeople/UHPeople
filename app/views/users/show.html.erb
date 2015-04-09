@@ -1,21 +1,22 @@
-<div class="container">	
-	<div class="col-sm-4 profileCrop well" style="background-image: url('<%= @user.avatar.url(:medium) %>');"></div>
+<div class="container">
+  <%= render 'profile_well' %>
 
-	<div class="col-sm-5">
-		<div class="userinfo">
-			<h1><%= @user.name %></h1>
-			<p><%= @user.title %></p>
-			<p><%= @user.email %></p>
-			<p><%= @user.campus %><%= ", " + @user.unit unless @user.unit.blank? %></p>
-		</div>
+  <div class="col-sm-5">
+    <div class="userinfo">
+      <h1><%= @user.name %></h1>
+      <p><%= @user.title %></p>
+      <p><%= @user.email %></p>
+      <p><%= @user.campus %><%= ", " + @user.unit unless @user.unit.blank? %></p>
+    </div>
 
-		<div class="aboutme">
-			<% unless @user.about.blank? %>
-			    <h1>About me</h1>
-			    <p><%= @user.about %></p>
-	  		<% end %>
-		</div>
-	</div>
+    <div class="aboutme">
+      <% unless @user.about.blank? %>
+        <h1>About me</h1>
+        <p><%= @user.about %></p>
+      <% end %>
+    </div>
+  </div>
 
-	<%= render "hashtaglist", user: @user %>
-</div> <!-- /container -->	
+  <%= render "hashtaglist", user: @user %>
+</div> <!-- /container -->
+

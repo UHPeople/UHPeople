@@ -14,7 +14,7 @@
       <div class="col-md-5 col-sm-5 col-xs-10 small-right">
         <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
           <div class="form-group" style="display:inline; width: 100%;">
-            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
+            <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
 
             <div style="width: 0; height: 0; overflow: hidden;">
               <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>

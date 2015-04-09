@@ -1,12 +1,14 @@
-<div class="col-sm-3">
-  <h2>Interests</h2>
-    <table class="table table-hover">
-      <% user.hashtags.each do |tag| %>
-        <tr>
-          <td>
-            <a class="panel-title"><%= link_to "#"+tag.tag, tag %></a>
-          </td>
-        </tr>
-      <% end %>
-   </table>
-</div>
+<% unless user.hashtags.empty? %>
+  <div class="col-sm-3">
+    <h2>Interests</h2>
+      <table class="table table-hover">
+        <% user.hashtags.each do |tag| %>
+          <tr>
+            <td>
+              <%= link_to "#"+tag.tag, tag %>
+            </td>
+          </tr>
+        <% end %>
+     </table>
+  </div>
+<% end %>

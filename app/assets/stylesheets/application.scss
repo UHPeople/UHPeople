@@ -24,15 +24,12 @@
 // Jumbotron material desing 
 
 .jumbotron {
- 
   background-position: center;
   // Make the background image cover the area of the <div>, and clip the excess 
   background-size: cover;
   border-radius: 0 !important;
   height: 320px;
   margin-bottom: 0;
-  margin-top: -20px;
- 
 }
 
 // Frontpage setup
@@ -57,5 +54,10 @@
   margin-bottom: 0;
 }
 
+.modal-footer {
+  border-top: 0 solid #fff;
+}
 
-
+.modal-header {
+  border-bottom: 0 solid #fff;
+}

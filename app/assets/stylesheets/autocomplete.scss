@@ -1,7 +1,4 @@
-
-
 // Autocomplete css
-
 
 .typeahead-invite,
 .typeahead {
@@ -10,7 +7,6 @@
 
 .twitter-typeahead {
   width: 100%;
-
 
   .tt-hint {
     color: $fallback-negative;
@@ -62,6 +58,32 @@
       float: right;
       height: 45px;
       width: 45px;
+    }
+  }
+}
+
+.invite-notice {
+  margin-top: 16px;
+  height: 64px;
+  padding: 0;
+
+  button {
+    top: 8px !important;
+    right: 8px !important;
+  }
+
+  div {
+    padding-left: 8px;
+    padding-top: 9px;
+
+    span {
+      display: inline-block;
+      padding-top: 11px;
+      padding-left: 11px;
+    }
+
+    img {
+      float: left;
     }
   }
 }
