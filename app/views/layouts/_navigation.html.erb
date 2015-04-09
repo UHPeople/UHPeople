@@ -11,7 +11,7 @@
     </div>
 
     <% unless current_user.nil? %>
-      <div class="col-md-5 col-sm-5 col-xs-10 small-right">
+      <div class="col-md-5 col-sm-5 col-xs-8 small-right">
         <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
           <div class="form-group" style="display:inline; width: 100%;">
             <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
