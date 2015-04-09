@@ -13,7 +13,7 @@
   <% end %>
 
   <% if @user == current_user %>
-    <%= link_to "Add photos", '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+    <%= link_to "Add photo", '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
 
     <div id="target" class="hidden">
       <%= render "photo_form" %>
