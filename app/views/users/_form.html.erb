@@ -15,12 +15,17 @@
             </div>
         <% end %>
 
-        <div class="field element-position">
-          <h2><%= @user.name %></h2>
+        <% if action == 'new' %>
+          <div class="field element-position">
+            <%= f.label :name %><br>
+            <%= f.text_field :name, class: "form-control" %>
+          </div>
+          <div class="field element-position">
+            <%= f.label :email %><br>
+            <%= f.text_field :email, class: "form-control" %>
+          </div>
+        <% end %>
 
-          <%= f.text_field :name, :class => "form-control" if !Rails.env.production?%>
-
-        </div>
         <div class="field element-position">
           <%= f.label :title %><br>
           <%= f.text_field :title, :class => "form-control" %>
@@ -40,17 +45,6 @@
         <div class="actions element-position">
           <%= f.button :Update,  :class => 'btn btn-primary' %>
         </div>
-
-      <% if action == 'new' %>
-        <div class="field">
-          <%= f.label :name %><br>
-          <%= f.text_field :name, class: "form-control" %>
-        </div>
-        <div class="field">
-          <%= f.label :email %><br>
-          <%= f.text_field :email, class: "form-control" %>
-        </div>
-      <% end %>
     <% end %>
   </div>
 </div>
