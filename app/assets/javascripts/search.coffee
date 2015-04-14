@@ -73,7 +73,7 @@ send = (name) ->
   $('form#invite-form').submit()
 
 $(document).ready ->
-  // users.clearPrefetchCache()
+  users.clearPrefetchCache()
 
   users.initialize()
   hashtags.initialize()
@@ -99,7 +99,7 @@ $(document).ready ->
   }
 
 $(document).ready ->
-  users.initialize()
+  # users.initialize()
 
   $('.typeahead-invite').typeahead {
     highlight: true
@@ -107,7 +107,12 @@ $(document).ready ->
     name: 'users'
     displayKey: 'name'
     source: users.ttAdapter()
-    templates: suggestion: Handlebars.compile('<div onclick="send({{name}});">' + '<span>{{name}}</span>' + '<img class="img-circle" src="{{avatar}}"></img>' + '</div>')
+    templates: suggestion: Handlebars.compile(
+      '<div onclick="send({{name}});">' +
+        '<span>{{name}}</span>' +
+        '<img class="img-circle" src="{{avatar}}"></img>' +
+      '</div>')
   }
 
   makeSexy()
+  
