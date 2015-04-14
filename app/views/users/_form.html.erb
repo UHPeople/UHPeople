@@ -32,11 +32,17 @@
         </div>
         <div class="option_class element-position">
           <%= f.label :campus %><br>
-          <%= f.select :campus, options_for_select(@campuses, f.object.campus), { include_blank: true } %>
+          <%= f.select :campus, options_for_select(@campuses, f.object.campus) %>
         </div>
+
+        <div class="option_class element-position">
+          <%= f.label :faculty %><br>
+          <%= f.select :faculty, options_for_select(@faculties, f.object.faculty), { include_blank: true } %>
+        </div>
+
         <div class="field element-position">
           <%= f.label :unit %><br>
-          <%= f.text_field :unit, class: "form-control" %>
+          <%= f.select :unit, options_for_select(@units.map {|p| p[:name]}, f.object.unit), { include_blank: true } %>
         </div>
         <div class="field element-position">
           <%= f.label :about %><br>

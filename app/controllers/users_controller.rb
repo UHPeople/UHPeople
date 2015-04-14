@@ -107,11 +107,11 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePicture)
+    params.require(:user).permit(:username, :name, :title, :email, :campus, :faculty, :unit, :about, :profilePicture)
   end
 
   def edit_user_params
-    params.require(:user).permit(:title, :campus, :unit, :about, :profilePicture)
+    params.require(:user).permit(:title, :campus, :faculty, :unit, :about, :profilePicture)
   end
 
   def set_arrays
@@ -122,43 +122,43 @@ class UsersController < ApplicationController
                   "Swedish School of Social Science", "Faculty of Science", "Faculty of Medicine",
                   "Faculty of Biological and Environmental Sciences",
                   "Faculty of Agriculture and Forestry", "Faculty of Veterinary Medicine",
-                  "Faculty of Pharmacy", "Central administration"
+                  "Faculty of Pharmacy", "Central administration", "other"
     ]
 
     @units = [
-        {name: "Department of Finnish, Finno-Ugrian and Scandinavian Studies", faculty: "FoA"},
-        {name: "Department of Modern Languages", faculty: "FoA"},
-        {name: "Department of World Cultures", faculty: "FoA"},
-        {name: "Department of Philosophy, History, Culture and Art Studies", faculty: "FoA"},
-        {name: "Department of Teacher Education", faculty: "FoBS"},
-        {name: "Institute of Behavioural Sciences", faculty: "FoBS"},
-        {name: "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)", faculty: "FoBS"},
-        {name: "Viikki Teacher Training School of Helsinki University", faculty: "FoBS"},
-        {name: "Department of Social Research", faculty: "FoSS"},
-        {name: "Department of Political and Economic Studies", faculty: "FoSS"},
-        {name: "Department of Chemistry", faculty: "FoSc"},
-        {name: "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)", faculty: "FoSc"},
-        {name: "Department of Computer Science", faculty: "FoSc"},
-        {name: "Department of Geosciences and Geography", faculty: "FoSc"},
-        {name: "Institute of Seismology", faculty: "FoSc"},
-        {name: "Department of Mathematics and Statistics", faculty: "FoSc"},
-        {name: "Department of Physics", faculty: "FoSc"},
-        {name: "Clinicum", faculty: "FoM"},
-        {name: "Medicum", faculty: "FoM"},
-        {name: "Research Programs Unit", faculty: "FoM"},
-        {name: "Department of Biosciences", faculty: "FoBES"},
-        {name: "Department of Environmental Sciences", faculty: "FoBES"},
-        {name: "Kilpisjärvi Biological Station", faculty: "FoBES"},
-        {name: "Lammi Biological Station", faculty: "FoBES"},
-        {name: "Tvärminne Zoological Station", faculty: "FoBES"},
-        {name: "Department of Food and Environmental Sciences", faculty: "FoAF"},
-        {name: "Department of Agricultural Sciences", faculty: "FoAF"},
-        {name: "Viikki Research Farm", faculty: "FoAF"},
-        {name: "Department of Forest Sciences", faculty: "FoAF"},
-        {name: "Hyytiälä Forestry Field Station", faculty: "FoAF"},
-        {name: "Värriö Subartic Research Station", faculty: "FoAF"},
-        {name: "Department of Economics and Management", faculty: "FoAF"},
-        {name: "Veterinary Teaching Hospital", faculty: "FoVM"},
+        {name: "Department of Finnish, Finno-Ugrian and Scandinavian Studies", faculty: "Faculty of Arts"},
+        {name: "Department of Modern Languages", faculty: "Faculty of Arts"},
+        {name: "Department of World Cultures", faculty: "Faculty of Arts"},
+        {name: "Department of Philosophy, History, Culture and Art Studies", faculty: "Faculty of Arts"},
+        {name: "Department of Teacher Education", faculty: "Faculty of Behavioural Sciences"},
+        {name: "Institute of Behavioural Sciences", faculty: "Faculty of Behavioural Sciences"},
+        {name: "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)", faculty: "Faculty of Behavioural Sciences"},
+        {name: "Viikki Teacher Training School of Helsinki University", faculty: "Faculty of Behavioural Sciences"},
+        {name: "Department of Social Research", faculty: "Faculty of Social Sciences"},
+        {name: "Department of Political and Economic Studies", faculty: "Faculty of Social Sciences"},
+        {name: "Department of Chemistry", faculty: "Faculty of Science"},
+        {name: "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)", faculty: "Faculty of Science"},
+        {name: "Department of Computer Science", faculty: "Faculty of Science"},
+        {name: "Department of Geosciences and Geography", faculty: "Faculty of Science"},
+        {name: "Institute of Seismology", faculty: "Faculty of Science"},
+        {name: "Department of Mathematics and Statistics", faculty: "Faculty of Science"},
+        {name: "Department of Physics", faculty: "Faculty of Science"},
+        {name: "Clinicum", faculty: "Faculty of Medicine"},
+        {name: "Medicum", faculty: "Faculty of Medicine"},
+        {name: "Research Programs Unit", faculty: "Faculty of Medicine"},
+        {name: "Department of Biosciences", faculty: "Faculty of Biological and Environmental Sciences"},
+        {name: "Department of Environmental Sciences", faculty: "Faculty of Biological and Environmental Sciences"},
+        {name: "Kilpisjärvi Biological Station", faculty: "Faculty of Biological and Environmental Sciences"},
+        {name: "Lammi Biological Station", faculty: "Faculty of Biological and Environmental Sciences"},
+        {name: "Tvärminne Zoological Station", faculty: "Faculty of Biological and Environmental Sciences"},
+        {name: "Department of Food and Environmental Sciences", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Department of Agricultural Sciences", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Viikki Research Farm", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Department of Forest Sciences", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Hyytiälä Forestry Field Station", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Värriö Subartic Research Station", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Department of Economics and Management", faculty: "Faculty of Agriculture and Forestry"},
+        {name: "Veterinary Teaching Hospital", faculty: "Faculty of Veterinary Medicine"},
 
         {name: "Aleksanteri Institute - Finnish Centre for Russian and East European Studies", faculty: "other"},
         {name: "Center for Information Technology (IT Center)", faculty: "other"},
@@ -181,17 +181,17 @@ class UsersController < ApplicationController
         {name: "The Lahti University Consortium", faculty: "other"},
         {name: "The Mikkeli University Consortium", faculty: "other"},
 
-        {name: "Administrative Services", faculty: "Ca"},
-        {name: "Central Administration", faculty: "Ca"},
-        {name: "Rector's Office", faculty: "Ca"},
-        {name: "University Services", faculty: "Ca"},
-        {name: "Communications and Community Relations", faculty: "Ca"},
-        {name: "Finance", faculty: "Ca"},
-        {name: "Human Resources and Legal Affairs", faculty: "Ca"},
-        {name: "Research and Education", faculty: "Ca"},
-        {name: "Strategic Planning and Quality Assurance", faculty: "Ca"},
-        {name: "University Museum", faculty: "Ca"},
-        {name: "Central Archives", faculty: "Ca"}
+        {name: "Administrative Services", faculty: "Central administration"},
+        {name: "Central Administration", faculty: "Central administration"},
+        {name: "Rector's Office", faculty: "Central administration"},
+        {name: "University Services", faculty: "Central administration"},
+        {name: "Communications and Community Relations", faculty: "Central administration"},
+        {name: "Finance", faculty: "Central administration"},
+        {name: "Human Resources and Legal Affairs", faculty: "Central administration"},
+        {name: "Research and Education", faculty: "Central administration"},
+        {name: "Strategic Planning and Quality Assurance", faculty: "Central administration"},
+        {name: "University Museum", faculty: "Central administration"},
+        {name: "Central Archives", faculty: "Central administration"}
     ]
   end
 end
