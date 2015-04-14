@@ -13,7 +13,7 @@
     <%= link_to 'Cancel' , '#target', class: 'hidden edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
 
     <div id="target" class="hidden" style="padding-top: 5px">
-      <%= form_for @hashtag, html: { multipart: true } do |f| %>
+      <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
         <div class="form-group">
           <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
           <%= f.file_field :cover_photo, id: 'cover_photo' %>

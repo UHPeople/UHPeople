@@ -34,7 +34,7 @@ class HashtagsController < ApplicationController
   def join
     current_user.hashtags << @hashtag
     request.env['chat.join_callback'].call(current_user, @hashtag)
-    redirect_to hashtag_path(@hashtag.tag)
+    redirect_to hashtag_path(tag: @hashtag.tag)
   end
 
   def leave
@@ -47,7 +47,7 @@ class HashtagsController < ApplicationController
     @hashtag.topic_updater_id = current_user.id
 
     unless @hashtag.update(hashtag_params)
-      redirect_to :back, notice: 'Something went wrong!'
+      redirect_to hashtag_path(@hashtag.tag), notice: 'Something went wrong!'
       return
     end
 
@@ -60,7 +60,7 @@ class HashtagsController < ApplicationController
       request.env['chat.notification_callback'].call(user.id)
     end
 
-    redirect_to :back, notice: 'Topic was successfully updated.'
+    redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
   end
 
   def create
@@ -77,7 +77,7 @@ class HashtagsController < ApplicationController
 
     if user.hashtags.include? @hashtag
       respond_to do |format|
-        format.html { redirect_to @hashtag, notice: 'User already a member!' }
+        format.html { redirect_to hashtag_path(@hashtag), notice: 'User already a member!' }
         format.json { render status: 400 }
       end
 
@@ -89,25 +89,19 @@ class HashtagsController < ApplicationController
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
-<<<<<<< HEAD
-    request.env['chat.notification_callback'].call(user_id)
-    redirect_to hashtag_path(@hashtag.tag)
-=======
     request.env['chat.notification_callback'].call(user.id)
 
     respond_to do |format|
-      format.html { redirect_to @hashtag }
+      format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
->>>>>>> dev
   end
 
   private
 
   def set_hashtag
     @hashtag = Hashtag.find_by(tag: params[:tag])
-    rescue
-      render 'errors/error'
+    render 'errors/error' if @hashtag.nil?
   end
 
   def user_has_tag
