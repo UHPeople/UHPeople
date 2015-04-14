@@ -43,7 +43,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    redirect_to action: 'new' && return unless @user.save
+    redirect_to(action: 'new') and return unless @user.save
 
     if params[:image]
       photo = Photo.new(user_id: @user.id,image: params[:image], image_text: params[:image_text])
