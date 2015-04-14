@@ -61,3 +61,18 @@
 .modal-header {
   border-bottom: 0 solid #fff;
 }
+.autoModal.modal {
+
+    max-width: 100%;
+}
+.modal-dialog.autoModal{
+  width: 80%;
+  height: 80%;
+
+}
+.modal-image{
+  height: 60vh;
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-bottom: 10px;
+}

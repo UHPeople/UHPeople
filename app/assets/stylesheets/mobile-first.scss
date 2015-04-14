@@ -9,7 +9,6 @@
 
   .navbar {
     border-radius: 4px;
-    min-width: 400px;
   }
 
   .nav-tabs-justified > li > a {
@@ -62,8 +61,9 @@
     right: auto;
   }
 
-  .container {
-    min-width: 400px;
+  .container-fluid {
+   padding-left: 0;
+   padding-right: 0;
   }
 
   .navbar-collapse {
@@ -118,15 +118,6 @@
 
   .navbar-nav > li {
     float: left;
-  }
-
-  .navbar-nav > li > a {
-     // padding-top: 15px;
-     // padding-bottom: 15px;
-  }
-
-  .navbar-nav.navbar-right:last-child {
-    margin-right: -15px;
   }
 
   .navbar-left {
@@ -184,15 +175,8 @@
             box-shadow: none;
   }
 
-  .navbar-form.navbar-right:last-child {
-    margin-right: -15px;
-  }
-
   .navbar-text {
     float: left;
-    //margin: 0 auto;
-    margin-right: 15px;
-    margin-left: 15px;
   }
 
   .navbar-text.navbar-right:last-child {
@@ -268,4 +252,5 @@ main {
   margin-top: 0 !important;
   }
 }
+
 
