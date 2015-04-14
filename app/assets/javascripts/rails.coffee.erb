@@ -1,0 +1,6 @@
+exports = this
+
+exports.environment = "<%= ENV['RAILS_ENV'] %>"
+
+exports.websocket_scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
+exports.websocket_host = <%= ENV['RAILS_ENV'] == "test" ? '"echo.websocket.org/"' : 'window.document.location.host' %>
