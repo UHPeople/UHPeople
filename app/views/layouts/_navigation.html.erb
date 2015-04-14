@@ -13,7 +13,7 @@
     <% unless current_user.nil? %>
       <div class="col-md-5 col-sm-5 col-xs-8 small-right">
         <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
-          <div class="form-group" style="display:inline; width: 100%;">
+          <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
             <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
 
             <div style="width: 0; height: 0; overflow: hidden;">

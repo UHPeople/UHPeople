@@ -69,9 +69,7 @@ ready = ->
 
   scroll_to_bottom()
 
-  scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
-  host = <%= ENV['RAILS_ENV'] == "test" ? '"echo.websocket.org/"' : 'window.document.location.host' %>
-  uri = scheme + host
+  uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
   
   hashtag = $('#hashtag-id')[0].value

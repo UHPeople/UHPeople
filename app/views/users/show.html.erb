@@ -1,7 +1,9 @@
 <div class="container">
   <%= render "users/profile_well" %>
   <div class="col-sm-5 col-lg-6">
+    <% if @user == current_user %>
     <%= link_to "Update info", edit_user_path(current_user), method: :get, class: "btn btn-default" %>
+    <% end %>
     <div class="userinfo">
       <h1><%= @user.name %></h1>
       <p><%= @user.title %></p>
