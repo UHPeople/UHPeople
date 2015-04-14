@@ -73,7 +73,7 @@ send = (name) ->
   $('form#invite-form').submit()
 
 $(document).ready ->
-  users.clearPrefetchCache()
+  # users.clearPrefetchCache()
 
   users.initialize()
   hashtags.initialize()
@@ -99,7 +99,7 @@ $(document).ready ->
   }
 
 $(document).ready ->
-  # users.initialize()
+  users.initialize()
 
   $('.typeahead-invite').typeahead {
     highlight: true
@@ -115,4 +115,3 @@ $(document).ready ->
   }
 
   makeSexy()
-  
