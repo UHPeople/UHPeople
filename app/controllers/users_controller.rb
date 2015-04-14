@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
-  before_action :set_campuses, only: [:new, :show, :edit, :update, :shibboleth_callback]
+  before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
 
   def index
@@ -114,7 +114,84 @@ class UsersController < ApplicationController
     params.require(:user).permit(:title, :campus, :unit, :about, :profilePicture)
   end
 
-  def set_campuses
+  def set_arrays
     @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
+
+    @faculties = ["Faculty of Arts", "Faculty of Behavioural Sciences", "Faculty of Law",
+                  "Faculty of Social Sciences", "Faculty of Theology",
+                  "Swedish School of Social Science", "Faculty of Science", "Faculty of Medicine",
+                  "Faculty of Biological and Environmental Sciences",
+                  "Faculty of Agriculture and Forestry", "Faculty of Veterinary Medicine",
+                  "Faculty of Pharmacy", "Central administration"
+    ]
+
+    @units = [
+        {name: "Department of Finnish, Finno-Ugrian and Scandinavian Studies", faculty: "FoA"},
+        {name: "Department of Modern Languages", faculty: "FoA"},
+        {name: "Department of World Cultures", faculty: "FoA"},
+        {name: "Department of Philosophy, History, Culture and Art Studies", faculty: "FoA"},
+        {name: "Department of Teacher Education", faculty: "FoBS"},
+        {name: "Institute of Behavioural Sciences", faculty: "FoBS"},
+        {name: "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)", faculty: "FoBS"},
+        {name: "Viikki Teacher Training School of Helsinki University", faculty: "FoBS"},
+        {name: "Department of Social Research", faculty: "FoSS"},
+        {name: "Department of Political and Economic Studies", faculty: "FoSS"},
+        {name: "Department of Chemistry", faculty: "FoSc"},
+        {name: "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)", faculty: "FoSc"},
+        {name: "Department of Computer Science", faculty: "FoSc"},
+        {name: "Department of Geosciences and Geography", faculty: "FoSc"},
+        {name: "Institute of Seismology", faculty: "FoSc"},
+        {name: "Department of Mathematics and Statistics", faculty: "FoSc"},
+        {name: "Department of Physics", faculty: "FoSc"},
+        {name: "Clinicum", faculty: "FoM"},
+        {name: "Medicum", faculty: "FoM"},
+        {name: "Research Programs Unit", faculty: "FoM"},
+        {name: "Department of Biosciences", faculty: "FoBES"},
+        {name: "Department of Environmental Sciences", faculty: "FoBES"},
+        {name: "Kilpisjärvi Biological Station", faculty: "FoBES"},
+        {name: "Lammi Biological Station", faculty: "FoBES"},
+        {name: "Tvärminne Zoological Station", faculty: "FoBES"},
+        {name: "Department of Food and Environmental Sciences", faculty: "FoAF"},
+        {name: "Department of Agricultural Sciences", faculty: "FoAF"},
+        {name: "Viikki Research Farm", faculty: "FoAF"},
+        {name: "Department of Forest Sciences", faculty: "FoAF"},
+        {name: "Hyytiälä Forestry Field Station", faculty: "FoAF"},
+        {name: "Värriö Subartic Research Station", faculty: "FoAF"},
+        {name: "Department of Economics and Management", faculty: "FoAF"},
+        {name: "Veterinary Teaching Hospital", faculty: "FoVM"},
+
+        {name: "Aleksanteri Institute - Finnish Centre for Russian and East European Studies", faculty: "other"},
+        {name: "Center for Information Technology (IT Center)", faculty: "other"},
+        {name: "Center for Properties and Facilities", faculty: "other"},
+        {name: "Finnish Museum of Natural History LUOMUS", faculty: "other"},
+        {name: "Helsinki Collegium for Advanced Studies", faculty: "other"},
+        {name: "Helsinki Institute for Information Technology", faculty: "other"},
+        {name: "Helsinki Institute of Physics (HIP)", faculty: "other"},
+        {name: "Helsinki University Library", faculty: "other"},
+        {name: "Institute of Biotechnology", faculty: "other"},
+        {name: "Institute for Molecular Medicine Finland (FIMM)", faculty: "other"},
+        {name: "IPR University Center", faculty: "other"},
+        {name: "Language Centre", faculty: "other"},
+        {name: "The National Library of Finland", faculty: "other"},
+        {name: "Viikki Laboratory Animal Centre", faculty: "other"},
+        {name: "Neuroscience Center", faculty: "other"},
+        {name: "Open University", faculty: "other"},
+        {name: "Palmenia Centre for Continuing Education", faculty: "other"},
+        {name: "UniSport", faculty: "other"},
+        {name: "The Lahti University Consortium", faculty: "other"},
+        {name: "The Mikkeli University Consortium", faculty: "other"},
+
+        {name: "Administrative Services", faculty: "Ca"},
+        {name: "Central Administration", faculty: "Ca"},
+        {name: "Rector's Office", faculty: "Ca"},
+        {name: "University Services", faculty: "Ca"},
+        {name: "Communications and Community Relations", faculty: "Ca"},
+        {name: "Finance", faculty: "Ca"},
+        {name: "Human Resources and Legal Affairs", faculty: "Ca"},
+        {name: "Research and Education", faculty: "Ca"},
+        {name: "Strategic Planning and Quality Assurance", faculty: "Ca"},
+        {name: "University Museum", faculty: "Ca"},
+        {name: "Central Archives", faculty: "Ca"}
+    ]
   end
 end
