@@ -36,6 +36,10 @@ class PhotosController < ApplicationController
     end
   end
 
+  def show
+    render :show, layout: false
+  end
+
   private
 
   def set_photo
