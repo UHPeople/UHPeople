@@ -36,7 +36,7 @@
         </div>
         <div class="field element-position">
           <%= f.label :unit %><br>
-          <%= f.select :unit, grouped_options_for_select (['Faculties', @units.map {|p| p[:faculty]}]) %>
+          <%= f.select :unit, grouped_options_for_select(@units, f.object.unit) %>
         </div>
         <div class="field element-position">
           <%= f.label :about %><br>

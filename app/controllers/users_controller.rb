@@ -117,97 +117,96 @@ class UsersController < ApplicationController
   def set_arrays
     @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
 
-    @units = [
-        faculty: "Faculty of Arts", units: {
-                                      name: "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
-                                      name: "Department of Modern Languages",
-                                      name: "Department of World Cultures",
-                                      name: "Department of Philosophy, History, Culture and Art Studies"
-                                  },
-        faculty: "Faculty of Behavioural Sciences", units: {
-                                      name: "Department of Teacher Education",
-                                      name: "Institute of Behavioural Sciences",
-                                      name: "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)",
-                                      name: "Viikki Teacher Training School of Helsinki University"
-                                  },
-        faculty: "Faculty of Law",
+    @units = {
+        "Faculty of Arts" => ["Faculty of Arts",
+            "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
+            "Department of Modern Languages",
+            "Department of World Cultures",
+            "Department of Philosophy, History, Culture and Art Studies"
+        ],
+        "Faculty of Behavioural Sciences" => ["Faculty of Behavioural Sciences",
+            "Department of Teacher Education",
+            "Institute of Behavioural Sciences",
+            "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)",
+            "Viikki Teacher Training School of Helsinki University"
+        ],
+        "Faculty of Law" => ["Faculty of Law"],
+        "Faculty of Social Sciences" => ["Faculty of Social Sciences",
+            "Department of Social Research",
+            "Department of Political and Economic Studies"
+        ],
+        "Faculty of Theology" => ["Faculty of Theology"],
+        "Swedish School of Social Science" => ["Swedish School of Social Science"],
+        "Faculty of Science" => ["Faculty of Science",
+            "Department of Chemistry",
+            "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
+            "Department of Computer Science",
+            "Department of Geosciences and Geography",
+            "Institute of Seismology",
+            "Department of Mathematics and Statistics",
+            "Department of Physics"
+        ],
+        "Faculty of Medicine" => ["Faculty of Medicine",
+            "Clinicum",
+            "Medicum",
+            "Research Programs Unit"
+        ],
+        "Faculty of Biological and Environmental Sciences" => ["Faculty of Biological and Environmental Sciences",
+            "Department of Biosciences",
+            "Department of Environmental Sciences",
+            "Kilpisjärvi Biological Station",
+            "Lammi Biological Station",
+            "Tvärminne Zoological Station"
+        ],
+        "Faculty of Agriculture and Forestry" => ["Faculty of Agriculture and Forestry",
+            "Department of Food and Environmental Sciences",
+            "Department of Agricultural Sciences",
+            "Viikki Research Farm",
+            "Department of Forest Sciences",
+            "Hyytiälä Forestry Field Station",
+            "Värriö Subartic Research Station",
+            "Department of Economics and Management"
+        ],
+        "Faculty of Veterinary Medicine" => ["Faculty of Veterinary Medicine",
+            "Veterinary Teaching Hospital"
+        ],
+        "Faculty of Pharmacy" => ["Faculty of Pharmacy"],
 
-        faculty: "Faculty of Social Sciences", units: {
-                                      name: "Department of Social Research",
-                                      name: "Department of Political and Economic Studies"
-                                  },
-        faculty: "Faculty of Theology",
-        faculty: "Swedish School of Social Science",
-        faculty: "Faculty of Science", units: {
-                                      name: "Department of Chemistry",
-                                      name: "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
-                                      name: "Department of Computer Science",
-                                      name: "Department of Geosciences and Geography",
-                                      name: "Institute of Seismology",
-                                      name: "Department of Mathematics and Statistics",
-                                      name: "Department of Physics"
-                                  },
-        faculty: "Faculty of Medicine", units: {
-                                      name: "Clinicum",
-                                      name: "Medicum",
-                                      name: "Research Programs Unit"
-                                  },
-        faculty: "Faculty of Biological and Environmental Sciences", units: {
-                                      name: "Department of Biosciences",
-                                      name: "Department of Environmental Sciences",
-                                      name: "Kilpisjärvi Biological Station",
-                                      name: "Lammi Biological Station",
-                                      name: "Tvärminne Zoological Station"
-                                  },
-        faculty: "Faculty of Agriculture and Forestry", units: {
-                                      name: "Department of Food and Environmental Sciences",
-                                      name: "Department of Agricultural Sciences",
-                                      name: "Viikki Research Farm",
-                                      name: "Department of Forest Sciences",
-                                      name: "Hyytiälä Forestry Field Station",
-                                      name: "Värriö Subartic Research Station",
-                                      name: "Department of Economics and Management"
-                                  },
-        faculty: "Faculty of Veterinary Medicine", units: {
-                                      name: "Veterinary Teaching Hospital"
-                                  },
-        faculty: "Faculty of Pharmacy",
-
-        faculty: "other", units: {
-                                      name: "Aleksanteri Institute - Finnish Centre for Russian and East European Studies",
-                                      name: "Center for Information Technology (IT Center)",
-                                      name: "Center for Properties and Facilities",
-                                      name: "Finnish Museum of Natural History LUOMUS",
-                                      name: "Helsinki Collegium for Advanced Studies",
-                                      name: "Helsinki Institute for Information Technology",
-                                      name: "Helsinki Institute of Physics (HIP)",
-                                      name: "Helsinki University Library",
-                                      name: "Institute of Biotechnology",
-                                      name: "Institute for Molecular Medicine Finland (FIMM)",
-                                      name: "IPR University Center",
-                                      name: "Language Centre",
-                                      name: "The National Library of Finland",
-                                      name: "Viikki Laboratory Animal Centre",
-                                      name: "Neuroscience Center",
-                                      name: "Open University",
-                                      name: "Palmenia Centre for Continuing Education",
-                                      name: "UniSport",
-                                      name: "The Lahti University Consortium",
-                                      name: "The Mikkeli University Consortium"
-                                  },
-        faculty: "Central administration", units: {
-                                      name: "Administrative Services",
-                                      name: "Central Administration",
-                                      name: "Rector's Office",
-                                      name: "University Services",
-                                      name: "Communications and Community Relations",
-                                      name: "Finance",
-                                      name: "Human Resources and Legal Affairs",
-                                      name: "Research and Education",
-                                      name: "Strategic Planning and Quality Assurance",
-                                      name: "University Museum",
-                                      name: "Central Archives"
-                                  }
-    ]
+        "Institutes and other units" => [
+            "Aleksanteri Institute - Finnish Centre for Russian and East European Studies",
+            "Center for Information Technology (IT Center)",
+            "Center for Properties and Facilities",
+            "Finnish Museum of Natural History LUOMUS",
+            "Helsinki Collegium for Advanced Studies",
+            "Helsinki Institute for Information Technology",
+            "Helsinki Institute of Physics (HIP)",
+            "Helsinki University Library",
+            "Institute of Biotechnology",
+            "Institute for Molecular Medicine Finland (FIMM)",
+            "IPR University Center",
+            "Language Centre",
+            "The National Library of Finland",
+            "Viikki Laboratory Animal Centre",
+            "Neuroscience Center",
+            "Open University",
+            "Palmenia Centre for Continuing Education",
+            "UniSport",
+            "The Lahti University Consortium",
+            "The Mikkeli University Consortium"
+        ],
+        "Central administration" => [
+            "Administrative Services",
+            "Central Administration",
+            "Rector's Office",
+            "University Services",
+            "Communications and Community Relations",
+            "Finance",
+            "Human Resources and Legal Affairs",
+            "Research and Education",
+            "Strategic Planning and Quality Assurance",
+            "University Museum",
+            "Central Archives"
+        ]
+    }
   end
 end
