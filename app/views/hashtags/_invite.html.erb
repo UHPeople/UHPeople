@@ -1,0 +1,24 @@
+<div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="invite" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Invite</h4>
+      </div>
+      <div class="modal-body">
+    		<p>Invite friends and colleques to your interest!</p>
+  	
+      	<%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.", id: 'invite-form') do %>
+    			<%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
+
+    			<div style="width: 0; height: 0; overflow: hidden;" >
+      			<%= submit_tag('Invite', class: 'btn btn-primary') %>
+    			</div>
+				<% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

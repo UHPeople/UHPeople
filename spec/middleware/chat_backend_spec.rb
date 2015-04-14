@@ -203,4 +203,13 @@ RSpec.describe UHPeople::ChatBackend do
       expect(socket2.sent.last['event']).to eq 'message'
     end
   end
+
+  it 'finds mentions' do
+    subject.add_client(socket, user.id, hashtag.id)
+
+    message = Message.create user: user, hashtag: hashtag, content: "@#{user.name}"
+    subject.find_mentions(message)
+
+    expect(socket.sent.last['event']).to eq 'notification'
+  end
 end

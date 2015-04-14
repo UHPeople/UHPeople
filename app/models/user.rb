@@ -5,9 +5,16 @@ class User < ActiveRecord::Base
   has_many :hashtags, through: :user_hashtags
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
-  has_attached_file :avatar, styles: { medium: '300x300>', thumb: '45x45>' },
-                             default_url: 'missing.png'
-  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
-  validates_attachment_file_name :avatar, matches: [/png\Z/, /jpe?g\Z/]
+  def unread_notifications?
+    notifications.unread_count > 0
+  end
+
+  def profile_picture_url(size = :thumb)
+    photo = Photo.find_by id: profilePicture
+    return ActionController::Base.helpers.asset_path('missing.png') if photo.nil?
+
+    photo.image.url(size)
+  end
 end

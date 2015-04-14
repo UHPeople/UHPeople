@@ -1,23 +1,24 @@
 <% backurl = '#favourites' %>
 
-<div class="col-md-3">
+<div class="col-md-3 col-lg-2 hashtaglist-position">
   <% unless @user_tags.empty? %>
     <h2 id="feed-onboard-interest">Interests</h2>
     <table class="table table-hover">
       <% @user_tags.each do |tag| %>
           <tr>
             <td>
-              <%= link_to '#'+tag.hashtag.tag, hashtag_path(tag.hashtag.tag) %>
+              <%= link_to '#'+truncate(tag.hashtag.tag, length: 20), hashtag_path(tag.hashtag.tag), id: tag.hashtag.id %>
               <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
             </td>
           </tr>
       <% end %>
     </table>
   <% end %>
-  
-  <div id="feed-onboard-hot"></div>
-  <div id="tag_cloud" style="width: 285px; height: 350px;"></div>
+
+  <div id="feed-onboard-hot">
+  <div id="tag_cloud" style="width: 100% !important; height: 350px;"></div>
   <script type="text/javascript">
     var word_array = <%= raw @word_array.to_json %>
   </script>
+  </div>
 </div>

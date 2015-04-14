@@ -1,0 +1,65 @@
+
+// Feed page css
+
+
+// feed masonry box 
+
+.box {
+  background-color: inherit;
+  font-size: inherit;
+}
+
+
+// Favourites
+
+.panel.fav {
+  border-radius: 0;
+  margin-bottom: 0;
+
+  .panel-heading {
+    border-radius: 0;
+  }
+}
+
+// favourite star
+
+.star {
+  color: $star-color;
+  float: right;
+  margin-top: 3px;
+  opacity: 1;
+  text-decoration: none !important;
+  -moz-transition: all .25s ease-in-out;
+  -webkit-transition: all .25s ease-in-out;
+  transition: all .25s ease-in-out;
+
+  .glyphicon-star-empty {
+    opacity: .5;
+  }
+}
+
+.star:hover {
+    color: $star-color;
+}
+
+// TAB border
+
+$border-color: #ddd;
+
+#feed.tab-pane {
+
+  border-bottom: 1px solid $border-color;
+  border-left: 1px solid $border-color;
+  border-radius: 0 0 5px 5px;
+  border-right: 1px solid $border-color;
+  padding-right: 16px;
+}
+
+.nav-tabs {
+  margin-bottom: 0;
+}
+
+.hashtaglist-position {
+  margin-top: -21px;
+  overflow-x: auto;
+}

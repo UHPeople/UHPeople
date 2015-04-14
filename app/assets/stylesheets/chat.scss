@@ -1,0 +1,163 @@
+@mixin chat {
+  width: 100%;
+  min-height: 40px;
+
+  .panel-body {
+    margin: 0;
+    min-height: 72px;
+    padding: 0;
+    padding-left: 16px;
+  }
+
+  .avatar-link {
+    float: left;
+    padding-top: 14px;
+  }
+
+  .timestamp {
+    color: $timestamp-color;
+    font-size: 70%;
+    font-weight: normal;
+  }
+}
+
+// Feed chat
+.feed-chat-box {
+  @include chat;
+  
+  padding-bottom: 5px;
+  padding-left: 20px;
+
+  .message {
+    padding-left: 56px;
+    padding-top: 16px;
+
+    h5 {
+      margin-top: 0;
+      margin-bottom: 4px;
+  
+      a {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+      }  
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 22px;
+      color: #3d3c40;
+      word-wrap: break-word;
+    }
+  }
+}
+
+// Favourites Chatbox
+.favourites-chat-box {
+  @include chat;
+
+  .message {
+    margin-bottom: 0;
+
+    .user {
+      color: #3d3c40 !important;
+      padding-right: .25rem;
+      margin-left: 0;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 100%;
+      margin-bottom: 0;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 22px;
+      color: #3d3c40;
+      margin-bottom: 0;
+      word-wrap: break-word;
+    }
+  }
+}
+
+// INTEREST Chat
+.interest-chatbox {
+  @include chat;
+
+  height: 500px;
+  overflow: auto;
+  overflow-x: hidden;
+
+  .message {
+    padding-top: 16px;
+    padding-left: 56px;
+
+    h5 {
+      margin-top: 0;
+      margin-bottom: 4px;
+
+      a {
+        color: #3d3c40 !important;
+        font-style: normal;
+        font-weight: 900;
+        margin-left: 0;
+        padding-right: .25rem;
+      }
+    }
+    
+    p {
+      color: #3d3c40;
+      font-size: 15px;
+      line-height: 22px;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.nav-list {
+  li:not(.online) a {
+    padding-left: 30px;
+  }
+
+  li.online a::before {
+    background: #549E54;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    float: left;
+    height: 10px;
+    margin-right: 5px;
+    margin-top: 5px;
+    width: 10px;
+  }
+}
+
+// chat input moved inside chat panel
+.input-group.input-chat {
+  border-radius: 5px !important;
+  margin: 0 auto;
+  padding-bottom: 8px;
+  width: 95%;
+}
+
+.panel-chat {
+  margin-bottom: 20px;
+  margin-top: -160px;
+  padding-bottom: 10px;
+}
+
+// Interest page members list
+.grouplist-position {
+  margin-top: -160px;
+}
+
+.chat-button {
+  margin-bottom: 10px;
+}
+
+.scrollable {
+  height: 423px;
+  overflow: auto;
+}
+

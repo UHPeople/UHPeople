@@ -33,30 +33,30 @@ RSpec.describe Message do
   end
 
   context 'valid message' do
-    before :each do
-      hashtag.users << user
-      @message = described_class.create content: '<h1>asd</h1> http://localhost:3000/hashtags/2',
-                                        user: user,
-                                        hashtag: hashtag
+    let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
+    let!(:message) do
+      described_class.create content: '<h1>asd</h1> http://localhost:3000/hashtags/2',
+                             user: user,
+                             hashtag: hashtag
     end
 
     it 'is saved' do
-      expect(@message.valid?).to be(true)
+      expect(message.valid?).to be(true)
       expect(described_class.count).to eq(1)
     end
 
     it 'can be serialized and sanitized' do
-      serialized_json = @message.serialize
+      serialized_json = message.serialize
       serialized = JSON.parse serialized_json
 
       expect(serialized['content']).to include '&lt;h1&gt;asd&lt;/h1&gt;'
     end
 
     it 'content is autolinked' do
-      serialized_json = @message.serialize
+      serialized_json = message.serialize
       serialized = JSON.parse serialized_json
 
-      expect(serialized['content']).to include '<a href="http://localhost:3000/hashtags/2">http://localhost:3000/hashtags/2</a>'
+      expect(serialized['content']).to include '<a target="_blank" href="http://localhost:3000/hashtags/2">http://localhost:3000/hashtags/2</a>'
     end
   end
 end

@@ -34,11 +34,24 @@ RSpec.describe Hashtag do
       expect(page).to have_content 'Join'
     end
 
-    it 'has invitation box' do
-      fill_in 'user', with: user.name
-      click_button 'Invite'
+    context 'invitation box' do
+      it 'doesn\'t send invitation to member' do
+        find('button[data-target="#invite"]').click
+        fill_in 'user', with: user.name
+        find('input[value="Invite"]').click
+        expect(find('.notif-count')).to_not have_content '1'
+      end
 
-      expect(find('.notif-count')).to have_content '1'
+      it 'sends invitation to non-member user' do
+        user2 = User.create name: 'asd', username: 'asdasd'
+        find('button[data-target="#invite"]').click
+        fill_in 'user', with: user2.name
+        find('input[value="Invite"]').click
+
+        visit "/login/#{user2.id}"
+
+        expect(find('.notif-count')).to have_content '1'
+      end
     end
   end
 end

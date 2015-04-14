@@ -1,8 +1,8 @@
 set_online = (id) ->
-  $('div.sidebar-nav li#' + id).addClass('online')
+  $('.nav-list li#' + id).addClass('online')
 
 set_all_offline = (id) ->
-  $('div.sidebar-nav li').removeClass('online')
+  $('.nav-list li').removeClass('online')
 
 scroll_to_bottom = ->
   $('.chatbox').stop().animate {
@@ -22,7 +22,7 @@ compare_status = (a, b) ->
     return 1
 
 sort_members = ->
-  list = $('div.sidebar-nav ul')
+  list = $('ul.nav-list')
 
   items = list.children('li').get()
   items.sort (a, b) ->
@@ -36,28 +36,32 @@ sort_members = ->
 add_message = (data) ->
   size = $('.chatbox .panel-body').length
 
-  if ( size > 20)
+  if size > 20
     $('.chatbox .panel-body:first-child').remove()
 
-  timestamp = moment.utc(data.timestamp).local().format('MMMM Do YYYY, H:mm:ss') #.fromNow()
+  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
-  $('.chatbox').append '<div class="panel-body">' +
-    '<a href="/users/' + data.user + '" class="avatar-link">' +
-      '<img class="avatar-45" src="' + data.avatar + '"></img></a>' +
-      '<div class="message"><h5><a href="/users/' + data.user + '">' + data.username + '</a>' +
-       '<span class="timestamp">' + timestamp + '</span></h5><p>' +
-        data.content + '</div></div>'
+  $('.chatbox').append ''+
+    '<div class="panel-body">' +
+      '<a href="/users/' + data.user + '" class="avatar-link">' +
+        '<img class="img-circle" src="' + data.avatar + '"></img>' +
+      '</a>' +
+      '<div class="message">' +
+        '<h5>' + 
+          '<a href="/users/' + data.user + '">' + data.username + '</a>' +
+          '<span class="timestamp">' + timestamp + '</span>' +
+        '</h5>' + 
+        '<p>' + data.content + '</p>' +
+      '</div>' +
+    '</div>'
 
   scroll_to_bottom()
 
 add_member = (data) ->
-  $('div.sidebar-nav ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
+  $('.nav-list ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
 
 remove_member = (data) ->
-  $('div.sidebar-nav ul li#' + data.user).remove()
-
-add_notification = () ->
-  
+  $('.nav-list ul li#' + data.user).remove()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -65,9 +69,7 @@ ready = ->
 
   scroll_to_bottom()
 
-  scheme = <%= ENV['RAILS_ENV'] == "production" ? '"wss://"' : '"ws://"' %>
-  host = <%= ENV['RAILS_ENV'] == "test" ? '"echo.websocket.org/"' : 'window.document.location.host' %>
-  uri = scheme + host
+  uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
   
   hashtag = $('#hashtag-id')[0].value
@@ -80,7 +82,10 @@ ready = ->
       user: user
 
   ws.onclose = ->
-    console.log("on close")
+    input = $('#input-text')
+    input.addClass('has-error')
+    input.prop('disabled', true)
+    input[0].value = 'Connection lost!'
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
@@ -98,11 +103,11 @@ ready = ->
     else if data.event == 'leave'
       remove_member data
     else if data.event == 'notification'
-      t = Number($('.notif-count').text())
-      $('.notif-count').text(t + 1)
+      count = $('.notif-count')
+      t = Number(count.text())
+      count.text(t + 1)
       if t == 0
-        $('.notif-icon').css('color', '#FFDB00');
-        $('.notif-count').css('color', '#FFDB00');
+        $('.notif-link').addClass('accent')
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

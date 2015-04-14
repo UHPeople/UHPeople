@@ -2,14 +2,20 @@ class UsersController < ApplicationController
   before_action :require_non_production, only: [:new, :create]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
 
   def index
     @users = User.all
-
     respond_to do |format|
       format.json do
-        render json: current_user.nil? ? 'Not logged in' : @users
+        render json: 'Not logged in' if current_user.nil?
+
+        users = @users.collect do |user|
+          { id: user.id, name: user.name, avatar: user.profile_picture_url }
+        end
+
+        render json: users
       end
 
       format.html { require_non_production }
@@ -17,38 +23,80 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+    request.env['omniauth.auth'] = {}
+    request.env['omniauth.auth']['info'] = {}
+
+    request.env['omniauth.auth']['uid'] = random_string
+    request.env['omniauth.auth']['info']['name'] = ''
+    request.env['omniauth.auth']['info']['mail'] = ''
+
+    shibboleth_callback
   end
 
   def update
-    respond_to do |format|
-      if @user.update(user_params)
-        if @user.first_time
-          format.html { redirect_to feed_index_path }
-        else   
-          format.html { redirect_to @user, notice: 'User was successfully updated.' }
-        end   
-      else
-        format.html { render action: 'edit' }
-      end
+    if @user.update(edit_user_params)
+      redirect_to @user, notice: 'User was successfully updated.'
+    else
+      render action: 'edit'
     end
   end
 
   def create
-    @user = User.create(user_params)
-    session[:user_id] = @user.id
-
-    respond_to do |format|
-      format.html { redirect_to @user, notice: 'User was successfully created.' }
+    @user = User.new(user_params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect_to feed_index_path
+    else
+      redirect_to action: 'new'
     end
   end
 
   def set_first_time_use
-    current_user.update_attribute(:first_time, false)
-    redirect_to notifications_path
-  end 
+    value = params[:value]
+    current_user.update_attribute(:first_time, value)
+
+    if value
+      redirect_to feed_index_path
+    else
+      redirect_to notifications_path
+    end
+  end
+
+  def set_profile_picture
+    id = params[:pic_id].to_i
+    photo = Photo.find(id)
+
+    if photo.nil?
+      redirect_to :back, alert: 'Invalid photo!'
+    else
+      current_user.update_attribute(:profilePicture, id)
+      redirect_to current_user, notice: 'Profile picture changed.'
+    end
+  end
+
+  def shibboleth_callback
+    uid = request.env['omniauth.auth']['uid']
+    @user = User.find_by username: uid
+
+    if @user.nil?
+      name = request.env['omniauth.auth']['info']['name'].force_encoding('utf-8')
+      mail = request.env['omniauth.auth']['info']['mail']
+
+      @user = User.new username: uid, name: name, email: mail
+      render action: 'new'
+    else
+      session[:user_id] = @user.id
+      redirect_to feed_index_path
+    end
+  end
 
   private
+
+  def random_string
+    # from http://codereview.stackexchange.com/questions/15958/
+    range = ((48..57).to_a + (65..90).to_a + (97..122).to_a)
+    5.times { ([nil] * 8).map { range.sample.chr }.join }
+  end
 
   def user_is_current
     redirect_to root_path unless params[:id].to_s === session[:user_id].to_s
@@ -59,6 +107,106 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :avatar)
+    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :profilePicture)
+  end
+
+  def edit_user_params
+    params.require(:user).permit(:title, :campus, :unit, :about, :profilePicture)
+  end
+
+  def set_arrays
+    @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
+
+    @units = {
+        "Faculty of Arts" => ["Faculty of Arts",
+            "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
+            "Department of Modern Languages",
+            "Department of World Cultures",
+            "Department of Philosophy, History, Culture and Art Studies"
+        ],
+        "Faculty of Behavioural Sciences" => ["Faculty of Behavioural Sciences",
+            "Department of Teacher Education",
+            "Institute of Behavioural Sciences",
+            "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)",
+            "Viikki Teacher Training School of Helsinki University"
+        ],
+        "Faculty of Law" => ["Faculty of Law"],
+        "Faculty of Social Sciences" => ["Faculty of Social Sciences",
+            "Department of Social Research",
+            "Department of Political and Economic Studies"
+        ],
+        "Faculty of Theology" => ["Faculty of Theology"],
+        "Swedish School of Social Science" => ["Swedish School of Social Science"],
+        "Faculty of Science" => ["Faculty of Science",
+            "Department of Chemistry",
+            "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
+            "Department of Computer Science",
+            "Department of Geosciences and Geography",
+            "Institute of Seismology",
+            "Department of Mathematics and Statistics",
+            "Department of Physics"
+        ],
+        "Faculty of Medicine" => ["Faculty of Medicine",
+            "Clinicum",
+            "Medicum",
+            "Research Programs Unit"
+        ],
+        "Faculty of Biological and Environmental Sciences" => ["Faculty of Biological and Environmental Sciences",
+            "Department of Biosciences",
+            "Department of Environmental Sciences",
+            "Kilpisjärvi Biological Station",
+            "Lammi Biological Station",
+            "Tvärminne Zoological Station"
+        ],
+        "Faculty of Agriculture and Forestry" => ["Faculty of Agriculture and Forestry",
+            "Department of Food and Environmental Sciences",
+            "Department of Agricultural Sciences",
+            "Viikki Research Farm",
+            "Department of Forest Sciences",
+            "Hyytiälä Forestry Field Station",
+            "Värriö Subartic Research Station",
+            "Department of Economics and Management"
+        ],
+        "Faculty of Veterinary Medicine" => ["Faculty of Veterinary Medicine",
+            "Veterinary Teaching Hospital"
+        ],
+        "Faculty of Pharmacy" => ["Faculty of Pharmacy"],
+
+        "Institutes and other units" => [
+            "Aleksanteri Institute - Finnish Centre for Russian and East European Studies",
+            "Center for Information Technology (IT Center)",
+            "Center for Properties and Facilities",
+            "Finnish Museum of Natural History LUOMUS",
+            "Helsinki Collegium for Advanced Studies",
+            "Helsinki Institute for Information Technology",
+            "Helsinki Institute of Physics (HIP)",
+            "Helsinki University Library",
+            "Institute of Biotechnology",
+            "Institute for Molecular Medicine Finland (FIMM)",
+            "IPR University Center",
+            "Language Centre",
+            "The National Library of Finland",
+            "Viikki Laboratory Animal Centre",
+            "Neuroscience Center",
+            "Open University",
+            "Palmenia Centre for Continuing Education",
+            "UniSport",
+            "The Lahti University Consortium",
+            "The Mikkeli University Consortium"
+        ],
+        "Central administration" => [
+            "Administrative Services",
+            "Central Administration",
+            "Rector's Office",
+            "University Services",
+            "Communications and Community Relations",
+            "Finance",
+            "Human Resources and Legal Affairs",
+            "Research and Education",
+            "Strategic Planning and Quality Assurance",
+            "University Museum",
+            "Central Archives"
+        ]
+    }
   end
 end

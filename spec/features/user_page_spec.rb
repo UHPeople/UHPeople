@@ -37,12 +37,22 @@ RSpec.describe User do
       expect(page).to have_content '#avantouinti'
     end
 
-    it "doesn't have groups title if no hashtags" do
+    it "doesn't have interests title if no hashtags" do
       visit "/hashtags/#{hashtag.tag}"
       click_link 'Leave'
       visit "/users/#{user.id}"
 
-      expect(page).not_to have_content 'Groups'
+      expect(page).not_to have_content 'Interests'
+    end
+
+    it 'has button and form for adding photos' do
+      click_link 'Add photo'
+      expect(page).to have_content 'Photo title'
+    end
+
+    it 'can add photos to album' do
+      click_link 'Add photo'
+      expect(page).to have_content 'Photo title'
     end
   end
 end

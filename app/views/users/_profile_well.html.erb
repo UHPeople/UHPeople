@@ -1,0 +1,24 @@
+<div class="col-sm-4 well">
+  <div class="profileCrop img-rounded" style="background-image: url('<%= @user.profile_picture_url(:medium) %>');"></div>
+  <p><%= @photo_text %></p>
+
+  <% if @user.photos.count > 1 %>
+    <div>
+      <% @user.photos.each do |pic| %>
+          <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), pic, data: {toggle: "modal", target: "#image_" + pic.id.to_s} %>
+          <%= render "img_modal", pic: pic %>
+      <% end %>
+    </div>
+
+    <br/>
+  <% end %>
+
+  <% if @user == current_user %>
+    <%= link_to "Add photo", '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+
+    <div id="target" class="hidden">
+      <%= render "photo_form" %>
+    </div>
+  <% end %>
+</div>
+

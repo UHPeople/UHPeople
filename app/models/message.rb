@@ -29,7 +29,7 @@ class Message < ActiveRecord::Base
   end
 
   def formatted_content
-    auto_link(ERB::Util.html_escape(content)) do |text|
+    auto_link(ERB::Util.html_escape(content), html: { target: '_blank' }) do |text|
       truncate(text, length: 200)
     end
   end
@@ -41,7 +41,7 @@ class Message < ActiveRecord::Base
              'user': user_id,
              'username': user.name,
              'timestamp': timestamp,
-             'avatar': user.avatar.url(:thumb) }
+             'avatar': user.profile_picture_url }
 
     JSON.generate json
   end

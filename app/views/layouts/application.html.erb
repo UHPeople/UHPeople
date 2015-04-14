@@ -1,21 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="UHPeople">
     <title>UHPeople</title>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= csrf_meta_tags %>
+
     <script>
       var first_time = <%= !current_user.nil? ? current_user.first_time : false %>;
-      var new_user_path = '#{<%= !current_user.nil? ? edit_user_path(current_user) : false %>}';
     </script>
   </head>
   <body>
-    <header id="feed-onboard-header">
+    <header>
       <%= render 'layouts/navigation' %>
     </header>
+
     <main role="main">
        <%= render 'layouts/messages' %>
        <%= yield %>
@@ -28,9 +29,9 @@
       #hashtag onboard:
     %>
 
-    <% if !current_user.nil? && current_user.first_time %>
-      <%= render 'onboards/feed_onboard' if  current_page?(feed_index_path) %>
-      <%= render 'onboards/new_user_onboard' if current_page?(edit_user_path(current_user)) %>
+    <% if not current_user.nil? and current_user.first_time %>
+      <%= render 'onboards/feed_onboard' if current_page? feed_index_path %>
+      <%= render 'onboards/new_user_onboard' if current_page? edit_user_path(current_user) %>
     <% end %>
    
     <%= javascript_include_tag 'application' %>

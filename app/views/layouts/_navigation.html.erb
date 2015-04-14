@@ -1,32 +1,28 @@
 <%# navigation styled for Bootstrap 3.0 %>
-<nav class="navbar navbar-inverse navbar-static-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-
-      <div class="navbar-brand">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="col-md-3 col-sm-1 col-xs-2">
+      <div class="navbar-brand" id="feed-onboard-header">
         <%= link_to image_tag('helsinki53x50.png'), root_path %>
       </div>
-      <%= link_to 'UHPeople', root_path, class: 'navbar-brand' %>
+      <div class="hidden-xs hidden-sm visible-lg-block">
+        <%= link_to 'UHPeople', root_path, class: 'navbar-brand'  %>
+      </div>
     </div>
-    
+
     <% unless current_user.nil? %>
-      <div class="collapse navbar-collapse">      
-        <div class="navbar-form navbar-left" role="search">
-          <%= form_tag search_index_path, method: "get" do %>
-            <%= text_field_tag :search, params[:search], placeholder: "Search", class: "form-control typeahead" %>
-            
+      <div class="col-md-5 col-sm-5 col-xs-8 small-right">
+        <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
+          <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
+            <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
+
             <div style="width: 0; height: 0; overflow: hidden;">
               <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
             </div>
-          <% end %>
-        </div>
-
+          </div>
+        <% end %>
+      </div>
+      <div class="col-md-4 col-sm-10 col-xs-10 small-left navbar-right">
         <ul class="nav navbar-nav">
           <%= render 'layouts/navigation_links' %>
         </ul>

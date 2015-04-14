@@ -3,18 +3,18 @@
   <div class="well well-lg">
 
     <p> You can invite your friends from University of Helsinki to the UHPeople community.</p>
-    <p> Please use @helsinki.fi email address.</p>
-    <br />
+    <p> Please use helsinki.fi email address.</p>
+    <br>
 
     <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
-        <div class="field">
-          <%= label :receiver, "Recipient email address: "%><br>
-          <%= text_field :receiver, :class => "form-control" %>
-        </div>
-        <br />
-        <div class="actions">
-          <%= submit_tag("Send invitation!", :class=>"btn btn-info") %>
-        </div>
+      <div class="field">
+        <%= label_tag :receiver, 'Recipient email address:' %><br>
+        <%= text_field_tag :receiver %>
+      </div>
+      <br>
+      <div class="actions">
+        <%= submit_tag("Send invitation!", :class=>"btn btn-info") %>
+      </div>
     <% end %>
   </div>
 </div> <!-- /container -->

@@ -9,31 +9,28 @@ RSpec.describe User do
       visit "/login/#{user.id}"
     end
 
-    it 'after editing users name and about, shows right information on user page' do
+    it 'after editing users unit and about, shows right information on user page' do
       visit edit_user_path(user)
 
-      fill_in('user_name', with: 'Vaihdettu Nimi')
+      fill_in('user_title', with: 'Ope')
       fill_in('user_about', with: 'Hauska tyyppi.')
 
       click_button('Update')
 
-      expect(page).to have_content 'Vaihdettu Nimi'
+      expect(page).to have_content 'Ope'
       expect(page).to have_content 'Hauska tyyppi.'
     end
 
-    it 'shows errors on invalid changes' do
-      visit edit_user_path(user)
-
-      fill_in('user_name', with: '')
-      click_button('Update')
-
-      expect(page).to have_content '1 error prohibited changes from being saved:'
+    it 'is not shown with not logged in user' do
+      user2 = described_class.create username: 'asd', name: 'asd'
+      visit edit_user_path(user2)
+      expect(current_path).to eq feed_index_path
     end
 
-    it 'is not shown with not logged in user' do
-      user2 = User.create username: 'asd', name: 'asd'
-      visit edit_user_path(user2)
-      expect(current_path).to eq '/feed'
+    it 'prevents changing name on first login' do
+      visit edit_user_path(user)
+
+      expect(page).not_to have_field 'name'
     end
   end
 end

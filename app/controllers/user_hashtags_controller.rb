@@ -12,7 +12,7 @@ class UserHashtagsController < ApplicationController
         @user_hashtag.update(favourite: true)
       else
         redirect_to feed_index_path(tab: 'favourites'),
-                    notice: "You already have #{@max_faves} favourites, remove some to add a new one!"
+                    alert: "You already have #{@max_faves} favourites, remove some to add a new one!"
         return
       end
     end

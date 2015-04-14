@@ -7,7 +7,16 @@ class HashtagsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.json { @hashtags = Hashtag.all }
+      format.json do
+        render json: 'Not logged in' && return if current_user.nil?
+
+        tags = Hashtag.all.collect do |tag|
+          { id: tag.id, tag: tag.tag }
+        end
+
+        render json: tags
+      end
+
       format.html { redirect_to root_path }
     end
   end
@@ -35,11 +44,23 @@ class HashtagsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @hashtag.update(hashtag_params)
-        format.html { redirect_to :back, notice: 'Topic was successfully updated.' }
-      end
+    @hashtag.topic_updater_id = current_user.id
+
+    unless @hashtag.update(hashtag_params)
+      redirect_to :back, notice: 'Something went wrong!'
+      return
     end
+
+    @hashtag.users.each do |user|
+      Notification.create notification_type: 2,
+                          user: user,
+                          tricker_user: current_user,
+                          tricker_hashtag: @hashtag
+
+      request.env['chat.notification_callback'].call(user.id)
+    end
+
+    redirect_to :back, notice: 'Topic was successfully updated.'
   end
 
   def create
@@ -52,15 +73,33 @@ class HashtagsController < ApplicationController
   end
 
   def invite
-    user_id = User.find_by(name: params[:user]).id
+    user = User.find_by(name: params[:user])
+
+    if user.hashtags.include? @hashtag
+      respond_to do |format|
+        format.html { redirect_to @hashtag, notice: 'User already a member!' }
+        format.json { render status: 400 }
+      end
+
+      return
+    end
 
     Notification.create notification_type: 1,
-                        user_id: user_id,
+                        user_id: user.id,
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
+<<<<<<< HEAD
     request.env['chat.notification_callback'].call(user_id)
     redirect_to hashtag_path(@hashtag.tag)
+=======
+    request.env['chat.notification_callback'].call(user.id)
+
+    respond_to do |format|
+      format.html { redirect_to @hashtag }
+      format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
+    end
+>>>>>>> dev
   end
 
   private
@@ -68,7 +107,7 @@ class HashtagsController < ApplicationController
   def set_hashtag
     @hashtag = Hashtag.find_by(tag: params[:tag])
     rescue
-      redirect_to root_path
+      render 'errors/error'
   end
 
   def user_has_tag
@@ -76,10 +115,12 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:tag, :topic, :topic_updater_id, :cover_photo)
+    params.require(:hashtag).permit(:topic, :topic_updater_id, :cover_photo)
   end
 
   def topic_updater
-    @topicker = User.find_by id: @hashtag.topic_updater_id
+    @topicker = User.find(@hashtag.topic_updater_id)
+    rescue
+      @topicker = nil
   end
 end

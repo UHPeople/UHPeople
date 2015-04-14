@@ -1,0 +1,46 @@
+@import 'material-colors';
+
+.jqcloud {
+  font-size: 10px;
+  line-height: normal;
+  color: $black;
+  overflow: hidden;
+  position: relative;
+
+  a {
+    font-size: inherit;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a:hover {
+    color: $primary;
+  }
+
+  span {
+    padding: 0;
+  }
+}
+
+div.jqcloud span.w10 { font-size: 550%; }
+div.jqcloud span.w9 { font-size: 500%; }
+div.jqcloud span.w8 { font-size: 450%; }
+div.jqcloud span.w7 { font-size: 400%; }
+div.jqcloud span.w6 { font-size: 350%; }
+div.jqcloud span.w5 { font-size: 300%; }
+div.jqcloud span.w4 { font-size: 250%; }
+div.jqcloud span.w3 { font-size: 200%; }
+div.jqcloud span.w2 { font-size: 150%; }
+div.jqcloud span.w1 { font-size: 100%; }
+
+// colors
+div.jqcloud span.w10 { color: $color-700; }
+div.jqcloud span.w9 { color: $color-600; }
+div.jqcloud span.w8 { color: $color-500; }
+div.jqcloud span.w7 { color: $color-400; }
+div.jqcloud span.w6 { color: $color-400; }
+div.jqcloud span.w5 { color: $color-300; }
+div.jqcloud span.w4 { color: $color-300; }
+div.jqcloud span.w3 { color: $color-300; }
+div.jqcloud span.w2 { color: $color-200; }
+div.jqcloud span.w1 { color: $color-200; }
