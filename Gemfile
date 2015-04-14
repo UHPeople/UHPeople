@@ -16,7 +16,6 @@ gem 'twitter-bootstrap-rails-confirm'
 gem 'rails_autolink'
 gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
-
 gem 'rb-readline'
 
 group :doc do

@@ -5,7 +5,8 @@
   <% if @user.photos.count > 1 %>
     <div>
       <% @user.photos.each do |pic| %>
-          <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), photo_path(id: pic.id) %>
+          <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), "#image_" + pic.id.to_s, data: {toggle: "modal"} %>
+          <%= render "img_modal", pic: pic %>
       <% end %>
     </div>
 
@@ -20,3 +21,4 @@
     </div>
   <% end %>
 </div>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#invite">Invite</button>
