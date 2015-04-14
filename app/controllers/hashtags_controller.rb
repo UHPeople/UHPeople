@@ -43,6 +43,10 @@ class HashtagsController < ApplicationController
     redirect_to @hashtag
   end
 
+  def add(tag)
+    current_user.hashtags << tag
+  end
+
   def update
     @hashtag.topic_updater_id = current_user.id
 
@@ -96,6 +100,10 @@ class HashtagsController < ApplicationController
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
+
+  def three_hash
+    @hashtags = current_user.hashtags
+  end  
 
   private
 

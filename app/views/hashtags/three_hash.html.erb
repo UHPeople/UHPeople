@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="col-md-8">
+    <h2>My favourite things</h2>
+    <p>Find your favourite things or create new!</p>
+    <%= form_for current_user url: {action: "add"}, html: {class: "nifty_form"} do |f| %>
+      <%= f.select :hashtags,
+        Hashtag.all.map { |u| [u.tag, u.id] },
+                     { include_blank: true },
+                     { class: 'chosen-select' }
+      %>
+      <%= f.submit :Add,  class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+   
