@@ -6,8 +6,15 @@ class Hashtag < ActiveRecord::Base
   has_many :users, through: :user_hashtags
   has_many :messages, dependent: :destroy
 
-  has_attached_file :cover_photo, styles: { medium: '300x320>' },
-                                  default_url: 'missing.png'
+  has_attached_file :cover_photo,
+                    styles: {
+                      original: '320x1000^'
+                    },
+                    convert_options: {
+                      original: '-quality 75 -strip'
+                    },
+                    default_url: 'missing.png'
+
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/i
   validates_attachment_file_name :cover_photo, matches: [/png\Z/i, /jpe?g\Z/i]
   validates_attachment_size :cover_photo, in: 0..10.megabytes
