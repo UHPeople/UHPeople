@@ -123,9 +123,22 @@ var ready = function() {
     });
   }
 
-  $(".list-hashtags").select2({
-   placeholder: "Select your Interests", width: '100%'
-  });
+
+  if($(location).attr('pathname') == "/threehash"){
+    $.getJSON("/hashtags", function(json){
+      var tags = [];
+      for(var i = 0; i < json.length; i++){
+        tags.push(json[i].tag);
+      }
+
+
+      $("#Hashtag").select2({
+        placeholder: "Select your Interests", 
+        tags : tags,
+        width: '100%'
+      });
+    });
+  }
   
   //HashCloud 
   if($(location).attr('pathname') == "/feed"){

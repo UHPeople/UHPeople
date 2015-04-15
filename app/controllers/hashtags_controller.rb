@@ -44,12 +44,13 @@ class HashtagsController < ApplicationController
   end
 
   def add_multiple
-
     current_user.hashtags.delete_all
 
     unless params[:Hashtag].nil?
-      params[:Hashtag].each {| tag_id| 
-        h =  Hashtag.find_by_id tag_id
+      tags = params[:Hashtag].split(",")
+      tags.each {| tag_name| 
+        h =  Hashtag.find_by tag:tag_name
+        h = Hashtag.create tag:tag_name if h.nil?
         current_user.hashtags << h 
       }
     end  
