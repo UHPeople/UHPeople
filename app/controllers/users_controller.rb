@@ -53,6 +53,7 @@ class UsersController < ApplicationController
     end
 
     session[:user_id] = @user.id
+    set_campus_unit_tag
     redirect_to feed_index_path
   end
 
@@ -76,6 +77,26 @@ class UsersController < ApplicationController
     else
       current_user.update_attribute(:profilePicture, id)
       redirect_to current_user, notice: 'Profile picture changed.'
+    end
+  end
+
+  def set_campus_unit_tag
+    campus = @user.campus.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
+    unit = @user.unit.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
+    @unittag = Hashtag.where('tag ilike ?', "#{unit}")
+    create_add_campus_unit_tag(campus)
+    create_add_campus_unit_tag(unit)
+  end
+
+  def create_add_campus_unit_tag(tag)
+    @hashtag = Hashtag.where('tag ilike ?', "#{tag}")
+    if !@hashtag.blank?
+      @user.hashtags << @tag
+    else
+      @hashtag = Hashtag.new tag: tag
+      if @hashtag.save
+        @user.hashtags << @hashtag
+      end
     end
   end
 
@@ -124,56 +145,56 @@ class UsersController < ApplicationController
 
     @units = {
         "Faculty of Arts" => ["Faculty of Arts",
-            "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
-            "Department of Modern Languages",
-            "Department of World Cultures",
-            "Department of Philosophy, History, Culture and Art Studies"
+                              "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
+                              "Department of Modern Languages",
+                              "Department of World Cultures",
+                              "Department of Philosophy, History, Culture and Art Studies"
         ],
         "Faculty of Behavioural Sciences" => ["Faculty of Behavioural Sciences",
-            "Department of Teacher Education",
-            "Institute of Behavioural Sciences",
-            "Helsingin normaalilyseo (The Normal Lyceum of Helsinki)",
-            "Viikki Teacher Training School of Helsinki University"
+                                              "Department of Teacher Education",
+                                              "Institute of Behavioural Sciences",
+                                              "Helsingin normaalilyseo",
+                                              "Viikki Teacher Training School of Helsinki University"
         ],
         "Faculty of Law" => ["Faculty of Law"],
         "Faculty of Social Sciences" => ["Faculty of Social Sciences",
-            "Department of Social Research",
-            "Department of Political and Economic Studies"
+                                         "Department of Social Research",
+                                         "Department of Political and Economic Studies"
         ],
         "Faculty of Theology" => ["Faculty of Theology"],
         "Swedish School of Social Science" => ["Swedish School of Social Science"],
         "Faculty of Science" => ["Faculty of Science",
-            "Department of Chemistry",
-            "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
-            "Department of Computer Science",
-            "Department of Geosciences and Geography",
-            "Institute of Seismology",
-            "Department of Mathematics and Statistics",
-            "Department of Physics"
+                                 "Department of Chemistry",
+                                 "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
+                                 "Department of Computer Science",
+                                 "Department of Geosciences and Geography",
+                                 "Institute of Seismology",
+                                 "Department of Mathematics and Statistics",
+                                 "Department of Physics"
         ],
         "Faculty of Medicine" => ["Faculty of Medicine",
-            "Clinicum",
-            "Medicum",
-            "Research Programs Unit"
+                                  "Clinicum",
+                                  "Medicum",
+                                  "Research Programs Unit"
         ],
         "Faculty of Biological and Environmental Sciences" => ["Faculty of Biological and Environmental Sciences",
-            "Department of Biosciences",
-            "Department of Environmental Sciences",
-            "Kilpisjärvi Biological Station",
-            "Lammi Biological Station",
-            "Tvärminne Zoological Station"
+                                                               "Department of Biosciences",
+                                                               "Department of Environmental Sciences",
+                                                               "Kilpisjärvi Biological Station",
+                                                               "Lammi Biological Station",
+                                                               "Tvärminne Zoological Station"
         ],
         "Faculty of Agriculture and Forestry" => ["Faculty of Agriculture and Forestry",
-            "Department of Food and Environmental Sciences",
-            "Department of Agricultural Sciences",
-            "Viikki Research Farm",
-            "Department of Forest Sciences",
-            "Hyytiälä Forestry Field Station",
-            "Värriö Subartic Research Station",
-            "Department of Economics and Management"
+                                                  "Department of Food and Environmental Sciences",
+                                                  "Department of Agricultural Sciences",
+                                                  "Viikki Research Farm",
+                                                  "Department of Forest Sciences",
+                                                  "Hyytiälä Forestry Field Station",
+                                                  "Värriö Subartic Research Station",
+                                                  "Department of Economics and Management"
         ],
         "Faculty of Veterinary Medicine" => ["Faculty of Veterinary Medicine",
-            "Veterinary Teaching Hospital"
+                                             "Veterinary Teaching Hospital"
         ],
         "Faculty of Pharmacy" => ["Faculty of Pharmacy"],
 
