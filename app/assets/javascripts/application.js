@@ -8,6 +8,8 @@
 //= require jqcloud
 //= require moment
 
+//= require select2
+
 //= require twitter/typeahead
 //= require handlebars
 
@@ -120,6 +122,10 @@ var ready = function() {
       startOnboard();
     });
   }
+
+  $(".list-hashtags").select2({
+   placeholder: "Select your Interests"
+  });
   
   //HashCloud 
   if($(location).attr('pathname') == "/feed"){

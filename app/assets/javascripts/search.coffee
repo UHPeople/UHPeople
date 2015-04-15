@@ -1,3 +1,4 @@
+
 normalize = (str) ->
   if /^#[^#]*$/.test(str)
     return str.substring(1)
