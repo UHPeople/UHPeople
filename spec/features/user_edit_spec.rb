@@ -22,7 +22,7 @@ RSpec.describe User do
     end
 
     it 'is not shown with not logged in user' do
-      user2 = described_class.create username: 'asd', name: 'asd'
+      user2 = described_class.create username: 'asd', name: 'asd', campus: 'asd', unit: 'asd'
       visit edit_user_path(user2)
       expect(current_path).to eq feed_index_path
     end
