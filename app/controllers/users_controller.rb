@@ -23,6 +23,8 @@ class UsersController < ApplicationController
   end
 
   def new
+    byebug
+    
     request.env['omniauth.auth'] = {}
     request.env['omniauth.auth']['info'] = {}
 
