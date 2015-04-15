@@ -97,6 +97,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def set_tab
+    tabs = { 'Favourites': 0, 'Feed': 1 }
+    value = tabs[params[:value]]
+    current_user.update_attribute(:tab, value)
+
+    respond_to do |format|
+      format.json { render json: { } }
+      format.html { redirect_to feed_index_path }
+    end
+  end
+
   private
 
   def random_string
