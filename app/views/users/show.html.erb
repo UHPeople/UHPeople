@@ -17,6 +17,7 @@
         <p><%= @user.about %></p>
       <% end %>
     </div>
+    <%= render 'hashtag_manager' if @user == current_user %>
   </div>
 
   <%= render "hashtaglist", user: @user %>

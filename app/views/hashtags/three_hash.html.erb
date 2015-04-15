@@ -5,8 +5,12 @@
     <p>Find your favourite things or create new!</p>
     
       <%= form_tag({controller: "hashtags", action: "add_multiple"}, method: "put") do %>
-        <%= text_field_tag(:Hashtag, current_user.hashtags.map(&:tag).join(",")) %>
-        <%= submit_tag("Update", class:"btn btn-primary")  %>
+        <div class="col-md-8">
+          <%= text_field_tag(:Hashtag, current_user.hashtags.map(&:tag).join(",")) %>
+        </div>
+        <div class="col-md-2">
+          <%= submit_tag("Update", class:"btn btn-primary")  %>
+        </div>
       <% end %>
   </div>
 </div>
