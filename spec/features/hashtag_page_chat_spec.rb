@@ -6,20 +6,20 @@ RSpec.describe Hashtag do
     let!(:hashtag) { FactoryGirl.create(:hashtag) }
 
     before :each do
-      user.hashtags << hashtag
       visit "/login/#{user.id}"
+      visit hashtag_path(hashtag.tag)
+
+      click_link 'Join'
     end
 
     it 'has send button' do
-      visit "/hashtags/#{hashtag.id}"
-
       expect(find('//form/div/span/input')).to have_content ''
     end
 
     context 'messages' do
       before :each do
         FactoryGirl.create(:message, user: user, hashtag: hashtag)
-        visit "/hashtags/#{hashtag.id}"
+        visit hashtag_path(hashtag.tag)
       end
 
       it 'have content' do
@@ -31,11 +31,10 @@ RSpec.describe Hashtag do
       end
     end
 
-    it 'can send a message', type: :feature, js: true do
-      visit "/hashtags/#{hashtag.id}"
-
+    it 'can send a message', js: true do
       fill_in('input-text', with: 'Hello world!')
       click_button('Send')
+
       expect(page).to have_content('Hello world!')
     end
   end

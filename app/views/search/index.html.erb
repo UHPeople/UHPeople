@@ -4,8 +4,8 @@
 			<div id="users">
 				<h1>Search results for users: <%= @search %></h1>
 
-				<% @users.each do |h| %>
-					<h4><%= link_to h.name, h%></h4>
+				<% @users.each do |user| %>
+					<h4><%= link_to user.name, user %></h4>
 				<% end %>
 			</div>
 		<% end %>
@@ -14,8 +14,8 @@
 			<div id="hashtags">
 				<h1>Search results for: #<%= @search %></h1>
 
-				<% @hashtags.each do |h| %>
-					<h4><%= link_to "#" + h.tag, h%></h4>
+				<% @hashtags.each do |hashtag| %>
+					<h4><%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %></h4>
 			  <% end %>
 		  </div>
 		<% end %>

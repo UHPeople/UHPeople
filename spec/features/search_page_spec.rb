@@ -6,7 +6,7 @@ RSpec.describe 'Search page' do
 
   before :each do
     visit "/login/#{user.id}"
-    visit "/hashtags/#{hashtag.id}"
+    visit "/hashtags/#{hashtag.tag}"
 
     click_link 'Join'
   end
@@ -14,7 +14,7 @@ RSpec.describe 'Search page' do
   it 'creates hashtags' do
     visit '/search?search=asd'
     find("//div[@id='new_hashtag']/p/a").click
-    expect(page.current_path).to eq "/hashtags/#{hashtag.id + 1}"
+    expect(page.current_path).to eq '/hashtags/asd'
   end
 
   it 'finds user with exact match' do
@@ -32,13 +32,13 @@ RSpec.describe 'Search page' do
   it 'finds hashtag with exact match' do
     visit "/search?search=#{hashtag.tag}"
     find("//div[@id='hashtags']/h4/a").click
-    expect(page.current_path).to eq "/hashtags/#{hashtag.id}"
+    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
 
   it 'finds hashtag with non-exact match' do
     visit '/search?search=a'
     find("//div[@id='hashtags']/h4/a").click
-    expect(page.current_path).to eq "/hashtags/#{hashtag.id}"
+    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
 
   it 'doesn\'t suggest invalid hashtags' do

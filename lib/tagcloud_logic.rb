@@ -2,7 +2,7 @@ class TagcloudLogic
   def make_cloud
     hashtags = Hashtag.joins(:user_hashtags)
                .includes(:messages, :user_hashtags).all.map do |tag|
-      { text: tag.tag, weight: score(tag), link: "/hashtags/#{tag.id}" }
+      { text: tag.tag, weight: score(tag), link: "/hashtags/#{tag.tag}" }
     end
 
     top(hashtags)

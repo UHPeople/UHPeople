@@ -34,20 +34,20 @@ class HashtagsController < ApplicationController
   def join
     current_user.hashtags << @hashtag
     request.env['chat.join_callback'].call(current_user, @hashtag)
-    redirect_to @hashtag
+    redirect_to hashtag_path(tag: @hashtag.tag)
   end
 
   def leave
     current_user.hashtags.destroy(@hashtag)
     request.env['chat.leave_callback'].call(current_user, @hashtag)
-    redirect_to @hashtag
+    redirect_to hashtag_path(@hashtag.tag)
   end
 
   def update
     @hashtag.topic_updater_id = current_user.id
 
     unless @hashtag.update(hashtag_params)
-      redirect_to :back, notice: 'Something went wrong!'
+      redirect_to hashtag_path(@hashtag.tag), notice: 'Something went wrong!'
       return
     end
 
@@ -60,7 +60,7 @@ class HashtagsController < ApplicationController
       request.env['chat.notification_callback'].call(user.id)
     end
 
-    redirect_to :back, notice: 'Topic was successfully updated.'
+    redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
   end
 
   def create
@@ -68,7 +68,7 @@ class HashtagsController < ApplicationController
 
     if @hashtag.save
       current_user.hashtags << @hashtag
-      redirect_to @hashtag
+      redirect_to hashtag_path(@hashtag.tag)
     end
   end
 
@@ -77,7 +77,7 @@ class HashtagsController < ApplicationController
 
     if user.hashtags.include? @hashtag
       respond_to do |format|
-        format.html { redirect_to @hashtag, notice: 'User already a member!' }
+        format.html { redirect_to hashtag_path(@hashtag), notice: 'User already a member!' }
         format.json { render status: 400 }
       end
 
@@ -92,7 +92,7 @@ class HashtagsController < ApplicationController
     request.env['chat.notification_callback'].call(user.id)
 
     respond_to do |format|
-      format.html { redirect_to @hashtag }
+      format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
@@ -100,9 +100,8 @@ class HashtagsController < ApplicationController
   private
 
   def set_hashtag
-    @hashtag = Hashtag.find(params[:id])
-    rescue
-      render 'errors/error'
+    @hashtag = Hashtag.find_by(tag: params[:tag])
+    render 'errors/error' if @hashtag.nil?
   end
 
   def user_has_tag

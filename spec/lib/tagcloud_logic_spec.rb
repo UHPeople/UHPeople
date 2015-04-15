@@ -56,6 +56,6 @@ RSpec.describe TagcloudLogic do
 
     expect(cloud[0][:text]).to eq hashtag.tag
     expect(cloud[0][:weight]).to eq 1
-    expect(cloud[0][:link]).to eq "/hashtags/#{hashtag.id}"
+    expect(cloud[0][:link]).to eq "/hashtags/#{hashtag.tag}"
   end
 end

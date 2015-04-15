@@ -9,7 +9,7 @@
       <div class="message">
         <h5>
           <%= link_to message.user.name, message.user %>at
-          <%= link_to '#' + message.hashtag.tag, message.hashtag %>
+          <%= link_to '#' + message.hashtag.tag, hashtag_path(message.hashtag.tag) %>
 
           <span class="timestamp"><%= message.timestamp %></span>
         </h5>
