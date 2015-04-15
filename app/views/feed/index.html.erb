@@ -1,22 +1,24 @@
-<div class="container">
-  <div role="tabpanel" class="col-md-9 col-lg-10" >
+<script type="text/javascript">
+  var tab = <%= @tab %>
+</script>
 
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs" role="tablist" >
+<div class="container">
+  <div role="tabpanel" class="col-md-9 col-lg-10">
+    <ul class="nav nav-tabs" role="tablist">
       <li role="presentation" class="active">
-        <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab" id="feed-onboard-feed">Feed</a>
-      </li>
-      <li role="presentation" >
         <a href="#favourites" aria-controls="favourites" role="tab" data-toggle="tab" id="feed-onboard-favourites">Favourites</a>
+      </li>
+      <li role="presentation">
+        <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab" id="feed-onboard-feed">Feed</a>
       </li>
     </ul>
 
     <div class="tab-content">
-      <div role="tabpanel" class="tab-pane fade in active" id="feed">
-        <%= render 'feed' %>
+      <div role="tabpanel" class="tab-pane fade in active" id="favourites">
+        <%= render 'favourites' %>      
       </div>
-      <div role="tabpanel" class="tab-pane fade active" id="favourites">
-        <%= render 'favourites' %>
+      <div role="tabpanel" class="tab-pane fade" id="feed">
+        <%= render 'feed' %>
       </div>
     </div> 
   </div>

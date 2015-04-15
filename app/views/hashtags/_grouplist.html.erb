@@ -1,11 +1,11 @@
 <div class="well grouplist-position">
   <% if @user_has_tag %>
-    <%= link_to 'Leave', leave_path(id: @hashtag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
+    <%= link_to 'Leave', leave_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
 
     <button type="button" class="btn btn-default" data-toggle="modal" data-target="#invite">Invite</button>
     <%= render 'invite' %>
   <% else %>
-    <%= link_to 'Join', join_path(id: @hashtag), method: :post, class: 'btn btn-success' %> 
+    <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %> 
   <% end %>
 
   <% if @user_has_tag %>
@@ -13,7 +13,7 @@
     <%= link_to 'Cancel' , '#target', class: 'hidden edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
 
     <div id="target" class="hidden" style="padding-top: 5px">
-      <%= form_for @hashtag, html: { multipart: true } do |f| %>
+      <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
         <div class="form-group">
           <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
           <%= f.file_field :cover_photo, id: 'cover_photo' %>

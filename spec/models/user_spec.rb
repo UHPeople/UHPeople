@@ -8,11 +8,13 @@ RSpec.describe User do
   end
 
   it 'is saved with all needed variables' do
-    user = described_class.create username: 'terotest', name: 'Tero Testaaja'
+    user = described_class.create username: 'terotest', name: 'Tero Testaaja', campus: 'testcampus', unit: 'testunit'
 
     expect(user.valid?).to be(true)
     expect(user.name).to eq('Tero Testaaja')
     expect(user.username).to eq('terotest')
+    expect(user.campus).to eq('testcampus')
+    expect(user.unit).to eq('testunit')
     expect(described_class.count).to eq(1)
   end
 

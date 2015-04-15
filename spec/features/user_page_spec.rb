@@ -7,7 +7,7 @@ RSpec.describe User do
 
     before :each do
       visit "/login/#{user.id}"
-      visit "/hashtags/#{hashtag.id}"
+      visit "/hashtags/#{hashtag.tag}"
       click_link 'Join'
 
       visit "/users/#{user.id}"
@@ -38,7 +38,7 @@ RSpec.describe User do
     end
 
     it "doesn't have interests title if no hashtags" do
-      visit "/hashtags/#{hashtag.id}"
+      visit "/hashtags/#{hashtag.tag}"
       click_link 'Leave'
       visit "/users/#{user.id}"
 

@@ -57,25 +57,31 @@
 // Favourites Chatbox
 .favourites-chat-box {
   @include chat;
+  
+  padding-bottom: 5px;
+  padding-left: 16px;
 
   .message {
-    margin-bottom: 0;
+    padding-left: 56px;
+    padding-top: 16px;
 
-    .user {
-      color: #3d3c40 !important;
-      padding-right: .25rem;
-      margin-left: 0;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 100%;
-      margin-bottom: 0;
+    h5 {
+      margin-top: 0;
+      margin-bottom: 4px;
+  
+      a {
+        font-weight: 900;
+        padding-right: .25rem;
+        color: #3d3c40 !important;
+        margin-left: 0;
+        font-style: normal;
+      }  
     }
 
     p {
       font-size: 15px;
       line-height: 22px;
       color: #3d3c40;
-      margin-bottom: 0;
       word-wrap: break-word;
     }
   }
@@ -159,5 +165,9 @@
 .scrollable {
   height: 423px;
   overflow: auto;
+}
+
+.panel-body.fav {
+  padding: 0;
 }
 

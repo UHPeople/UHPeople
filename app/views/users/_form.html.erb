@@ -1,50 +1,50 @@
 <div class="container">
-  <%= render 'users/profile_well' %>
+  <%= form_for @user, html: { :multipart => true } do |f| %>
+    <%= render 'users/profile_well', action: action %>
 
-  <div class="col-sm-5">
-    <%= form_for @user, html: { :multipart => true } do |f| %>
-        <% if @user.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
+    <div class="col-sm-5">
+      <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
 
-              <ul>
-                <% @user.errors.full_messages.each do |msg| %>
-                    <li><%= msg %></li>
-                <% end %>
-              </ul>
-            </div>
-        <% end %>
-
-        <% if action == 'new' %>
-          <div class="field element-position">
-            <%= f.label :name %><br>
-            <%= f.text_field :name, class: "form-control" %>
-          </div>
-          <div class="field element-position">
-            <%= f.label :email %><br>
-            <%= f.text_field :email, class: "form-control" %>
-          </div>
-        <% end %>
-
-        <div class="field element-position">
-          <%= f.label :title %><br>
-          <%= f.text_field :title, class: "form-control" %>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+          </ul>
         </div>
-        <div class="option_class element-position">
-          <%= f.label :campus %><br>
-          <%= f.select :campus, options_for_select(@campuses, f.object.campus), { include_blank: true } %>
+      <% end %>
+
+      <% if action == 'new' %>
+        <div class="field element-position">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: "form-control" %>
         </div>
         <div class="field element-position">
-          <%= f.label :unit %><br>
-          <%= f.text_field :unit, class: "form-control" %>
+          <%= f.label :email %><br>
+          <%= f.text_field :email, class: "form-control" %>
         </div>
-        <div class="field element-position">
-          <%= f.label :about %><br>
-          <%= f.text_area :about, size: "60x8", class: "form-control" %>
-        </div>
-        <div class="actions element-position">
-          <%= f.button :Update,  class: 'btn btn-primary' %>
-        </div>
-    <% end %>
-  </div>
+      <% end %>
+
+      <div class="field element-position">
+        <%= f.label :title %><br>
+        <%= f.text_field :title, class: "form-control" %>
+      </div>
+      <div class="option_class element-position">
+        <%= f.label :campus %><br>
+        <%= f.select :campus, options_for_select(@campuses, f.object.campus) %>
+      </div>
+      <div class="field element-position">
+        <%= f.label :unit %><br>
+        <%= f.select :unit, grouped_options_for_select(@units, f.object.unit) %>
+      </div>
+      <div class="field element-position">
+        <%= f.label :about %><br>
+        <%= f.text_area :about, size: "60x8", class: "form-control" %>
+      </div>
+      <div class="actions element-position">
+        <%= f.button :Update,  class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
 </div>

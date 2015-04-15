@@ -7,7 +7,7 @@ RSpec.describe Hashtag do
 
     before :each do
       visit "/login/#{user.id}"
-      visit "/hashtags/#{hashtag.id}"
+      visit "/hashtags/#{hashtag.tag}"
       click_link 'Join'
     end
 
@@ -43,7 +43,7 @@ RSpec.describe Hashtag do
       end
 
       it 'sends invitation to non-member user' do
-        user2 = User.create name: 'asd', username: 'asdasd'
+        user2 = User.create name: 'asd', username: 'asdasd', campus: 'asd', unit: 'asd'
         find('button[data-target="#invite"]').click
         fill_in 'user', with: user2.name
         find('input[value="Invite"]').click
