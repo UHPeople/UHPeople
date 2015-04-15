@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'logout', to: 'session#logout'
 
   get 'threehash', to: 'hashtags#three_hash'
-  patch 'add', to: 'hashtags#add'
+  put 'add_multiple', to: 'hashtags#add_multiple'
 
   get 'auth/shibboleth/callback', to: 'users#shibboleth_callback'
 

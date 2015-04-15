@@ -43,12 +43,16 @@ class HashtagsController < ApplicationController
     redirect_to @hashtag
   end
 
-  def add
-    byebug
-    params[:Hashtag].each {|tag_id| 
-      h = Hashtag.find_by_id tag_id
-      current_user.hashtags << h if !current_user.hashtags.include? h
-    }
+  def add_multiple
+
+    current_user.hashtags.delete_all
+
+    unless params[:Hashtag].nil?
+      params[:Hashtag].each {| tag_id| 
+        h =  Hashtag.find_by_id tag_id
+        current_user.hashtags << h 
+      }
+    end  
     redirect_to feed_index_path
   end
 

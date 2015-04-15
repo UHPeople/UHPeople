@@ -3,15 +3,20 @@
     <h2>My favourite things</h2>
 
     <p>Find your favourite things or create new!</p>
-    <%= form_tag({controller: "hashtags", action: "add"}, method: "patch") do %>
-    <%= select_tag(:Hashtag, 
-      options_for_select(
-        Hashtag.all.collect {|h| [ h.tag, h.id] }),
-          class: "list-hashtags",
-          multiple: true)
-        %>
+    
+      <%= form_tag({controller: "hashtags", action: "add_multiple"}, method: "put") do %>
+      <div class="col-md-10">
+      <%= select_tag(:Hashtag, 
+        options_for_select(
+          Hashtag.all.collect {|h| [ h.tag, h.id ]
+          },current_user.hashtags.all.map(&:id)),
+            class: "list-hashtags",
+            multiple: true
+            )
+          %>
+          </div>
 
-      <%= submit_tag("Update") %>
-    <% end %>
+        <%= submit_tag("Update", class:"btn btn-primary")  %>
+      <% end %>
   </div>
 </div>

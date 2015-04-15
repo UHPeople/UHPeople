@@ -124,7 +124,7 @@ var ready = function() {
   }
 
   $(".list-hashtags").select2({
-   placeholder: "Select your Interests"
+   placeholder: "Select your Interests", width: '100%'
   });
   
   //HashCloud 
