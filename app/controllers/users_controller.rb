@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     redirect_to(action: 'new') and return unless @user.save
 
     if params[:image]
-      photo = Photo.new(user_id: @user.id,image: params[:image], image_text: params[:image_text])
+      photo = Photo.new(user_id: @user.id, image: params[:image], image_text: params[:image_text])
       if photo.save
         @user.update_attribute(:profilePicture, photo.id)
       end
@@ -98,9 +98,8 @@ class UsersController < ApplicationController
   end
 
   def set_tab
-    tabs = { 'Favourites': 0, 'Feed': 1 }
-    value = tabs[params[:value]]
-    current_user.update_attribute(:tab, value)
+    value = params[:value]
+    current_user.update_attribute(:tab, tab_to_int(value))
 
     respond_to do |format|
       format.json { render json: { } }
@@ -109,6 +108,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def tab_to_int(tab)
+    (tab == 'Feed') ? 1 : 0
+  end
 
   def random_string
     # from http://codereview.stackexchange.com/questions/15958/

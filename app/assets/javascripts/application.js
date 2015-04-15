@@ -111,7 +111,7 @@ var ready = function() {
 
   
   //Onboarding
-  if(first_time){
+  if (first_time) {
     $(window).load(function() {
       startOnboard();
     });
@@ -123,11 +123,12 @@ var ready = function() {
 
     var url = document.location.toString();
     if (url.match('#')) {
-        $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+      $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+    } else {
+      $('.nav-tabs a:nth(' + tab + ')').tab('show');
     }
   }
 };
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
-
