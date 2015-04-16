@@ -1,6 +1,6 @@
 class Hashtag < ActiveRecord::Base
   validates :tag, presence: true, uniqueness: true,
-                  format: { with: /\A[A-Za-z0-9]*\z/ }
+                  format: { with: /\A[A-Öa-ö0-9_]*\z/ }
 
   has_many :user_hashtags, dependent: :destroy
   has_many :users, through: :user_hashtags
