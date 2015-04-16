@@ -54,7 +54,7 @@ class HashtagsController < ApplicationController
         current_user.hashtags << h 
       }
     end  
-    redirect_to feed_index_path
+    redirect_to :back
   end
 
   def update
