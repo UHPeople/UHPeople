@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.json do
-        render json: 'Not logged in' if current_user.nil?
+        render json: 'Not logged in' and return if current_user.nil?
 
         users = @users.collect do |user|
           { id: user.id, name: user.name, avatar: user.profile_picture_url }
