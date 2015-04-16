@@ -8,6 +8,8 @@
 //= require jqcloud
 //= require moment
 
+//= require select2
+
 //= require twitter/typeahead
 //= require handlebars
 
@@ -15,22 +17,18 @@
 
 //= require_tree .
 
-var url = document.location.toString();
-if (url.match('#')) {
-    $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show') ;
-} 
-
 // Change hash for page-reload
 $('.nav-tabs a').on('shown.bs.tab', function (e) {
-    window.location.hash = e.target.hash;
-    window.scrollTo(0, 0);
+  window.location.hash = e.target.hash;
+  window.scrollTo(0, 0);
+
+  $.post("/tab/" + e.target.text);
 })
 
 function clearAllMasonryBricks (){
-  var bricks = [];
-  bricks = document.getElementsByClassName("box");
-  for(var i = bricks.length; i > 0; i--){
-    $.post( "notifications/" + bricks[0].id);
+  var bricks = document.getElementsByClassName("box");
+  for (var i = bricks.length; i > 0; i--){
+    $.post("notifications/" + bricks[0].id);
     $('#masonry-container').masonry('remove', bricks[0]);
     $('#masonry-container').masonry();
     notifCounter();
@@ -82,6 +80,22 @@ function startOnboard(){
   }
 }
 
+if($(location).attr('pathname').indexOf("users") > -1){
+  $.getJSON("/hashtags", function(json){
+    var tags = [];
+    for(var i = 0; i < json.length; i++){
+      tags.push(json[i].tag);
+    }
+
+
+    $("#Hashtag").select2({
+      placeholder: "Select your Interests", 
+      tags : tags,
+      width: '100%'
+    });
+  });
+}  
+
 var ready = function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
@@ -115,18 +129,25 @@ var ready = function() {
 
   
   //Onboarding
-  if(first_time){
+  if (first_time) {
     $(window).load(function() {
       startOnboard();
     });
   }
+
   
-  //HashCloud 
-  if($(location).attr('pathname') == "/feed"){
+  if ($(location).attr('pathname') == "/feed") {
+    // HashCloud
     $("#tag_cloud").jQCloud(word_array);
+
+    var url = document.location.toString();
+    if (url.match('#')) {
+      $('.nav-tabs a[href=#'+url.split('#')[1]+']').tab('show');
+    } else {
+      $('.nav-tabs a:nth(' + tab + ')').tab('show');
+    }
   }
 };
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
-

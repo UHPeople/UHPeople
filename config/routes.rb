@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'login', to: 'user#index'
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
+  get 'threehash', to: 'hashtags#three_hash'
+  put 'add_multiple', to: 'hashtags#add_multiple'
   get 'auth/shibboleth/callback', to: 'users#shibboleth_callback'
 
   match '/invite', to: 'invite#send_email', via: 'post'
@@ -28,4 +30,5 @@ Rails.application.routes.draw do
   post 'notifications/:id', to: 'notifications#update', via: 'post'
   post 'set_profile_picture', to: 'users#set_profile_picture'
   post 'firsttime/:value', to: 'users#set_first_time_use', as: 'first_time'
+  post 'tab/:value', to: 'users#set_tab', as: 'tab'
 end

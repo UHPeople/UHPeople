@@ -43,6 +43,20 @@ class HashtagsController < ApplicationController
     redirect_to hashtag_path(@hashtag.tag)
   end
 
+  def add_multiple
+    current_user.hashtags.delete_all
+
+    unless params[:Hashtag].nil?
+      tags = params[:Hashtag].split(",")
+      tags.each {| tag_name| 
+        h =  Hashtag.find_by tag:tag_name
+        h = Hashtag.create tag:tag_name if h.nil?
+        current_user.hashtags << h 
+      }
+    end  
+    redirect_to feed_index_path
+  end
+
   def update
     @hashtag.topic_updater_id = current_user.id
 
@@ -96,6 +110,11 @@ class HashtagsController < ApplicationController
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
+
+  def three_hash
+    @user = current_user
+    @hashtags = Hashtag.all
+  end  
 
   private
 

@@ -9,15 +9,22 @@
     <% chat[:messages].each do |message| %>
       <div class="panel-body fav">
         <div class="favourites-chat-box">
+          <a href="<%= user_path(message.user) %>" class="avatar-link">
+            <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
+          </a>
+
           <div class="message">
-            <p>
-              <%= link_to message.user.name, message.user, class: 'user' %>
-              <%= message.formatted_content %><br>
+            <h5>
+              <%= link_to message.user.name, message.user %>at
+              <%= link_to '#' + message.hashtag.tag, hashtag_path(message.hashtag.tag) %>
+
               <span class="timestamp"><%= message.timestamp %></span>
-            </p>
+            </h5>
+            <p><%= message.formatted_content %></p>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
+

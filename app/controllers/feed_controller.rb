@@ -16,6 +16,7 @@ class FeedController < ApplicationController
                 .order(created_at: :desc).limit(20)
 
     @word_array = cloud_cache
+    @tab = current_user.tab
   end
 
   def cloud_cache

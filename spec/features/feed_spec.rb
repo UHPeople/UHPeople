@@ -136,6 +136,20 @@ RSpec.describe 'Feed page' do
     visit '/feed'
     expect(find('span.w10')).to have_content 'cloudtag2'
   end
+
+  context 'tab' do
+    it 'is stored', js: true do
+      create_and_visit
+
+      click_link 'Favourites'
+      visit '/feed'
+      expect(user.tab).to eq 0
+
+      click_link 'Feed'
+      visit '/feed'
+      #expect(user.tab).to eq 1      
+    end
+  end
 end
 
 def create_and_visit
