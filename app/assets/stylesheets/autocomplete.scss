@@ -28,14 +28,14 @@
     width: 100%;        
   }
 
+  .tt-cursor {
+    background-color: $primary;
+    color: $white;
+  }
+
   .tt-suggestion {
     padding-left: 16px;
     padding-right: 16px;
-
-    .tt-cursor {
-      background-color: $primary;
-      color: $white;
-    }
 
     a {
       color: $black !important;
