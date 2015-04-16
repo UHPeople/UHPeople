@@ -8,6 +8,8 @@
 //= require jqcloud
 //= require moment
 
+//= require select2
+
 //= require twitter/typeahead
 //= require handlebars
 
@@ -78,6 +80,22 @@ function startOnboard(){
   }
 }
 
+if($(location).attr('pathname').indexOf("users") > -1){
+  $.getJSON("/hashtags", function(json){
+    var tags = [];
+    for(var i = 0; i < json.length; i++){
+      tags.push(json[i].tag);
+    }
+
+
+    $("#Hashtag").select2({
+      placeholder: "Select your Interests", 
+      tags : tags,
+      width: '100%'
+    });
+  });
+}  
+
 var ready = function() {
   $('#masonry-container').masonry({
     itemSelector: '.box',
@@ -116,6 +134,7 @@ var ready = function() {
       startOnboard();
     });
   }
+
   
   if ($(location).attr('pathname') == "/feed") {
     // HashCloud

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'login', to: 'user#index'
   get 'login/:id', to: 'session#login'
   get 'logout', to: 'session#logout'
+  get 'threehash', to: 'hashtags#three_hash'
+  put 'add_multiple', to: 'hashtags#add_multiple'
   get 'auth/shibboleth/callback', to: 'users#shibboleth_callback'
 
   match '/invite', to: 'invite#send_email', via: 'post'
