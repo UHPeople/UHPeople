@@ -35,6 +35,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(edit_user_params)
+      create_campus_unit_tag
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: 'edit'
@@ -53,7 +54,7 @@ class UsersController < ApplicationController
     end
 
     session[:user_id] = @user.id
-    set_campus_unit_tag
+    create_campus_unit_tag
     redirect_to feed_index_path
   end
 
@@ -80,18 +81,18 @@ class UsersController < ApplicationController
     end
   end
 
-  def set_campus_unit_tag
+  def create_campus_unit_tag
     campus = @user.campus.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
     unit = @user.unit.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
     @unittag = Hashtag.where('tag ilike ?', "#{unit}")
-    create_add_campus_unit_tag(campus)
-    create_add_campus_unit_tag(unit)
+    set_campus_unit_tag(campus)
+    set_campus_unit_tag(unit)
   end
 
-  def create_add_campus_unit_tag(tag)
+  def set_campus_unit_tag(tag)
     @hashtag = Hashtag.where('tag ilike ?', "#{tag}")
     if !@hashtag.blank?
-      @user.hashtags << @tag
+      @user.hashtags << @hashtag
     else
       @hashtag = Hashtag.new tag: tag
       if @hashtag.save
