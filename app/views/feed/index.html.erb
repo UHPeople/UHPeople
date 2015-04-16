@@ -11,6 +11,9 @@
       <li role="presentation">
         <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab" id="feed-onboard-feed">Feed</a>
       </li>
+      <li role="presentation">
+        <a href="#cloud_tab" aria-controls="cloud_tab" role="tab" data-toggle="tab">Cloud</a>
+      </li>
     </ul>
 
     <div class="tab-content">
@@ -19,6 +22,9 @@
       </div>
       <div role="tabpanel" class="tab-pane fade" id="feed">
         <%= render 'feed' %>
+      </div>
+      <div role="tabpanel" class="tab-pane fade active" id="cloud_tab">
+        <%= render 'cloud_tab' %>
       </div>
     </div> 
   </div>
