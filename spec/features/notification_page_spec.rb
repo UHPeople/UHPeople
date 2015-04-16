@@ -16,7 +16,7 @@ RSpec.describe 'Notifications page' do
 
   it 'has notification' do
     visit '/notifications'
-    expect(page).to have_content 'asd asd has invited you to join avantouinti!'
+    expect(page).to have_content 'asd asd has invited you to join #avantouinti'
   end
 
   it 'has notification disappeard when clicked', js: true do
