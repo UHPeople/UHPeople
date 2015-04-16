@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_non_production, only: [:new]
-  before_action :require_login, only: [:show, :edit, :update]
+  before_action :require_login, only: [:show, :edit, :update, :set_tab]
   before_action :set_user, only: [:show, :edit, :update]
   before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
