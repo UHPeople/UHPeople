@@ -13,7 +13,7 @@
     <br/>
   <% end %>
 
-  <% if @user == current_user %>
+  <% if @user == current_user and action == 'show' %>
     <%= link_to "Add photo", '#', class: 'lead btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
 
     <div id="target" class="hidden">

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :require_non_production, only: [:new, :create]
+  before_action :require_non_production, only: [:new]
   before_action :require_login, only: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update]
   before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.json do
-        render json: 'Not logged in' if current_user.nil?
+        render json: 'Not logged in' and return if current_user.nil?
 
         users = @users.collect do |user|
           { id: user.id, name: user.name, avatar: user.profile_picture_url }
