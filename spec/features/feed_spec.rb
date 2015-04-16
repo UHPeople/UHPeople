@@ -120,7 +120,6 @@ RSpec.describe 'Feed page' do
     Rails.cache.clear
 
     create_and_visit
-    click_link 'Cloud'
     expect(find('span#tag_cloud_word_0')).to have_content 'avantouinti'
   end
 
@@ -135,7 +134,6 @@ RSpec.describe 'Feed page' do
     Message.create user: user, hashtag: hashtag3, content: 'Asdasd5'
 
     visit '/feed'
-    click_link 'Cloud'
     expect(find('span.w10')).to have_content 'cloudtag2'
   end
 

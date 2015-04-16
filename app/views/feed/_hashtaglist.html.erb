@@ -25,4 +25,11 @@
       <% end %>
     </table>
   <% end %>
+
+  <div id="feed-onboard-hot">
+  <div id="tag_cloud" style="width: 100% !important; height: 350px;"></div>
+  <script type="text/javascript">
+    var word_array = <%= raw @word_array.to_json %>
+  </script>
+  </div>
 </div>
