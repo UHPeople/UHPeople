@@ -15,7 +15,7 @@ add_message = (data) ->
       '<div class="message">' +
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-          '<a href="/hashtags/' + data.hashtag + '">' + hashtag_name + '</a>' +
+          '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
@@ -25,12 +25,16 @@ add_message = (data) ->
   $('div.panel.fav#box-' + data.hashtag).append ''+
     '<div class="panel-body fav">' + 
       '<div class="favourites-chat-box">' +
-        '<div class="message">' + 
-          '<p>' +
-            '<a href="/users/' + data.user + '" class="user">' + data.username + '</a> ' +
-            data.content +
-            '<br><span>' + timestamp + '</span>' +
-          '</p>' +
+        '<a href="/users/' + data.user + '" class="avatar-link">' +
+          '<img class="img-circle" src="' + data.avatar + '"></img>' +
+        '</a>' +
+        '<div class="message">' +
+          '<h5>' +
+            '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
+            '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
+            '<span class="timestamp">' + timestamp + '</span>' +
+          '</h5>' +
+          '<p>' + data.content + '</p>' +
         '</div>' +
       '</div>' +
     '</div>'

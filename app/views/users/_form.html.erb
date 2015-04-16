@@ -16,6 +16,8 @@
       <% end %>
 
       <% if action == 'new' %>
+        <%= f.hidden_field :username, value: @user.username %>
+        
         <div class="field element-position">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: "form-control" %>

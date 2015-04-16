@@ -85,7 +85,7 @@ $(document).ready ->
     name: 'hashtags'
     displayKey: 'tag'
     source: hashtags.ttAdapter()
-    templates: suggestion: Handlebars.compile('<a href="/hashtags/{{id}}"><div><span>#{{tag}}</span></div></a>')
+    templates: suggestion: Handlebars.compile('<a href="/hashtags/{{tag}}"><div><span>#{{tag}}</span></div></a>')
   }, {
     name: 'users'
     displayKey: 'name'
