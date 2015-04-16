@@ -80,26 +80,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def create_campus_unit_tag
-    campus = @user.campus.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
-    unit = @user.unit.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
-    @unittag = Hashtag.where('tag ilike ?', "#{unit}")
-    set_campus_unit_tag(campus)
-    set_campus_unit_tag(unit)
-  end
-
-  def set_campus_unit_tag(tag)
-    @hashtag = Hashtag.where('tag ilike ?', "#{tag}")
-    if !@hashtag.blank?
-      @user.hashtags << @hashtag
-    else
-      @hashtag = Hashtag.new tag: tag
-      if @hashtag.save
-        @user.hashtags << @hashtag
-      end
-    end
-  end
-
   def shibboleth_callback
     uid = request.env['omniauth.auth']['uid']
     @user = User.find_by username: uid
@@ -127,6 +107,22 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def create_campus_unit_tag
+    add_hashtag(tagify @user.campus)
+    add_hashtag(tagify @user.unit)
+  end
+
+  def tagify(text)
+    text.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
+  end
+
+  def add_hashtag(tag)
+    hashtag = Hashtag.find_by tag: tag
+    hashtag = Hashtag.create tag: tag if hashtag.nil?
+
+    @user.hashtags << hashtag
+  end
 
   def tab_to_int(tab)
     (tab == 'Feed') ? 1 : 0

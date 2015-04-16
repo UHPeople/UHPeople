@@ -39,6 +39,14 @@
   border-radius: 0 !important;
   height: 320px;
   margin-bottom: 0;
+
+  h1 {
+    word-wrap: break-word;
+  }
+}
+
+.panel-title {
+  word-wrap: break-word;
 }
 
 // Frontpage setup
