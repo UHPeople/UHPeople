@@ -35,7 +35,6 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(edit_user_params)
-      create_campus_unit_tag
       redirect_to @user, notice: 'User was successfully updated.'
     else
       render action: 'edit'
