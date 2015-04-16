@@ -23,6 +23,13 @@
   padding-top: 20px;
 }
 
+.alert .timestamp {
+  color: $timestamp-color;
+  font-size: 70%;
+  font-weight: normal;
+  float: right;
+}
+
 // Jumbotron material desing 
 
 .jumbotron {
