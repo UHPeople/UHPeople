@@ -1,5 +1,5 @@
 <div class="container">
-  <%= form_for @user, html: { :multipart => true } do |f| %>
+  <%= form_for @user, html: { multipart: true } do |f| %>
     <%= render 'users/profile_well', action: action %>
 
     <div class="col-sm-5">
@@ -16,6 +16,8 @@
       <% end %>
 
       <% if action == 'new' %>
+        <input id="username" name="username" type="hidden" value="<%= @user.username %>"/>
+        
         <div class="field element-position">
           <%= f.label :name %><br>
           <%= f.text_field :name, class: "form-control" %>
@@ -43,7 +45,7 @@
         <%= f.text_area :about, size: "60x8", class: "form-control" %>
       </div>
       <div class="actions element-position">
-        <%= f.button :Update,  class: 'btn btn-primary' %>
+        <%= f.button :Update, class: 'btn btn-primary' %>
       </div>
     </div>
   <% end %>
