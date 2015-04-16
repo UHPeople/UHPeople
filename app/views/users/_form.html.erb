@@ -16,7 +16,7 @@
       <% end %>
 
       <% if action == 'new' %>
-        <input id="username" name="username" type="hidden" value="<%= @user.username %>"/>
+        <%= f.hidden_field :username, value: @user.username %>
         
         <div class="field element-position">
           <%= f.label :name %><br>
