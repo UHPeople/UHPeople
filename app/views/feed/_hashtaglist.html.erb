@@ -18,7 +18,7 @@
       <% @user_tags.each do |tag| %>
           <tr>
             <td>
-              <%= link_to '#'+truncate(tag.hashtag.tag, length: 20), hashtag_path(tag.hashtag.tag), id: tag.hashtag.id %>
+              <%= link_to '#'+truncate(tag.hashtag.tag, length: 17), hashtag_path(tag.hashtag.tag), id: tag.hashtag.id %>
               <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
             </td>
           </tr>
