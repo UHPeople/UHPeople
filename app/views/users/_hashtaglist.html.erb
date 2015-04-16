@@ -5,7 +5,7 @@
         <% user.hashtags.each do |tag| %>
           <tr>
             <td>
-              <%= link_to "#"+tag.tag, tag %>
+              <%= link_to "#"+tag.tag, hashtag_path(tag: tag.tag) %>
             </td>
           </tr>
         <% end %>
