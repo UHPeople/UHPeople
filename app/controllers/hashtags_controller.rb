@@ -54,14 +54,14 @@ class HashtagsController < ApplicationController
         current_user.hashtags << h 
       }
     end  
-    redirect_to :back
+    redirect_to :back, notice: 'Your favourite things updated!'
   end
 
   def update
     @hashtag.topic_updater_id = current_user.id
 
     unless @hashtag.update(hashtag_params)
-      redirect_to hashtag_path(@hashtag.tag), notice: 'Something went wrong!'
+      redirect_to hashtag_path(@hashtag.tag), alert: 'Something went wrong!'
       return
     end
 
@@ -91,7 +91,7 @@ class HashtagsController < ApplicationController
 
     if user.hashtags.include? @hashtag
       respond_to do |format|
-        format.html { redirect_to hashtag_path(@hashtag), notice: 'User already a member!' }
+        format.html { redirect_to hashtag_path(@hashtag), alert: 'User already a member!' }
         format.json { render status: 400 }
       end
 
