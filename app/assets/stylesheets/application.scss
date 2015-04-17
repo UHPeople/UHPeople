@@ -68,7 +68,16 @@
 // other
 
 .alert {
+  background-color: $success;
   margin-bottom: 0;
+  position:absolute;
+  top: 75px;
+  z-index: 2000;
+  margin: 0 auto;
+  left:0; 
+  right:0;
+  width: 80%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
 .modal-footer {
