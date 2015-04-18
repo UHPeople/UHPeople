@@ -46,15 +46,17 @@ class HashtagsController < ApplicationController
   def add_multiple
     current_user.hashtags.delete_all
 
-    unless params[:Hashtag].nil?
-      tags = params[:Hashtag].split(",")
-      tags.each {| tag_name| 
-        h =  Hashtag.find_by tag:tag_name
-        h = Hashtag.create tag:tag_name if h.nil?
-        current_user.hashtags << h 
-      }
-    end  
-    redirect_to :back
+    tags = params[:hashtags]
+    unless tags.nil?
+      tags.split(',').each do |tag_name|
+        h = Hashtag.find_by tag: tag_name
+        h = Hashtag.create tag: tag_name if h.nil?
+
+        current_user.hashtags << h
+      end
+    end
+
+    redirect_to current_user, notice: 'Hashtags updated'
   end
 
   def update
@@ -114,7 +116,7 @@ class HashtagsController < ApplicationController
   def three_hash
     @user = current_user
     @hashtags = Hashtag.all
-  end  
+  end
 
   private
 

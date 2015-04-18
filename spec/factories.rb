@@ -9,7 +9,6 @@ FactoryGirl.define do
     unit 'Maametsis'
     about 'abouttest!!212'
     first_time false
-    # avatar { fixture_file_upload(Rails.root.join('spec', 'test.png'), 'image/png') }
   end
 
   factory :hashtag do
@@ -18,5 +17,9 @@ FactoryGirl.define do
 
   factory :message do
     content 'Hello World!'
+  end
+
+  factory :photo do
+    image { fixture_file_upload(Rails.root.join('spec', 'test.png'), 'image/png') }
   end
 end

@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe User do
   context 'new user page' do
-
     it 'adds hashtags for unit and campus on create' do
       visit new_user_path
 
@@ -16,8 +15,8 @@ RSpec.describe User do
 
       expect(Hashtag.count).to eq(2)
 
-      expect(User.first.hashtags.first.tag).to eq('Kumpula_Campus')
-      expect(User.first.hashtags.last.tag).to eq('Faculty_of_Arts')
+      expect(described_class.first.hashtags.first.tag).to eq('Kumpula_Campus')
+      expect(described_class.first.hashtags.last.tag).to eq('Faculty_of_Arts')
     end
 
     it 'adds correct hashtag to user if tag already exists' do
@@ -34,9 +33,8 @@ RSpec.describe User do
 
       expect(Hashtag.count).to eq(2)
 
-      expect(User.first.hashtags.first.tag).to eq('Kumpula_Campus')
-      expect(User.first.hashtags.last.tag).to eq('Faculty_of_Arts')
+      expect(described_class.first.hashtags.first.tag).to eq('Kumpula_Campus')
+      expect(described_class.first.hashtags.last.tag).to eq('Faculty_of_Arts')
     end
-
   end
 end
