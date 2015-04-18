@@ -32,6 +32,7 @@ add_message = (data) ->
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
             '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
+            '<br/>' +
             '<span class="timestamp">' + timestamp + '</span>' +
           '</h5>' +
           '<p>' + data.content + '</p>' +

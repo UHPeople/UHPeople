@@ -27,6 +27,7 @@
   
   padding-bottom: 5px;
   padding-left: 20px;
+  padding-right: 8px;
 
   .message {
     padding-left: 56px;
@@ -42,6 +43,7 @@
         color: #3d3c40 !important;
         margin-left: 0;
         font-style: normal;
+        word-wrap: break-word;
       }  
     }
 
@@ -64,6 +66,7 @@
   .message {
     padding-left: 56px;
     padding-top: 16px;
+    padding-right: 8px;
 
     h5 {
       margin-top: 0;
@@ -75,7 +78,13 @@
         color: #3d3c40 !important;
         margin-left: 0;
         font-style: normal;
-      }  
+        word-wrap: break-word;
+      }
+
+      p {
+        padding: 0;
+        margin: 0;
+      }
     }
 
     p {
