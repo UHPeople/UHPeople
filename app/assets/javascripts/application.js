@@ -46,7 +46,7 @@ function notifCounter(){
   });
 }
 
-function setupNoNotif (){
+function setupNoNotif () {
   $( ".clearAll" ).remove();
   $( ".notif-icon" ).css("color", "#fff");
   $( ".empty-notif" ).append( "You don't have any new notifications." );  
@@ -54,23 +54,18 @@ function setupNoNotif (){
 
 function startOnboard(){
   if($(location).attr('pathname').indexOf("feed") > -1){
-
     $('#feed-onboard').joyride({
       autoStart : true,
       modal:true,
       expose: true
     });
-
   } else if($(location).attr('pathname').indexOf("edit") > -1){
-
     $('#new-user-onboard').joyride({
       autoStart : true,
       modal:true,
       expose: true
     });
-
   } else if($(location).attr('pathname').indexOf("hashtag") > -1){
-
     $('#hashtag-onboard').joyride({
       autoStart : true,
       modal:true,
@@ -87,8 +82,7 @@ if($(location).attr('pathname').indexOf("users") > -1){
       tags.push(json[i].tag);
     }
 
-
-    $("#Hashtag").select2({
+    $("#hashtags").select2({
       placeholder: "Select your Interests", 
       tags : tags,
       width: '100%'
