@@ -35,11 +35,29 @@ RSpec.describe UsersController do
     end
   end
 
-  #describe 'POST create' do
+  # describe 'POST create' do
   #  it 'adds photo to user' do
   #    post :create, user: { username: 'asd', name: 'asdasd' }, image: photo
   #    user = User.last
   #    expect(user.profilePicture).to eq photo.id
   #  end
-  #end
+  # end
+
+  describe 'POST set_first_time_use' do
+    before :each do
+      request.session[:user_id] = user.id
+    end
+
+    it 'redirects to notifications' do
+      post :set_first_time_use, value: false
+
+      expect(response).to redirect_to(notifications_path)
+    end
+
+    it 'redirects to feed' do
+      post :set_first_time_use, value: true
+
+      expect(response).to redirect_to(feed_index_path)
+    end
+  end
 end

@@ -5,7 +5,7 @@ RSpec.describe ApplicationController do
 
   controller do
     def index
-      raise ApplicationController::AccessDenied
+      fail ApplicationController::AccessDenied
     end
   end
 

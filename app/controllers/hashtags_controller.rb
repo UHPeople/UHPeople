@@ -62,10 +62,8 @@ class HashtagsController < ApplicationController
   def update
     @hashtag.topic_updater_id = current_user.id
 
-    unless @hashtag.update(hashtag_params)
-      redirect_to hashtag_path(@hashtag.tag), notice: 'Something went wrong!'
-      return
-    end
+    redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
+      return unless @hashtag.update(hashtag_params)
 
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
@@ -80,12 +78,11 @@ class HashtagsController < ApplicationController
   end
 
   def create
-    @hashtag = Hashtag.new tag: params[:tag]
+    hashtag = Hashtag.new tag: params[:tag]
+    redirect_to(feed_index_path, alert: 'Something went wrong!') && return unless hashtag.save
 
-    if @hashtag.save
-      current_user.hashtags << @hashtag
-      redirect_to hashtag_path(@hashtag.tag)
-    end
+    current_user.hashtags << hashtag
+    redirect_to hashtag_path(hashtag.tag)
   end
 
   def invite
@@ -93,7 +90,7 @@ class HashtagsController < ApplicationController
 
     if user.hashtags.include? @hashtag
       respond_to do |format|
-        format.html { redirect_to hashtag_path(@hashtag), notice: 'User already a member!' }
+        format.html { redirect_to hashtag_path(@hashtag), alert: 'User already a member!' }
         format.json { render status: 400 }
       end
 
@@ -111,11 +108,6 @@ class HashtagsController < ApplicationController
       format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
-  end
-
-  def three_hash
-    @user = current_user
-    @hashtags = Hashtag.all
   end
 
   private

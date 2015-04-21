@@ -49,6 +49,7 @@ class UsersController < ApplicationController
     end
 
     session[:user_id] = @user.id
+
     create_campus_unit_tag
     redirect_to feed_index_path
   end
@@ -68,7 +69,7 @@ class UsersController < ApplicationController
     id = params[:pic_id].to_i
 
     begin
-      photo = Photo.find id
+      Photo.find id
     rescue
       redirect_to current_user, alert: 'Invalid photo!'
       return
@@ -99,7 +100,7 @@ class UsersController < ApplicationController
     current_user.update_attribute(:tab, tab_to_int(value))
 
     respond_to do |format|
-      format.json { render json: { } }
+      format.json { render json: {} }
       format.html { redirect_to feed_index_path }
     end
   end
@@ -152,95 +153,95 @@ class UsersController < ApplicationController
     @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
 
     @units = {
-        "Faculty of Arts" => ["Faculty of Arts",
-                              "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
-                              "Department of Modern Languages",
-                              "Department of World Cultures",
-                              "Department of Philosophy, History, Culture and Art Studies"
-                             ],
-        "Faculty of Behavioural Sciences" => ["Faculty of Behavioural Sciences",
-                                              "Department of Teacher Education",
-                                              "Institute of Behavioural Sciences",
-                                              "Helsingin normaalilyseo",
-                                              "Viikki Teacher Training School of Helsinki University"
-                                             ],
-        "Faculty of Law" => ["Faculty of Law"],
-        "Faculty of Social Sciences" => ["Faculty of Social Sciences",
-                                         "Department of Social Research",
-                                         "Department of Political and Economic Studies"
-                                        ],
-        "Faculty of Theology" => ["Faculty of Theology"],
-        "Swedish School of Social Science" => ["Swedish School of Social Science"],
-        "Faculty of Science" => ["Faculty of Science",
-                                 "Department of Chemistry",
-                                 "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
-                                 "Department of Computer Science",
-                                 "Department of Geosciences and Geography",
-                                 "Institute of Seismology",
-                                 "Department of Mathematics and Statistics",
-                                 "Department of Physics"
-                                ],
-        "Faculty of Medicine" => ["Faculty of Medicine",
-                                  "Clinicum",
-                                  "Medicum",
-                                  "Research Programs Unit"
-                                 ],
-        "Faculty of Biological and Environmental Sciences" => ["Faculty of Biological and Environmental Sciences",
-                                                               "Department of Biosciences",
-                                                               "Department of Environmental Sciences",
-                                                               "Kilpisjärvi Biological Station",
-                                                               "Lammi Biological Station",
-                                                               "Tvärminne Zoological Station"
-                                                              ],
-        "Faculty of Agriculture and Forestry" => ["Faculty of Agriculture and Forestry",
-                                                  "Department of Food and Environmental Sciences",
-                                                  "Department of Agricultural Sciences",
-                                                  "Viikki Research Farm",
-                                                  "Department of Forest Sciences",
-                                                  "Hyytiälä Forestry Field Station",
-                                                  "Värriö Subartic Research Station",
-                                                  "Department of Economics and Management"
-                                                 ],
-        "Faculty of Veterinary Medicine" => ["Faculty of Veterinary Medicine",
-                                             "Veterinary Teaching Hospital"
-                                            ],
-        "Faculty of Pharmacy" => ["Faculty of Pharmacy"],
+      'Faculty of Arts' => ['Faculty of Arts',
+                            'Department of Finnish, Finno-Ugrian and Scandinavian Studies',
+                            'Department of Modern Languages',
+                            'Department of World Cultures',
+                            'Department of Philosophy, History, Culture and Art Studies'
+                           ],
+      'Faculty of Behavioural Sciences' => ['Faculty of Behavioural Sciences',
+                                            'Department of Teacher Education',
+                                            'Institute of Behavioural Sciences',
+                                            'Helsingin normaalilyseo',
+                                            'Viikki Teacher Training School of Helsinki University'
+                                           ],
+      'Faculty of Law' => ['Faculty of Law'],
+      'Faculty of Social Sciences' => ['Faculty of Social Sciences',
+                                       'Department of Social Research',
+                                       'Department of Political and Economic Studies'
+                                      ],
+      'Faculty of Theology' => ['Faculty of Theology'],
+      'Swedish School of Social Science' => ['Swedish School of Social Science'],
+      'Faculty of Science' => ['Faculty of Science',
+                               'Department of Chemistry',
+                               'Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)',
+                               'Department of Computer Science',
+                               'Department of Geosciences and Geography',
+                               'Institute of Seismology',
+                               'Department of Mathematics and Statistics',
+                               'Department of Physics'
+                              ],
+      'Faculty of Medicine' => ['Faculty of Medicine',
+                                'Clinicum',
+                                'Medicum',
+                                'Research Programs Unit'
+                               ],
+      'Faculty of Biological and Environmental Sciences' => ['Faculty of Biological and Environmental Sciences',
+                                                             'Department of Biosciences',
+                                                             'Department of Environmental Sciences',
+                                                             'Kilpisjärvi Biological Station',
+                                                             'Lammi Biological Station',
+                                                             'Tvärminne Zoological Station'
+                                                            ],
+      'Faculty of Agriculture and Forestry' => ['Faculty of Agriculture and Forestry',
+                                                'Department of Food and Environmental Sciences',
+                                                'Department of Agricultural Sciences',
+                                                'Viikki Research Farm',
+                                                'Department of Forest Sciences',
+                                                'Hyytiälä Forestry Field Station',
+                                                'Värriö Subartic Research Station',
+                                                'Department of Economics and Management'
+                                               ],
+      'Faculty of Veterinary Medicine' => ['Faculty of Veterinary Medicine',
+                                           'Veterinary Teaching Hospital'
+                                          ],
+      'Faculty of Pharmacy' => ['Faculty of Pharmacy'],
 
-        "Institutes and other units" => [
-          "Aleksanteri Institute - Finnish Centre for Russian and East European Studies",
-          "Center for Information Technology (IT Center)",
-          "Center for Properties and Facilities",
-          "Finnish Museum of Natural History LUOMUS",
-          "Helsinki Collegium for Advanced Studies",
-          "Helsinki Institute for Information Technology",
-          "Helsinki Institute of Physics (HIP)",
-          "Helsinki University Library",
-          "Institute of Biotechnology",
-          "Institute for Molecular Medicine Finland (FIMM)",
-          "IPR University Center",
-          "Language Centre",
-          "The National Library of Finland",
-          "Viikki Laboratory Animal Centre",
-          "Neuroscience Center",
-          "Open University",
-          "Palmenia Centre for Continuing Education",
-          "UniSport",
-          "The Lahti University Consortium",
-          "The Mikkeli University Consortium"
-        ],
-        "Central administration" => [
-          "Administrative Services",
-          "Central Administration",
-          "Rector's Office",
-          "University Services",
-          "Communications and Community Relations",
-          "Finance",
-          "Human Resources and Legal Affairs",
-          "Research and Education",
-          "Strategic Planning and Quality Assurance",
-          "University Museum",
-          "Central Archives"
-        ]
+      'Institutes and other units' => [
+        'Aleksanteri Institute - Finnish Centre for Russian and East European Studies',
+        'Center for Information Technology (IT Center)',
+        'Center for Properties and Facilities',
+        'Finnish Museum of Natural History LUOMUS',
+        'Helsinki Collegium for Advanced Studies',
+        'Helsinki Institute for Information Technology',
+        'Helsinki Institute of Physics (HIP)',
+        'Helsinki University Library',
+        'Institute of Biotechnology',
+        'Institute for Molecular Medicine Finland (FIMM)',
+        'IPR University Center',
+        'Language Centre',
+        'The National Library of Finland',
+        'Viikki Laboratory Animal Centre',
+        'Neuroscience Center',
+        'Open University',
+        'Palmenia Centre for Continuing Education',
+        'UniSport',
+        'The Lahti University Consortium',
+        'The Mikkeli University Consortium'
+      ],
+      'Central administration' => [
+        'Administrative Services',
+        'Central Administration',
+        "Rector's Office",
+        'University Services',
+        'Communications and Community Relations',
+        'Finance',
+        'Human Resources and Legal Affairs',
+        'Research and Education',
+        'Strategic Planning and Quality Assurance',
+        'University Museum',
+        'Central Archives'
+      ]
     }
   end
 end

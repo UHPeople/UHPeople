@@ -31,4 +31,6 @@ Rails.application.routes.draw do
   post 'set_profile_picture', to: 'users#set_profile_picture'
   post 'firsttime/:value', to: 'users#set_first_time_use', as: 'first_time'
   post 'tab/:value', to: 'users#set_tab', as: 'tab'
+
+  post 'set_first_time_use', to: 'users#set_first_time_use'
 end
