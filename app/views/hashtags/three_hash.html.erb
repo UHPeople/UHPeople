@@ -6,10 +6,10 @@
     
       <%= form_tag({controller: "hashtags", action: "add_multiple"}, method: "put") do %>
         <div class="col-md-8">
-          <%= text_field_tag(:hashtag, current_user.hashtags.map(&:tag).join(",")) %>
+          <%= text_field_tag(:hashtags, current_user.hashtags.map(&:tag).join(",")) %>
         </div>
         <div class="col-md-2">
-          <%= submit_tag("Update", class:"btn btn-primary")  %>
+          <%= submit_tag("Update", class:"btn btn-primary") %>
         </div>
       <% end %>
   </div>

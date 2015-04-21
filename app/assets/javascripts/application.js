@@ -82,7 +82,7 @@ if($(location).attr('pathname').indexOf("users") > -1){
       tags.push(json[i].tag);
     }
 
-    $("#hashtags").select2({
+    $("form #hashtags").select2({
       placeholder: "Select your Interests", 
       tags : tags,
       width: '100%'
