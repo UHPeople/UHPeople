@@ -80,7 +80,7 @@ function startOnboard(){
   }
 }
 
-if($(location).attr('pathname').indexOf("users") > -1){
+if($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('pathname') === '/threehash'){
   $.getJSON("/hashtags", function(json){
     var tags = [];
     for(var i = 0; i < json.length; i++){

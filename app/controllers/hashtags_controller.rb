@@ -44,6 +44,7 @@ class HashtagsController < ApplicationController
   end
 
   def add_multiple
+
     current_user.hashtags.delete_all
 
     unless params[:Hashtag].nil?
@@ -54,7 +55,12 @@ class HashtagsController < ApplicationController
         current_user.hashtags << h 
       }
     end  
-    redirect_to :back, notice: 'Your favourite things updated!'
+
+    if URI(request.referer).path == user_path(current_user.id)
+      redirect_to :back, notice: 'Your favourite things updated!'
+    else 
+      redirect_to feed_index_path
+    end    
   end
 
   def update

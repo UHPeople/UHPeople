@@ -1,14 +1,15 @@
 <div class="container">
-  <div class="col-md-8">
-    <h2>My favourite things</h2>
+  <div class="col-sm-offset-3 col-sm-6">
+    <h2 class="text-center">Tell us about yourself!</h2>
 
-    <p>Find your favourite things or create new!</p>
+    <p class="text-center">List at least three things you feel that are important to you.<br>
+      By typing, you can find existing interests.<br> You also have the possibility to create new unique interests. </p>
     
       <%= form_tag({controller: "hashtags", action: "add_multiple"}, method: "put") do %>
-        <div class="col-md-8">
+        <div class="col-sm-10">
           <%= text_field_tag(:Hashtag, current_user.hashtags.map(&:tag).join(",")) %>
         </div>
-        <div class="col-md-2">
+        <div class="col-sm-2">
           <%= submit_tag("Update", class:"btn btn-primary")  %>
         </div>
       <% end %>

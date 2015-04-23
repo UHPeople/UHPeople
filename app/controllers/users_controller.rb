@@ -54,7 +54,7 @@ class UsersController < ApplicationController
 
     session[:user_id] = @user.id
     create_campus_unit_tag
-    redirect_to feed_index_path
+    redirect_to threehash_path
   end
 
   def set_first_time_use
