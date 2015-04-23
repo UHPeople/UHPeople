@@ -17,6 +17,7 @@
             <h5>
               <%= link_to message.user.name, message.user %>at
               <%= link_to '#' + message.hashtag.tag, hashtag_path(message.hashtag.tag) %>
+              <br/>
 
               <span class="timestamp"><%= message.timestamp %></span>
             </h5>

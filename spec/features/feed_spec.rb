@@ -147,7 +147,7 @@ RSpec.describe 'Feed page' do
 
       click_link 'Feed'
       visit '/feed'
-      #expect(user.tab).to eq 1      
+      # expect(user.tab).to eq 1
     end
   end
 end

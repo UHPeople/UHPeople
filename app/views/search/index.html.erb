@@ -15,7 +15,10 @@
 				<h1>Search results for: #<%= @search %></h1>
 
 				<% @hashtags.each do |hashtag| %>
-					<h4><%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %></h4>
+					<h4>
+						<%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
+						<span class="hashtag_members">(<%= pluralize(hashtag.users.count, 'member') %>)</span>
+					</h4>
 			  <% end %>
 		  </div>
 		<% end %>

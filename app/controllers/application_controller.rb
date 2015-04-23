@@ -2,8 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :current_user
-  helper_method :split_str
-  helper_method :show_user_thumbnail
 
   def current_user
     return nil if session[:user_id].nil?

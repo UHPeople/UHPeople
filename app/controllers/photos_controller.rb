@@ -1,6 +1,7 @@
 class PhotosController < ApplicationController
   before_action :require_login
-  before_action :set_photo, only: [:show, :destroy, :update]
+  before_action :set_photo, only: [:update, :destroy, :show]
+  before_action :limit_photos, only: [:create]
 
   def update
     unless @photo.update(image_text: params[:image_text])
@@ -18,21 +19,13 @@ class PhotosController < ApplicationController
   end
 
   def create
-    maxphotos = 5
+    photo = Photo.new(photo_params)
 
-    respond_to do |format|
-      if current_user.photos.count < maxphotos
-        @photo = Photo.create(user_id: current_user.id, image_text: params[:image_text], image: params[:image])
-        if @photo.save
-          current_user.update_attribute(:profilePicture, @photo.id) if current_user.photos.count == 1
-
-          format.html { redirect_to current_user, notice: 'Photo was successfully added.' }
-        else
-          format.html { redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again' }
-        end
-      else
-        format.html { redirect_to current_user, alert: "You have added the maximum amount of #{maxphotos} photos, you have to remove some to add new ones." }
-      end
+    if photo.save
+      current_user.update_attribute(:profilePicture, photo.id) if current_user.photos.count == 1
+      redirect_to current_user, notice: 'Photo was successfully added.'
+    else
+      redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'
     end
   end
 
@@ -42,7 +35,20 @@ class PhotosController < ApplicationController
 
   private
 
+  def photo_params
+    params.permit(:image, :image_text).merge(user_id: current_user.id)
+  end
+
   def set_photo
     @photo = Photo.find(params[:id])
+  end
+
+  def limit_photos
+    max_photos = 5
+
+    return if current_user.photos.count < max_photos
+
+    redirect_to current_user,
+                alert: "You have added the maximum amount of #{max_photos} photos, you have to remove some to add new ones."
   end
 end

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.json do
-        render json: 'Not logged in' and return if current_user.nil?
+        render(json: 'Not logged in') && return if current_user.nil?
 
         users = @users.collect do |user|
           { id: user.id, name: user.name, avatar: user.profile_picture_url }
@@ -23,12 +23,10 @@ class UsersController < ApplicationController
   end
 
   def new
-    request.env['omniauth.auth'] = {}
-    request.env['omniauth.auth']['info'] = {}
-
-    request.env['omniauth.auth']['uid'] = random_string
-    request.env['omniauth.auth']['info']['name'] = ''
-    request.env['omniauth.auth']['info']['mail'] = ''
+    request.env['omniauth.auth'] = {
+        'info' => { 'name' => '', 'mail' => '' },
+        'uid' => random_string
+    }
 
     shibboleth_callback
   end
@@ -43,16 +41,15 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    redirect_to(action: 'new') and return unless @user.save
+    redirect_to(action: 'new') && return unless @user.save
 
     if params[:image]
       photo = Photo.new(user_id: @user.id, image: params[:image], image_text: params[:image_text])
-      if photo.save
-        @user.update_attribute(:profilePicture, photo.id)
-      end
+      @user.update_attribute(:profilePicture, photo.id) if photo.save
     end
 
     session[:user_id] = @user.id
+
     create_campus_unit_tag
     redirect_to threehash_path
   end
@@ -70,14 +67,16 @@ class UsersController < ApplicationController
 
   def set_profile_picture
     id = params[:pic_id].to_i
-    photo = Photo.find(id)
 
-    if photo.nil?
-      redirect_to :back, alert: 'Invalid photo!'
-    else
-      current_user.update_attribute(:profilePicture, id)
-      redirect_to current_user, notice: 'Profile picture changed.'
+    begin
+      Photo.find id
+    rescue
+      redirect_to current_user, alert: 'Invalid photo!'
+      return
     end
+
+    current_user.update_attribute(:profilePicture, id)
+    redirect_to current_user, notice: 'Profile picture changed.'
   end
 
   def shibboleth_callback
@@ -101,7 +100,7 @@ class UsersController < ApplicationController
     current_user.update_attribute(:tab, tab_to_int(value))
 
     respond_to do |format|
-      format.json { render json: { } }
+      format.json { render json: {} }
       format.html { redirect_to feed_index_path }
     end
   end
@@ -154,94 +153,86 @@ class UsersController < ApplicationController
     @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
 
     @units = {
-        "Faculty of Arts" => ["Faculty of Arts",
-                              "Department of Finnish, Finno-Ugrian and Scandinavian Studies",
-                              "Department of Modern Languages",
-                              "Department of World Cultures",
-                              "Department of Philosophy, History, Culture and Art Studies"
+        'Faculty of Agriculture and Forestry' => ['Faculty of Agriculture and Forestry',
+                                                  'Department of Food and Environmental Sciences',
+                                                  'Department of Agricultural Sciences',
+                                                  'Department of Forest Sciences',
+                                                  'Department of Economics and Management'
         ],
-        "Faculty of Behavioural Sciences" => ["Faculty of Behavioural Sciences",
-                                              "Department of Teacher Education",
-                                              "Institute of Behavioural Sciences",
-                                              "Helsingin normaalilyseo",
-                                              "Viikki Teacher Training School of Helsinki University"
+        'Faculty of Arts' => ['Faculty of Arts',
+                              'Department of Finnish, Finno-Ugrian and Scandinavian Studies',
+                              'Department of Modern Languages',
+                              'Department of World Cultures',
+                              'Department of Philosophy, History, Culture and Art Studies'
         ],
-        "Faculty of Law" => ["Faculty of Law"],
-        "Faculty of Social Sciences" => ["Faculty of Social Sciences",
-                                         "Department of Social Research",
-                                         "Department of Political and Economic Studies"
+        'Faculty of Behavioural Sciences' => ['Faculty of Behavioural Sciences',
+                                              'Department of Teacher Education',
+                                              'Institute of Behavioural Sciences',
         ],
-        "Faculty of Theology" => ["Faculty of Theology"],
-        "Swedish School of Social Science" => ["Swedish School of Social Science"],
-        "Faculty of Science" => ["Faculty of Science",
-                                 "Department of Chemistry",
-                                 "Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)",
-                                 "Department of Computer Science",
-                                 "Department of Geosciences and Geography",
-                                 "Institute of Seismology",
-                                 "Department of Mathematics and Statistics",
-                                 "Department of Physics"
+        'Faculty of Biological and Environmental Sciences' => ['Faculty of Biological and Environmental Sciences',
+                                                               'Department of Biosciences',
+                                                               'Department of Environmental Sciences'
         ],
-        "Faculty of Medicine" => ["Faculty of Medicine",
-                                  "Clinicum",
-                                  "Medicum",
-                                  "Research Programs Unit"
+        'Faculty of Law' => ['Faculty of Law'],
+        'Faculty of Medicine' => ['Faculty of Medicine',
+                                  'Institute of Biomedicine',
+                                  'Institute of Dentistry',
+                                  'Institute of Clinical Medicine',
+                                  'Haartman Institute',
+                                  'Hjelt Institute',
+                                  'Research Programs Unit'
         ],
-        "Faculty of Biological and Environmental Sciences" => ["Faculty of Biological and Environmental Sciences",
-                                                               "Department of Biosciences",
-                                                               "Department of Environmental Sciences",
-                                                               "Kilpisjärvi Biological Station",
-                                                               "Lammi Biological Station",
-                                                               "Tvärminne Zoological Station"
+        'Faculty of Pharmacy' => ['Faculty of Pharmacy'],
+        'Faculty of Science' => ['Faculty of Science',
+                                 'Department of Chemistry',
+                                 'Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)',
+                                 'Department of Computer Science',
+                                 'Department of Geosciences and Geography',
+                                 'Institute of Seismology',
+                                 'Department of Mathematics and Statistics',
+                                 'Department of Physics'
         ],
-        "Faculty of Agriculture and Forestry" => ["Faculty of Agriculture and Forestry",
-                                                  "Department of Food and Environmental Sciences",
-                                                  "Department of Agricultural Sciences",
-                                                  "Viikki Research Farm",
-                                                  "Department of Forest Sciences",
-                                                  "Hyytiälä Forestry Field Station",
-                                                  "Värriö Subartic Research Station",
-                                                  "Department of Economics and Management"
+        'Faculty of Social Sciences' => ['Faculty of Social Sciences',
+                                         'Department of Social Research',
+                                         'Department of Economic and Political Studies',
+                                         'Helsinki Center of Economic Research'
         ],
-        "Faculty of Veterinary Medicine" => ["Faculty of Veterinary Medicine",
-                                             "Veterinary Teaching Hospital"
+        'Swedish School of Social Science' => ['Swedish School of Social Science'],
+        'Faculty of Theology' => ['Faculty of Theology'],
+        'Faculty of Veterinary Medicine' => ['Faculty of Veterinary Medicine',
+                                             'Veterinary Teaching Hospital'
         ],
-        "Faculty of Pharmacy" => ["Faculty of Pharmacy"],
-
-        "Institutes and other units" => [
-            "Aleksanteri Institute - Finnish Centre for Russian and East European Studies",
-            "Center for Information Technology (IT Center)",
-            "Center for Properties and Facilities",
-            "Finnish Museum of Natural History LUOMUS",
-            "Helsinki Collegium for Advanced Studies",
-            "Helsinki Institute for Information Technology",
-            "Helsinki Institute of Physics (HIP)",
-            "Helsinki University Library",
-            "Institute of Biotechnology",
-            "Institute for Molecular Medicine Finland (FIMM)",
-            "IPR University Center",
-            "Language Centre",
-            "The National Library of Finland",
-            "Viikki Laboratory Animal Centre",
-            "Neuroscience Center",
-            "Open University",
-            "Palmenia Centre for Continuing Education",
-            "UniSport",
-            "The Lahti University Consortium",
-            "The Mikkeli University Consortium"
+        'Institutes and other units' => [
+            'Aleksanteri Institute',
+            'Center for Information Technology (IT Center)',
+            'Finnish Museum of Natural History',
+            'Helsinki Collegium for Advanced Studies',
+            'Helsinki Institute for Information Technology (HIIT)',
+            'Helsinki Institute of Physics (HIP)',
+            'Helsinki University Library',
+            'Institute of Biotechnology',
+            'Institute for Molecular Medicine Finland (FIMM)',
+            'IPR University Center',
+            'Language Centre',
+            'Laboratory Animal Centre',
+            'The National Library of Finland',
+            'Neuroscience Center',
+            'Open University',
+            'Palmenia Centre for Continuing Education',
+            'Ruralia-institute',
+            'UniSport'
         ],
-        "Central administration" => [
-            "Administrative Services",
-            "Central Administration",
+        'Central administration' => [
+            'Academic Affairs',
+            'Administrative Services',
+            'Central Administration',
+            'Communications and Community Relations',
+            'Finance',
+            'Human Resources and Legal Affairs',
             "Rector's Office",
-            "University Services",
-            "Communications and Community Relations",
-            "Finance",
-            "Human Resources and Legal Affairs",
-            "Research and Education",
-            "Strategic Planning and Quality Assurance",
-            "University Museum",
-            "Central Archives"
+            'Research Affairs',
+            'Strategic Planning and Quality Assurance',
+            'University Services'
         ]
     }
   end

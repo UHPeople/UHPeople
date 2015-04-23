@@ -47,29 +47,28 @@ class HashtagsController < ApplicationController
 
     current_user.hashtags.delete_all
 
-    unless params[:Hashtag].nil?
-      tags = params[:Hashtag].split(",")
-      tags.each {| tag_name| 
-        h =  Hashtag.find_by tag:tag_name
-        h = Hashtag.create tag:tag_name if h.nil?
-        current_user.hashtags << h 
-      }
-    end  
+    tags = params[:hashtags]
+    unless tags.nil?
+      tags.split(',').each do |tag_name|
+        h = Hashtag.find_by tag: tag_name
+        h = Hashtag.create tag: tag_name if h.nil?
+
+        current_user.hashtags << h
+      end
+    end
 
     if URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
     else 
       redirect_to feed_index_path
-    end    
+    end   
   end
 
   def update
     @hashtag.topic_updater_id = current_user.id
 
-    unless @hashtag.update(hashtag_params)
-      redirect_to hashtag_path(@hashtag.tag), alert: 'Something went wrong!'
-      return
-    end
+    redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
+      return unless @hashtag.update(hashtag_params)
 
     @hashtag.users.each do |user|
       Notification.create notification_type: 2,
@@ -84,12 +83,11 @@ class HashtagsController < ApplicationController
   end
 
   def create
-    @hashtag = Hashtag.new tag: params[:tag]
+    hashtag = Hashtag.new tag: params[:tag]
+    redirect_to(feed_index_path, alert: 'Something went wrong!') && return unless hashtag.save
 
-    if @hashtag.save
-      current_user.hashtags << @hashtag
-      redirect_to hashtag_path(@hashtag.tag)
-    end
+    current_user.hashtags << hashtag
+    redirect_to hashtag_path(hashtag.tag)
   end
 
   def invite
@@ -116,11 +114,6 @@ class HashtagsController < ApplicationController
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
     end
   end
-
-  def three_hash
-    @user = current_user
-    @hashtags = Hashtag.all
-  end  
 
   private
 
