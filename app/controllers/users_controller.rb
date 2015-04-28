@@ -130,7 +130,7 @@ class UsersController < ApplicationController
   def random_string
     # from http://codereview.stackexchange.com/questions/15958/
     range = ((48..57).to_a + (65..90).to_a + (97..122).to_a)
-    5.times { ([nil] * 8).map { range.sample.chr }.join }
+    ([nil] * 8).map { range.sample.chr }.join
   end
 
   def user_is_current
