@@ -56,8 +56,8 @@ class HashtagsController < ApplicationController
         current_user.hashtags << h
       end
     end
-
-    if URI(request.referer).path == user_path(current_user.id)
+    
+    if request.referer and URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
     else 
       redirect_to feed_index_path
