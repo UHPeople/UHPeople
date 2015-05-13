@@ -1,6 +1,7 @@
 UHPeople - yliopiston sisäinen yhteisöpalvelu
 
 The UHPeople source code is distributed under the [MIT License](http://opensource.org/licenses/mit-license.html).
+
 Copyright (c) 2015 The University of Helsinki
 
 [![Build Status](https://travis-ci.org/makroma/UHPeople.svg?branch=dev)](https://travis-ci.org/makroma/UHPeople)
