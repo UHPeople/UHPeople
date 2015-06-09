@@ -45,18 +45,19 @@ class HashtagsController < ApplicationController
 
   def add_multiple
 
-    current_user.hashtags.delete_all
-
+    new_tags = Array.new
     tags = params[:hashtags]
     unless tags.nil?
       tags.split(',').each do |tag_name|
         h = Hashtag.find_by tag: tag_name
         h = Hashtag.create tag: tag_name if h.nil?
-
-        current_user.hashtags << h
+        new_tags << h
       end
     end
-    
+
+    new_tags.each{|new_tag| current_user.hashtags << new_tag unless current_user.hashtags.include? new_tag }
+    current_user.hashtags = current_user.hashtags.reject{|tag| !new_tags.include? tag}
+
     if request.referer and URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
     else 
