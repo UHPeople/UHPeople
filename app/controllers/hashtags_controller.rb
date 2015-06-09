@@ -55,8 +55,7 @@ class HashtagsController < ApplicationController
       end
     end
 
-    new_tags.each{|new_tag| current_user.hashtags << new_tag unless current_user.hashtags.include? new_tag }
-    current_user.hashtags = current_user.hashtags.reject{|tag| !new_tags.include? tag}
+    current_user.hashtags = (current_user.hashtags | new_tags) & new_tags
 
     if request.referer and URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
