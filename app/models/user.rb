@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :name, :campus, :unit, presence: true
+  validates :name, presence: true
 
   has_many :user_hashtags, dependent: :destroy
   has_many :hashtags, through: :user_hashtags

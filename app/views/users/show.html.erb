@@ -8,9 +8,8 @@
           <%= link_to "Update", edit_user_path(current_user), method: :get, class: "btn btn-default" %>
         <% end %>
       </h1>
-      <p><%= @user.title %></p>
       <p><%= @user.email %></p>
-      <p><%= @user.campus %><%= ", " + @user.unit unless @user.unit.blank? %></p>
+      <p><%= @user.campus %></p>
 
     <div class="aboutme">
       <% unless @user.about.blank? %>

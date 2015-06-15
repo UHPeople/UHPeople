@@ -109,7 +109,6 @@ class UsersController < ApplicationController
 
   def create_campus_unit_tag
     add_hashtag(tagify @user.campus)
-    add_hashtag(tagify @user.unit)
   end
 
   def tagify(text)
@@ -142,7 +141,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :name, :title, :email, :campus, :unit, :about, :image, :image_title)
+    params.require(:user).permit(:username, :name, :email, :campus, :about, :image, :image_title)
   end
 
   def edit_user_params
@@ -151,89 +150,5 @@ class UsersController < ApplicationController
 
   def set_arrays
     @campuses = ['City Centre Campus', 'Kumpula Campus', 'Meilahti Campus', 'Viikki Campus']
-
-    @units = {
-        'Faculty of Agriculture and Forestry' => ['Faculty of Agriculture and Forestry',
-                                                  'Department of Food and Environmental Sciences',
-                                                  'Department of Agricultural Sciences',
-                                                  'Department of Forest Sciences',
-                                                  'Department of Economics and Management'
-        ],
-        'Faculty of Arts' => ['Faculty of Arts',
-                              'Department of Finnish, Finno-Ugrian and Scandinavian Studies',
-                              'Department of Modern Languages',
-                              'Department of World Cultures',
-                              'Department of Philosophy, History, Culture and Art Studies'
-        ],
-        'Faculty of Behavioural Sciences' => ['Faculty of Behavioural Sciences',
-                                              'Department of Teacher Education',
-                                              'Institute of Behavioural Sciences',
-        ],
-        'Faculty of Biological and Environmental Sciences' => ['Faculty of Biological and Environmental Sciences',
-                                                               'Department of Biosciences',
-                                                               'Department of Environmental Sciences'
-        ],
-        'Faculty of Law' => ['Faculty of Law'],
-        'Faculty of Medicine' => ['Faculty of Medicine',
-                                  'Institute of Biomedicine',
-                                  'Institute of Dentistry',
-                                  'Institute of Clinical Medicine',
-                                  'Haartman Institute',
-                                  'Hjelt Institute',
-                                  'Research Programs Unit'
-        ],
-        'Faculty of Pharmacy' => ['Faculty of Pharmacy'],
-        'Faculty of Science' => ['Faculty of Science',
-                                 'Department of Chemistry',
-                                 'Finnish Institute for Verification of the Chemical Weapons Convention (VERIFIN)',
-                                 'Department of Computer Science',
-                                 'Department of Geosciences and Geography',
-                                 'Institute of Seismology',
-                                 'Department of Mathematics and Statistics',
-                                 'Department of Physics'
-        ],
-        'Faculty of Social Sciences' => ['Faculty of Social Sciences',
-                                         'Department of Social Research',
-                                         'Department of Economic and Political Studies',
-                                         'Helsinki Center of Economic Research'
-        ],
-        'Swedish School of Social Science' => ['Swedish School of Social Science'],
-        'Faculty of Theology' => ['Faculty of Theology'],
-        'Faculty of Veterinary Medicine' => ['Faculty of Veterinary Medicine',
-                                             'Veterinary Teaching Hospital'
-        ],
-        'Institutes and other units' => [
-            'Aleksanteri Institute',
-            'Center for Information Technology (IT Center)',
-            'Finnish Museum of Natural History',
-            'Helsinki Collegium for Advanced Studies',
-            'Helsinki Institute for Information Technology (HIIT)',
-            'Helsinki Institute of Physics (HIP)',
-            'Helsinki University Library',
-            'Institute of Biotechnology',
-            'Institute for Molecular Medicine Finland (FIMM)',
-            'IPR University Center',
-            'Language Centre',
-            'Laboratory Animal Centre',
-            'The National Library of Finland',
-            'Neuroscience Center',
-            'Open University',
-            'Palmenia Centre for Continuing Education',
-            'Ruralia-institute',
-            'UniSport'
-        ],
-        'Central administration' => [
-            'Academic Affairs',
-            'Administrative Services',
-            'Central Administration',
-            'Communications and Community Relations',
-            'Finance',
-            'Human Resources and Legal Affairs',
-            "Rector's Office",
-            'Research Affairs',
-            'Strategic Planning and Quality Assurance',
-            'University Services'
-        ]
-    }
   end
 end
