@@ -6,7 +6,6 @@ FactoryGirl.define do
     username 'asd'
     email 'asd@asd.fi'
     campus 'Viikki'
-    unit 'Maametsis'
     about 'abouttest!!212'
     first_time false
   end

@@ -25,10 +25,6 @@ RSpec.describe User do
       expect(page).to have_content 'Viikki'
     end
 
-    it 'has unit' do
-      expect(page).to have_content 'Maametsis'
-    end
-
     it 'has about' do
       expect(page).to have_content 'abouttest!!212'
     end
