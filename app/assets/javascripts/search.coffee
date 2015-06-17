@@ -1,4 +1,3 @@
-
 normalize = (str) ->
   if /^#[^#]*$/.test(str)
     return str.substring(1)
@@ -79,7 +78,7 @@ $(document).ready ->
   users.initialize()
   hashtags.initialize()
 
-  $('.typeahead').typeahead {
+  $('.typeahead').typeahead({
     highlight: true
   }, {
     name: 'hashtags'
@@ -97,7 +96,16 @@ $(document).ready ->
           '<img class="img-circle" src="{{avatar}}"></img>' +
         '</div>' +
       '</a>')
-  }
+  }).on('typeahead:selected', (obj, datum) ->
+    url = window.location.origin
+
+    if datum.tag != undefined
+      url = url + '/hashtags/' + datum.tag
+    else
+      url = url + '/users/' + datum.id
+
+    window.location.href = url
+  )
 
 $(document).ready ->
   users.initialize()
