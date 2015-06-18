@@ -6,7 +6,7 @@
     
     <%= form_tag(hashtags_path, method: "post") do %>
       <div class="create" style="display: none; padding-bottom: 12px;" class="form-group">
-        <input class="form-control" type="text" name="tag" placeholder="Create new hashtag"/>
+        <input class="form-control typeahead-add" type="text" name="tag" placeholder="Create new hashtag"/>
 
         <div style="width: 0; height: 0; overflow: hidden;">
           <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>

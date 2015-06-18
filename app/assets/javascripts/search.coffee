@@ -108,6 +108,9 @@ $(document).ready ->
   )
 
 $(document).ready ->
+  if $('.typeahead-invite').length == 0
+    return
+
   users.initialize()
 
   $('.typeahead-invite').typeahead {
@@ -124,3 +127,21 @@ $(document).ready ->
   }
 
   makeSexy()
+
+$(document).ready ->
+  if $('.typeahead-add').length == 0
+    return
+
+  hashtags.initialize()
+
+  $('.typeahead-add').typeahead {
+    highlight: true
+  }, {
+    name: 'hashtags'
+    displayKey: 'tag'
+    source: hashtags.ttAdapter()
+    templates: suggestion: Handlebars.compile(
+      '<a href="/hashtags/{{tag}}">' +
+        '<div><span>#{{tag}}</span></div>' +
+      '</a>')
+  }
