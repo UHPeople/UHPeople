@@ -75,6 +75,8 @@ ready = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
+  $.post "/update_last_visit/" + hashtag
+
   ws.onopen = ->
     ws.send JSON.stringify
       event: 'online'
@@ -117,10 +119,21 @@ ready = ->
     ws.send JSON.stringify
       event: 'message'
       content: text
-      hashtag: hashtag
+      hashtag: hashtag 
       user: user
 
     $('#input-text')[0].value = ''
 
+  $(window).on 'unload', ->
+    $.post "/update_last_visit/", {id:hashtag}
+    console.log "Handler for unload called."
+
+  $(window).bind 'beforeunload', ->
+    console.log "/update_last_visit/" + hashtag
+    $.post "/update_last_visit/", {id: hashtag}
+    console.log "Handler for beforeunload called."
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
+
+

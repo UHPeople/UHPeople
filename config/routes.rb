@@ -33,4 +33,6 @@ Rails.application.routes.draw do
   post 'tab/:value', to: 'users#set_tab', as: 'tab'
 
   post 'set_first_time_use', to: 'users#set_first_time_use'
+  post 'update_last_visit/:id', to: 'user_hashtags#update_last_visit', via: 'post'
+
 end

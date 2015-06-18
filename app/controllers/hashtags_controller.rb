@@ -24,6 +24,11 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
+    if @user_has_tag
+      #lastvisit = current_user.user_hashtags.find_by hashtag_id:@hashtag.id
+      #lastvisit.update_attribute(:last_visited, Time.now)
+    end 
+
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
     else
