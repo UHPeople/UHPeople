@@ -71,6 +71,8 @@ class HashtagsController < ApplicationController
       return unless @hashtag.update(hashtag_params)
 
     @hashtag.users.each do |user|
+      next if user == current_user
+
       Notification.create notification_type: 2,
                           user: user,
                           tricker_user: current_user,
