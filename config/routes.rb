@@ -27,7 +27,9 @@ Rails.application.routes.draw do
 
   match '/invite', to: 'invite#send_email', via: 'post'
   
-  post 'notifications/:id', to: 'notifications#update', via: 'post'
+  post 'notifications/:id', to: 'notifications#hide', via: 'post'
+  get 'notifications/:id/read', to: 'notifications#read'
+  
   post 'set_profile_picture', to: 'users#set_profile_picture'
   post 'firsttime/:value', to: 'users#set_first_time_use', as: 'first_time'
   post 'tab/:value', to: 'users#set_tab', as: 'tab'

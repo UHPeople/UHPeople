@@ -1,11 +1,11 @@
-<div id="<%= notification.id%>" class="box col-xs-12 col-md-8 alert alert-success alert-dismissible type2" role="alert" >
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close" >
+<div id="<%= notification.id %>" class="box col-xs-12 col-md-8 alert alert-success alert-dismissible type2" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 		<span aria-hidden="true">&times;</span>
 	</button>
 
 	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
 	made up a hot new topic over at
-	<%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(tag: notification.tricker_hashtag.tag), class: 'alert-link' %>
+	<%= link_to '#'+notification.tricker_hashtag.tag, "/notifications/#{notification.id}/read", class: 'alert-link' %>
 
   <span class="timestamp"><%= notification.created_at.strftime('%Y-%m-%dT%H:%M:%S') %></span>
 </div>
