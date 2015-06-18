@@ -117,16 +117,14 @@ var ready = function() {
     $('#masonry-container').masonry();
 
     notifCounter();
-
   });
-  
+
   $('span.timestamp').each(function() {
     var text = $(this).text();
     var timestamp = moment.utc(text).local().format('MMM D, H:mm');
     $(this).text(timestamp);
   });
 
-  
   //Onboarding
   if (first_time) {
     $(window).load(function() {
@@ -134,8 +132,12 @@ var ready = function() {
     });
   }
 
-  
   if ($(location).attr('pathname') == "/feed") {
+    $('#new-interest-revealer').click(function() {
+      $('.create').toggle('slow');
+      $('.create input.form-control').focus();
+    });
+
     // HashCloud
     $("#tag_cloud").jQCloud(word_array);
 

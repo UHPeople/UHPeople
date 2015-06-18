@@ -2,11 +2,11 @@
 
 <div class="col-md-3 col-lg-2 hashtaglist-position">
   <% unless @user_tags.empty? %>
-    <h3 id="feed-onboard-interest">Interests <a href="#" onclick="$('.create').toggle('slow'); $('.create input.form-control').focus();">+</a></h3>
+    <h3 id="feed-onboard-interest">Interests <a href="#" id="new-interest-revealer">+</a></h3>
     
     <%= form_tag(hashtags_path, method: "post") do %>
       <div class="create" style="display: none; padding-bottom: 12px;" class="form-group">
-        <input class="form-control typeahead-add" type="text" name="tag" placeholder="Create new hashtag"/>
+        <input class="form-control typeahead-add" type="text" name="tag" placeholder="Add new interest"/>
 
         <div style="width: 0; height: 0; overflow: hidden;">
           <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
