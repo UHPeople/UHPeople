@@ -2,7 +2,7 @@
 
 <div class="col-md-3 col-lg-2 hashtaglist-position">
   <% unless @user_tags.empty? %>
-    <h3 id="feed-onboard-interest">Interests <a href="#" onclick="$('.create').toggle('slow');">+</a></h3>
+    <h3 id="feed-onboard-interest">Interests <a href="#" onclick="$('.create').toggle('slow'); $('.create input.form-control').focus();">+</a></h3>
     
     <%= form_tag(hashtags_path, method: "post") do %>
       <div class="create" style="display: none; padding-bottom: 12px;" class="form-group">
