@@ -44,7 +44,6 @@ class HashtagsController < ApplicationController
   end
 
   def add_multiple
-
     new_tags = Array.new
     tags = params[:hashtags]
     unless tags.nil?
@@ -85,9 +84,15 @@ class HashtagsController < ApplicationController
   end
 
   def create
-    hashtag = Hashtag.new tag: params[:tag]
-    redirect_to(feed_index_path, alert: 'Something went wrong!') && return unless hashtag.save
-
+    hashtag = Hashtag.find_by tag: params[:tag]
+    if hashtag == nil
+      hashtag = Hashtag.new tag: params[:tag]
+      unless hashtag.save
+        redirect_to feed_index_path, alert: 'Something went wrong!'
+        return 
+      end
+    end
+    
     current_user.hashtags << hashtag
     redirect_to hashtag_path(hashtag.tag)
   end

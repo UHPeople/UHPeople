@@ -24,8 +24,12 @@ class UsersController < ApplicationController
 
   def new
     request.env['omniauth.auth'] = {
-        'info' => { 'name' => '', 'mail' => '' },
-        'uid' => random_string
+      'info' => {
+        'name' => '',
+        'mail' => ''
+      },
+      
+      'uid' => random_string
     }
 
     shibboleth_callback
