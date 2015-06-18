@@ -18,7 +18,10 @@
       <% @user_tags.each do |tag| %>
           <tr>
             <td>
-              <%= link_to '#'+ truncate(tag.hashtag.tag, length: 15) + "#{' ('+ tag.unread_messages.to_s + ')' if !tag.unread_messages.nil? && tag.unread_messages > 0 }", hashtag_path(tag.hashtag.tag), id: tag.hashtag.id %>
+              <%= link_to '#'+ truncate(tag.hashtag.tag, length: 15), hashtag_path(tag.hashtag.tag), id: tag.hashtag.id %>
+              <% if !tag.unread_messages.nil? && tag.unread_messages > 0 %>
+                <span class="text-primary small"><%= ' ('+ tag.unread_messages.to_s + ')' %></span>
+              <% end %>
               <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
             </td>
           </tr>
