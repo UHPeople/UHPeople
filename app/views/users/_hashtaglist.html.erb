@@ -3,22 +3,22 @@
     <h2>Interests</h2>
       <table class="table table-hover">
         <thead>
-          <tr class="danger">
-            <th>Active channels</th>
+          <tr class="info">
+            <th>Most active</th>
           </tr>
         </thead>
         <% user.six_most_active_channels.each do |user_hashtag| %>
           <tr>
             <td>
-              <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
+              <%= link_to "#"+ truncate(user_hashtag.hashtag.tag, length: 17), hashtag_path(tag: user_hashtag.hashtag.tag) %>
             </td>
           </tr>
         <% end %>
-     </table>
+     </table> 
      <table class="table table-hover">
       <thead>
-        <tr>
-          <th>Unactive channels</th>
+        <tr class="active">
+          <th>Less active</th>
         </tr>
       </thead>
       <% user.unactive_channels.each do |user_hashtag| %>
