@@ -2,13 +2,32 @@
   <div class="col-sm-3 col-lg-2 hashtaglist-position">
     <h2>Interests</h2>
       <table class="table table-hover">
-        <% user.hashtags.each do |tag| %>
+        <thead>
+          <tr class="danger">
+            <th>Active channels</th>
+          </tr>
+        </thead>
+        <% user.six_most_active_channels.each do |user_hashtag| %>
           <tr>
             <td>
-              <%= link_to "#"+tag.tag, hashtag_path(tag: tag.tag) %>
+              <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
             </td>
           </tr>
         <% end %>
      </table>
+     <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Unactive channels</th>
+        </tr>
+      </thead>
+      <% user.unactive_channels.each do |user_hashtag| %>
+        <tr>
+          <td>
+            <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
+          </td>
+        </tr>
+      <% end %>
+    </table
   </div>
 <% end %>
