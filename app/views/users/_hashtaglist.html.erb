@@ -1,6 +1,7 @@
 <% unless user.hashtags.empty? %>
   <div class="col-sm-3 col-lg-2 hashtaglist-position">
     <h2>Interests</h2>
+    <% if user.six_most_active_channels.count > 0 %>
       <table class="table table-hover">
         <thead>
           <tr class="info">
@@ -14,20 +15,23 @@
             </td>
           </tr>
         <% end %>
-     </table> 
-     <table class="table table-hover">
-      <thead>
-        <tr class="active">
-          <th>Less active</th>
-        </tr>
-      </thead>
-      <% user.unactive_channels.each do |user_hashtag| %>
-        <tr>
-          <td>
-            <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
-          </td>
-        </tr>
-      <% end %>
-    </table
+      </table> 
+     <% end %>
+     <% if user.unactive_channels.count > 0 %>
+       <table class="table table-hover">
+        <thead>
+          <tr class="active">
+            <th>Less active</th>
+          </tr>
+        </thead>
+        <% user.unactive_channels.each do |user_hashtag| %>
+          <tr>
+            <td>
+              <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
   </div>
 <% end %>
