@@ -11,7 +11,7 @@
         <% user.six_most_active_channels.each do |user_hashtag| %>
           <tr>
             <td>
-              <%= link_to "#"+ truncate(user_hashtag.hashtag.tag, length: 17), hashtag_path(tag: user_hashtag.hashtag.tag) %>
+              <%= link_to "#" + truncate(user_hashtag.hashtag.tag, length: 17), hashtag_path(tag: user_hashtag.hashtag.tag) %>
             </td>
           </tr>
         <% end %>
@@ -27,7 +27,7 @@
         <% user.unactive_channels.each do |user_hashtag| %>
           <tr>
             <td>
-              <%= link_to "#"+ user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag) %>
+              <%= link_to "#" + truncate(user_hashtag.hashtag.tag, length: 17), hashtag_path(tag: user_hashtag.hashtag.tag) %>
             </td>
           </tr>
         <% end %>
