@@ -124,16 +124,12 @@ ready = ->
 
     $('#input-text')[0].value = ''
 
-  $(window).on 'unload', ->
-    $.post "/update_last_visit/", {id:hashtag}
-    console.log "Handler for unload called."
-
   $(window).bind 'beforeunload', ->
-    console.log "/update_last_visit/" + hashtag
-    $.post "/update_last_visit/", {id: hashtag}
+    console.log "beforeunload /update_last_visit/" + hashtag
+    $.post "/update_last_visit/" + $('#hashtag-id')[0].value
+      .done () ->
+        console.log "unload post done"
     console.log "Handler for beforeunload called."
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
-
