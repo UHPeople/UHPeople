@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
     photo.image.url(size)
   end
 
-  def five_most_active_channels
+  def six_most_active_channels
     self.user_hashtags.sort_by{|h| self.messages.where(hashtag_id:h.hashtag_id).count}.reverse.first 6
   end
 end
