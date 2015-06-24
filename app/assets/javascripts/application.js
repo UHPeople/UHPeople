@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require twitter/bootstrap/rails/confirm
-
 //= require masonry/jquery.masonry
 
 //= require jqcloud
@@ -103,6 +102,13 @@ var ready = function() {
     "isOriginTop": true
     //isRTL: true
   });
+
+  $(function () { 
+      setTimeout(function(){
+        $('#collapseAlert').collapse('hide');
+    }, 5000);
+  });
+
 
   $('.star').hover(function () {
   	$(this).toggleClass("glyphicon-star-empty");
