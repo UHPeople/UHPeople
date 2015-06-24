@@ -4,7 +4,12 @@ class SessionController < ApplicationController
   def login
     @user = User.find(params[:id])
     session[:user_id] = @user.id
-    redirect_to feed_index_path
+
+    if current_user.user_hashtags.count < 3
+      redirect_to threehash_path, alert: 'Please add at least three intrests!' 
+    else  
+      redirect_to feed_index_path
+    end
   end
 
   def logout

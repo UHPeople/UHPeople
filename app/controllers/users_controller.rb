@@ -95,7 +95,7 @@ class UsersController < ApplicationController
       render action: 'new'
     else
       session[:user_id] = @user.id
-      redirect_to feed_index_path
+      redirect_if_not_three_hash
     end
   end
 
@@ -110,6 +110,14 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def redirect_if_not_three_hash
+    if current_user.user_hashtags.count < 3
+      redirect_to threehash_path, alert: 'Please add at least three intrests!' 
+    else  
+      redirect_to feed_index_path
+    end
+  end
 
   def create_campus_unit_tag
     add_hashtag(tagify @user.campus)
