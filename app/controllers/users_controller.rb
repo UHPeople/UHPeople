@@ -35,6 +35,10 @@ class UsersController < ApplicationController
     shibboleth_callback
   end
 
+  def show
+    @same_tags = @user.hashtags & current_user.hashtags
+  end
+
   def update
     if @user.update(edit_user_params)
       redirect_to @user, notice: 'User was successfully updated.'
