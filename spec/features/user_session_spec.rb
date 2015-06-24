@@ -23,9 +23,9 @@ RSpec.describe User do
     expect(page).not_to have_content 'Logout'
     expect(page).to have_content 'Login'
   end
-  
+
   it 'is directed to three hash if less than three intrests' do
-   visit "/login/#{user.id}"
+    visit "/login/#{user.id}"
 
     expect(page).to have_content 'asd asd'
     expect(page).to have_content 'Tell us about yourself!'
