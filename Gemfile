@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 gem 'twitter-bootstrap-rails-confirm'
-gem 'rails_autolink'
+gem 'rails_autolink', :path => "rails_autolink-1.1.6/"
 gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
 gem 'rb-readline'
