@@ -80,7 +80,7 @@ module RailsAutolink
 
           AUTO_EMAIL_LOCAL_RE = /[\w.!#\$%&'*\/=?^`{|}~+-]/
           AUTO_EMAIL_RE = /[\w.!#\$%+-]\.?#{AUTO_EMAIL_LOCAL_RE}*@[\w-]+(?:\.[\w-]+)+/
-          AUTO_MENTION_RE = /(?<=\s|^)@[A-Za-z0-9_]+(?=\b)/
+          AUTO_MENTION_RE = /^[^@]*_@([A-Za-z0-9_])*+(?=\b)/
 
           BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
@@ -139,27 +139,38 @@ module RailsAutolink
             end
           end
 
-          # Megafork 
+          # Autolinks mentions
+
           def auto_link_mentions(text, html_options = {}, options = {})
-            link_attributes = {} #html_options.stringify_keys
+            link_attributes = {}
             text.gsub(AUTO_MENTION_RE) do
-              text = $&
+              #text = $&
 
               if auto_linked?($`, $')
                 text.html_safe
               else
                 display_text = (block_given?) ? yield(text) : text
-                href = './'
+
                 unless options[:sanitize] == false
                   text         = sanitize(text)
                   display_text = sanitize(display_text) unless text == display_text
                 end
-                u = User.find_by name: text.gsub('@', '')
-                if !u.nil?
-                  content_tag(:a, '@' + u.name, link_attributes.merge('href' => Rails.root + '/users/' + u.id.to_s), !!options[:sanitize])
+
+                #match_user = nil
+                #byebug
+                #self.hashtag.users.each do |user|
+                #  if text.include? "@#{user.name}"
+                #    match_user = user 
+                #    break
+                #  end
+                #end
+
+                match_user = self.hashtag.users.find_by name: text.gsub('@', '')
+                byebug
+                unless match_user.nil?
+                  content_tag(:a, '@' + match_user.name, link_attributes.merge('href' => Rails.root + '/users/' + match_user.id.to_s), !!options[:sanitize])
                 else
                   text
-                  #content_tag('', text, link_attributes , !!options[:sanitize])
                 end
               end
             end
