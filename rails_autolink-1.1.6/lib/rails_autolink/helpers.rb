@@ -62,6 +62,8 @@ module RailsAutolink
           sanitize_options = options[:sanitize_options] || {}
           text = conditional_sanitize(text, sanitize, sanitize_options).to_str
           case options[:link].to_sym
+
+            #when :all              then conditional_html_safe(auto_link_email_addresses(auto_link_urls(text, options[:html], options, &block), options[:html], &block), sanitize)
             when :all             then conditional_html_safe(auto_link_mentions(auto_link_email_addresses(auto_link_urls(text, options[:html], options, &block), options[:html], &block), options[:html], &block), sanitize)
             when :email_addresses then conditional_html_safe(auto_link_email_addresses(text, options[:html], &block), sanitize)
             when :urls            then conditional_html_safe(auto_link_urls(text, options[:html], options, &block), sanitize)
@@ -80,7 +82,7 @@ module RailsAutolink
 
           AUTO_EMAIL_LOCAL_RE = /[\w.!#\$%&'*\/=?^`{|}~+-]/
           AUTO_EMAIL_RE = /[\w.!#\$%+-]\.?#{AUTO_EMAIL_LOCAL_RE}*@[\w-]+(?:\.[\w-]+)+/
-          AUTO_MENTION_RE = /^[^@]*_@([A-Za-z0-9_])*+(?=\b)/
+          AUTO_MENTION_RE = /^(?!.*\bRT\b)(?:.+\s)?@\w+/i
 
           BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
@@ -160,13 +162,13 @@ module RailsAutolink
                 #byebug
                 #self.hashtag.users.each do |user|
                 #  if text.include? "@#{user.name}"
-                #    match_user = user 
+                #    match_user = user
                 #    break
                 #  end
                 #end
 
-                match_user = self.hashtag.users.find_by name: text.gsub('@', '')
-                byebug
+                match_user = self.hashtag.users.find_by username: text.gsub('@', '')
+                #byebug
                 unless match_user.nil?
                   content_tag(:a, '@' + match_user.name, link_attributes.merge('href' => Rails.root + '/users/' + match_user.id.to_s), !!options[:sanitize])
                 else
