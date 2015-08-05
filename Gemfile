@@ -24,7 +24,7 @@ group :doc do
 end
 
 gem 'bootstrap-sass', '= 3.3.3'
-gem 'twitter-typeahead-rails'
+gem 'twitter-typeahead-rails', '~> 0.10.5'
 gem 'handlebars_assets'
 
 gem 'faye-websocket'
