@@ -13,7 +13,7 @@
 //= require handlebars
 
 //= require joyride/jquery.joyride-2.1
-
+//= require jquery.atwho
 //= require_tree .
 
 // Change hash for page-reload
@@ -48,7 +48,7 @@ function notifCounter(){
 function setupNoNotif (){
   $( ".clearAll" ).remove();
   $( ".notif-icon" ).css("color", "#fff");
-  $( ".empty-notif" ).append( "You don't have any new notifications." );  
+  $( ".empty-notif" ).append( "You don't have any new notifications." );
 }
 
 function startOnboard(){
@@ -87,12 +87,12 @@ if($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('pathn
     }
 
     $("form #hashtags").select2({
-      placeholder: "Select your Interests", 
+      placeholder: "Select your Interests",
       tags : tags,
       width: '100%'
     });
   });
-}  
+}
 
 var ready = function() {
   $('#masonry-container').masonry({
@@ -103,7 +103,7 @@ var ready = function() {
     //isRTL: true
   });
 
-  $(function () { 
+  $(function () {
       setTimeout(function(){
         $('#collapseAlert').collapse('hide');
     }, 5000);
@@ -154,6 +154,20 @@ var ready = function() {
       $('.nav-tabs a:nth(' + tab + ')').tab('show');
     }
   }
+  $(function(){
+      $('input.mentions').atwho({
+          at: "@",
+          data: userdata,
+          displayTpl: '<li>${name} <small>${username}</small></li>',
+          insertTpl: '@${username}'
+        })
+      .atwho({
+          at: "#",
+          data: hashtagdata,
+          displayTpl: '<li>${name}</li>',
+          insertTpl: '#${name}'
+      });
+  });
 };
 
 $(document).ready(ready);

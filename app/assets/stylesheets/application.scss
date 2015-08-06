@@ -17,6 +17,7 @@
 @import 'user-style';
 @import 'select2';
 @import 'select2-bootstrap';
+@import 'jquery.atwho';
 
 
 .container {
@@ -36,11 +37,11 @@
   font-weight: normal;
 }
 
-// Jumbotron material desing 
+// Jumbotron material desing
 
 .jumbotron {
   background-position: center;
-  // Make the background image cover the area of the <div>, and clip the excess 
+  // Make the background image cover the area of the <div>, and clip the excess
   background-size: cover;
   border-radius: 0 !important;
   height: 320px;
@@ -80,7 +81,7 @@
   top: 75px;
   z-index: 2000;
   margin: 0 auto;
-  left:0; 
+  left:0;
   right:0;
   width: 80%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
