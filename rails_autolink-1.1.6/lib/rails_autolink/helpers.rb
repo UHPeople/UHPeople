@@ -64,7 +64,15 @@ module RailsAutolink
           case options[:link].to_sym
 
             #when :all              then conditional_html_safe(auto_link_email_addresses(auto_link_urls(text, options[:html], options, &block), options[:html], &block), sanitize)
-            when :all             then conditional_html_safe(auto_link_mentions(auto_link_email_addresses(auto_link_urls(text, options[:html], options, &block), options[:html], &block), options[:html], &block), sanitize)
+            when :all             then conditional_html_safe(
+                                        auto_link_hashtags(
+                                          auto_link_mentions(
+                                            auto_link_email_addresses(
+                                              auto_link_urls(text, options[:html], options, &block),
+                                            options[:html], &block),
+                                          options[:html], &block),
+                                        options[:html], &block),
+                                      sanitize)
             when :email_addresses then conditional_html_safe(auto_link_email_addresses(text, options[:html], &block), sanitize)
             when :urls            then conditional_html_safe(auto_link_urls(text, options[:html], options, &block), sanitize)
           end
@@ -82,7 +90,8 @@ module RailsAutolink
 
           AUTO_EMAIL_LOCAL_RE = /[\w.!#\$%&'*\/=?^`{|}~+-]/
           AUTO_EMAIL_RE = /[\w.!#\$%+-]\.?#{AUTO_EMAIL_LOCAL_RE}*@[\w-]+(?:\.[\w-]+)+/
-          AUTO_MENTION_RE = /\B@[a-z0-9_-]+/
+          AUTO_MENTION_RE = /\B@[a-zA-Z0-9_-]+/
+          AUTO_HASHTAG_RE = /\B#[a-zA-Z0-9_-]+/
 
           BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
@@ -157,10 +166,37 @@ module RailsAutolink
                   text         = sanitize(text)
                   display_text = sanitize(display_text) unless text == display_text
                 end
-                
+
                 match_user = self.hashtag.users.find_by username: text.gsub('@', '')
                 unless match_user.nil?
                   content_tag(:a, '@' + match_user.name, link_attributes.merge('href' => Rails.root + '/users/' + match_user.id.to_s), !!options[:sanitize])
+                else
+                  text
+                end
+              end
+            end
+          end
+
+          # Autolinks hashtags
+
+          def auto_link_hashtags(text, html_options = {}, options = {})
+            link_attributes = {}
+            text.gsub(AUTO_HASHTAG_RE) do
+              text = $&
+
+              if auto_linked?($`, $')
+                text.html_safe
+              else
+                display_text = (block_given?) ? yield(text) : text
+
+                unless options[:sanitize] == false
+                  text         = sanitize(text)
+                  display_text = sanitize(display_text) unless text == display_text
+                end
+
+                match_hashtag = Hashtag.find_by tag: text.gsub('#', '')
+                unless match_hashtag.nil?
+                  content_tag(:a, '#' + match_hashtag.tag, link_attributes.merge('href' => Rails.root + '/hashtags/' + match_hashtag.tag.to_s), !!options[:sanitize])
                 else
                   text
                 end
