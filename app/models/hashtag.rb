@@ -1,4 +1,5 @@
 class Hashtag < ActiveRecord::Base
+
   validates :tag, presence: true, uniqueness: true,
                   format: { with: /\A[A-Öa-ö0-9_]*\z/ }
 
@@ -18,4 +19,5 @@ class Hashtag < ActiveRecord::Base
   validates_attachment_content_type :cover_photo, content_type: /\Aimage\/.*\Z/i
   validates_attachment_file_name :cover_photo, matches: [/png\Z/i, /jpe?g\Z/i]
   validates_attachment_size :cover_photo, in: 0..10.megabytes
+
 end

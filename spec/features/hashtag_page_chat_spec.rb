@@ -29,6 +29,14 @@ RSpec.describe Hashtag do
       it 'have a thumbnail' do
         expect(find('.img-circle')).to have_content ''
       end
+
+      it 'have name over @UsernameMention' do
+        expect(page).to have_content 'Hello World! @asd asd'
+      end
+
+      it 'have #hashtag after autolinking' do
+        expect(page).to have_content 'Hello World! @asd asd #avantouinti'
+      end
     end
 
     it 'can send a message', js: true do
