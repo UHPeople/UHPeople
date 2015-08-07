@@ -1,3 +1,4 @@
+
 <% if @user_has_tag %>
     <div class="panel panel-default panel-chat">
       <div class="chatbox interest-chatbox">
@@ -18,9 +19,14 @@
         <% end %>
       </div>
 
+      <%= javascript_tag do %>
+        var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
+        var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>
+      <% end %>
+
       <form>
         <div class="input-group input-chat">
-          <input id="input-text" type="text" class="form-control" placeholder="Write a message..." autocomplete="off"/>
+          <input id="input-text" type="text" class="form-control mentions" placeholder="Write a message..." autocomplete="off"/>
 
           <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
           <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
