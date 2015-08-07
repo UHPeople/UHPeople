@@ -2,8 +2,8 @@
 
 <div class="col-md-3 col-lg-2 hashtaglist-position">
   <% unless @user_tags.empty? %>
-    <h3 id="feed-onboard-interest">Interests <a href="#" id="new-interest-revealer">+</a></h3>
-    
+    <h3 id="feed-onboard-interest">Interests <a href="#" class="glyphicon glyphicon-plus" id="new-interest-revealer" style="font-size: 75%; text-decoration: none;"></a></h3>
+
     <%= form_tag(hashtags_path, method: "post") do %>
       <div class="create" style="display: none; padding-bottom: 12px;" class="form-group">
         <input class="form-control typeahead-add" type="text" name="tag" placeholder="Add new interest"/>
