@@ -61,6 +61,23 @@ function chatComplete() {
 	});
 }
 
+function topicComplete(){
+  $('#topic').atwho({
+		at: "@",
+		data: userdata,
+		displayTpl: '<li>${name} <small>${username}</small></li>',
+		insertTpl: '@${username}'
+	})
+	.atwho({
+		at: "#",
+		data: hashtagdata,
+		displayTpl: '<li>${name}</li>',
+		insertTpl: '#${name}',
+    limit: 30
+	});
+}
+
+
 function setupNoNotif() {
 	$(".clearAll").remove();
 	$(".notif-icon").css("color", "#fff");
@@ -173,6 +190,7 @@ var ready = function() {
 
 	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
 		chatComplete();
+    topicComplete();
 	}
 };
 
