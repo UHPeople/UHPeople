@@ -50,5 +50,38 @@ RSpec.describe User do
       click_link 'Add photo'
       expect(page).to have_content 'Photo title'
     end
+
+    it 'doesn´t have active channels if should not' do
+      visit "/users/#{user.id}"
+      expect(page).not_to have_content 'More active'
+      expect(page).to have_content 'Less active'
+    end
+
+    it 'has active channels if has' do
+
+      Message.create content: 'asd', hashtag_id: hashtag.id, user_id: user.id
+      visit "/users/#{user.id}"
+      expect(page).to have_content 'More active'
+      expect(page).not_to have_content 'Less active'
+    end
+
+    it 'has in common button if same hashtag' do
+      u2 = User.create name: 'asd asd', username: 'asd2', email: 'asd@asd.fi', campus: 'Viikki', about: 'abouttest!!212', first_time: false
+      u2.hashtags << hashtag
+      visit "/users/#{u2.id}"
+      expect(page).to have_content 'You have 1'
+    end
+
+    it 'doesn´t have common button if on current_user page' do
+      visit "/users/#{user.id}"
+      expect(page).not_to have_content 'You have'
+    end
+
+    it 'doesn´t have common button if no common' do
+      u2 = User.create name: 'asd asd', username: 'asd2', email: 'asd@asd.fi', campus: 'Viikki', about: 'abouttest!!212', first_time: false
+
+      visit "/users/#{u2.id}"
+      expect(page).not_to have_content 'You have'
+    end  
   end
 end

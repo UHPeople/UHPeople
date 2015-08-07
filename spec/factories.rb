@@ -15,7 +15,7 @@ FactoryGirl.define do
   end
 
   factory :message do
-    content 'Hello World!'
+    content 'Hello World! @asd #avantouinti'
   end
 
   factory :photo do
