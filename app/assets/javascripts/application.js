@@ -56,7 +56,8 @@ function chatComplete() {
 		at: "#",
 		data: hashtagdata,
 		displayTpl: '<li>${name}</li>',
-		insertTpl: '#${name}'
+		insertTpl: '#${name}',
+    limit: 30
 	});
 }
 
@@ -169,6 +170,7 @@ var ready = function() {
 			$('.nav-tabs a:nth(' + tab + ')').tab('show');
 		}
 	}
+
 	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
 		chatComplete();
 	}

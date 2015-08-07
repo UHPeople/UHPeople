@@ -169,6 +169,7 @@ module RailsAutolink
 
                 match_user = self.hashtag.users.find_by username: text.gsub('@', '')
                 unless match_user.nil?
+
                   content_tag(:a, '@' + match_user.name, link_attributes.merge('href' => Rails.root + '/users/' + match_user.id.to_s), !!options[:sanitize])
                 else
                   text
