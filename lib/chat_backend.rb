@@ -92,7 +92,7 @@ module UHPeople
 
     def find_mentions(message)
       message.hashtag.users.each do |user|
-        send_mention(user.id, message.user_id, message.hashtag_id) if message.content.include? "@#{user.name}"
+        send_mention(user.id, message.user_id, message.hashtag_id) if message.content.include? "@#{user.username}"
       end
     end
 
