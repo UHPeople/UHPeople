@@ -15,10 +15,10 @@ RSpec.describe Hashtag do
       expect(page).to have_content 'Add topic'
     end
 
-    it 'has edit topic button' do
+    it 'has edit channel button' do
       fill_in 'topic', with: 'This is the topic!'
       click_button 'Update'
-      expect(page).to have_content 'Edit topic'
+      expect(page).to have_content 'Edit channel'
     end
 
     it 'has updated topic' do
