@@ -38,7 +38,7 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'
 
-  gem 'scss-lint'
+  gem 'scss_lint'
 
   gem 'byebug'
   gem 'web-console', '~> 2.0'

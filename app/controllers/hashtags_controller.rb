@@ -24,11 +24,7 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
-    if @hashtag.topic.blank?
-      @topic_button_text = 'Add topic'
-    else
-      @topic_button_text = 'Edit topic'
-    end
+    @topic_button_text = 'Edit channel'
   end
 
   def join

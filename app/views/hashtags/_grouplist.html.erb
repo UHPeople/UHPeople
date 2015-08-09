@@ -15,7 +15,9 @@
     <div id="target" class="hidden" style="padding-top: 5px">
       <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
         <div class="form-group">
+          <%= f.label_tag(:topic, "Description")%>
           <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
+          <%= f.label_tag(:cover_photo, "Background image")%>
           <%= f.file_field :cover_photo, id: 'cover_photo' %>
         </div>
 
