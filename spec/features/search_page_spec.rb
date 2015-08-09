@@ -27,7 +27,7 @@ RSpec.describe 'Search page' do
 
   it 'finds user with non-exact match' do
     visit '/search?search=a'
-    find("//div[@id='users']/h4/a").click
+    first("//div[@id='users']/h4/a").click
     expect(page.current_path).to eq "/users/#{user.id}"
   end
 
