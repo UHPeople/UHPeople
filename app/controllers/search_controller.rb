@@ -11,7 +11,7 @@ class SearchController < ApplicationController
 
     @hashtag = Hashtag.new tag: @search
 
-    @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%")
+    @hashtags = Hashtag.where('tag ilike :sr or topic ilike :sr', sr: "%#{@search}%")
     @users = User.where('name ilike ?', "%#{@search}%") unless hashtags_only
 
     @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}")
