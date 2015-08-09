@@ -68,4 +68,19 @@ RSpec.describe 'Search page' do
     visit "/search?search=#{user.name}"
     expect(page.current_path).to eq "/users/#{user.id}"
   end
+
+  describe 'on search results' do
+    it 'it shows hashtag member count' do
+      visit '/search?search=a'
+      expect(page).to have_content "(#{hashtag.users.count} member"
+    end
+
+    it 'it shows hashtag description' do
+      hashtag.update_attribute('topic', 'test topic')
+
+      visit '/search?search=a'
+      expect(page).to have_content "#{hashtag.topic}"
+    end
+
+  end
 end

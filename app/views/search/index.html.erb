@@ -18,6 +18,7 @@
 					<h4>
 						<%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
 						<span class="hashtag_members">(<%= pluralize(hashtag.users.count, 'member') %>)</span>
+                        <span class=""hashtag_topic"> <%= truncate(hashtag.topic, :length => 60, :separator => ' ') %></span>
 					</h4>
 			  <% end %>
 		  </div>
