@@ -82,5 +82,20 @@ RSpec.describe 'Search page' do
       expect(page).to have_content "#{hashtag.topic}"
     end
 
+    it 'it shows users about' do
+      visit '/search?search=a'
+      expect(page).to have_content "#{user.about}"
+    end
+
+    it 'it shows some users hashtags' do
+      hashtag.update_attribute('tag', hashtag.tag+'2')
+      hashtag2 = FactoryGirl.create(:hashtag)
+      visit "/hashtags/#{hashtag2.tag}"
+      click_link 'Join'
+      visit '/search?search=asd'
+
+      expect(page).to have_content "#{hashtag.tag}"
+      expect(page).to have_content "#{hashtag2.tag}"
+    end
   end
 end
