@@ -1,40 +1,50 @@
 
- 
+
 //  Navbar Styles
 
 
 .navbar {
-  
-  margin-bottom: 0;
+
+  margin-bottom: 0 !important;
 
   .container {
-    padding-top: 0;
+    //padding-top: 0;
   }
-  .navbar-form {
+  .navbar-f {
+    width: auto;
+    border: 0;
+    margin-left: 0;
+    margin-right: 0;
     padding-top: 10px;
+    padding-bottom: 0;
+    box-shadow: none;
   }
+
   .navbar-brand {
     color: #FFFFFF;
-    font-weight: bold;
+
+    img{
+      margin-top: -7px;
+    }
   }
 
   .navbar-brand,
   .navbar-nav li a {
-      line-height: 70px;
-      height: 70px;
-      padding-top: 0;
+    //  line-height: 70px;
+    //  height: 53px;
+    //  padding-top: 0;
   }
 
   .dropdown-menu > li > a {
-    line-height: 1.42857143;
-    height: inherit;
+  //  line-height: 1.42857143;
+    // height: inherit;
   }
 
   li > .notif-link{
     width: 32px;
     padding-left: 0px;
     padding-right: 0px;
-    padding-top: 1px !important;
+  //  padding-top: 1px !important;
   }
 
   li > .notif-link > .notif-count{
@@ -43,4 +53,4 @@
     padding-left: -4px;
     font-weight: bold;
   }
-}  
+}

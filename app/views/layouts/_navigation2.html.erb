@@ -1,20 +1,18 @@
+<%# navigation styled for Bootstrap 3.0 %>
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
+    <div class="col-md-3 col-sm-1 col-xs-2">
       <div class="navbar-brand" id="feed-onboard-header">
         <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
       </div>
-        <%= link_to 'UHPeople', root_path, class: 'hidden-xs hidden-sm visible-lg-block navbar-brand' %>
+      <div class="hidden-xs hidden-sm visible-lg-block">
+        <%= link_to 'UHPeople', root_path, class: 'navbar-brand'  %>
+      </div>
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
     <% unless current_user.nil? %>
-
-
-      <div class="">
-
-        <%= form_tag search_index_path, method: 'get', class: 'col-md-5 col-sm-2 col-xs-2 navbar-f', role: 'search' do %>
+      <div class="col-md-5 col-sm-5 col-xs-8 small-right">
+        <%= form_tag search_index_path, method: 'get', class: 'navbar-form' do %>
           <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
             <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
 
@@ -23,13 +21,12 @@
             </div>
           </div>
         <% end %>
-
+      </div>
+      <div class="navbar-right">
         <ul class="nav navbar-nav">
           <%= render 'layouts/navigation_links' %>
         </ul>
-
-      </div><!-- /.navbar-collapse -->
-
+      </div>
     <% end %>
-  </div><!-- /.container-fluid -->
+  </div>
 </nav>
