@@ -122,7 +122,8 @@ if ($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('path
 		$("form #hashtags").select2({
 			placeholder: "Select your Interests",
 			tags: tags,
-			width: '100%'
+			width: '100%',
+			tokenSeparators: [",", " "]
 		});
 	});
 }
