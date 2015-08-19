@@ -56,7 +56,7 @@ RSpec.describe 'Search page' do
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=%23#{hashtag2.tag}"
-    expect(page).to have_content "Search results for: ##{hashtag2.tag}"
+    expect(page).to have_content "Search results for channels: ##{hashtag2.tag}"
   end
 
   it 'redirects to single hashtag' do
