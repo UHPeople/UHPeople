@@ -24,17 +24,21 @@
         var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>
       <% end %>
 
-      <form>
-        <div class="input-group input-chat">
+
+
+
+        <form>
+            <div class="panel-footer input-group input-chat">
           <input id="input-text" type="text" class="form-control mentions" placeholder="Write a message..." autocomplete="off"/>
 
           <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
           <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
 
           <span class="input-group-btn">
-            <%= submit_tag('Send', class: 'btn btn-primary', id: 'chat-send') %>
+            <%= submit_tag('Send', class: 'btn btn-default btn-borderless', id: 'chat-send') %>
           </span>
-        </div>
-      </form>
+            </div>
+        </form>
+
     </div>
 <% end %>
