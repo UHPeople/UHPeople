@@ -21,10 +21,12 @@
 
       <div class="field element-position">
         <%= f.label :name %><br>
+        <%= f.hidden_field :name, value: @user.name %>
         <%= @user.name %>
       </div>
       <div class="field element-position">
         <%= f.label :email %><br>
+        <%= f.hidden_field :email, value: @user.email %>
         <%= @user.email %>
       </div>
 
