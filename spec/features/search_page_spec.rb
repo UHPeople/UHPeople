@@ -37,7 +37,7 @@ RSpec.describe 'Search page' do
 
     visit "/search?search=#{hashtag2.tag}"
     first("//div[@id='hashtags']/h4/a").click
-    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
+    expect(page.current_path).to eq "/hashtags/#{hashtag2.tag}"
   end
 
   it 'finds hashtag with non-exact match' do
@@ -57,16 +57,6 @@ RSpec.describe 'Search page' do
 
     visit "/search?search=%23#{hashtag2.tag}"
     expect(page).to have_content "Search results for channels: ##{hashtag2.tag}"
-  end
-
-  it 'redirects to single hashtag' do
-    visit "/search?search=#{hashtag.tag}"
-    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
-  end
-
-  it 'redirects to single user' do
-    visit "/search?search=#{user.name}"
-    expect(page.current_path).to eq "/users/#{user.id}"
   end
 
   describe 'on search results' do
