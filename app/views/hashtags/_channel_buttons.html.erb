@@ -2,7 +2,7 @@
   <span class="btn-group">
     <div class="dropdown">
       <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle icon-color", "data-toggle":"dropdown" %>
-      <ul class="dropdown-menu dropdown-menu-right">
+      <ul class="dropdown-menu dropdown-menu-right scrollable">
         <li class="dropdown-header">Members</li>
         <% @hashtag.users.each do |m| %>
             <li><%= link_to m.name, m %></li>

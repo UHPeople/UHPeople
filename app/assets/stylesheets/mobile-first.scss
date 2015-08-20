@@ -262,4 +262,9 @@ a.material-icons{
   right: 0;
   padding-right: 20px;
   padding-top: 5px;
+
+  .dropdown-menu{
+    // fix users dropdown menu not getting too big with scrollable
+    max-height: 200px;
+  }
 }
