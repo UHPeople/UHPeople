@@ -1,8 +1,8 @@
 <% if @user_has_tag %>
   <span class="btn-group">
-    <div class="visible-xs pull-right dropdown">
+    <div class="dropdown">
       <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu dropdown-menu-right">
         <% @hashtag.users.each do |m| %>
             <li><%= link_to m.name, m %></li>
         <% end %>
@@ -20,15 +20,11 @@
           <%= link_to 'Invite', "#", "data-toggle":'modal', "data-target":'#invite' %>
         </li>
         <li>
-        <%= link_to 'edit' , '#', "data-toggle":'modal', "data-target":'#edit' %>
+          <%= link_to 'edit' , '#', "data-toggle":'modal', "data-target":'#edit' %>
         </li>
-        <li></li>
       </ul>
     </div>
   </span>
-
-  <%= render 'invite' %>
-  <%= render 'edit' %>
 <% else %>
   <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
 <% end %>
