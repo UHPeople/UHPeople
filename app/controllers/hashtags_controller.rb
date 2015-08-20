@@ -1,7 +1,7 @@
 class HashtagsController < ApplicationController
   before_action :require_login
 
-  before_action :set_hashtag, only: [:show, :update, :join, :leave, :invite]
+  before_action :set_hashtag, only: [:show, :update, :join, :leave, :invite, :leave_and_destroy]
   before_action :user_has_tag, only: [:show, :update]
   before_action :topic_updater, only: [:show, :update]
 
@@ -115,6 +115,18 @@ class HashtagsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
+    end
+  end
+
+  def leave_and_destroy
+    if @hashtag.users.count == 1
+      current_user.hashtags.destroy(@hashtag)
+      request.env['chat.leave_callback'].call(current_user, @hashtag)
+
+      @hashtag.destroy
+      redirect_to feed_index_path, notice: 'Channel deleted.'
+    else
+      redirect_to hashtag_path(@hashtag.tag), alert: 'Unable to leave and delete channel.'
     end
   end
 
