@@ -183,13 +183,17 @@
   border-top: 0 !important;
   border-right: 0 !important;
   border-bottom: 0 !important;
-  height: 100%;
+  border-radius: 0 !important;
+  height: 50px;
 }
-
 
 .input-group.input-chat {
   margin: 0 auto;
   width: 100%;
+}
+
+.input-group-btn:last-child > .btn{
+  margin-left: 0px !important;
 }
 
 .panel-chat {
