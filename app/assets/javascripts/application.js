@@ -140,7 +140,7 @@ var ready = function() {
 	$(function() {
 		setTimeout(function() {
 			$('#collapseAlert').collapse('hide');
-		}, 5000);
+		}, 500000);
 	});
 
 
