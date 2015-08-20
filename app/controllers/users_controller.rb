@@ -58,7 +58,6 @@ class UsersController < ApplicationController
 
     session[:user_id] = @user.id
 
-    create_campus_unit_tag
     redirect_to threehash_path
   end
 
@@ -121,14 +120,6 @@ class UsersController < ApplicationController
     else  
       redirect_to feed_index_path
     end
-  end
-
-  def create_campus_unit_tag
-    add_hashtag(tagify @user.campus)
-  end
-
-  def tagify(text)
-    text.gsub(' ', '_').gsub('-', '_').gsub('(', '').gsub(')', '').gsub(',', '')
   end
 
   def add_hashtag(tag)
