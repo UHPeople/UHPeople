@@ -248,6 +248,9 @@
   .visible-xs {
     display:inline;
   }
+  .nav > li.hidden-xs{
+    display:none;
+  }
 }
 
 a.material-icons{

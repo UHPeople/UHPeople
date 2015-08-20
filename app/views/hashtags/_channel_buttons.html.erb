@@ -3,6 +3,7 @@
     <div class="dropdown">
       <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
       <ul class="dropdown-menu dropdown-menu-right">
+        <li class="dropdown-header">Members</li>
         <% @hashtag.users.each do |m| %>
             <li><%= link_to m.name, m %></li>
         <% end %>
@@ -17,10 +18,10 @@
           <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, class:'', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
         </li>
         <li>
-          <%= link_to 'Invite', "#", "data-toggle":'modal', "data-target":'#invite' %>
+          <%= link_to 'Invite people', "#", "data-toggle":'modal', "data-target":'#invite' %>
         </li>
         <li>
-          <%= link_to 'edit' , '#', "data-toggle":'modal', "data-target":'#edit' %>
+          <%= link_to 'Edit channel' , '#', "data-toggle":'modal', "data-target":'#edit' %>
         </li>
       </ul>
     </div>

@@ -2,16 +2,16 @@
   <% if @user_has_tag %>
     <span class="btn-group">
       <% if @hashtag.users.count == 1 %>
-          <%= link_to 'Leave', leave_and_destroy_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel? You are the last person on this channel. After you leave the channel and all its messages will be deleted.', "data-confirm-title": 'Leave and delete Channel' %>
+          <%= link_to 'Leave', leave_and_destroy_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel? You are the last person on this channel. After you leave the channel all its messages will be deleted.', "data-confirm-title": 'Leave and delete Channel' %>
       <% else %>
           <%= link_to 'Leave', leave_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
       <% end %>
     </span>
     <span class="btn-group">
-      <%= link_to 'Invite' , '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#invite' %>
+      <%= link_to 'Invite', '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#invite' %>
     </span>
     <span class="btn-group">
-      <%= link_to 'Edit' , '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#edit' %>
+      <%= link_to 'Edit Channel' , '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#edit' %>
     </span>
   <% else %>
     <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
