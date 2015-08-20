@@ -1,6 +1,17 @@
 
 <% if @user_has_tag %>
     <div class="panel panel-default panel-chat">
+      <div class="pull-right">
+        <%= render 'channel_buttons' %>
+        <div class="visible-xs pull-right dropdown">
+          <%= link_to '', "#", class:"glyphicon glyphicon-user dropdown-toggle", "data-toggle":"dropdown" %>
+          <ul class="dropdown-menu">
+            <% @hashtag.users.each do |m| %>
+                <li><%= link_to m.name, m %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
       <div class="chatbox interest-chatbox">
         <% @messages.each do |message| %>
             <div class="panel-body">

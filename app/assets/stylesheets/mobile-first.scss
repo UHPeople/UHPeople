@@ -187,22 +187,10 @@
   .navbar {
     //height: 140px;
   }
-
-  .hidden-xs {
-    visibility: hidden;
-    width: 0;
-    padding: 0 !important;
-  }
 }
 
 
 @media (max-width: 992px){
-
-
-  .hidden-sm {
-    //visibility: hidden;
-    //width: 0;
-  }
 
   .tab-line {
     margin-left: -5px;
@@ -245,5 +233,19 @@
 
   .hashtaglist-position {
   margin-top: 0 !important;
+  }
+}
+
+.visible-xs {
+  display:none;
+}
+
+
+@media (max-width: 768px){
+  .hidden-xs {
+    display:none;
+  }
+  .visible-xs {
+    display:inline;
   }
 }

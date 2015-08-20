@@ -1,31 +1,4 @@
-<div class="well grouplist-position">
-  <% if @user_has_tag %>
-    <%= link_to 'Leave', leave_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
-
-    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#invite">Invite</button>
-    <%= render 'invite' %>
-  <% else %>
-    <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %> 
-  <% end %>
-
-  <% if @user_has_tag %>
-    <%= link_to @topic_button_text , '#target', class: 'edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
-    <%= link_to 'Cancel editing' , '#target', class: 'hidden edit btn btn-default', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
-
-    <div id="target" class="hidden" style="padding-top: 5px">
-      <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
-        <div class="form-group">
-          <%= f.label(:topic, "Channel description")%>
-          <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
-          <%= f.label(:cover_photo, "Background image")%>
-          <%= f.file_field :cover_photo, id: 'cover_photo' %>
-        </div>
-
-        <%= f.submit value: "Update", class: 'btn btn-sm btn-primary' %>
-      <% end %>
-    </div>
-  <% end %>
-
+<div class="well grouplist-position ">
   <h3>Members</h3>
   <ul class="nav nav-list scrollable">
     <% @hashtag.users.each do |m| %>

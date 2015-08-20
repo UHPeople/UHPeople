@@ -1,0 +1,28 @@
+<h1>
+<% if @user_has_tag %>
+  <%= link_to '', leave_path(tag: @hashtag.tag), method: :delete, class: 'glyphicon glyphicon-remove-circle', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
+
+  <%= link_to '', "#", class:'glyphicon glyphicon-share', "data-toggle":'modal', "data-target":'#invite' %>
+  <%= render 'invite' %>
+<% else %>
+  <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
+<% end %>
+
+<% if @user_has_tag %>
+  <%= link_to '' , '#target', class: 'edit glyphicon glyphicon-edit', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
+  <%= link_to 'Cancel editing' , '#target', class: 'hidden edit btn btn-default btn-xs', onclick: "$('#target').toggleClass('hidden'); $('.edit').toggleClass('hidden');" %>
+
+  <div id="target" class="hidden" style="padding-top: 5px">
+    <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
+      <div class="form-group">
+        <%= f.label(:topic, "Channel description")%>
+        <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
+        <%= f.label(:cover_photo, "Background image")%>
+        <%= f.file_field :cover_photo, id: 'cover_photo' %>
+      </div>
+
+      <%= f.submit value: "Update", class: 'btn btn-sm btn-primary btn-xs' %>
+    <% end %>
+  </div>
+<% end %>
+</h1>
