@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'hashtags/:tag/invite', to: 'hashtags#invite'
   post 'join', to: 'hashtags#join'
   delete 'leave', to: 'hashtags#leave'
+  delete 'leave_and_destroy', to: 'hashtags#leave_and_destroy'
 
   resources :users, only: [:index, :show, :new, :create, :edit, :update]
   resources :feed, only: [:index]
