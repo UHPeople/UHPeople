@@ -141,3 +141,8 @@ a.notif-link:hover {
 .icon-color{
   color: $fallback-negative;
 }
+
+.btn-success{
+  background-color: $primary !important;
+  color: $white !important;
+}
