@@ -1,4 +1,7 @@
 <div class="well grouplist-position ">
+  <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, class:'', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
+  <%= link_to 'Invite', "#", "data-toggle":'modal', "data-target":'#invite' %>
+  <%= link_to 'edit' , '#', "data-toggle":'modal', "data-target":'#edit' %>
   <h3>Members</h3>
   <ul class="nav nav-list scrollable">
     <% @hashtag.users.each do |m| %>

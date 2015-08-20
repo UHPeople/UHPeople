@@ -249,3 +249,14 @@
     display:inline;
   }
 }
+
+a.material-icons{
+    text-decoration: none !important;
+}
+
+.toolbar{
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
+  padding-top: 5px;
+}
