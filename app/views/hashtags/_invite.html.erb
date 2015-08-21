@@ -9,11 +9,9 @@
     		<p>Invite friends and colleques to your interest!</p>
   	
       	<%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.", id: 'invite-form') do %>
-    			<%= text_field_tag :user, params[:user], placeholder: 'Invite', class: 'form-control typeahead-invite' %>
+    			<%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'form-control typeahead-invite' %>
 
-    			<div style="width: 0; height: 0; overflow: hidden;" >
       			<%= submit_tag('Invite', class: 'btn btn-primary') %>
-    			</div>
 				<% end %>
       </div>
       <div class="modal-footer">
