@@ -13,24 +13,26 @@ gem 'jquery-rails'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 gem 'twitter-bootstrap-rails-confirm'
-gem 'rails_autolink'
+gem 'rails_autolink', :path => "rails_autolink-1.1.6/"
 gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
 gem 'rb-readline'
 gem "select2-rails"
+gem 'material_icons'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
-gem 'bootstrap-sass', '= 3.3.3'
-gem 'twitter-typeahead-rails'
+gem 'bootstrap-sass'
+gem "autoprefixer-rails"
+gem 'twitter-typeahead-rails', '~> 0.10.5'
 gem 'handlebars_assets'
 
 gem 'faye-websocket'
 gem 'puma'
 gem 'masonry-rails'
-
+gem 'jquery-atwho-rails'
 gem 'pg'
 gem 'omniauth-shibboleth'
 
@@ -38,14 +40,14 @@ group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'
 
-  gem 'scss-lint'
+  gem 'scss_lint', require: false
 
   gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'rails_layout'
 
-  gem 'rack-mini-profiler'
+  #gem 'rack-mini-profiler'
 end
 
 group :production do

@@ -1,5 +1,5 @@
 
-// Color override file 
+// Color override file
 
 
 $black: rgba(0, 0, 0, 1);
@@ -48,7 +48,7 @@ html body {
   background-color: $primary !important;
   border: none !important;
   box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
-  
+
   a {
     color: $navbar-link !important;
   }
@@ -59,7 +59,8 @@ html body {
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
-  background-color: $color-400 !important;
+  //background-color: $color-400 !important;
+  background-color: transparent !important;
 }
 
 h2, h3 {
@@ -71,14 +72,14 @@ h2, h3 {
 .jumbotron {
 
   background: $jumbotron-color;
-
+  background-color: $jumbotron-color !important;
   h1 {
       color: $primary-link;
       //text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
   }
 
   div {
-    color: $primary-link; 
+    color: $primary-link;
   }
 
   footer {
@@ -100,7 +101,7 @@ h2, h3 {
 }
 
 .panel-title > a {
-  color: $primary-link;
+  color: $primary-link !important;
 }
 
 /* Notification Colouring */
@@ -108,7 +109,7 @@ h2, h3 {
   color: $accent !important;
 }
 
-.navbar-inverse .navbar-nav > li > .notif-link:hover, 
+.navbar-inverse .navbar-nav > li > .notif-link:hover,
 .navbar-inverse .navbar-nav > li > .notif-link:focus {
   color: #E2E274 !important;
 }
@@ -138,3 +139,11 @@ a.notif-link:hover {
   background-color: $type3 !important;
 }
 
+.icon-color{
+  color: $fallback-negative;
+}
+
+.btn-success{
+  background-color: $primary !important;
+  color: $white !important;
+}

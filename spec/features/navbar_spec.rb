@@ -14,7 +14,7 @@ RSpec.describe 'Navbar' do
 
     visit feed_index_path
 
-    click_link user.name
+    click_link user.name.partition(" ").first
     click_link 'Start tour'
 
     expect(page).to have_content 'Hello and welcome to UHPeople!'

@@ -2,12 +2,9 @@
 @import 'masonry/transitions';
 
 @import 'joyride/joyride-2.1';
-@import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
 
 @import 'font-gotham';
 @import 'jqcloud';
-
 @import 'material-colors';
 @import 'mobile-first';
 @import 'navbar';
@@ -17,9 +14,12 @@
 @import 'user-style';
 @import 'select2';
 @import 'select2-bootstrap';
+@import 'jquery.atwho';
+@import 'material_icons';
 
 
-.container {
+
+main > .container {
   padding-top: 20px;
 }
 
@@ -36,11 +36,16 @@
   font-weight: normal;
 }
 
-// Jumbotron material desing 
+.hashtag_topic {
+  font-size: 90%;
+  font-weight: normal;
+}
+
+// Jumbotron material desing
 
 .jumbotron {
   background-position: center;
-  // Make the background image cover the area of the <div>, and clip the excess 
+  // Make the background image cover the area of the <div>, and clip the excess
   background-size: cover;
   border-radius: 0 !important;
   height: 320px;
@@ -80,10 +85,14 @@
   top: 75px;
   z-index: 2000;
   margin: 0 auto;
-  left:0; 
+  left:0;
   right:0;
   width: 80%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
+}
+
+#collapseAlert{
+  margin-bottom: 0;
 }
 
 .modal-footer {
@@ -108,3 +117,6 @@
   background-size: contain;
   padding-bottom: 10px;
 }
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap-custom';

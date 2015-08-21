@@ -1,42 +1,71 @@
 <div class="container">
-	<div class="col-xs-12 col-sm-8">
-		<% unless @users.blank? %>
-			<div id="users">
-				<h1>Search results for users: <%= @search %></h1>
+  <div class="col-xs-12 col-sm-8">
+    <% unless @users.blank? %>
+        <div id="users">
+          <h1>Search results for users: <%= @search %></h1>
 
-				<% @users.each do |user| %>
-					<h4><%= link_to user.name, user %></h4>
-				<% end %>
-			</div>
-		<% end %>
+          <% @users.each do |user| %>
+            <h4>
+              <%= link_to image_tag(user.profile_picture_url(:small), class: "img-circle"), user %>
+              <%= link_to user.name, user %>
 
-		<% unless @hashtags.blank? %>
-			<div id="hashtags">
-				<h1>Search results for: #<%= @search %></h1>
+              <span class="hashtag_members">
+                <%= truncate(user.about, length: 60, separator: ' ') %>
+              </span>
 
-				<% @hashtags.each do |hashtag| %>
-					<h4>
-						<%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
-						<span class="hashtag_members">(<%= pluralize(hashtag.users.count, 'member') %>)</span>
-					</h4>
-			  <% end %>
-		  </div>
-		<% end %>
+              <% if not user.hashtags.empty? %>
+                <span class="hashtag_topic">
+                  Member of:
+                  <% user.hashtags.first(3).each_with_index do |channel, i| %>
+                    <%= link_to "#" + channel.tag, hashtag_path(channel.tag) %>
+                  <% end %>
+                </span>
+              <% end %>
+            </h4>
+          <% end %>
+        </div>
+    <% end %>
 
-	  <% if @hashtags_exact.blank? and @hashtag.valid? %>
-	  	<div id="new_hashtag">
-			  <h1>What about a new hashtag?</h2>
+    <% unless @hashtags.blank? %>
+        <div id="hashtags">
+          <h1>Search results for channels: #<%= @search %></h1>
 
-			  <p>Create new hashtag: 
-					<%= link_to "##{@search}", hashtags_path(tag: @search), method: :post %>
-			  </p>
-		  </div>
-		<% end %>
+  				<% @hashtags.each do |hashtag| %>
+  					<h4>
+  						<%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
+  						<span class="hashtag_members">(<%= pluralize(hashtag.users.count, 'member') %>)
+              </span>
+              <span class="hashtag_topic">
+                <%= truncate(hashtag.topic, :length => 60, :separator => ' ') %>
+              </span>
+  					</h4>
+          <% end %>
 
-		<% if @users.blank? and @hashtags.blank? and not @hashtag.valid? %>
-			<div>
-				<h1>No results for: <%= @search %>
-			</div>
-		<% end %>
-	</div>
+          <% @hashtags_topic_match.each do |hashtag| %>
+            <h4>
+              <%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
+              <span class="hashtag_members">(<%= pluralize(hashtag.users.count, 'member') %>)</span>
+              <span class="hashtag_topic">
+              <%= truncate(hashtag.topic, :length => 60, :separator => ' ') %>
+              </span>
+            </h4>
+          <% end %>
+      </div>
+	<% end %>
+
+  <% if @hashtags_exact.blank? and @hashtag.valid? %>
+    <div id="new_hashtag">
+      <h1>How about a new channel?</h1>
+      <p>Create new channel:
+        <%= link_to "##{@search}", hashtags_path(tag: @search), method: :post %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if @users.blank? and @hashtags.blank? and not @hashtag.valid? %>
+      <div>
+        <h1>No results for: <%= @search %></h1>
+      </div>
+  <% end %>
+  </div>
 </div>

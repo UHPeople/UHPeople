@@ -82,8 +82,9 @@ RSpec.describe 'Feed page' do
       expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
     end
 
-    it 'wont let add more than 5 favourites' do
-      for i in 1..5
+    it 'wont let add more favourites than max' do
+      max = APP_CONFIG['max_faves']
+      for i in 1..max
         hashtag =  FactoryGirl.create(:hashtag, tag: i)
         visit "/hashtags/#{hashtag.tag}"
         click_link 'Join'
@@ -92,7 +93,7 @@ RSpec.describe 'Feed page' do
       visit '/feed'
       page.all(:css, 'td a.glyphicon').each(&:click)
 
-      expect(page).to have_content 'You already have 5 favourites, remove some to add a new one!'
+      expect(page).to have_content "You already have #{max} favourites, remove some to add a new one!"
     end
 
     context 'chatboxes' do

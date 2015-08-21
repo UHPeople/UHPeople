@@ -1,0 +1,11 @@
+defaults: &defaults
+  max_faves: 6
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

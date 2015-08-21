@@ -38,4 +38,22 @@ RSpec.describe HashtagsController do
       expect(user.hashtags).to eq []
     end
   end
+
+  describe 'POST create' do
+    it 'creates new hashtag' do
+      post :create, tag: 'superuniikki200'
+      user.reload
+
+      expect(user.hashtags.count).to eq 1
+      expect(user.hashtags.first.tag).to eq 'superuniikki200'
+    end
+
+    it 'adds user existing hashtag' do
+      post :create, tag: hashtag.tag
+      user.reload
+
+      expect(user.hashtags.count).to eq 1
+      expect(user.hashtags.first).to eq hashtag
+    end
+  end
 end

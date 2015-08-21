@@ -15,10 +15,10 @@ RSpec.describe Hashtag do
       expect(page).to have_content 'Add topic'
     end
 
-    it 'has edit topic button' do
+    it 'has edit channel button' do
       fill_in 'topic', with: 'This is the topic!'
       click_button 'Update'
-      expect(page).to have_content 'Edit topic'
+      expect(page).to have_content 'Edit channel'
     end
 
     it 'has updated topic' do
@@ -28,15 +28,29 @@ RSpec.describe Hashtag do
       expect(page).to have_content 'This is the topic!'
     end
 
-    it 'has working leave button' do
+    it 'has working leave button when not the only member' do
+      visit "/logout"
+      user2 = FactoryGirl.create(:user, username: 'uusityyppi')
+      visit "/login/#{user2.id}"
+      visit "/hashtags/#{hashtag.tag}"
+      click_link 'Join'
       click_link 'Leave'
 
       expect(page).to have_content 'Join'
     end
 
+    it 'is deleted when last member leaves' do
+      helper = hashtag.tag
+      click_link 'Leave'
+      expect(page.current_path).to eq "/feed"
+
+      visit "/search?search=%23#{helper}"
+      expect(page).to have_no_content "Search results for channels: ##{helper}"
+    end
+
     context 'invitation box' do
       it 'doesn\'t send invitation to member' do
-        find('button[data-target="#invite"]').click
+        first('//a[data-target="#invite"]').click
         fill_in 'user', with: user.name
         find('input[value="Invite"]').click
         expect(find('.notif-count')).to_not have_content '1'
@@ -44,7 +58,7 @@ RSpec.describe Hashtag do
 
       it 'sends invitation to non-member user' do
         user2 = User.create name: 'asd', username: 'asdasd', campus: 'asd'
-        find('button[data-target="#invite"]').click
+        first('//a[data-target="#invite"]').click
         fill_in 'user', with: user2.name
         find('input[value="Invite"]').click
 

@@ -1,7 +1,7 @@
 class HashtagsController < ApplicationController
   before_action :require_login
 
-  before_action :set_hashtag, only: [:show, :update, :join, :leave, :invite]
+  before_action :set_hashtag, only: [:show, :update, :join, :leave, :invite, :leave_and_destroy]
   before_action :user_has_tag, only: [:show, :update]
   before_action :topic_updater, only: [:show, :update]
 
@@ -27,7 +27,7 @@ class HashtagsController < ApplicationController
     if @user_has_tag
       #lastvisit = current_user.user_hashtags.find_by hashtag_id:@hashtag.id
       #lastvisit.update_attribute(:last_visited, Time.now)
-    end 
+    end
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
@@ -49,7 +49,6 @@ class HashtagsController < ApplicationController
   end
 
   def add_multiple
-
     new_tags = Array.new
     tags = params[:hashtags]
     unless tags.nil?
@@ -64,9 +63,9 @@ class HashtagsController < ApplicationController
 
     if request.referer and URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
-    else 
+    else
       redirect_to feed_index_path
-    end   
+    end
   end
 
   def update
@@ -76,6 +75,8 @@ class HashtagsController < ApplicationController
       return unless @hashtag.update(hashtag_params)
 
     @hashtag.users.each do |user|
+      next if user == current_user
+
       Notification.create notification_type: 2,
                           user: user,
                           tricker_user: current_user,
@@ -88,8 +89,14 @@ class HashtagsController < ApplicationController
   end
 
   def create
-    hashtag = Hashtag.new tag: params[:tag]
-    redirect_to(feed_index_path, alert: 'Something went wrong!') && return unless hashtag.save
+    hashtag = Hashtag.find_by tag: params[:tag]
+    if hashtag == nil
+      hashtag = Hashtag.new tag: params[:tag]
+      unless hashtag.save
+        redirect_to feed_index_path, alert: 'Something went wrong!'
+        return
+      end
+    end
 
     current_user.hashtags << hashtag
     redirect_to hashtag_path(hashtag.tag)
@@ -117,6 +124,18 @@ class HashtagsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
+    end
+  end
+
+  def leave_and_destroy
+    if @hashtag.user_hashtags.count == 1
+      current_user.hashtags.destroy(@hashtag)
+      request.env['chat.leave_callback'].call(current_user, @hashtag)
+
+      @hashtag.destroy
+      redirect_to feed_index_path, notice: 'Channel deleted.'
+    else
+      redirect_to hashtag_path(@hashtag.tag), alert: 'Unable to leave and delete channel.'
     end
   end
 

@@ -1,13 +1,18 @@
 <%= render 'topic' %>
 
 <div class="container" >
-  <div class="col-sm-8" >
-    <%= render 'chat' %>
-  </div>
-
-  <div class="col-sm-4">  
-    <%= render 'grouplist' %>
-  </div>
+  <% if @user_has_tag %>
+    <div class="col-sm-8" >
+      <%= render 'chat' %>
+    </div>
+    <div class="hidden-xs col-sm-4">
+      <%= render 'grouplist' %>
+    </div>
+  <% else %>
+    <div class="col-sm-4 col-sm-offset-8">
+      <%= render 'grouplist' %>
+    </div>
+  <% end %>
 </div>
 
 <%= render './onboards/hashtag_onboard' %>
