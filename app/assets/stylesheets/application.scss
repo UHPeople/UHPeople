@@ -2,12 +2,9 @@
 @import 'masonry/transitions';
 
 @import 'joyride/joyride-2.1';
-@import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
 
 @import 'font-gotham';
 @import 'jqcloud';
-
 @import 'material-colors';
 @import 'mobile-first';
 @import 'navbar';
@@ -18,9 +15,11 @@
 @import 'select2';
 @import 'select2-bootstrap';
 @import 'jquery.atwho';
+@import 'material_icons';
 
 
-.container {
+
+main > .container {
   padding-top: 20px;
 }
 
@@ -114,3 +113,6 @@
   background-size: contain;
   padding-bottom: 10px;
 }
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap-custom';

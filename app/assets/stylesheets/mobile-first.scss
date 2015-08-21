@@ -1,6 +1,6 @@
 //	Mobile-first layout
 
-// non-collapsing bootstrap navbar 
+// non-collapsing bootstrap navbar
 
 @media (max-width: 768px) {
   .navbar-header {
@@ -53,7 +53,7 @@
 
   .navbar-right .dropdown-menu {
     left: auto;
-    right: 0; 
+    right: 0;
   }
 
   .navbar-right .dropdown-menu-left {
@@ -173,6 +173,7 @@
     border: 0;
     -webkit-box-shadow: none;
             box-shadow: none;
+    border: 0;
   }
 
   .navbar-text {
@@ -181,32 +182,15 @@
 
   .navbar-text.navbar-right:last-child {
     margin-right: 0;
-  } 
+  }
 
   .navbar {
-    height: 140px;
-  }
-
-  .hidden-sm {
-    visibility: hidden;
+    //height: 140px;
   }
 }
 
-// fix fixed navbar hiding main content 
-
-main {
-  padding-top: 70px;
-}
 
 @media (max-width: 992px){
-
-  main {
-    padding-top: 140px;
-  }
-
-  .hidden-sm {
-    visibility: hidden;
-  }
 
   .tab-line {
     margin-left: -5px;
@@ -226,7 +210,6 @@ main {
   #non-transparent {
     position: absolute;
     top: 100%;
-    left: 0;
     z-index: 1000;
     float: left;
     min-width: 160px;
@@ -253,4 +236,30 @@ main {
   }
 }
 
+.visible-xs {
+  display:none;
+}
 
+
+@media (max-width: 768px){
+  .hidden-xs {
+    display:none;
+  }
+  .visible-xs {
+    display:inline;
+  }
+  .nav > li.hidden-xs{
+    display:none;
+  }
+}
+
+a.material-icons{
+    text-decoration: none !important;
+}
+
+.toolbar{
+  position: absolute;
+  right: 0;
+  padding-right: 20px;
+  padding-top: 5px;
+}

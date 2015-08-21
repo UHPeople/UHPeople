@@ -18,12 +18,14 @@ gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
 gem 'rb-readline'
 gem "select2-rails"
+gem 'material_icons'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
-gem 'bootstrap-sass', '= 3.3.3'
+gem 'bootstrap-sass'
+gem "autoprefixer-rails"
 gem 'twitter-typeahead-rails', '~> 0.10.5'
 gem 'handlebars_assets'
 
@@ -45,7 +47,7 @@ group :development do
   gem 'spring'
   gem 'rails_layout'
 
-  gem 'rack-mini-profiler'
+  #gem 'rack-mini-profiler'
 end
 
 group :production do

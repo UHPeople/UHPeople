@@ -1,0 +1,31 @@
+<% if @user_has_tag %>
+  <span class="btn-group">
+    <div class="dropdown">
+      <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li class="dropdown-header">Members</li>
+        <% @hashtag.users.each do |m| %>
+            <li><%= link_to m.name, m %></li>
+        <% end %>
+      </ul>
+    </div>
+  </span>
+  <span class="btn-group">
+    <div class="dropdown">
+      <%= link_to 'more_vert', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
+      <ul class="dropdown-menu dropdown-menu-right">
+        <li>
+          <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, class:'', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
+        </li>
+        <li>
+          <%= link_to 'Invite people', "#", "data-toggle":'modal', "data-target":'#invite' %>
+        </li>
+        <li>
+          <%= link_to 'Edit channel' , '#', "data-toggle":'modal', "data-target":'#edit' %>
+        </li>
+      </ul>
+    </div>
+  </span>
+<% else %>
+  <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
+<% end %>

@@ -12,7 +12,7 @@ RSpec.describe User do
   it 'can login' do
     visit "/login/#{user.id}"
 
-    expect(page).to have_content 'asd asd'
+    expect(page).to have_content 'asd'
     expect(page).to have_content 'Logout'
   end
 
@@ -27,7 +27,7 @@ RSpec.describe User do
   it 'is directed to three hash if less than three intrests' do
     visit "/login/#{user.id}"
 
-    expect(page).to have_content 'asd asd'
+    expect(page).to have_content 'asd'
     expect(page).to have_content 'Tell us about yourself!'
   end
 end
