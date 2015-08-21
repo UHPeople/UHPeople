@@ -1,8 +1,8 @@
 <% if @user_has_tag %>
   <span class="btn-group">
     <div class="dropdown">
-      <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
-      <ul class="dropdown-menu dropdown-menu-right">
+      <%= link_to 'group', "#", class:"material-icons md-36 dropdown-toggle icon-color", "data-toggle":"dropdown" %>
+      <ul class="dropdown-menu dropdown-menu-right scrollable">
         <li class="dropdown-header">Members</li>
         <% @hashtag.users.each do |m| %>
             <li><%= link_to m.name, m %></li>
@@ -12,7 +12,7 @@
   </span>
   <span class="btn-group">
     <div class="dropdown">
-      <%= link_to 'more_vert', "#", class:"material-icons md-36 dropdown-toggle", "data-toggle":"dropdown" %>
+      <%= link_to 'more_vert', "#", class:"material-icons md-36 dropdown-toggle icon-color", "data-toggle":"dropdown" %>
       <ul class="dropdown-menu dropdown-menu-right">
         <li>
           <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, class:'', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>

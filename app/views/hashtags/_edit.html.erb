@@ -5,21 +5,18 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Edit channel</h4>
       </div>
-      <div class="modal-body">
-    		<p></p>
-
-        <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
+      <%= form_for @hashtag, html: { multipart: true }, url: { tag: @hashtag.tag } do |f| %>
+        <div class="modal-body">
           <div class="form-group">
             <%= f.label(:topic, "Channel description")%>
             <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
             <%= f.label(:cover_photo, "Background image")%>
             <%= f.file_field :cover_photo, id: 'cover_photo' %>
           </div>
-
-          <%= f.submit value: "Update", class: 'btn btn-sm btn-primary btn-xs' %>
+        </div>
+        <div class="modal-footer">
+          <%= f.submit value: "Update", class: 'btn btn-primary' %>
         <% end %>
-      </div>
-      <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

@@ -5,7 +5,7 @@
       <h1 class="user-position">
         <%= @user.name %>
         <% if @user == current_user %>
-          <%= link_to "Update", edit_user_path(current_user), method: :get, class: "btn btn-default" %>
+          <%= link_to "edit", edit_user_path(current_user), method: :get, class: "material-icons" %>
         <% end %>
       </h1>
       <p><%= @user.email %></p>

@@ -13,7 +13,7 @@ RSpec.describe Hashtag do
     end
 
     it 'has send button' do
-      expect(find('//form/div/span/input')).to have_content ''
+      expect(find('//form/div/span/button')).to have_content ''
     end
 
     context 'messages' do
@@ -41,7 +41,7 @@ RSpec.describe Hashtag do
 
     it 'can send a message', js: true do
       fill_in('input-text', with: 'Hello world!')
-      click_button('Send')
+      click_button('send')
 
       expect(page).to have_content('Hello world!')
     end

@@ -59,7 +59,8 @@ html body {
 }
 
 .navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
-  background-color: $color-400 !important;
+  //background-color: $color-400 !important;
+  background-color: transparent !important;
 }
 
 h2, h3 {
@@ -136,4 +137,13 @@ a.notif-link:hover {
 
 .type3 {
   background-color: $type3 !important;
+}
+
+.icon-color{
+  color: $fallback-negative;
+}
+
+.btn-success{
+  background-color: $primary !important;
+  color: $white !important;
 }
