@@ -119,7 +119,7 @@ class HashtagsController < ApplicationController
   end
 
   def leave_and_destroy
-    if @hashtag.users.count == 1
+    if @hashtag.user_hashtags.count == 1
       current_user.hashtags.destroy(@hashtag)
       request.env['chat.leave_callback'].call(current_user, @hashtag)
 
