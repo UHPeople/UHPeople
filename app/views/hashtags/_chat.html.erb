@@ -33,7 +33,9 @@
       <input  id="user-id" type="hidden" value="<%= current_user.id %>"/>
 
       <span class="input-group-btn">
-        <%= submit_tag('Send', class: 'btn btn-default btn-borderless', id: 'chat-send') %>
+        <%= button_tag(type:'submit', class: 'btn btn-default btn-borderless', id: 'chat-send') do %>
+          <i class="material-icons md-30 icon-color send-hover">send</i>
+        <% end %>
       </span>
     </div>
   </form>

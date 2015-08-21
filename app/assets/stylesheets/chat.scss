@@ -185,6 +185,17 @@
   border-bottom: 0 !important;
   border-radius: 0 !important;
   height: 50px;
+  padding-left: 18px !important;
+  padding-right: 18px !important;
+}
+.input-group-btn > .btn-borderless:hover{
+  background-color: $white;
+}
+
+.input-group-btn > .btn-borderless{
+  .send-hover:hover{
+    color: $black;
+  }
 }
 
 .input-group.input-chat {
