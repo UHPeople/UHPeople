@@ -14,8 +14,7 @@ script:
  - bundle exec rake db:migrate --trace
  - RAILS_ENV=test bundle exec rake db:migrate --trace
  - bundle exec rake db:test:prepare
- - xvfb-run --server-args="-screen 0 1024x768x24"
- - bundle exec rspec -fd spec/
+ - xvfb-run --server-args="-screen 0 1024x768x24" bundle exec rspec -fd spec/
 
 deploy:
   provider: heroku
