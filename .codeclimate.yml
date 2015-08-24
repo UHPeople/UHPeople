@@ -1,0 +1,13 @@
+engines:
+  rubocop:
+    enabled: true
+  csslint:
+    enabled: true
+
+exclude_paths:
+- spec/**/*
+- vendor/**/*
+- rails_autolink-1.1.6/**/*
+- app/assets/javascripts/joyride/**/*
+- app/assets/stylesheets/joyride/**/*
+- app/assets/stylesheets/masonry/**/*
