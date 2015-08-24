@@ -28,11 +28,7 @@ $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
 		$(".notif-count").remove();
 		$(".notif-icon").css("color", "#fff");
-
-		var bricks = document.getElementsByClassName("box");
-		for (var i = bricks.length; i > 0; i--) {
-			$.post("notifications/" + bricks[0].id);
-		}
+		$.post("notifications/seen");
 	}
 });
 

@@ -1,19 +1,14 @@
 class NotificationsController < ApplicationController
   before_action :require_login
-  before_action :set_notification, only: [:hide, :read]
+  before_action :set_notification, only: [:seen]
 
   def index
     @notifications = current_user.notifications.all.order('created_at desc').first(20)
   end
 
-  def hide
-    @notif.update_attribute(:visible, false)
+  def seen
+    current_user.notifications.each { |notif| notif.update_attribute(:visible, false) }
     redirect_to notifications_path
-  end
-
-  def read
-    @notif.update_attribute(:visible, false)
-    redirect_to hashtag_path(@notif.tricker_hashtag.tag)
   end
 
   private
