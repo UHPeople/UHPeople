@@ -145,5 +145,11 @@ main > .container {
   padding-bottom: 10px;
 }
 
+.about-headers {
+  h2 {
+    text-transform: none;
+  }
+}
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap-custom';
