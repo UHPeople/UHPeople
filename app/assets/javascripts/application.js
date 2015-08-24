@@ -22,28 +22,15 @@ $('.nav-tabs a').on('shown.bs.tab', function(e) {
 	window.scrollTo(0, 0);
 
 	$.post("/tab/" + e.target.text);
-})
+});
 
-function clearAllMasonryBricks() {
-	var bricks = document.getElementsByClassName("box");
-	for (var i = bricks.length; i > 0; i--) {
-		$.post("notifications/" + bricks[0].id);
-		$('#masonry-container').masonry('remove', bricks[0]);
-		$('#masonry-container').masonry();
-		notifCounter();
+$(document).ready(function() {
+	if ($(location).attr('pathname').indexOf("notifications") > -1) {
+		$(".notif-count").remove();
+		$(".notif-icon").css("color", "#fff");
+		$.post("notifications/seen");
 	}
-};
-
-function notifCounter() {
-	$(".notif-count").text(function(i, t) {
-		if (t > 1) {
-			return Number(t) - 1;
-		} else {
-			setupNoNotif();
-			return ""
-		}
-	});
-}
+});
 
 function chatComplete() {
 	$('input.mentions').atwho({
@@ -77,32 +64,20 @@ function topicComplete(){
 	});
 }
 
-
-function setupNoNotif() {
-	$(".clearAll").remove();
-	$(".notif-icon").css("color", "#fff");
-	$(".empty-notif").append("You don't have any new notifications.");
-}
-
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {
-
 		$('#feed-onboard').joyride({
 			autoStart: true,
 			modal: true,
 			expose: true
 		});
-
 	} else if ($(location).attr('pathname').indexOf("edit") > -1) {
-
 		$('#new-user-onboard').joyride({
 			autoStart: true,
 			modal: true,
 			expose: true
 		});
-
 	} else if ($(location).attr('pathname').indexOf("hashtag") > -1) {
-
 		$('#hashtag-onboard').joyride({
 			autoStart: true,
 			modal: true,
@@ -131,10 +106,10 @@ if ($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('path
 var ready = function() {
 	$('#masonry-container').masonry({
 		itemSelector: '.box',
+		"isOriginTop": true
 		//columnWidth: 100,
 		//isAnimated: !Modernizr.csstransitions,
-		"isOriginTop": true
-			//isRTL: true
+		//isRTL: true
 	});
 
 	$(function() {
@@ -143,20 +118,9 @@ var ready = function() {
 		}, 5000);
 	});
 
-
 	$('.star').hover(function() {
 		$(this).toggleClass("glyphicon-star-empty");
 		$(this).toggleClass("glyphicon-star");
-	});
-
-	$('.notif > .alert .close').click(function(e) {
-		//$(this).parent().remove();
-		var box = $(this).parent().get(0).id;
-		$.post("notifications/" + box);
-		$('#masonry-container').masonry('remove', $(this).parent(".box"));
-		$('#masonry-container').masonry();
-
-		notifCounter();
 	});
 
 	$('span.timestamp').each(function() {

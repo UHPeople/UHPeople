@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="col-xs-12 col-sm-8">
+    <div id="about" class="about-headers">
+      <h2>About UHPeople</h2>
+
+      UHPeople started as a Software Engineering Project on Department of Computer Science in University of Helsinki.
+      UHPeople is an internal social networking service, which increases collaboration between its users and gives them the possibility to network, share thoughts through interests among the academic community of those working and studying in University of Helsinki.
+
+      <div id="contact">
+        <h2>Contact</h2>
+        <p>Contact developers by sending e-mail to <a href="mailto:uh.people@helsinki.fi" target="_top">uh.people@helsinki.fi</a></p>
+        <p>You can also send feedback on <%= link_to '#feedback', hashtag_path('feedback')%> and report problems on <%= link_to '#bug', hashtag_path('bug')%> channels.</p>
+      </div>
+
+      <div id="team">
+        <h2>Team</h2>
+        <p>Team leader: <%= link_to '@Tiina Kosunen', user_path(6)%></p>
+        <p>Developers: <%= link_to '@Oskari Jokinen', user_path(3)%>, <%= link_to '@Marko Mäkinen', user_path(2)%>, <%= link_to '@Robert Valta', user_path(5)%>, <%= link_to '@Krista Väänänen', user_path(4)%>, <%= link_to '@Riku Walve', user_path(1)%></p>
+      </div>
+
+      <div id="legal_stuff">
+        <h2>&nbsp;</h2>
+        <p>UHPeople on <%= link_to 'GitHub', 'https://github.com/UHPeople/UHPeople'%></p>
+        <p>The UHPeople source code is distributed under the <%= link_to 'MIT License', 'http://opensource.org/licenses/MIT' %>.</p>
+        <p>Copyright (c) 2015 <%= link_to 'The University of Helsinki', 'http://www.helsinki.fi/' %></p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

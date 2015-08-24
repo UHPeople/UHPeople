@@ -19,20 +19,13 @@ RSpec.describe 'Notifications page' do
     expect(page).to have_content 'asd asd has invited you to join #avantouinti'
   end
 
-  it 'has notification disappeard when clicked', js: true do
-    visit '/notifications'
-    find('.close', visible: true).click
-    expect(page).to have_content "You don't have any new notifications."
-  end
-
-  it 'has count of unread notification in nav bar' do
-    visit '/notifications'
+  it 'resets unread notification count', js: true do
+    visit '/feed'
     expect(page).to have_content('1')
-  end
 
-  it 'has count of unread notification in nav bar disappears if none', js: true do
     visit '/notifications'
-    find('.close', visible: true).click
-    expect(page).not_to have_content('1')
+
+    visit '/feed'
+    expect(page).to_not have_content('1')
   end
 end

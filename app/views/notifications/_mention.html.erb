@@ -1,14 +1,10 @@
-<div id="<%= notification.id %>" class="box col-xs-12 col-md-8 alert alert-success alert-dismissible type3" role="alert">
-	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-		<span aria-hidden="true">&times;</span>
-	</button>
-
+<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type3 <%= "notification-seen" if not notification.visible %>" role="alert">
 	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
 	mentioned you at
   <% if notification.tricker_hashtag != nil %>
-      <%= link_to '#'+notification.tricker_hashtag.tag, "/notifications/#{notification.id}/read", class: 'alert-link' %>
+    <%= link_to '#'+notification.tricker_hashtag.tag, "/notifications/#{notification.id}/read", class: 'alert-link' %>
   <% else %>
-      *deleted channel*
+    *deleted channel*
   <% end %>
 
   <span class="timestamp"><%= notification.created_at.strftime('%Y-%m-%dT%H:%M:%S') %></span>

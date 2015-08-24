@@ -21,14 +21,14 @@ hashtags = new Bloodhound(
     ttl: 1)
 
 addNotice = (name, avatar) ->
-  $('.modal-body').append '' +
+  $('.invite-modal').append '' +
     '<div class="alert alert-success alert-dismissible invite-notice" role="alert" style="display: none;">' +
       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
         '<span aria-hidden="true">&times;</span>' +
       '</button>' +
       '<div>' +
         '<span>' + name + ' invited</span>' +
-        '<img class="img-circle" src="' + avatar + '"></img>' +
+        '<a href="#"><img class="img-circle" src="' + avatar + '"></img></a>' +
       '</div>' +
     '</div>'
   
@@ -60,11 +60,11 @@ makeSexy = ->
       data: form.serialize()
       dataType: 'JSON'
     ).done((json) ->
-        form.children('span').append '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
-        form.parent().addClass 'has-success'
-        addNotice json['name'], json['avatar']
+      form.children('.input-group').children('.twitter-typeahead').append '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
+      form.parent().addClass 'has-success'
+      addNotice json['name'], json['avatar']
     ).fail ->
-      form.children('span').append '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
+      form.children('.input-group').children('.twitter-typeahead').append '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
       form.parent().addClass 'has-error'
     false
 

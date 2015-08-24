@@ -17,6 +17,26 @@
 @import 'jquery.atwho';
 @import 'material_icons';
 
+.notification-seen {
+  opacity: 0.5;
+}
+
+.notification-seen:hover {
+  opacity: 1;
+}
+
+form > .input-group > .input-group-btn > .btn-default {
+  margin-top: -4px;
+}
+
+.modal-body > div {
+  padding-top: 0;
+  margin-top: -5px;
+}
+
+.modal-body > div > button {
+  margin-top: 5px;
+}
 
 
 main > .container {
@@ -39,6 +59,12 @@ main > .container {
 .hashtag_topic {
   font-size: 90%;
   font-weight: normal;
+}
+
+.hashtag_topicker {
+  font-size: 65%;
+  font-weight: normal;
+  font-style: italic;
 }
 
 // Jumbotron material desing
@@ -91,7 +117,7 @@ main > .container {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
-#collapseAlert{
+#collapseAlert {
   margin-bottom: 0;
 }
 
@@ -102,20 +128,27 @@ main > .container {
 .modal-header {
   border-bottom: 0 solid #fff;
 }
-.autoModal.modal {
 
-    max-width: 100%;
+.autoModal.modal {
+  max-width: 100%;
 }
-.modal-dialog.autoModal{
+
+.modal-dialog.autoModal {
   width: 80%;
   height: 80%;
-
 }
-.modal-image{
+
+.modal-image {
   height: 60vh;
   background-repeat: no-repeat;
   background-size: contain;
   padding-bottom: 10px;
+}
+
+.about-headers {
+  h2 {
+    text-transform: none;
+  }
 }
 
 @import 'bootstrap-sprockets';
