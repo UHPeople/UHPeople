@@ -5,7 +5,7 @@
     <p>
       <% unless @hashtag.topic.nil? && @hashtag.topic.blank? %>
         <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) %>
-          <span class="hashtag_topicker"> Udated by <b><%= @topicker.name %></b> on <%= @hashtag.updated_at.strftime('%b %e %Y, %H:%M') %></span>
+          <span class="hashtag_topicker"> Updated by <b><%= @topicker.name %></b> on <span class="timestamp"><%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') %></span></span>
       <% end %>
     </p>
   </div>
