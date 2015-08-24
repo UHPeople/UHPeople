@@ -35,7 +35,7 @@ RSpec.describe 'Search page' do
     hashtag.update_attribute('tag', hashtag.tag+'2')
     hashtag2 = FactoryGirl.create(:hashtag)
 
-    visit "/search?search=#{hashtag2.tag}"
+    visit "/search?search=#{hashtag.tag}"
     first("//div[@id='hashtags']/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
