@@ -5,13 +5,16 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Invite</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body invite-modal">
     		<p>Invite friends and colleques to your interest!</p>
   	
       	<%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.", id: 'invite-form') do %>
-    			<%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'form-control typeahead-invite' %>
-
-      			<%= submit_tag('Invite', class: 'btn btn-primary') %>
+          <div class="input-group">
+            <%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'form-control typeahead-invite' %>
+            <span class="input-group-btn">
+          		<%= submit_tag('Invite', class: 'btn btn-default') %>
+            </span>
+          </div>
 				<% end %>
       </div>
       <div class="modal-footer">

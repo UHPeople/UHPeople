@@ -17,6 +17,18 @@
 @import 'jquery.atwho';
 @import 'material_icons';
 
+form > .input-group > .input-group-btn > .btn-default {
+  margin-top: -4px;
+}
+
+.modal-body > div {
+  padding-top: 0;
+  margin-top: -5px;
+}
+
+.modal-body > div > button {
+  margin-top: 5px;
+}
 
 
 main > .container {
@@ -97,7 +109,7 @@ main > .container {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
-#collapseAlert{
+#collapseAlert {
   margin-bottom: 0;
 }
 
@@ -108,16 +120,17 @@ main > .container {
 .modal-header {
   border-bottom: 0 solid #fff;
 }
-.autoModal.modal {
 
-    max-width: 100%;
+.autoModal.modal {
+  max-width: 100%;
 }
-.modal-dialog.autoModal{
+
+.modal-dialog.autoModal {
   width: 80%;
   height: 80%;
-
 }
-.modal-image{
+
+.modal-image {
   height: 60vh;
   background-repeat: no-repeat;
   background-size: contain;
