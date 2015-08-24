@@ -18,6 +18,8 @@ class SearchController < ApplicationController
     @hashtags_topic_match = Hashtag.where('topic ilike ?', "%#{@search}%").order('tag ASC')
     @hashtags_topic_match = (@hashtags_topic_match - @hashtags)
 
+    redirect_to @users.first if (@hashtags.nil? or @hashtags.empty?) and @users.count == 1
+    redirect_to hashtag_path(@hashtags.first.tag) if (@users.nil? or @users.empty?) and @hashtags.count == 1
   end
 
   private
