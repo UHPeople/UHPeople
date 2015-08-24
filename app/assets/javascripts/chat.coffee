@@ -75,6 +75,7 @@ ready = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
+  # page unload uses ajax unasync
   $.post "/update_last_visit/" + hashtag
 
   ws.onopen = ->
@@ -129,14 +130,8 @@ ready = ->
         type: 'POST',
         async: false,
         url: '/update_last_visit/' + $('#hashtag-id')[0].value
-    });
-    console.log "last visit updated" 
-
-
-
-
-
-
+    })
+    console.log "last visit updated"
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

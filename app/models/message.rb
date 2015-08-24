@@ -38,10 +38,11 @@ class Message < ActiveRecord::Base
     json = { 'event': 'message',
              'content': formatted_content,
              'hashtag': hashtag_id,
+             'hashtag_name': hashtag.tag,
              'user': user_id,
              'username': user.name,
              'timestamp': timestamp,
-             'avatar': user.profile_picture_url }
+             'avatar': user.profile_picture_url}
 
     JSON.generate json
   end

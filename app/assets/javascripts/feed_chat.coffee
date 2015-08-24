@@ -4,11 +4,10 @@ add_message = (data) ->
   if size >= 5
     $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
-  hashtag_name = $('td a#' + data.hashtag).text()
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
   $('#feed').prepend ''+
-    '<div class="feed-chat-box">' + 
+    '<div class="feed-chat-box">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -23,7 +22,7 @@ add_message = (data) ->
     '</div>'
 
   $('div.panel.fav#box-' + data.hashtag).append ''+
-    '<div class="panel-body fav">' + 
+    '<div class="panel-body fav">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
           '<img class="img-circle" src="' + data.avatar + '"></img>' +
@@ -41,7 +40,7 @@ add_message = (data) ->
     '</div>'
 
   $('#masonry-container').masonry()
-  
+
 ready = ->
   if not $('#feed').length
     return
@@ -58,7 +57,7 @@ ready = ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    
+
     if data.event == 'message'
       add_message data
     else if data.event == 'notification'
