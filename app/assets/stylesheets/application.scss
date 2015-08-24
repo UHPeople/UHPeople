@@ -21,6 +21,10 @@
   opacity: 0.5;
 }
 
+.notification-seen:hover {
+  opacity: 1;
+}
+
 form > .input-group > .input-group-btn > .btn-default {
   margin-top: -4px;
 }

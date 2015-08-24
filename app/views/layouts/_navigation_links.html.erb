@@ -10,7 +10,6 @@
 </li>
 
 <li class="dropdown">
-
   <a href="#" class="dropdown-toggle hidden-xs", data-toggle="dropdown" role="button" aria-expanded="false">
     	<%= current_user.name.partition(" ").first %>
     	<span class="caret"></span>
@@ -26,7 +25,6 @@
     <% end %>
 
     <li><%= link_to "Invite", "/invite" %></li>
-
     <li><%= link_to "Logout", "/logout" %></li>
   </ul>
 </li>
