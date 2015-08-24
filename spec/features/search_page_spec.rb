@@ -18,7 +18,8 @@ RSpec.describe 'Search page' do
   end
 
   it 'finds user with exact match' do
-    user.update_attribute('username', 'asd2')
+    user.update_attribute('username', user.username + '2')
+    user.update_attribute('name', user.name + '2')
     FactoryGirl.create(:user)
 
     visit "/search?search=#{user.name}"
@@ -35,13 +36,13 @@ RSpec.describe 'Search page' do
     hashtag.update_attribute('tag', hashtag.tag+'2')
     hashtag2 = FactoryGirl.create(:hashtag)
 
-    visit "/search?search=#{hashtag.tag}"
+    visit "/search?search=#{hashtag2.tag}"
     first("//div[@id='hashtags']/h4/a").click
-    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
+    expect(page.current_path).to eq "/hashtags/#{hashtag2.tag}"
   end
 
   it 'finds hashtag with non-exact match' do
-    visit '/search?search=a'
+    visit '/search?search=' + hashtag.tag[0]
     find("//div[@id='hashtags']/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
@@ -59,14 +60,16 @@ RSpec.describe 'Search page' do
     expect(page).to have_content "Search results for channels: ##{hashtag2.tag}"
   end
 
-  it 'redirects to single hashtag' do
-    visit "/search?search=#{hashtag.tag}"
-    expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
-  end
+  describe 'redirects to' do
+    it 'single hashtag' do
+      visit "/search?search=#{hashtag.tag}"
+      expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
+    end
 
-  it 'redirects to single user' do
-    visit "/search?search=#{user.name}"
-    expect(page.current_path).to eq "/users/#{user.id}"
+    it 'single user' do
+      visit "/search?search=#{user.name}"
+      expect(page.current_path).to eq "/users/#{user.id}"
+    end
   end
 
   describe 'on search results' do
