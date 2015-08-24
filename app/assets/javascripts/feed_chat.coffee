@@ -6,6 +6,13 @@ add_message = (data) ->
 
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
+  $('td a#' + data.hashtag + ' .unread').text (i, t) ->
+    if t > 1
+      Number(t) + 1
+    else
+      setupNoNotif()
+      ''
+
   $('#feed').prepend ''+
     '<div class="feed-chat-box">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -14,7 +21,7 @@ add_message = (data) ->
       '<div class="message">' +
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-          '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
+          '<a href="/hashtags/' + data.hashtag_name + '">' + data.hashtag_name + '</a>' +
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
@@ -30,7 +37,7 @@ add_message = (data) ->
         '<div class="message">' +
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-            '<a href="/hashtags/' + hashtag_name + '">' + hashtag_name + '</a>' +
+            '<a href="/hashtags/' + data.hashtag_name + '">' + data.hashtag_name + '</a>' +
             '<br/>' +
             '<span class="timestamp">' + timestamp + '</span>' +
           '</h5>' +
