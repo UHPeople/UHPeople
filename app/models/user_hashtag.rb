@@ -11,7 +11,4 @@ class UserHashtag < ActiveRecord::Base
   def unread_messages
     self.hashtag.messages.where("created_at > ?", self.last_visited).count  if self.last_visited
   end
-
-
-
 end
