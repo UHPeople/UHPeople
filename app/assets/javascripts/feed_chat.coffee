@@ -6,12 +6,15 @@ add_message = (data) ->
 
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
-  $('td a#' + data.hashtag + ' .unread').text (i, t) ->
-    if t > 1
-      Number(t) + 1
-    else
-      setupNoNotif()
-      ''
+  if $('td a#' + data.hashtag + ' .unread').html() == undefined
+      $('td a#' + data.hashtag).append '(<span class="unread">1</span>)'
+  else
+    $('td a#' + data.hashtag + ' .unread').text (i, t) ->
+      if t > 1
+        Number(t) + 1
+      else
+        setupNoNotif()
+        ''
 
   $('#feed').prepend ''+
     '<div class="feed-chat-box">' +
