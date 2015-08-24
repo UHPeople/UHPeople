@@ -6,14 +6,13 @@ add_message = (data) ->
 
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
-  if $('td a#' + data.hashtag + ' .unread').html() == undefined
+  if !$('td a#' + data.hashtag).children().hasClass('unread')
       $('td a#' + data.hashtag).append '(<span class="unread">1</span>)'
   else
     $('td a#' + data.hashtag + ' .unread').text (i, t) ->
-      if t > 1
+      if t > 0
         Number(t) + 1
       else
-        setupNoNotif()
         ''
 
   $('#feed').prepend ''+
