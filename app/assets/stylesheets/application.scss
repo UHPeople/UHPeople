@@ -17,6 +17,10 @@
 @import 'jquery.atwho';
 @import 'material_icons';
 
+.notification-seen {
+  opacity: 0.5;
+}
+
 form > .input-group > .input-group-btn > .btn-default {
   margin-top: -4px;
 }
