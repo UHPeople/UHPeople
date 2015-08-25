@@ -2,13 +2,20 @@
   <div class="visible-xs toolbar pull-right">
     <%= render 'channel_buttons' %>
   </div>
+  <%= javascript_tag do %>
+    var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
+    var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
+  <% end %>
+
   <div class="chatbox interest-chatbox">
-    <% @messages.each do |message| %>
-      <div class="panel-body">
+    <% @messages.each_with_index do |message, index| %>
+      <% if !@messages[index - 1].nil? && message.created_at > @lastvisit && @messages[index-1].created_at <= @lastvisit %>
+        <div class='line text-center'><span>Since<span class="timestamp"><%=message.timestamp %></span></span></div>
+      <% end %>
+      <div class="panel-body <%= "unread_messages" if message.created_at > @lastvisit %>">
         <a class="avatar-link" href="<%= user_path(message.user) %>">
           <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
         </a>
-
         <div class="message">
           <h5>
             <%= link_to message.user.name, message.user %>
@@ -19,12 +26,6 @@
       </div>
     <% end %>
   </div>
-
-  <%= javascript_tag do %>
-    var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
-    var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
-  <% end %>
-
   <form>
     <div class="panel-footer input-group input-chat">
       <input  autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>

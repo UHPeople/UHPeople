@@ -76,7 +76,7 @@ ready = ->
   user = $('#user-id')[0].value
 
   # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
+  #$.post "/update_last_visit/" + hashtag
 
   ws.onopen = ->
     ws.send JSON.stringify
@@ -125,13 +125,13 @@ ready = ->
 
     $('#input-text')[0].value = ''
 
-  $(window).on 'beforeunload', ->
+  ###$(window).on 'beforeunload', ->
     $.ajax({
         type: 'POST',
         async: false,
         url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
-    console.log "last visit updated"
+    console.log "last visit updated"###
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
