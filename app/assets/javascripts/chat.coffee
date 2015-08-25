@@ -13,6 +13,10 @@ scroll_to_bottom = ->
       scrollTop: height
     }, 800
 
+move_to_bottom = ->
+  if !(window.location.hash)
+    $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
+
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
 
@@ -71,8 +75,7 @@ ready = ->
   if not $('#hashtag-id').length
     return
 
-  #scroll_to_bottom()
-  $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
+  move_to_bottom()
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
