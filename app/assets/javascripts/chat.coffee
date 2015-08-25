@@ -66,10 +66,10 @@ add_message = (data) ->
   scroll_to_bottom()
 
 add_member = (data) ->
-  $('.nav-list ul').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
+  $('.nav-list').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
 
 remove_member = (data) ->
-  $('.nav-list ul li#' + data.user).remove()
+  $('.nav-list li#' + data.user).remove()
 
 ready = ->
   if not $('#hashtag-id').length
