@@ -1,8 +1,19 @@
 set_online = (id) ->
-  $('.nav-list li#' + id).addClass('online')
+  $('.nav-list li.member-' + id).addClass('online')
 
 set_all_offline = (id) ->
   $('.nav-list li').removeClass('online')
+
+add_member = (data) ->
+  element = ''+
+    '<li class="member-' + data.user + '">'+
+      '<a href="/users/' + data.user + '">' + data.username + '</a>' +
+    '</li>'
+
+  $('.nav-list').append(element)
+
+remove_member = (data) ->
+  $('.nav-list li.member-' + data.user).remove()
 
 scroll_to_bottom = ->
   chatbox = $('.chatbox')
@@ -13,7 +24,7 @@ scroll_to_bottom = ->
       scrollTop: height
     }, 800
 
-move_to_bottom = ->
+move_to_message = ->
   if !(window.location.hash)
     $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
 
@@ -21,20 +32,25 @@ compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
 
 compare_status = (a, b) ->
-  if (a.className == "online")
-    if (b.className == "online")
+  if (a.classList.contains("dropdown-header"))
+    return -1
+  else if (b.classList.contains("dropdown-header"))
+    return 1
+
+  if (a.classList.contains("online"))
+    if (b.classList.contains("online"))
       return 0
     else
       return -1
-  else if (b.className == "online")
+  else if (b.classList.contains("online"))
     return 1
+  else
+    return 0
 
-sort_members = ->
-  list = $('ul.nav-list')
-
+sort_members = (list) ->
   items = list.children('li').get()
   items.sort (a, b) ->
-    if a.className != b.className
+    if a.classList != b.classList
       compare_status(a, b)
     else
       compare_text(a, b)
@@ -65,23 +81,20 @@ add_message = (data) ->
 
   scroll_to_bottom()
 
-add_member = (data) ->
-  $('.nav-list').append('<li id="' + data.user + '"><a href="/users/' + data.user + '">' + data.username + '</a></li>')
-
-remove_member = (data) ->
-  $('.nav-list li#' + data.user).remove()
-
 ready = ->
   if not $('#hashtag-id').length
     return
 
-  move_to_bottom()
+  move_to_message()
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
 
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
+
+  members_list = $('ul.nav-list:not(.dropdown-menu)')
+  members_list_dropdown = $('ul.nav-list.dropdown-menu')
 
   # page unload uses ajax unasync
   $.post "/update_last_visit/" + hashtag
@@ -107,10 +120,12 @@ ready = ->
     else if data.event == 'online'
       set_all_offline()
       set_online id for id in data.onlines
-      sort_members()
+      sort_members(members_list)
+      sort_members(members_list_dropdown)
     else if data.event == 'join'
       add_member data
-      sort_members()
+      sort_members(members_list)
+      sort_members(members_list_dropdown)
     else if data.event == 'leave'
       remove_member data
     else if data.event == 'notification'
@@ -135,10 +150,11 @@ ready = ->
 
   $(window).on 'beforeunload', ->
     $.ajax({
-        type: 'POST',
-        async: false,
-        url: '/update_last_visit/' + $('#hashtag-id')[0].value
+      type: 'POST',
+      async: false,
+      url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
+
     console.log "last visit updated"
 
 $(document).ready(ready)
