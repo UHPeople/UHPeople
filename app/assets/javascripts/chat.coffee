@@ -5,9 +5,13 @@ set_all_offline = (id) ->
   $('.nav-list li').removeClass('online')
 
 scroll_to_bottom = ->
-  $('.chatbox').stop().animate {
-    scrollTop: $('.chatbox')[0].scrollHeight
-  }, 800
+  chatbox = $('.chatbox')
+  height = chatbox[0].scrollHeight
+
+  if ((height - chatbox[0].scrollTop) < 600)
+    chatbox.stop().animate {
+      scrollTop: height
+    }, 800
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
@@ -67,7 +71,8 @@ ready = ->
   if not $('#hashtag-id').length
     return
 
-  scroll_to_bottom()
+  #scroll_to_bottom()
+  $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
