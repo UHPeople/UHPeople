@@ -151,5 +151,10 @@ main > .container {
   }
 }
 
+.search-small-font {
+  font-size: 80%;
+  font-style: italic;
+}
+
 @import 'bootstrap-sprockets';
 @import 'bootstrap-custom';

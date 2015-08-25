@@ -11,7 +11,7 @@ class HashtagsController < ApplicationController
         render json: 'Not logged in' && return if current_user.nil?
 
         tags = Hashtag.all.collect do |tag|
-          { id: tag.id, tag: tag.tag }
+          { id: tag.id, tag: tag.tag, topic: tag.topic.nil? ? nil : tag.topic.truncate(30, separator: ' ') }
         end
 
         render json: tags

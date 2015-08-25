@@ -12,7 +12,8 @@ class UsersController < ApplicationController
         render(json: 'Not logged in') && return if current_user.nil?
 
         users = @users.collect do |user|
-          { id: user.id, name: user.name, avatar: user.profile_picture_url }
+          # truncate(user.about, :length => 20, :separator => ' ')
+          { id: user.id, name: user.name, about: user.about.nil? ? nil : user.about.truncate(20, separator: ' '), avatar: user.profile_picture_url }
         end
 
         render json: users
