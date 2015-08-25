@@ -24,8 +24,8 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
-    @lastvisit_index = @messages.count - get_lastvisit_index
-    @lastvisit_date = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
+    @lastvisit_index = current_user_unread_messages(@messages.count)
+    @lastvisit_date = current_user_last_visited
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
@@ -158,12 +158,18 @@ class HashtagsController < ApplicationController
       @topicker = nil
   end
 
-  def get_lastvisit_index
-    cur_last_v = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited
+  def current_user_last_visited
+    current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).nil? || current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.nil? ? Time.now.strftime('%Y-%m-%dT%H:%M:%S') : current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
+  end
 
-    return @hashtag.messages.length if cur_last_v.nil?
-    @hashtag.messages.reverse.each_with_index{ |message, index|
-      return index if message.created_at <= cur_last_v || index == 20
-    }
+  def current_user_unread_messages(count)
+    if current_user.hashtags.include? @hashtag
+      curre = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
+      count -= curre.nil? || curre.unread_messages.nil? ? 0 : curre.unread_messages
+      return 0 if count < 0
+      count
+    else
+      count
+    end
   end
 end
