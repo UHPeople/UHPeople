@@ -4,25 +4,38 @@
   </div>
   <div class="chatbox interest-chatbox">
     <% @messages.each do |message| %>
-      <div class="panel-body">
-        <a class="avatar-link" href="<%= user_path(message.user) %>">
-          <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
-        </a>
+        <div class="panel-body">
+          <a class="avatar-link" href="<%= user_path(message.user) %>">
+            <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
+          </a>
 
-        <div class="message">
-          <h5>
-            <%= link_to message.user.name, message.user %>
-            <span class="timestamp"><%= message.timestamp %></span>
-          </h5>
-          <%= message.formatted_content %><br>
+          <div class="message">
+            <h5>
+              <%= link_to message.user.name, message.user %>
+              <span class="timestamp"><%= message.timestamp %></span>
+            </h5>
+            <%= message.formatted_content %><br>
+
+            <%= message.likes.count %>
+            <form>
+              <div>
+                <input  id="message-id" type="hidden" value="<%= message.id %>"/>
+      <span class="input-group-btn">
+        <%= button_tag(type:'submit', class: 'btn btn-default btn-borderless btn-sm', id: 'like-this') do %>
+          <i class="material-icons md-10 icon-color send-hover">thumb_up</i>
+        <% end %>
+      </span>
+              </div>
+            </form>
+
+          </div>
         </div>
-      </div>
     <% end %>
   </div>
 
   <%= javascript_tag do %>
-    var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
-    var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
+      var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
+      var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
   <% end %>
 
   <form>

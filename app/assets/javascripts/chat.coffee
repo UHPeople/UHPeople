@@ -133,5 +133,18 @@ ready = ->
     })
     console.log "last visit updated"
 
+  $('#like-this').on 'click', (event) ->
+    event.preventDefault()
+
+    message_id = $('#message-id')[0].value
+
+    ws.send JSON.stringify
+      event: 'like'
+      id: message_id
+      user: user
+
+  $.post "/like_this/" + message_id
+
+
 $(document).ready(ready)
 $(document).on('page:load', ready)
