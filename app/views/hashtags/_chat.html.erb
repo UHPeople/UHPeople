@@ -8,24 +8,14 @@
   <% end %>
 
   <div class="chatbox interest-chatbox">
-    <% @messages.each_with_index do |message, index| %>
-      <% if !@messages[index - 1].nil? && message.created_at > @lastvisit && @messages[index-1].created_at <= @lastvisit %>
-        <div class='line text-center'><span>Since<span class="timestamp"><%=message.timestamp %></span></span></div>
-      <% end %>
-      <div class="panel-body <%= "unread_messages" if message.created_at > @lastvisit %>">
-        <a class="avatar-link" href="<%= user_path(message.user) %>">
-          <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
-        </a>
-        <div class="message">
-          <h5>
-            <%= link_to message.user.name, message.user %>
-            <span class="timestamp"><%= message.timestamp %></span>
-          </h5>
-          <%= message.formatted_content %><br>
-        </div>
-      </div>
+    <% if @lastvisit_index > 0 %>
+      <%= render "messages", messages: @messages.to(@lastvisit_index - 1), bg: false %>
+    <% end %>
+    <% if @lastvisit_index < 19 %>
+      <%= render "messages", messages: @messages.from(@lastvisit_index), bg: true  %>
     <% end %>
   </div>
+
   <form>
     <div class="panel-footer input-group input-chat">
       <input  autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>

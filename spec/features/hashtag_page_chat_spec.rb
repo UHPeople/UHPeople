@@ -18,7 +18,7 @@ RSpec.describe Hashtag do
 
     context 'messages' do
       before :each do
-        FactoryGirl.create(:message, user: user, hashtag: hashtag)
+        FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
         visit hashtag_path(hashtag.tag)
       end
 

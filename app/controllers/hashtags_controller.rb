@@ -24,7 +24,8 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
-    @lastvisit = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited if @user_has_tag
+    @lastvisit_index = @messages.count - get_lastvisit_index
+    @lastvisit_date = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
@@ -155,5 +156,14 @@ class HashtagsController < ApplicationController
     @topicker = User.find(@hashtag.topic_updater_id)
     rescue
       @topicker = nil
+  end
+
+  def get_lastvisit_index
+    cur_last_v = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited
+
+    return @hashtag.messages.length if cur_last_v.nil?
+    @hashtag.messages.reverse.each_with_index{ |message, index|
+      return index if message.created_at <= cur_last_v || index == 20
+    }
   end
 end
