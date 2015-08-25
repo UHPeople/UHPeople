@@ -47,10 +47,10 @@ add_message = (data) ->
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
       '<div class="message">' +
-        '<h5>' + 
+        '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp">' + timestamp + '</span>' +
-        '</h5>' + 
+        '</h5>' +
         '<p>' + data.content + '</p>' +
       '</div>' +
     '</div>'
@@ -71,9 +71,12 @@ ready = ->
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
-  
+
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
+
+  # page unload uses ajax unasync
+  $.post "/update_last_visit/" + hashtag
 
   ws.onopen = ->
     ws.send JSON.stringify
@@ -111,7 +114,7 @@ ready = ->
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
-    
+
     text = $('#input-text')[0].value
 
     ws.send JSON.stringify
@@ -121,6 +124,14 @@ ready = ->
       user: user
 
     $('#input-text')[0].value = ''
+
+  $(window).on 'beforeunload', ->
+    $.ajax({
+        type: 'POST',
+        async: false,
+        url: '/update_last_visit/' + $('#hashtag-id')[0].value
+    })
+    console.log "last visit updated"
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

@@ -56,6 +56,19 @@ RSpec.describe 'Feed page' do
     end
   end
 
+  context 'Interests list' do
+    before :each do
+      create_and_visit
+    end
+
+    it 'has unread count when visiting feed', js: true do
+      visit "/users/#{user.id}"
+      FactoryGirl.create(:message, user: user, hashtag: hashtag)
+      visit "/feed"
+      expect(page).to have_content '#avantouinti (1)'
+    end
+  end
+  
   context 'favourites tab' do
     it 'is empty when no favorites' do
       create_and_visit

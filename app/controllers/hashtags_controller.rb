@@ -24,7 +24,16 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
-    @topic_button_text = 'Edit channel'
+    if @user_has_tag
+      #lastvisit = current_user.user_hashtags.find_by hashtag_id:@hashtag.id
+      #lastvisit.update_attribute(:last_visited, Time.now)
+    end
+
+    if @hashtag.topic.blank?
+      @topic_button_text = 'Add topic'
+    else
+      @topic_button_text = 'Edit topic'
+    end
   end
 
   def join
@@ -54,9 +63,9 @@ class HashtagsController < ApplicationController
 
     if request.referer and URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
-    else 
+    else
       redirect_to feed_index_path
-    end   
+    end
   end
 
   def update
@@ -85,10 +94,10 @@ class HashtagsController < ApplicationController
       hashtag = Hashtag.new tag: params[:tag]
       unless hashtag.save
         redirect_to feed_index_path, alert: 'Something went wrong!'
-        return 
+        return
       end
     end
-    
+
     current_user.hashtags << hashtag
     redirect_to hashtag_path(hashtag.tag)
   end

@@ -7,5 +7,8 @@ class UserHashtag < ActiveRecord::Base
 
   scope :favourite, -> { where(favourite: true)}
   scope :downcase_sorted, -> { includes(:hashtag).sort_by{|h| [h.favourite ? 0 : 1, h.hashtag.tag.downcase ]} }
-  
+
+  def unread_messages
+    self.hashtag.messages.where("created_at > ?", self.last_visited).count  if self.last_visited
+  end
 end

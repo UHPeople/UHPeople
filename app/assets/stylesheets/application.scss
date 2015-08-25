@@ -25,7 +25,7 @@
   opacity: 1;
 }
 
-form > .input-group > .input-group-btn > .btn-default {
+.invite-button {
   margin-top: -4px;
 }
 
@@ -143,6 +143,12 @@ main > .container {
   background-repeat: no-repeat;
   background-size: contain;
   padding-bottom: 10px;
+}
+
+.about-headers {
+  h2 {
+    text-transform: none;
+  }
 }
 
 @import 'bootstrap-sprockets';

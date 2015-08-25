@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :user_hashtags, only: [:update]
   resources :notifications, only: [:index]
   resources :photos, only: [:show, :create, :destroy, :update]
+  resources :about, only: [:index]
 
   get 'login', to: 'user#index'
   get 'login/:id', to: 'session#login'
@@ -35,4 +36,6 @@ Rails.application.routes.draw do
   post 'tab/:value', to: 'users#set_tab', as: 'tab'
 
   post 'set_first_time_use', to: 'users#set_first_time_use'
+  post 'update_last_visit/:id', to: 'user_hashtags#update_last_visit', via: 'post'
+
 end
