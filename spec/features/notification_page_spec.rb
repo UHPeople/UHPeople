@@ -28,4 +28,30 @@ RSpec.describe 'Notifications page' do
     visit '/feed'
     expect(page).to_not have_content('1')
   end
+
+  describe 'actions' do
+    it 'joins' do
+      visit '/notifications'
+      first('.type1 > .notification-actions > a').click
+      expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
+    end
+
+    it 'takes to message', js: true do
+      visit "/login/#{user.id}"
+      visit hashtag_path(hashtag.tag)
+      click_link 'Join'
+
+      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+
+      Notification.create(notification_type: 3, user: user, tricker_user: user,
+        tricker_hashtag: hashtag, message: message)
+
+      visit '/notifications'
+
+      first('.type3 > .notification-actions > a').click
+
+      expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
+      expect(URI.parse(page.current_url).fragment).to eq "#{message.id}"
+    end
+  end
 end

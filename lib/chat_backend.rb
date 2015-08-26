@@ -92,15 +92,17 @@ module UHPeople
 
     def find_mentions(message)
       message.hashtag.users.each do |user|
-        send_mention(user.id, message.user_id, message.hashtag_id) if message.content.include? "@#{user.username}"
+        send_mention(user.id, message.user_id,
+          message.hashtag_id, message) if message.content.include? "@#{user.username}"
       end
     end
 
-    def send_mention(user, tricker, hashtag)
+    def send_mention(user, tricker, hashtag, message)
       Notification.create notification_type: 3,
                           user_id: user,
                           tricker_user_id: tricker,
-                          tricker_hashtag_id: hashtag
+                          tricker_hashtag_id: hashtag,
+                          message: message
 
       notification_callback(user)
     end
