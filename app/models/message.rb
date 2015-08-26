@@ -42,10 +42,6 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def ilike_this
-
-  end
-
   def serialize
     json = { 'event': 'message',
              'content': formatted_content,

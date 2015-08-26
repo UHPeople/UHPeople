@@ -111,6 +111,10 @@ ready = ->
       count.text(t + 1)
       if t == 0
         $('.notif-link').addClass('accent')
+    else if data.event == 'like'
+      console.log(data.message)
+      add_like data
+
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
@@ -136,14 +140,11 @@ ready = ->
   $('#like-this').on 'click', (event) ->
     event.preventDefault()
 
-    message_id = $('#message-id')[0].value
-
-    ws.send JSON.stringify
-      event: 'like'
-      id: message_id
-      user: user
-
-  $.post "/like_this/" + message_id
+    $.ajax({
+      type: 'POST',
+      async: false,
+      url: '/like_this/' + $('#message-id')[0].value
+    })
 
 
 $(document).ready(ready)
