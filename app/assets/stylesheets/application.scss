@@ -1,10 +1,14 @@
 @import 'masonry/basic';
 @import 'masonry/transitions';
-
 @import 'joyride/joyride-2.1';
+@import 'select2';
+@import 'select2-bootstrap';
+@import 'jquery.atwho';
+@import 'material_icons';
 
 @import 'font-gotham';
 @import 'jqcloud';
+
 @import 'material-colors';
 @import 'mobile-first';
 @import 'navbar';
@@ -12,10 +16,7 @@
 @import 'chat';
 @import 'feed';
 @import 'user-style';
-@import 'select2';
-@import 'select2-bootstrap';
-@import 'jquery.atwho';
-@import 'material_icons';
+@import 'search';
 
 .notification-seen {
   opacity: 0.5;
@@ -48,17 +49,6 @@ main > .container {
   font-size: 70%;
   font-weight: normal;
   float: right;
-}
-
-.hashtag_members {
-  color: $timestamp-color;
-  font-size: 70%;
-  font-weight: normal;
-}
-
-.hashtag_topic {
-  font-size: 90%;
-  font-weight: normal;
 }
 
 .hashtag_topicker {

@@ -1,0 +1,37 @@
+@import 'material-colors';
+
+.search-result:hover {
+  background-color: $accent;
+  opacity: 0.4;
+}
+
+.search-result {
+  min-height: 72px;
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 8px;
+
+  .result-title {
+    padding-top: 14px;
+  }
+}
+
+.result-user {
+  .result-supporting-text {
+    margin: 0;
+    padding: 0;
+    padding-left: 16px;
+  }
+}
+
+/*.result-hashtag-members {
+  color: $timestamp-color;
+  font-size: 70%;
+  font-weight: normal;
+}
+
+.result-hashtag-topic {
+  font-size: 90%;
+  font-weight: normal;
+}
+*/
