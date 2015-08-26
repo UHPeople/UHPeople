@@ -14,7 +14,7 @@
     <div class="aboutme">
       <% unless @user.about.blank? %>
         <h1>About me</h1>
-        <p><%= @user.about %></p>
+        <p><%= simple_format(auto_link(ERB::Util.html_escape(@user.about), html: { target: '_blank' })) %></p>
       <% end %>
     </div>
     </div>
