@@ -1,13 +1,13 @@
 <div class="container">
   <div class="col-xs-12 col-sm-8">
     <% unless @users.blank? %>
-        <div id="users">
-          <h1>Search results for users: <%= @search %></h1>
+      <div id="users">
+        <h1>Search results for users: <%= @search %></h1>
 
-          <% @users.each do |user| %>
-            <%= render 'result_user', user: user %>
-          <% end %>
-        </div>
+        <% @users.each do |user| %>
+          <%= render 'result_user', user: user %>
+        <% end %>
+      </div>
     <% end %>
 
     <% unless @hashtags.blank? %>
@@ -27,9 +27,10 @@
     <% if @hashtags_exact.blank? and @hashtag.valid? %>
       <div id="new_hashtag">
         <h1>How about a new channel?</h1>
-        <p>Create new channel:
+        <div class="result-supporting-text">
+          Create new channel:
           <%= link_to "##{@search}", hashtags_path(tag: @search), method: :post %>
-        </p>
+        </div>
       </div>
     <% end %>
 
