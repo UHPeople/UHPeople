@@ -8,9 +8,6 @@
   margin-bottom: 0 !important;
   border-radius: 0 !important;
 
-  .container {
-    //padding-top: 0;
-  }
   .navbar-f {
     border: 0;
     margin-left: 0;
@@ -27,24 +24,14 @@
       margin-top: -7px;
     }
   }
-
-  .navbar-brand,
-  .navbar-nav li a {
-    //  line-height: 70px;
-    //  height: 53px;
-    //  padding-top: 0;
-  }
-
-  .dropdown-menu > li > a {
-  //  line-height: 1.42857143;
-    // height: inherit;
+  .badge {
+    margin-top: -25px;
+    margin-left: -5px;
   }
 
   li > .notif-link{
-    width: 32px;
     padding-left: 0px;
     padding-right: 0px;
-  //  padding-top: 1px !important;
   }
 
   li > .notif-link > .notif-count{

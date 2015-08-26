@@ -1,9 +1,9 @@
 <li class='hidden-xs hidden-sm'><%= link_to "Home", root_path, id:"feed-onboard-home" %></li>
 
 <li>
-	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif <%= 'accent' if current_user.unread_notifications? %>">
-		<span class="notif-icon glyphicon glyphicon-bell"></span>
-		<span class="notif-count">
+	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif">
+		<i class="material-icons md-18">notifications</i>
+		<span class="badge badge-success">
 			<%= current_user.notifications.unread_count if current_user.unread_notifications? %>
 		</span>
 	</a>

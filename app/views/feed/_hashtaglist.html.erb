@@ -19,9 +19,9 @@
           <tr>
             <td>
               <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>"  >
-                <%= '#'+ truncate(tag.hashtag.tag, length: 15)%>
+                <%= '#'+ truncate(tag.hashtag.tag, length: 14)%>
                 <% if !tag.unread_messages.nil? && tag.unread_messages > 0 %>
-                  (<span class="unread"><%= tag.unread_messages.to_s %></span>)
+                  <span class="badge badge-success unread"><%= tag.unread_messages.to_s %></span>
                 <% end %>
               </a>
               <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>

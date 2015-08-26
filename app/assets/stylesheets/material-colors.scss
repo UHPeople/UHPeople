@@ -22,7 +22,9 @@ $color-900: #006064;
 
 $primary: $color-600;
 $primary-link: $white;
-$accent: #FFC107;
+//$accent: #FFC107;
+$accent: #E91E63;
+$accent-hover: #C2185B;
 $jumbotron-color: $color-500;
 
 $success: #CCFF90; // Light green 100
@@ -111,7 +113,7 @@ h2, h3 {
 
 .navbar-inverse .navbar-nav > li > .notif-link:hover,
 .navbar-inverse .navbar-nav > li > .notif-link:focus {
-  color: #E2E274 !important;
+  color: $accent-hover !important;
 }
 
 a.notif-link:hover {
@@ -146,4 +148,8 @@ a.notif-link:hover {
 .btn-success{
   background-color: $primary !important;
   color: $white !important;
+}
+
+.badge-success {
+  background-color: $accent !important;
 }
