@@ -29,7 +29,7 @@
         <h1>How about a new channel?</h1>
         <div class="result-supporting-text">
           Create new channel:
-          <%= link_to "##{@search}", hashtags_path(tag: @search), method: :post %>
+          <%= link_to truncate("##{@search}", length: 30), hashtags_path(tag: @search), method: :post %>
         </div>
       </div>
     <% end %>
