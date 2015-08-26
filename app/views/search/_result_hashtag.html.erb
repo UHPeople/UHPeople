@@ -1,0 +1,15 @@
+<div class="search-result result-hashtag">
+  <div class="result-title">
+    <h4>
+      <%= link_to "#" + hashtag.tag, hashtag_path(tag: hashtag.tag) %>
+    </h4>
+  </div>
+  <div class="result-supporting-text">
+    <div class="result-hashtag-members">
+      <%= pluralize(hashtag.users.count, 'member') %>
+    </div>
+    <div class="result-hashtag-topic">
+      <%= truncate(hashtag.topic, :length => 60, :separator => ' ') %>
+    </div>
+  </div>
+</div>
