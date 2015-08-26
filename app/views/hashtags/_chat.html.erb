@@ -2,6 +2,7 @@
   <div class="visible-xs toolbar pull-right">
     <%= render 'channel_buttons' %>
   </div>
+
   <%= javascript_tag do %>
     var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
     var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;

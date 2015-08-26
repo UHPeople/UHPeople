@@ -27,6 +27,9 @@ scroll_to_bottom = ->
 move_to_message = ->
   if !(window.location.hash)
     $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
+  else
+    message_id = window.location.hash
+    $('.panel-body'+message_id).addClass('unread_messages')
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
