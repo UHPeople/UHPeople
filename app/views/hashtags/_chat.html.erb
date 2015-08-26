@@ -4,8 +4,8 @@
   </div>
 
   <%= javascript_tag do %>
-    var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
-    var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
+      var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
+      var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
   <% end %>
 
   <div class="chatbox interest-chatbox">

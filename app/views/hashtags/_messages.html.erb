@@ -10,11 +10,19 @@
       <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
     </a>
     <div class="message">
-      <h5>
-        <%= link_to message.user.name, message.user %>
-        <span class="timestamp"><%= message.timestamp %></span>
-      </h5>
-      <%= message.formatted_content %><br>
+      <div class="col-xs-11 pull-left">
+        <h5>
+          <%= link_to message.user.name, message.user %>
+          <span class="timestamp"><%= message.timestamp %></span>
+        </h5>
+        <%= message.formatted_content %><br>
+      </div>
+      <div class="col-sx-1">
+        <a href="#" id="<%= message.id %>" class="send-hover like-this">
+          <i class="material-icons md-10 icon-color ">thumb_up</i>
+          <span class="badge"><%= message.likes.count %></span>
+        </a>
+      </div>
     </div>
   </div>
 <% end %>

@@ -138,6 +138,9 @@ ready = ->
         $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
       else
         $('.notif-count .badge').text(t + 1)
+    else if data.event == 'like'
+      console.log(data.message)
+      add_like data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
@@ -160,6 +163,16 @@ ready = ->
     })
 
     console.log "last visit updated"
+
+  $('.like-this').click ()->
+    event.preventDefault()
+    $.ajax({
+      type: 'POST',
+      async: false,
+      url: '/like_this/' + this.id
+    })
+    console.log('like send to ' + this.id)
+
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

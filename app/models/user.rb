@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :photos, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   def unread_notifications?
     notifications.unread_count > 0

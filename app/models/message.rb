@@ -17,6 +17,8 @@ class Message < ActiveRecord::Base
   belongs_to :hashtag
   belongs_to :user
 
+  has_many :likes, dependent: :destroy
+
   validates :content, :hashtag_id, :user_id, presence: true
   validates_with UserHashtagValidator
 
@@ -31,6 +33,12 @@ class Message < ActiveRecord::Base
   def formatted_content
     auto_link(ERB::Util.html_escape(content), html: { target: '_blank' }) do |text|
       truncate(text, length: 200)
+    end
+  end
+
+  def likes_count
+    if likes.count > 0
+      pluralize(likes.count, 'like')
     end
   end
 
