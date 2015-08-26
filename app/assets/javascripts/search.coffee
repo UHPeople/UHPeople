@@ -73,7 +73,7 @@ send = (name) ->
   $('form#invite-form').submit()
 
 $(document).ready ->
-  # users.clearPrefetchCache()
+  users.clearPrefetchCache()
 
   users.initialize()
   hashtags.initialize()
@@ -84,7 +84,13 @@ $(document).ready ->
     name: 'hashtags'
     displayKey: 'tag'
     source: hashtags.ttAdapter()
-    templates: suggestion: Handlebars.compile('<a href="/hashtags/{{tag}}"><div><span>#{{tag}}</span></div></a>')
+    templates: suggestion: Handlebars.compile(
+      '<a href="/hashtags/{{tag}}">' +
+        '<div>' +
+          '<span>#{{tag}}</span>' +
+         ' <span class="search-small-font">{{topic}}</span>' +
+        '</div>' +
+        '</a>')
   }, {
     name: 'users'
     displayKey: 'name'
@@ -93,6 +99,7 @@ $(document).ready ->
       '<a href="/users/{{id}}">' +
         '<div>' +
           '<span>{{name}}</span>' +
+          ' <span class="search-small-font">{{about}}</span>' +
           '<img class="img-circle" src="{{avatar}}"></img>' +
         '</div>' +
       '</a>')
