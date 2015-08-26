@@ -37,6 +37,13 @@ RSpec.describe Hashtag do
       it 'have #hashtag after autolinking' do
         expect(page).to have_content 'Hello World! @asd asd #avantouinti'
       end
+
+      it 'has unread marker', js: true do
+        visit "/feed"
+        FactoryGirl.create(:message, user: user, hashtag: hashtag)
+        visit hashtag_path(hashtag.tag)
+        expect(page).to have_content 'Since'
+      end
     end
 
     it 'can send a message', js: true do
