@@ -11,5 +11,11 @@
     <div class="result-hashtag-topic">
       <%= truncate(hashtag.topic, :length => 60, :separator => ' ') %>
     </div>
+    <% unless hashtag.empty? %>
+      <div class="">
+        Latest message on
+        <span class="timestamp"><%= hashtag.latest_message.timestamp %></span>
+      </div>
+    <% end %>
   </div>
 </div>

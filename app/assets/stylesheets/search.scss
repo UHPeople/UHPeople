@@ -1,37 +1,35 @@
 @import 'material-colors';
 
-.search-result:hover {
+// Looks cool, is too x-treme tho.
+/*.search-result:hover {
   background-color: $accent;
   opacity: 0.4;
-}
+}*/
 
 .search-result {
   min-height: 72px;
+
   padding-bottom: 5px;
   padding-left: 20px;
   padding-right: 8px;
 
-  .result-title {
+  .result-image {
+    float: left;
     padding-top: 14px;
   }
-}
 
-.result-user {
   .result-supporting-text {
-    margin: 0;
-    padding: 0;
-    padding-left: 16px;
+    padding-left: 56px;
+  }
+
+  .result-title {
+    padding-left: 56px;
+    padding-top: 7px;
   }
 }
 
-/*.result-hashtag-members {
-  color: $timestamp-color;
-  font-size: 70%;
-  font-weight: normal;
+.result-hashtag {
+  .result-title {
+    padding-left: 28px;
+  }
 }
-
-.result-hashtag-topic {
-  font-size: 90%;
-  font-weight: normal;
-}
-*/
