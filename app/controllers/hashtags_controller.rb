@@ -24,10 +24,8 @@ class HashtagsController < ApplicationController
   def show
     @messages = @hashtag.messages.last(20)
 
-    if @user_has_tag
-      #lastvisit = current_user.user_hashtags.find_by hashtag_id:@hashtag.id
-      #lastvisit.update_attribute(:last_visited, Time.now)
-    end
+    @lastvisit_index = current_user_unread_messages(@messages.count)
+    @lastvisit_date = current_user_last_visited
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
@@ -158,5 +156,19 @@ class HashtagsController < ApplicationController
     @topicker = User.find(@hashtag.topic_updater_id)
     rescue
       @topicker = nil
+  end
+
+  def current_user_last_visited
+    current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).nil? || current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.nil? ? Time.now.strftime('%Y-%m-%dT%H:%M:%S') : current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
+  end
+
+  def current_user_unread_messages(count)
+    if current_user.hashtags.include? @hashtag
+      curre = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
+      count -= curre.nil? || curre.unread_messages.nil? ? 0 : curre.unread_messages
+      if count < 0 then 0 else count end
+    else
+      count
+    end
   end
 end

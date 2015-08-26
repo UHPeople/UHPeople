@@ -23,7 +23,7 @@ add_message = (data) ->
       '<div class="message">' +
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-          '<a href="/hashtags/' + data.hashtag_name + '">' + data.hashtag_name + '</a>' +
+          '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
@@ -39,7 +39,7 @@ add_message = (data) ->
         '<div class="message">' +
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-            '<a href="/hashtags/' + data.hashtag_name + '">' + data.hashtag_name + '</a>' +
+            '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
             '<br/>' +
             '<span class="timestamp">' + timestamp + '</span>' +
           '</h5>' +
