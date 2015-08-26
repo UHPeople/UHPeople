@@ -166,8 +166,7 @@ class HashtagsController < ApplicationController
     if current_user.hashtags.include? @hashtag
       curre = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
       count -= curre.nil? || curre.unread_messages.nil? ? 0 : curre.unread_messages
-      return 0 if count < 0
-      count
+      if count < 0 then 0 else count end
     else
       count
     end

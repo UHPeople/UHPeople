@@ -11,7 +11,6 @@
     <% if @lastvisit_index > 0 %>
       <%= render "messages", messages: @messages.to(@lastvisit_index - 1), bg: false %>
     <% end %>
-    <%= (@lastvisit_index - @messages.count) %>
     <% if (@lastvisit_index - @messages.count) < 0 %>
       <%= render "messages", messages: @messages.from(@lastvisit_index), bg: true  %>
     <% end %>
