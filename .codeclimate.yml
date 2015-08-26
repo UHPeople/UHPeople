@@ -1,8 +1,17 @@
 engines:
   rubocop:
     enabled: true
-  csslint:
+  coffeelint:
     enabled: true
+  bundler-audit:
+    enabled: true
+
+ratings:
+  paths:
+    - app/**/*
+    - lib/**/*
+    - "**.rb"
+    - "**.coffee"
 
 exclude_paths:
 - spec/**/*
