@@ -1,0 +1,20 @@
+<% if bg %>
+  <div class='line text-center'>
+    <span>Since<span class="timestamp"><%= @lastvisit_date %></span></span>
+  </div>
+<% end %>
+
+<% messages.each do |message| %>
+  <div class="panel-body <%= "unread_messages" if bg %>">
+    <a class="avatar-link" href="<%= user_path(message.user) %>">
+      <%= image_tag message.user.profile_picture_url, class: "img-circle" %>
+    </a>
+    <div class="message">
+      <h5>
+        <%= link_to message.user.name, message.user %>
+        <span class="timestamp"><%= message.timestamp %></span>
+      </h5>
+      <%= message.formatted_content %><br>
+    </div>
+  </div>
+<% end %>

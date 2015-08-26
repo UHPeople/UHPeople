@@ -19,7 +19,7 @@
   <h3>Members</h3>
   <ul class="nav nav-list scrollable">
     <% @hashtag.users.each do |m| %>
-        <li id='<%= m.id %>'><%= link_to m.name, m %></li>
+        <li class='member-<%= m.id %>'><%= link_to m.name, m %></li>
     <% end %>
   </ul>
 </div>
