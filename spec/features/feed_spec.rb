@@ -65,10 +65,10 @@ RSpec.describe 'Feed page' do
       visit "/users/#{user.id}"
       FactoryGirl.create(:message, user: user, hashtag: hashtag)
       visit "/feed"
-      expect(page).to have_content '#avantouinti (1)'
+      expect(page).to have_content '#avantouinti 1'
     end
   end
-  
+
   context 'favourites tab' do
     it 'is empty when no favorites' do
       create_and_visit

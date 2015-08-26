@@ -3,8 +3,12 @@
 <li>
 	<a href="<%= notifications_path %>" class="notif-link feed-onboard-notif">
 		<i class="material-icons md-18">notifications</i>
-		<span class="badge badge-success">
-			<%= current_user.notifications.unread_count if current_user.unread_notifications? %>
+		<span class="notif-count">
+			<% if current_user.unread_notifications? %>
+				<span class="badge badge-success">
+					<%= current_user.notifications.unread_count  %>
+				</span>
+			<% end %>
 		</span>
 	</a>
 </li>

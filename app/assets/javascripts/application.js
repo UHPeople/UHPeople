@@ -26,8 +26,7 @@ $('.nav-tabs a').on('shown.bs.tab', function(e) {
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
-		$(".notif-count").remove();
-		$(".notif-icon").css("color", "#fff");
+		$(".notif-count .badge").remove();
 		$.post("notifications/seen");
 	}
 });

@@ -72,9 +72,10 @@ ready = ->
     else if data.event == 'notification'
       count = $('.notif-count')
       t = Number(count.text())
-      count.text(t + 1)
       if t == 0
-        $('.notif-link').addClass('accent')
+        $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
+      else
+        $('.notif-count .badge').text(t + 1)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
