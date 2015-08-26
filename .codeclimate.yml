@@ -1,7 +1,9 @@
 engines:
   rubocop:
     enabled: true
-  csslint:
+  coffeelint:
+    enabled: true
+  bundler-audit:
     enabled: true
 
 exclude_paths:
