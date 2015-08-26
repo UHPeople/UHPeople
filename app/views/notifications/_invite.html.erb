@@ -11,7 +11,11 @@
     <span class="timestamp"><%= notification.timestamp %></span>
   </div>
   <div class="notification-actions">
-    <%= link_to 'Join', join_path(tag: notification.tricker_hashtag.tag), method: 'post', class: 'btn btn-default' %>
+    <% unless current_user.hashtags.include? notification.tricker_hashtag %>
+      <%= link_to 'Join', join_path(tag: notification.tricker_hashtag.tag), method: 'post', class: 'btn btn-default' %>
+    <% else %>
+      <i>Already a member</i>
+    <% end %>
   </div>
 </div>
 
