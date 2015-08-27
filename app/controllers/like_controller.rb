@@ -10,6 +10,8 @@ class LikeController < ApplicationController
         redirect_to feed_index_path, alert: 'Something went wrong!'
         return
       end
+    else
+      like.destroy
 
       request.env['chat.like_callback'].call(message)
     end
