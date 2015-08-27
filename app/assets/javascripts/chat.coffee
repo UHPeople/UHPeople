@@ -84,9 +84,13 @@ add_message = (data) ->
 
   scroll_to_bottom()
 
-add_like = (message_id) ->
-  count = $('.panel-body#'+message_id+' .message div a .like-badge')
+add_like = (data) ->
+  count = $('.panel-body#' + data.message + ' .message div a .like-badge')
   count.text(Number(count.text()) + 1)
+
+remove_like = (data) ->
+  count = $('.panel-body#' + data.message + ' .message div a .like-badge')
+  count.text(Number(count.text()) - 1)
 
 add_notification = ->
   count = $('.notif-count')
@@ -146,7 +150,9 @@ ready = ->
     else if data.event == 'notification'
       add_notification
     else if data.event == 'like'
-      add_like data.message
+      add_like data
+    else if data.event == 'dislike'
+      remove_like data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
