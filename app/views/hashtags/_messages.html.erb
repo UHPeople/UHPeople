@@ -15,15 +15,15 @@
           <%= link_to message.user.name, message.user %>
           <span class="timestamp"><%= message.timestamp %></span>
         </h5>
-        <%= message.formatted_content %><br>
-      </div>
-      <div class="col-xs-1">
+        <%= message.formatted_content %>
+        <span class="space-left">
         <a href="#" id="like-<%= message.id %>" class="send-hover like-this">
-          <i class="material-icons md-10 icon-color"><%= (current_user.likes? message) ? 'thumb_down' : 'thumb_up' %></i>
-          <span class="badge like-badge">
+            <i class="material-icons md-18 icon-color"><%= (current_user.likes? message) ? 'thumb_down' : 'thumb_up' %></i>
+          <span class="like-badge">
             <%= message.likes.count %>
           </span>
-        </a>
+          </a>
+            </span>
       </div>
     </div>
   </div>

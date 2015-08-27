@@ -53,8 +53,10 @@
       color: #3d3c40;
       word-wrap: break-word;
     }
+
   }
 }
+
 
 // Favourites Chatbox
 .favourites-chat-box {
@@ -96,7 +98,7 @@
   }
 }
 
-// INTEREST Chat
+// INTEREST Chat this is the hashtags own page
 .interest-chatbox {
   @include chat;
 
@@ -127,6 +129,7 @@
       line-height: 22px;
       word-wrap: break-word;
     }
+
   }
 }
 
@@ -269,3 +272,13 @@ div.line {
     }
   }
 }
+
+.like-badge {
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .space-left {
+    padding-left: 1em;
+  }
+
