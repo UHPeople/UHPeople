@@ -84,6 +84,10 @@ add_message = (data) ->
 
   scroll_to_bottom()
 
+add_like = (message_id) ->
+  count = $('.panel-body#'+message_id+' .message div a .like-badge')
+  count.text(Number(count.text()) + 1)
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -139,8 +143,8 @@ ready = ->
       else
         $('.notif-count .badge').text(t + 1)
     else if data.event == 'like'
-      console.log(data.message)
-      add_like data
+      console.log(data)
+      add_like data.message
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

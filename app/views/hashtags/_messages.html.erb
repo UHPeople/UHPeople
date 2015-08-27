@@ -17,10 +17,10 @@
         </h5>
         <%= message.formatted_content %><br>
       </div>
-      <div class="col-sx-1">
+      <div class="col-xs-1">
         <a href="#" id="<%= message.id %>" class="send-hover like-this">
           <i class="material-icons md-10 icon-color ">thumb_up</i>
-          <span class="badge"><%= message.likes.count %></span>
+          <span class="badge like-badge"><%= message.likes.count %></span>
         </a>
       </div>
     </div>
