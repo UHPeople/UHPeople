@@ -88,8 +88,9 @@ module UHPeople
     def get_messages_event(user, hashtag, socket)
 
       h = hashtag.messages.last(20)
-      json = { 'event': 'messages', 'messages': JSON.generate(h.map(&:serialize)) }
-      socket.send(json)
+      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
+
+      socket.send(JSON.generate(json))
     end
 
     def online_event(user, hashtag, socket)
