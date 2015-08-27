@@ -273,12 +273,20 @@ div.line {
   }
 }
 
-.like-badge {
-    text-decoration: none;
+  .like-badge {
+    Text-decoration: none;
     font-weight: bold;
   }
 
   .space-left {
     padding-left: 1em;
+  }
+
+  .space-left a {
+    text-decoration: none;
+  }
+
+  .space-left a:hover, a:active, a:visited, a:link {
+    text-decoration: none;
   }
 
