@@ -89,7 +89,7 @@ module UHPeople
 
       h = hashtag.messages.last(20)
       json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
-
+      #hashtag.messages.where("id > ? ", 1263)
       socket.send(JSON.generate(json))
     end
 

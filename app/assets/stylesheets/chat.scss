@@ -103,6 +103,8 @@
   height: 500px;
   overflow: auto;
   overflow-x: hidden;
+  display: table-cell;
+  vertical-align: bottom;
 
   .message {
     padding-top: 16px;

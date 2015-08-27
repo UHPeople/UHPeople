@@ -61,10 +61,6 @@ sort_members = (list) ->
   $.each(items, (idx, itm) -> list.append(itm))
 
 add_message = (data) ->
-  size = $('.chatbox .panel-body').length
-
-  if size > 20
-    $('.chatbox .panel-body:first-child').remove()
 
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
