@@ -88,6 +88,14 @@ add_like = (message_id) ->
   count = $('.panel-body#'+message_id+' .message div a .like-badge')
   count.text(Number(count.text()) + 1)
 
+add_notification = ->
+  count = $('.notif-count')
+  t = Number(count.text())
+  if t == 0
+    $('.notif-count').append("<span class='badge badge-success'>1</span>")
+  else
+    $('.notif-count .badge').text(t + 1)
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -120,7 +128,7 @@ ready = ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    console.log(data)
+    # console.log(data)
 
     if data.event == 'message'
       add_message data
@@ -136,14 +144,8 @@ ready = ->
     else if data.event == 'leave'
       remove_member data
     else if data.event == 'notification'
-      count = $('.notif-count')
-      t = Number(count.text())
-      if t == 0
-        $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
-      else
-        $('.notif-count .badge').text(t + 1)
+      add_notification
     else if data.event == 'like'
-      console.log(data)
       add_like data.message
 
   $('#chat-send').on 'click', (event) ->
@@ -165,8 +167,7 @@ ready = ->
       async: false,
       url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
-
-    console.log "last visit updated"
+    # console.log "last visit updated"
 
   $('.like-this').click ()->
     event.preventDefault()
@@ -175,8 +176,6 @@ ready = ->
       async: false,
       url: '/like_this/' + this.id
     })
-    console.log('like send to ' + this.id)
-
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
