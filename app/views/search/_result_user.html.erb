@@ -6,18 +6,24 @@
     <h4><%= link_to user.name, user %></h4>
   </div>
   <div class="result-supporting-text">
-    <div class="result-hashtag-topic">
-      <%= truncate(user.about, length: 60, separator: ' ') %>
-    </div>
+    <% unless user.about.empty? %>
+      <span class="result-supporting-primary">
+        <%= truncate(user.about, length: 60, separator: ' ') %>
+      </span>
+    <% end %>
+
+    <% unless user.about.empty? or user.hashtags.empty? %>
+      <span class="result-text-divider"> - </span>
+    <% end %>
 
     <% unless user.hashtags.empty? %>
-      <div class="result-hashtag-members">
+      <span class="result-supporting-secondary">
         Member of
         <% user.hashtags.first(3).each_with_index do |channel, i| %>
           <%= link_to "#" + channel.tag, hashtag_path(channel.tag) %>
         <% end %>
         ...
-      </div>
+      </span>
     <% end %>
   </div>
 </div>

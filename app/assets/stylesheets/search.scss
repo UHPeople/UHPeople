@@ -20,6 +20,14 @@
 
   .result-supporting-text {
     padding-left: 56px;
+
+    .result-supporting-primary {
+      color: $black;
+    }
+
+    .result-supporting-secondary {
+      color: $fallback-negative;
+    }
   }
 
   .result-title {
