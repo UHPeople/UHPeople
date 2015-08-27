@@ -30,4 +30,9 @@ class User < ActiveRecord::Base
     six_channels = self.six_most_active_channels
     self.user_hashtags.where.not(hashtag_id: six_channels.map(&:hashtag_id))
   end
+
+  def likes?(message)
+    likes.each { |like| return true if like.message == message }
+    return false
+  end
 end

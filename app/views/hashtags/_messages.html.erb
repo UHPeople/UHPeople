@@ -18,9 +18,11 @@
         <%= message.formatted_content %><br>
       </div>
       <div class="col-xs-1">
-        <a href="#" id="<%= message.id %>" class="send-hover like-this">
-          <i class="material-icons md-10 icon-color ">thumb_up</i>
-          <span class="badge like-badge"><%= message.likes.count %></span>
+        <a href="#" id="like-<%= message.id %>" class="send-hover like-this">
+          <i class="material-icons md-10 icon-color"><%= (current_user.likes? message) ? 'thumb_down' : 'thumb_up' %></i>
+          <span class="badge like-badge">
+            <%= message.likes.count %>
+          </span>
         </a>
       </div>
     </div>

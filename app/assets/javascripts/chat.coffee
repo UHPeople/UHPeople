@@ -100,6 +100,12 @@ add_notification = ->
   else
     $('.notif-count .badge').text(t + 1)
 
+flip_thumb = (current) ->
+  if current == 'thumb_up'
+    return 'thumb_down'
+  else
+    return 'thumb_up'
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -175,13 +181,16 @@ ready = ->
     })
     # console.log "last visit updated"
 
-  $('.like-this').click ()->
+  $('.like-this').on 'click', (event) ->
     event.preventDefault()
     $.ajax({
       type: 'POST',
       async: false,
-      url: '/like_this/' + this.id
+      url: '/like_this/' + this.id.slice(5)
     })
+
+    thumb = $('#'+this.id+' i')
+    thumb.text(flip_thumb(thumb.text()))
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
