@@ -108,6 +108,13 @@ ready = ->
       hashtag: hashtag
       user: user
 
+    ws.send JSON.stringify
+      event: 'messages'
+      hashtag: hashtag
+      user: user
+      from: 0
+      to: 20
+
   ws.onclose = ->
     input = $('#input-text')
     input.addClass('has-error')
@@ -138,6 +145,9 @@ ready = ->
         $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
       else
         $('.notif-count .badge').text(t + 1)
+    else if data.event == 'messages'
+      alert('asdasd')
+
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
