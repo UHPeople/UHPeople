@@ -179,7 +179,7 @@ ready = ->
       async: false,
       url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
-    # console.log "last visit updated"
+    console.log ""
 
   $('.like-this').on 'click', (event) ->
     event.preventDefault()
