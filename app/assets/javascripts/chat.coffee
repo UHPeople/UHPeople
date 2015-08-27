@@ -82,8 +82,6 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
-  scroll_to_bottom()
-
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -127,6 +125,7 @@ ready = ->
 
     if data.event == 'message'
       add_message data
+      scroll_to_bottom()
     else if data.event == 'online'
       set_all_offline()
       set_online id for id in data.onlines
@@ -146,8 +145,9 @@ ready = ->
       else
         $('.notif-count .badge').text(t + 1)
     else if data.event == 'messages'
-      alert('asdasd')
-
+      add_message message for message in data.messages
+      move_to_message()
+      #scroll_to_bottom()
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
