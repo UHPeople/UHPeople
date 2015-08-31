@@ -5,11 +5,9 @@
     <% else %>
       <div class="notif transitions-enabled infinite-scroll clearfix">
         <% @notifications.each do |notif| %>
-          <% if !notif.nil? && !notif.tricker_hashtag.nil? && !notif.message.nil? && !notif.tricker_user.nil? %>
-            <%= render 'invite', notification: notif if notif.notification_type == 1 %>
-            <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
-            <%= render 'mention', notification: notif if notif.notification_type == 3 %>
-          <% end %>
+          <%= render 'invite', notification: notif if notif.notification_type == 1 %>
+          <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
+          <%= render 'mention', notification: notif if notif.notification_type == 3 %>
         <% end %>
       </div>
   <% end %>
