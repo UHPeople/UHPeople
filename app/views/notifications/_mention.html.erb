@@ -11,7 +11,7 @@
   </div>
   <div class="notification-actions">
     <% unless notification.message.nil? %>
-    <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
+      <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
     <% end %>
   </div>
 </div>
