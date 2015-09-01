@@ -10,7 +10,7 @@
     <span class="timestamp"><%= notification.timestamp %></span>
   </div>
   <div class="notification-actions">
-    <% unless notification.message.nil? %>
+    <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
       <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
     <% end %>
   </div>
