@@ -13,7 +13,7 @@ RSpec.describe 'Search page' do
 
   it 'creates hashtags' do
     visit '/search?search=hashtag'
-    find("//div[@id='new_hashtag']/p/a").click
+    find("//div[@id='new_hashtag']/div/a").click
     expect(page.current_path).to eq '/hashtags/hashtag'
   end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Search page' do
 
   it 'finds user with non-exact match' do
     visit '/search?search=a'
-    first("//div[@id='users']/h4/a").click
+    first("//div[@id='users']/div/div/h4/a").click
     expect(page.current_path).to eq "/users/#{user.id}"
   end
 
@@ -37,13 +37,13 @@ RSpec.describe 'Search page' do
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=#{hashtag2.tag}"
-    first("//div[@id='hashtags']/h4/a").click
+    first("//div[@id='hashtags']/div/div/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag2.tag}"
   end
 
   it 'finds hashtag with non-exact match' do
     visit '/search?search=' + hashtag.tag[0]
-    find("//div[@id='hashtags']/h4/a").click
+    find("//div[@id='hashtags']/div/div/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
 
@@ -75,7 +75,7 @@ RSpec.describe 'Search page' do
   describe 'on search results' do
     it 'it shows hashtag member count' do
       visit '/search?search=a'
-      expect(page).to have_content "(#{hashtag.users.count} member"
+      expect(page).to have_content "#{hashtag.users.count} member"
     end
 
     it 'it shows hashtag description' do

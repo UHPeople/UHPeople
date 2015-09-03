@@ -1,0 +1,27 @@
+<div class="search-result result-hashtag">
+  <div class="result-title">
+    <h4>
+      <%= link_to "#" + truncate(hashtag.tag, length: 30, separator: ' '), hashtag_path(tag: hashtag.tag) %>
+    </h4>
+  </div>
+  <div class="result-supporting-text">
+    <span class="result-supporting-primary">
+      <%= pluralize(hashtag.users.count, 'member') %>
+    </span>
+
+    <% unless hashtag.topic.nil? or hashtag.topic.empty? %>
+      <span class="result-text-divider"> - </span>
+      <span class="result-supporting-primary">
+        <%= truncate(hashtag.topic, length: 60, separator: ' ') %>
+      </span>
+    <% end %>
+
+    <% unless hashtag.empty? %>
+      <span class="result-text-divider"> - </span>
+      <span class="result-supporting-secondary">
+        Latest message
+        <span class="timestamp"><%= hashtag.latest_message.timestamp %></span>
+      </span>
+    <% end %>
+  </div>
+</div>

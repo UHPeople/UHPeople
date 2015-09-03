@@ -164,7 +164,6 @@
   box-shadow: 0 !important;
 }
 
-
 .form-control.mentions{
   width: 100%;
   height: 50px;
@@ -250,6 +249,7 @@
        -o-animation: highlight 4s; /* Opera < 12.1 */
           animation: highlight 4s;
 }
+
 div.line {
   color: $accent;
   margin-top: -5px;
@@ -257,7 +257,7 @@ div.line {
   width: 100%;
   border-bottom: 1px solid $accent;
 
-  span{
+  span {
     font-size: 90%;
     font-weight: normal;
     background-color: $white;

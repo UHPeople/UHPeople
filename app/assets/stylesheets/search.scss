@@ -1,0 +1,43 @@
+@import 'material-colors';
+
+// Looks cool, is too x-treme tho.
+/*.search-result:hover {
+  background-color: $accent;
+  opacity: 0.4;
+}*/
+
+.search-result {
+  min-height: 72px;
+
+  padding-bottom: 5px;
+  padding-left: 20px;
+  padding-right: 8px;
+
+  .result-image {
+    float: left;
+    padding-top: 14px;
+  }
+
+  .result-supporting-text {
+    padding-left: 56px;
+
+    .result-supporting-primary {
+      color: $black;
+    }
+
+    .result-supporting-secondary {
+      color: $fallback-negative;
+    }
+  }
+
+  .result-title {
+    padding-left: 56px;
+    padding-top: 7px;
+  }
+}
+
+.result-hashtag {
+  .result-title {
+    padding-left: 28px;
+  }
+}
