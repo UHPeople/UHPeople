@@ -40,7 +40,7 @@ RSpec.describe Hashtag do
       end
 
       it 'has unread marker' do
-        UserHashtag.where(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visit, 1.days.from_now)
+        UserHashtag.where(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visit, 1.days.ago)
         expect(page).to have_content 'Since'
       end
     end
