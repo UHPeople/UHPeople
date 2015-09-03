@@ -15,7 +15,7 @@
       <%= link_to 'more_vert', '#', class: 'material-icons md-36 dropdown-toggle icon-color', 'data-toggle':'dropdown' %>
       <ul class="dropdown-menu dropdown-menu-right">
         <li>
-          <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
+          <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'leave-button' %>
         </li>
         <li>
           <%= link_to 'Invite people', "#", "data-toggle":'modal', "data-target":'#invite' %>

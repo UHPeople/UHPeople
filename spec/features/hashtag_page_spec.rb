@@ -34,18 +34,18 @@ RSpec.describe Hashtag do
       visit "/login/#{user2.id}"
       visit "/hashtags/#{hashtag.tag}"
       click_link 'Join'
-      click_link 'Leave'
+      first('.leave-button').click
 
       expect(page).to have_content 'Join'
     end
 
     it 'is deleted when last member leaves' do
-      helper = hashtag.tag
-      click_link 'Leave'
+      tag = hashtag.tag
+      first('.leave-button').click
       expect(page.current_path).to eq "/feed"
 
-      visit "/search?search=%23#{helper}"
-      expect(page).to have_no_content "Search results for channels: ##{helper}"
+      visit "/search?search=%23#{tag}"
+      expect(page).to have_no_content "Search results for channels: ##{tag}"
     end
 
     context 'invitation box' do

@@ -35,7 +35,7 @@ RSpec.describe User do
 
     it "doesn't have interests title if no hashtags" do
       visit "/hashtags/#{hashtag.tag}"
-      click_link 'Leave'
+      first('.leave-button').click
       visit "/users/#{user.id}"
 
       expect(page).not_to have_content 'Interests'
@@ -58,8 +58,8 @@ RSpec.describe User do
     end
 
     it 'has active channels if has' do
-
       Message.create content: 'asd', hashtag_id: hashtag.id, user_id: user.id
+      
       visit "/users/#{user.id}"
       expect(page).to have_content 'More active'
       expect(page).not_to have_content 'Less active'

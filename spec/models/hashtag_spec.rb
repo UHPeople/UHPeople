@@ -42,4 +42,36 @@ RSpec.describe Hashtag do
 
     assert_equal 'blank.jpg', hashtag.cover_photo_file_name
   end
+
+  it 'can give latest message' do
+    hashtag = described_class.create tag: 'avantouinti'
+    user = User.create username: 'user', name: 'user'
+    
+    hashtag.users << user
+    hashtag.save
+
+    message = Message.create hashtag: hashtag, user: user, content: 'content'
+    
+    expect(hashtag.valid?).to be(true)
+    expect(user.valid?).to be(true)
+    expect(message.valid?).to be(true)
+
+    expect(hashtag.latest_message).to eq(message)
+  end
+
+  it 'is empty with no messages' do
+    hashtag = described_class.create tag: 'avantouinti'
+    expect(hashtag.empty?).to be(true)
+  end
+
+  it 'is not empty with messages' do
+    hashtag = described_class.create tag: 'avantouinti'
+    user = User.create username: 'user', name: 'user'
+    
+    hashtag.users << user
+    hashtag.save
+
+    message = Message.create hashtag: hashtag, user: user, content: 'content'
+    expect(hashtag.empty?).to be(false)
+  end
 end
