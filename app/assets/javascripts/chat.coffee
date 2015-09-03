@@ -1,3 +1,11 @@
+update_leave_button = () ->
+  if $('.nav-list li').size() <= 3
+    $('.leave-button').data('confirm', 'Are you sure you want to leave this channel? ' +
+      'You are the last person on this channel. ' +
+      'After you leave the channel and all its messages will be deleted.')
+  else
+    $('.leave-button').data('confirm', 'Are you sure you want to leave this channel?')
+
 set_online = (id) ->
   $('.nav-list li.member-' + id).addClass('online')
 
@@ -84,11 +92,20 @@ add_message = (data) ->
 
   scroll_to_bottom()
 
+add_notification = ->
+  count = $('.notif-count')
+  t = Number(count.text())
+  if t == 0
+    $('.notif-count').append("<span class='badge badge-success'>1</span>");
+  else
+    $('.notif-count .badge').text(t + 1)
+
 ready = ->
   if not $('#hashtag-id').length
     return
 
   move_to_message()
+  update_leave_button()
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
@@ -123,21 +140,19 @@ ready = ->
     else if data.event == 'online'
       set_all_offline()
       set_online id for id in data.onlines
-      sort_members(members_list)
-      sort_members(members_list_dropdown)
+      sort_members members_list
+      sort_members members_list_dropdown
+      update_leave_button
     else if data.event == 'join'
       add_member data
-      sort_members(members_list)
-      sort_members(members_list_dropdown)
+      sort_members members_list
+      sort_members members_list_dropdown
+      update_leave_button
     else if data.event == 'leave'
       remove_member data
+      update_leave_button
     else if data.event == 'notification'
-      count = $('.notif-count')
-      t = Number(count.text())
-      if t == 0
-        $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
-      else
-        $('.notif-count .badge').text(t + 1)
+      add_notification
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
