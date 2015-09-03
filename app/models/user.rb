@@ -21,12 +21,16 @@ class User < ActiveRecord::Base
   def six_most_active_channels
     # 2 * On^2?
     # returns user_hashtag
-    non_zero_tags = self.user_hashtags.where(hashtag_id: self.messages.map(&:hashtag_id).uniq)
-    non_zero_tags.sort_by{|h| self.messages.where(hashtag_id:h.hashtag_id).count}.reverse.first 6  
+    non_zero_tags = user_hashtags.where(hashtag_id: messages.map(&:hashtag_id).uniq)
+    non_zero_tags.sort_by{|h| messages.where(hashtag_id:h.hashtag_id).count}.reverse.first 6
   end
 
-  def unactive_channels 
-    six_channels = self.six_most_active_channels
-    self.user_hashtags.where.not(hashtag_id: six_channels.map(&:hashtag_id))
+  def unactive_channels
+    six_channels = six_most_active_channels
+    user_hashtags.where.not(hashtag_id: six_channels.map(&:hashtag_id))
+  end
+
+  def last_visit(hashtag)
+    user_hashtags.find_by(hashtag_id: hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
   end
 end

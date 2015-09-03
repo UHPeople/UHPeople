@@ -12,10 +12,11 @@
 
   <form>
     <div class="panel-footer input-group input-chat">
-      <input  autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>
+      <input autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>
 
-      <input  id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
-      <input  id="user-id" type="hidden" value="<%= current_user.id %>"/>
+      <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+      <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
 
       <span class="input-group-btn">
         <%= button_tag(type:'submit', class: 'btn btn-default btn-borderless', id: 'chat-send') do %>

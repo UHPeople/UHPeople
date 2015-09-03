@@ -68,11 +68,25 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
+format_timestamp = (timestamp) ->
+  moment.utc(timestamp).local().format('MMM D, H:mm')
+
 add_message = (data) ->
-  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
+  timestamp = format_timestamp data.timestamp
+  last_visit = format_timestamp $('#last-visit')[0].value
+
+  #if (moment(timestamp).isAfter(last_visit))
+  #  $('.chatbox').append ''+
+  #    '<div class="line text-center">' +
+  #      '<span>Since<span class="timestamp">' + last_visit + '</span></span>'+
+  #    '</div>'
+
+  highlight = ''
+  if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
+    highlight = 'new_messages'
 
   $('.chatbox').append ''+
-    '<div class="panel-body">' +
+    '<div class="panel-body ' + highlight + ' ">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +

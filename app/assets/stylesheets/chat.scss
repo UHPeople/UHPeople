@@ -240,12 +240,12 @@
  	}
 }
 
-.unread_messages{
-  -webkit-animation: highlight 4s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: highlight 4s; /* Firefox < 16 */
-      -ms-animation: highlight 4s; /* Internet Explorer */
-       -o-animation: highlight 4s; /* Opera < 12.1 */
-          animation: highlight 4s;
+.new_messages{
+  -webkit-animation: highlight 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: highlight 2s; /* Firefox < 16 */
+      -ms-animation: highlight 2s; /* Internet Explorer */
+       -o-animation: highlight 2s; /* Opera < 12.1 */
+          animation: highlight 2s;
 }
 
 div.line {
