@@ -39,7 +39,7 @@ RSpec.describe 'Feed page' do
 
     it 'doesn\'t have interests title if no hashtags' do
       visit "/hashtags/#{hashtag.tag}"
-      click_link 'Leave'
+      first('.leave-button').click
       visit '/feed'
 
       expect(page).not_to have_content 'Interests'
