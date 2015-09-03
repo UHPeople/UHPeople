@@ -16,10 +16,11 @@ RSpec.describe Hashtag do
       expect(find('//form/div/span/button')).to have_content ''
     end
 
-    context 'messages' do
+    context 'messages', js:true do
       before :each do
-        FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+        message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
         visit hashtag_path(hashtag.tag)
+        page.execute_script("add_message(#{message.serialize})")
       end
 
       it 'have content' do
@@ -38,10 +39,8 @@ RSpec.describe Hashtag do
         expect(page).to have_content 'Hello World! @asd asd #avantouinti'
       end
 
-      it 'has unread marker', js: true do
-        visit "/feed"
-        FactoryGirl.create(:message, user: user, hashtag: hashtag)
-        visit hashtag_path(hashtag.tag)
+      it 'has unread marker' do
+        UserHashtag.where(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visit, 1.days.from_now)
         expect(page).to have_content 'Since'
       end
     end

@@ -61,7 +61,6 @@ sort_members = (list) ->
   $.each(items, (idx, itm) -> list.append(itm))
 
 add_message = (data) ->
-
   timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
 
   $('.chatbox').append ''+
@@ -77,6 +76,9 @@ add_message = (data) ->
         '<p>' + data.content + '</p>' +
       '</div>' +
     '</div>'
+
+exports = this
+exports.add_message = add_message
 
 ready = ->
   if not $('#hashtag-id').length
