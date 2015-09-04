@@ -37,17 +37,29 @@ RSpec.describe User do
     it 'has unactive channels empty' do
       expect(user.unactive_channels.count).to be(0)
     end
+
     it 'has unactive channel with one' do
       hashtag2 = Hashtag.create tag: 'avantouinti2'
       UserHashtag.create(user: user, hashtag: hashtag2)
       expect(user.unactive_channels.count).to be(1)
     end
+
     it 'has hashtag moved to active channels' do
       hashtag2 = Hashtag.create tag: 'avantouinti2'
       UserHashtag.create(user: user, hashtag: hashtag2)
       Message.create(content: 'aasd', user: user, hashtag: hashtag2)
       expect(user.unactive_channels.count).to be(0)
       expect(user.six_most_active_channels.count).to be(2)
+    end
+
+    it 'has last_visit for hashtag' do
+      timestamp = 1.days.ago
+      UserHashtag.find_by(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visited, timestamp)
+      expect(user.last_visit(hashtag)).to eq(timestamp.strftime('%Y-%m-%dT%H:%M:%S'))
+    end
+
+    it 'has last_visit for hashtag with no last_visit' do
+      expect(user.last_visit(hashtag)).to_not eq(nil)
     end
   end
 end

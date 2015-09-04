@@ -33,7 +33,8 @@ class User < ActiveRecord::Base
 
   def last_visit(hashtag)
     timestamp = user_hashtags.find_by(hashtag_id: hashtag.id).last_visited
-    timestamp.nil? ? nil : timestamp.strftime('%Y-%m-%dT%H:%M:%S')
+    timestamp = Time.zone.now if timestamp.nil?
+    timestamp.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   def likes?(message)
