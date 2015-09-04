@@ -16,7 +16,7 @@ RSpec.describe Hashtag do
       expect(find('//form/div/span/button')).to have_content ''
     end
 
-    context 'messages', js:true do
+    context 'messages', js: true do
       before :each do
         message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
         visit hashtag_path(hashtag.tag)
@@ -38,11 +38,18 @@ RSpec.describe Hashtag do
       it 'have #hashtag after autolinking' do
         expect(page).to have_content 'Hello World! @asd asd #avantouinti'
       end
+    end
 
-      it 'has unread marker' do
-        UserHashtag.where(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visit, 1.days.ago)
-        expect(page).to have_content 'Since'
-      end
+    it 'has unread marker', js: true do
+      UserHashtag.find_by(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visited, 1.days.ago)
+      
+      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+      visit hashtag_path(hashtag.tag)
+
+      json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize) } }
+      page.execute_script("add_multiple_messages(#{JSON.generate(json)})")
+      
+      expect(page).to have_content 'Since'
     end
 
     it 'can send a message', js: true do

@@ -95,9 +95,6 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
-exports = this
-exports.add_message = add_message
-
 add_notification = ->
   count = $('.notif-count')
   t = Number(count.text())
@@ -105,6 +102,23 @@ add_notification = ->
     $('.notif-count').append("<span class='badge badge-success'>1</span>");
   else
     $('.notif-count .badge').text(t + 1)
+
+add_multiple_messages = (data) ->
+  last_visit = moment.utc($('#last-visit')[0].value)
+  markerDrawn = false
+  for message in data.messages
+    if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
+      $('.chatbox').append ''+
+        '<div class="line text-center">' +
+          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
+        '</div>'
+      markerDrawn = true
+    add_message message
+  move_to_message()
+
+exports = this
+exports.add_message = add_message
+exports.add_multiple_messages = add_multiple_messages
 
 ready = ->
   if not $('#hashtag-id').length
@@ -168,17 +182,7 @@ ready = ->
     else if data.event == 'notification'
       add_notification
     else if data.event == 'messages'
-      last_visit = moment.utc($('#last-visit')[0].value)
-      markerDrawn = false
-      for message in data.messages
-        if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
-          $('.chatbox').append ''+
-            '<div class="line text-center">' +
-              '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
-            '</div>'
-          markerDrawn = true
-        add_message message
-      move_to_message()
+      add_multiple_messages data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

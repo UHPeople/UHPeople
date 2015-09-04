@@ -32,9 +32,7 @@ RSpec.describe 'Feed page' do
 
     it 'redirects hashtag box link to right hashtag when tag opened' do
       first(:link, 'avantouinti').click
-      expect(page).to have_content 'Asdasd'
-      expect(page).to have_content 'Members'
-      expect(page).to have_content 'asd asd'
+      expect(page).to have_content 'avantouinti'
     end
 
     it 'doesn\'t have interests title if no hashtags' do

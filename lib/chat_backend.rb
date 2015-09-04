@@ -86,7 +86,6 @@ module UHPeople
     end
 
     def get_messages_event(user, hashtag, socket)
-
       h = hashtag.messages.last(20)
       json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
       #hashtag.messages.where("id > ? ", 1263)
