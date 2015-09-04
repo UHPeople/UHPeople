@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def last_visit(hashtag)
-    user_hashtags.find_by(hashtag_id: hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
+    timestamp = user_hashtags.find_by(hashtag_id: hashtag.id).last_visited
+    timestamp.nil? ? nil : timestamp.strftime('%Y-%m-%dT%H:%M:%S')
   end
 end

@@ -69,17 +69,13 @@ sort_members = (list) ->
   $.each(items, (idx, itm) -> list.append(itm))
 
 format_timestamp = (timestamp) ->
-  moment.utc(timestamp).local().format('MMM D, H:mm')
+  if !moment.isMoment(timestamp)
+    timestamp = moment.utc(timestamp)
+  timestamp.local().format('MMM D, H:mm')
 
 add_message = (data) ->
   timestamp = format_timestamp data.timestamp
   last_visit = format_timestamp $('#last-visit')[0].value
-
-  #if (moment(timestamp).isAfter(last_visit))
-  #  $('.chatbox').append ''+
-  #    '<div class="line text-center">' +
-  #      '<span>Since<span class="timestamp">' + last_visit + '</span></span>'+
-  #    '</div>'
 
   highlight = ''
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
@@ -127,7 +123,7 @@ ready = ->
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
 
   # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
+  # $.post "/update_last_visit/" + hashtag
 
   ws.onopen = ->
     ws.send JSON.stringify
@@ -172,7 +168,16 @@ ready = ->
     else if data.event == 'notification'
       add_notification
     else if data.event == 'messages'
-      add_message message for message in data.messages
+      last_visit = moment.utc($('#last-visit')[0].value)
+      markerDrawn = false
+      for message in data.messages
+        if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
+          $('.chatbox').append ''+
+            '<div class="line text-center">' +
+              '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
+            '</div>'
+          markerDrawn = true
+        add_message message
       move_to_message()
 
   $('#chat-send').on 'click', (event) ->
@@ -188,14 +193,13 @@ ready = ->
 
     $('#input-text')[0].value = ''
 
-  $(window).on 'beforeunload', ->
-    $.ajax({
-      type: 'POST',
-      async: false,
-      url: '/update_last_visit/' + $('#hashtag-id')[0].value
-    })
-
-    console.log "last visit updated"
+  #$(window).on 'beforeunload', ->
+  #  $.ajax({
+  #    type: 'POST',
+  #    async: false,
+  #    url: '/update_last_visit/' + $('#hashtag-id')[0].value
+  #  })
+  #  console.log "last visit updated"
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
