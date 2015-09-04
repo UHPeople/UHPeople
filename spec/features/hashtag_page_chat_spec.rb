@@ -39,14 +39,14 @@ RSpec.describe Hashtag do
         expect(page).to have_content 'Hello World! @asd asd #avantouinti'
       end
 
-      #it 'has zero likes if not any' do
-      #  expect(find('.like-badge')).to have_content '0'
-      #end
-
-      it 'has like if user likes' do
-        click_link('thumb_up')
-        expect(find('.like-badge')).to have_content '1'
+      it 'has zero likes if not any' do
+        expect(find('.like-badge')).to have_content '0'
       end
+
+      #it 'has like if user likes' do
+      #  click_link('thumb_up')
+      #  expect(find('.like-badge')).to have_content '1'
+      #end
 
       it 'thumb changes color if pressed' do
         expect(page).not_to have_css('.like-icon-liked')
@@ -72,9 +72,9 @@ RSpec.describe Hashtag do
     end
 
     it 'can send a message', js: true do
+      visit hashtag_path(hashtag.tag)
       fill_in('input-text', with: 'Hello world!')
       click_button('send')
-
       expect(page).to have_content('Hello world!')
     end
   end
