@@ -43,10 +43,14 @@ class Message < ActiveRecord::Base
   end
 
   def user_likes(current_user)
-    likes.exists? user_id: current_user.id
+    unless current_user.nil?
+      likes.exists? user_id: current_user.id
+    else
+      false
+    end
   end
 
-  def serialize(current_user)
+  def serialize(current_user = nil)
     json = { 'event': 'message',
              'content': formatted_content,
              'hashtag': hashtag_id,
