@@ -182,7 +182,7 @@ ready = ->
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
 
   # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
+  #$.post "/update_last_visit/" + hashtag
 
   ws.onopen = ->
     ws.send JSON.stringify
