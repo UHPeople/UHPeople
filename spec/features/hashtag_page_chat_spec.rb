@@ -41,14 +41,14 @@ RSpec.describe Hashtag do
     end
 
     it 'has unread marker', js: true do
-      UserHashtag.find_by(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visited, 1.days.ago)
-      
-      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
       visit hashtag_path(hashtag.tag)
+      user.user_hashtags.find_by( hashtag_id: hashtag.id ).update_attribute(:last_visited, 1.days.ago)
 
-      json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize) } }
+      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+  
+      json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize(user)) } }
       page.execute_script("add_multiple_messages(#{JSON.generate(json)})")
-      
+
       expect(page).to have_content 'Since'
     end
 
