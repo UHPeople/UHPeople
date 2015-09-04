@@ -1,3 +1,11 @@
+update_leave_button = () ->
+  if $('.nav-list li').size() <= 3
+    $('.leave-button').data('confirm', 'Are you sure you want to leave this channel? ' +
+      'You are the last person on this channel. ' +
+      'After you leave the channel and all its messages will be deleted.')
+  else
+    $('.leave-button').data('confirm', 'Are you sure you want to leave this channel?')
+
 set_online = (id) ->
   $('.nav-list li.member-' + id).addClass('online')
 
@@ -60,16 +68,21 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
+format_timestamp = (timestamp) ->
+  if !moment.isMoment(timestamp)
+    timestamp = moment.utc(timestamp)
+  timestamp.local().format('MMM D, H:mm')
+
 add_message = (data) ->
-  size = $('.chatbox .panel-body').length
+  timestamp = format_timestamp data.timestamp
+  last_visit = format_timestamp $('#last-visit')[0].value
 
-  if size > 20
-    $('.chatbox .panel-body:first-child').remove()
-
-  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
+  highlight = ''
+  if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
+    highlight = 'new_messages'
 
   $('.chatbox').append ''+
-    '<div class="panel-body">' +
+    '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -79,17 +92,65 @@ add_message = (data) ->
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
+        '<div class="space-left">' +
+          '<span class="like-badge like-icon-color">' +
+            data.likes +
+          '</span>' +
+          '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+            '<i class="material-icons md-18 like-icon like-icon-color">thumb_up</i>' +
+          '</a>' +
+        '</div>' +
       '</div>' +
     '</div>'
 
-  scroll_to_bottom()
+click_like = (e, id)->
+  e.preventDefault()
+
+  $.ajax({
+    type: 'POST',
+    async: false,
+    url: '/like_this/' + id
+  })
+
+  #console.log $('#'+id+' i')
+  change_thumb $('#'+id+' i')
+  #thumb.text(flip_thumb(thumb.text()))
+
+change_thumb = (t) ->
+  $(t).addClass('like-icon-liked')
+
+add_notification = ->
+  count = $('.notif-count')
+  t = Number(count.text())
+  if t == 0
+    $('.notif-count').append("<span class='badge badge-success'>1</span>");
+  else
+    $('.notif-count .badge').text(t + 1)
+
+add_multiple_messages = (data) ->
+  last_visit = moment.utc($('#last-visit')[0].value)
+  markerDrawn = false
+  for message in data.messages
+    if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
+      $('.chatbox').append ''+
+        '<div class="line text-center">' +
+          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
+        '</div>'
+      markerDrawn = true
+    add_message message
+  move_to_message()
+
+exports = this
+exports.add_message = add_message
+exports.add_multiple_messages = add_multiple_messages
+exports.click_like = click_like
 
 add_like = (data) ->
-  count = $('.panel-body#' + data.message + ' .message div a .like-badge')
+  count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) + 1)
 
 remove_like = (data) ->
-  count = $('.panel-body#' + data.message + ' .message div a .like-badge')
+  count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) - 1)
 
 add_notification = ->
@@ -100,17 +161,12 @@ add_notification = ->
   else
     $('.notif-count .badge').text(t + 1)
 
-flip_thumb = (current) ->
-  if current == 'thumb_up'
-    return 'thumb_down'
-  else
-    return 'thumb_up'
-
 ready = ->
   if not $('#hashtag-id').length
     return
 
   move_to_message()
+  update_leave_button()
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
@@ -130,6 +186,13 @@ ready = ->
       hashtag: hashtag
       user: user
 
+    ws.send JSON.stringify
+      event: 'messages'
+      hashtag: hashtag
+      user: user
+      from: 0
+      to: 20
+
   ws.onclose = ->
     input = $('#input-text')
     input.addClass('has-error')
@@ -138,27 +201,33 @@ ready = ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    # console.log(data)
+    #console.log(data)
 
     if data.event == 'message'
       add_message data
+      scroll_to_bottom()
     else if data.event == 'online'
       set_all_offline()
       set_online id for id in data.onlines
-      sort_members(members_list)
-      sort_members(members_list_dropdown)
+      sort_members members_list
+      sort_members members_list_dropdown
+      update_leave_button
     else if data.event == 'join'
       add_member data
-      sort_members(members_list)
-      sort_members(members_list_dropdown)
+      sort_members members_list
+      sort_members members_list_dropdown
+      update_leave_button
     else if data.event == 'leave'
       remove_member data
+      update_leave_button
     else if data.event == 'notification'
       add_notification
     else if data.event == 'like'
       add_like data
     else if data.event == 'dislike'
       remove_like data
+    else if data.event == 'messages'
+      add_multiple_messages data
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
@@ -180,17 +249,6 @@ ready = ->
       url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
     console.log ""
-
-  $('.like-this').on 'click', (event) ->
-    event.preventDefault()
-    $.ajax({
-      type: 'POST',
-      async: false,
-      url: '/like_this/' + this.id.slice(5)
-    })
-
-    thumb = $('#'+this.id+' i')
-    thumb.text(flip_thumb(thumb.text()))
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

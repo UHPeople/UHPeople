@@ -48,9 +48,11 @@ class Message < ActiveRecord::Base
              'hashtag': hashtag_id,
              'hashtag_name': hashtag.tag,
              'user': user_id,
+             'id': id,
              'username': user.name,
              'timestamp': timestamp,
-             'avatar': user.profile_picture_url}
+             'avatar': user.profile_picture_url,
+             'likes': likes.count }
 
     JSON.generate json
   end

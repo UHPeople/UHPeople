@@ -91,6 +91,13 @@ module UHPeople
       broadcast(message.serialize, hashtag.id)
     end
 
+    def get_messages_event(user, hashtag, socket)
+      h = hashtag.messages.last(20)
+      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
+      #hashtag.messages.where("id > ? ", 1263)
+      socket.send(JSON.generate(json))
+    end
+
     def online_event(user, hashtag, socket)
       add_client socket, user.id, hashtag.id
       broadcast(online_users(hashtag.id), hashtag.id)
@@ -134,6 +141,8 @@ module UHPeople
         message_event(user, hashtag, socket, data['content'])
       elsif data['event'] == 'online'
         online_event(user, hashtag, socket)
+      elsif data['event'] == 'messages'
+        get_messages_event(user, hashtag, socket)
       end
     end
   end

@@ -8,21 +8,15 @@
       var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
   <% end %>
 
-  <div class="chatbox interest-chatbox">
-    <% if @lastvisit_index > 0 %>
-      <%= render "messages", messages: @messages.to(@lastvisit_index - 1), bg: false %>
-    <% end %>
-    <% if (@lastvisit_index - @messages.count) < 0 %>
-      <%= render "messages", messages: @messages.from(@lastvisit_index), bg: true  %>
-    <% end %>
-  </div>
+  <div class="chatbox interest-chatbox"></div>
 
   <form>
     <div class="panel-footer input-group input-chat">
-      <input  autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>
+      <input autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>
 
-      <input  id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
-      <input  id="user-id" type="hidden" value="<%= current_user.id %>"/>
+      <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
+      <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
+      <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
 
       <span class="input-group-btn">
         <%= button_tag(type:'submit', class: 'btn btn-default btn-borderless', id: 'chat-send') do %>

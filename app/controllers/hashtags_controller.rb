@@ -42,8 +42,14 @@ class HashtagsController < ApplicationController
 
   def leave
     current_user.hashtags.destroy(@hashtag)
-    request.env['chat.leave_callback'].call(current_user, @hashtag)
-    redirect_to hashtag_path(@hashtag.tag)
+
+    if @hashtag.users.empty?
+      @hashtag.destroy
+      redirect_to feed_index_path, notice: 'Channel deleted.'
+    else
+      request.env['chat.leave_callback'].call(current_user, @hashtag)
+      redirect_to hashtag_path(@hashtag.tag)
+    end
   end
 
   def add_multiple
@@ -122,18 +128,6 @@ class HashtagsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to hashtag_path(@hashtag.tag) }
       format.json { render json: { name: user.name, avatar: user.profile_picture_url } }
-    end
-  end
-
-  def leave_and_destroy
-    if @hashtag.user_hashtags.count == 1
-      current_user.hashtags.destroy(@hashtag)
-      request.env['chat.leave_callback'].call(current_user, @hashtag)
-
-      @hashtag.destroy
-      redirect_to feed_index_path, notice: 'Channel deleted.'
-    else
-      redirect_to hashtag_path(@hashtag.tag), alert: 'Unable to leave and delete channel.'
     end
   end
 

@@ -1,11 +1,7 @@
 <div class="well grouplist-position ">
   <% if @user_has_tag %>
     <span class="btn-group">
-      <% if @hashtag.user_hashtags.count == 1 %>
-          <%= link_to 'Leave', leave_and_destroy_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel? You are the last person on this channel. After you leave the channel and all its messages will be deleted.', "data-confirm-title": 'Leave and delete Channel' %>
-      <% else %>
-          <%= link_to 'Leave', leave_path(tag: @hashtag.tag), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to leave this channel?', "data-confirm-title": 'Leave Channel' %>
-      <% end %>
+      <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'btn btn-danger leave-button'%>
     </span>
     <span class="btn-group">
       <%= link_to 'Invite', '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#invite' %>
