@@ -81,6 +81,10 @@ add_message = (data) ->
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
     highlight = 'new_messages'
 
+  like_icon_liked = ''
+  if data.current_user_likes
+    like_icon_liked = 'like-icon-liked'
+
   $('.chatbox').append ''+
     '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -97,7 +101,7 @@ add_message = (data) ->
             data.likes +
           '</span>' +
           '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
-            '<i class="material-icons md-18 like-icon like-icon-color">thumb_up</i>' +
+            '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">thumb_up</i>' +
           '</a>' +
         '</div>' +
       '</div>' +
@@ -111,13 +115,13 @@ click_like = (e, id)->
     async: false,
     url: '/like_this/' + id
   })
-
-  #console.log $('#'+id+' i')
   change_thumb $('#'+id+' i')
-  #thumb.text(flip_thumb(thumb.text()))
 
 change_thumb = (t) ->
-  $(t).addClass('like-icon-liked')
+  if $(t).hasClass( "like-icon-liked" )
+    $(t).removeClass( "like-icon-liked" )
+  else
+    $(t).addClass( "like-icon-liked" )
 
 add_notification = ->
   count = $('.notif-count')
@@ -201,7 +205,6 @@ ready = ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    #console.log(data)
 
     if data.event == 'message'
       add_message data

@@ -88,12 +88,12 @@ module UHPeople
       end
 
       find_mentions(message)
-      broadcast(message.serialize, hashtag.id)
+      broadcast(message.serialize(user), hashtag.id)
     end
 
     def get_messages_event(user, hashtag, socket)
       h = hashtag.messages.last(20)
-      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
+      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize(user))} }
       #hashtag.messages.where("id > ? ", 1263)
       socket.send(JSON.generate(json))
     end
