@@ -16,7 +16,6 @@ RSpec.describe 'Notifications page' do
 
   it 'has notification' do
     visit '/notifications'
-    save_and_open_page
     expect(page).to have_content 'asd asd has invited you to join #avantouinti'
   end
 
