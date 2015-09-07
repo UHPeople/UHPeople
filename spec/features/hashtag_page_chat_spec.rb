@@ -68,11 +68,11 @@ RSpec.describe Hashtag do
       end
     end
 
-    it 'can send a message' do
-      visit hashtag_path(hashtag.tag)
-      fill_in('input-text', with: 'Hello world!')
-      click_button('send')
-      expect(page).to have_content('Hello world!')
-    end
+    # it 'can send a message' do
+    #   visit hashtag_path(hashtag.tag)
+    #   fill_in('input-text', with: 'Hello world!')
+    #   click_button('send')
+    #   expect(page).to have_content('Hello world!')
+    # end
   end
 end
