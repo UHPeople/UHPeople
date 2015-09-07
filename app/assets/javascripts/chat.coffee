@@ -96,14 +96,14 @@ add_message = (data) ->
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
-        '<div class="space-left">' +
-          '<span class="like-badge like-icon-color">' +
-            data.likes +
-          '</span>' +
-          '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
-            '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">thumb_up</i>' +
-          '</a>' +
-        '</div>' +
+      '</div>' +
+      '<div class="space-left">' +
+        '<span class="like-badge like-icon-color">' +
+          data.likes +
+        '</span>' +
+        '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+          '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">thumb_up</i>' +
+        '</a>' +
       '</div>' +
     '</div>'
 
@@ -116,6 +116,7 @@ click_like = (e, id)->
     url: '/like_this/' + id
   })
   change_thumb $('#'+id+' i')
+
 
 change_thumb = (t) ->
   if $(t).hasClass( "like-icon-liked" )

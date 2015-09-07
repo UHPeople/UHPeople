@@ -109,6 +109,9 @@
   .message {
     padding-top: 16px;
     padding-left: 56px;
+    width: 80%;
+    float: left;
+    display: block;
 
     h5 {
       margin-top: 0;
@@ -286,7 +289,11 @@ div.line {
   }
 
   .space-left {
-    padding-left: 1em;
+    float: right;
+    display: block;
+    overflow: hidden;
+    padding-top: 30px;
+    width: 10%;
   }
 
   .space-left a {
