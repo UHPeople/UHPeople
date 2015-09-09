@@ -168,5 +168,8 @@ ready = ->
     })
     console.log "last visit updated"
 
+exports = this
+exports.add_chat_message = add_message
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

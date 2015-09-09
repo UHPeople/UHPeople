@@ -9,8 +9,8 @@ add_unread = (data) ->
         ''
 
 add_message = (data) ->
-  if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
-    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
+  # if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
+  #   $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
   $('#feed').prepend ''+
     '<div class="feed-chat-box">' +
@@ -27,25 +27,24 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
-  $('div.panel.fav#box-' + data.hashtag).append ''+
-    '<div class="panel-body fav">' +
-      '<div class="favourites-chat-box">' +
-        '<a href="/users/' + data.user + '" class="avatar-link">' +
-          '<img class="img-circle" src="' + data.avatar + '"></img>' +
-        '</a>' +
-        '<div class="message">' +
-          '<h5>' +
-            '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-            '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-            '<br/>' +
-            '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
-          '</h5>' +
-          '<p>' + data.content + '</p>' +
-        '</div>' +
-      '</div>' +
-    '</div>'
-
-  $('#masonry-container').masonry()
+  # $('div.panel.fav#box-' + data.hashtag).append ''+
+  #   '<div class="panel-body fav">' +
+  #     '<div class="favourites-chat-box">' +
+  #       '<a href="/users/' + data.user + '" class="avatar-link">' +
+  #         '<img class="img-circle" src="' + data.avatar + '"></img>' +
+  #       '</a>' +
+  #       '<div class="message">' +
+  #         '<h5>' +
+  #           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
+  #           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
+  #           '<br/>' +
+  #           '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+  #         '</h5>' +
+  #         '<p>' + data.content + '</p>' +
+  #       '</div>' +
+  #     '</div>' +
+  #   '</div>'
+  # $('#masonry-container').masonry()
 
 ready = ->
   if not $('#feed').length
@@ -73,6 +72,9 @@ ready = ->
       add_notification
     else if data.event == 'messages'
       add_multiple_messages data, add_message, false
+
+exports = this
+exports.add_feed_message = add_message
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

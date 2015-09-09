@@ -20,7 +20,7 @@ RSpec.describe Hashtag do
       before :each do
         message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
         visit hashtag_path(hashtag.tag)
-        page.execute_script("add_message(#{message.serialize})")
+        page.execute_script("add_chat_message(#{message.serialize})")
       end
 
       it 'have content' do
