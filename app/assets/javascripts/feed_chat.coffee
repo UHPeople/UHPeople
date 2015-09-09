@@ -1,11 +1,4 @@
-add_message = (data) ->
-  size = $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length
-
-  if size >= 5
-    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
-
-  timestamp = moment.utc(data.timestamp).local().format('MMM D, H:mm');
-
+add_unread = (data) ->
   if !$('td a#' + data.hashtag).children().hasClass('unread')
       $('td a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
   else
@@ -14,6 +7,10 @@ add_message = (data) ->
         Number(t) + 1
       else
         ''
+
+add_message = (data) ->
+  if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
+    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
   $('#feed').prepend ''+
     '<div class="feed-chat-box">' +
@@ -24,7 +21,7 @@ add_message = (data) ->
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-          '<span class="timestamp">' + timestamp + '</span>' +
+          '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
       '</div>' +
@@ -41,7 +38,7 @@ add_message = (data) ->
             '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
             '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
             '<br/>' +
-            '<span class="timestamp">' + timestamp + '</span>' +
+            '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
           '</h5>' +
           '<p>' + data.content + '</p>' +
         '</div>' +
@@ -53,6 +50,8 @@ add_message = (data) ->
 ready = ->
   if not $('#feed').length
     return
+  else
+    console.log('Feed page detected!')
 
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
@@ -69,13 +68,11 @@ ready = ->
 
     if data.event == 'message'
       add_message data
+      add_unread data
     else if data.event == 'notification'
-      count = $('.notif-count')
-      t = Number(count.text())
-      if t == 0
-        $('.notif-count').append( "<span class='badge badge-success'>1</span>" );
-      else
-        $('.notif-count .badge').text(t + 1)
+      add_notification
+    else if data.event == 'messages'
+      add_multiple_messages data, add_message, false
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

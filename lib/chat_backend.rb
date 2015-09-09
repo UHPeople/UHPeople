@@ -69,6 +69,16 @@ module UHPeople
 
       json = { 'event': 'feed', 'user': user.id }
       socket.send(JSON.generate(json))
+
+      # Stolen from feed_controller
+      # Needs to be refactored
+      tags = user.user_hashtags.includes(hashtag: :messages).map(&:hashtag)
+      messages = Message.includes(:hashtag, :user)
+                .where(hashtag: tags)
+                .order(created_at: :desc).limit(20).reverse
+
+      json = { 'event': 'messages', 'messages': messages.map { |m| JSON.parse(m.serialize) } }
+      socket.send(JSON.generate(json))
     end
 
     def message_event(user, hashtag, socket, content)
@@ -135,6 +145,7 @@ module UHPeople
         message_event(user, hashtag, socket, data['content'])
       elsif data['event'] == 'online'
         online_event(user, hashtag, socket)
+        get_messages_event(user, hashtag, socket)
       elsif data['event'] == 'messages'
         get_messages_event(user, hashtag, socket)
       end

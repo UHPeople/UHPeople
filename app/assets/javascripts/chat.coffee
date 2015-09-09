@@ -68,15 +68,7 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
-format_timestamp = (timestamp) ->
-  if !moment.isMoment(timestamp)
-    timestamp = moment.utc(timestamp)
-  timestamp.local().format('MMM D, H:mm')
-
 add_message = (data) ->
-  timestamp = format_timestamp data.timestamp
-  last_visit = format_timestamp $('#last-visit')[0].value
-
   highlight = ''
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
     highlight = 'new_messages'
@@ -89,40 +81,17 @@ add_message = (data) ->
       '<div class="message">' +
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
-          '<span class="timestamp">' + timestamp + '</span>' +
+          '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
         '<p>' + data.content + '</p>' +
       '</div>' +
     '</div>'
 
-add_notification = ->
-  count = $('.notif-count')
-  t = Number(count.text())
-  if t == 0
-    $('.notif-count').append("<span class='badge badge-success'>1</span>");
-  else
-    $('.notif-count .badge').text(t + 1)
-
-add_multiple_messages = (data) ->
-  last_visit = moment.utc($('#last-visit')[0].value)
-  markerDrawn = false
-  for message in data.messages
-    if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
-      $('.chatbox').append ''+
-        '<div class="line text-center">' +
-          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
-        '</div>'
-      markerDrawn = true
-    add_message message
-  move_to_message()
-
-exports = this
-exports.add_message = add_message
-exports.add_multiple_messages = add_multiple_messages
-
 ready = ->
   if not $('#hashtag-id').length
     return
+  else
+    console.log('Chat page detected!')
 
   move_to_message()
   update_leave_button()
@@ -144,13 +113,6 @@ ready = ->
       event: 'online'
       hashtag: hashtag
       user: user
-
-    ws.send JSON.stringify
-      event: 'messages'
-      hashtag: hashtag
-      user: user
-      from: 0
-      to: 20
 
   ws.onclose = ->
     input = $('#input-text')
@@ -182,7 +144,8 @@ ready = ->
     else if data.event == 'notification'
       add_notification
     else if data.event == 'messages'
-      add_multiple_messages data
+      add_multiple_messages data, add_message, true
+      move_to_message()
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()

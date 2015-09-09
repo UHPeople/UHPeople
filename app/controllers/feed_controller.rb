@@ -8,12 +8,10 @@ class FeedController < ApplicationController
     @user_tags = cu_hashtags.downcase_sorted
 
     fav_user_tags = cu_hashtags.favourite
-    @chats = fav_user_tags.map { |user_hashtag| { tag: user_hashtag.hashtag, messages: user_hashtag.hashtag.messages.last(5) } }
-
-    tags = @user_tags.map(&:hashtag)
-    @messages = Message.includes(:hashtag, :user)
-                .where(hashtag: tags)
-                .order(created_at: :desc).limit(20)
+    @chats = fav_user_tags.map { |user_hashtag|
+      { tag: user_hashtag.hashtag,
+        messages: user_hashtag.hashtag.messages.last(5) }
+    }
 
     @word_array = cloud_cache
     @tab = current_user.tab
