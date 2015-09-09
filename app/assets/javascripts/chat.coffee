@@ -95,15 +95,16 @@ add_message = (data) ->
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp">' + timestamp + '</span>' +
         '</h5>' +
-        '<p>' + data.content + '</p>' +
-      '</div>' +
-      '<div class="space-left">' +
-        '<span class="like-badge like-icon-color">' +
-          data.likes +
-        '</span>' +
-        '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
-          '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">thumb_up</i>' +
-        '</a>' +
+        '<p>' + data.content +
+          '<span class="space-left">' +
+            '<span class="like-badge like-icon-color">' +
+              data.likes +
+            '</span>' +
+            '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">star_border</i>' +
+            '</a>' +
+          '</span>' +
+        '</p>' +
       '</div>' +
     '</div>'
 
