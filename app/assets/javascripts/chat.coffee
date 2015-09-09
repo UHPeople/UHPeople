@@ -82,8 +82,10 @@ add_message = (data) ->
     highlight = 'new_messages'
 
   like_icon_liked = ''
+  star = 'star_border'
   if data.current_user_likes
     like_icon_liked = 'like-icon-liked'
+    star = 'star'
 
   $('.chatbox').append ''+
     '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
@@ -101,12 +103,14 @@ add_message = (data) ->
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
-              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">star_border</i>' +
+              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
         '</p>' +
       '</div>' +
     '</div>'
+
+    set_star_hover()
 
 click_like = (e, id)->
   e.preventDefault()
@@ -122,8 +126,10 @@ click_like = (e, id)->
 change_thumb = (t) ->
   if $(t).hasClass( "like-icon-liked" )
     $(t).removeClass( "like-icon-liked" )
+    $(t).text 'star_border'
   else
     $(t).addClass( "like-icon-liked" )
+    $(t).text 'star'
 
 add_notification = ->
   count = $('.notif-count')
@@ -159,6 +165,18 @@ remove_like = (data) ->
   count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) - 1)
 
+set_star_hover = ->
+	$('.like-icon').hover( ->
+      $(this).text 'star_half'
+      return
+    , ->
+      if $(this).hasClass( "like-icon-liked" )
+        $(this).text 'star'
+        return
+      else
+        $(this).text 'star_border'
+    )
+    
 add_notification = ->
   count = $('.notif-count')
   t = Number(count.text())
