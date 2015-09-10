@@ -47,7 +47,7 @@ RSpec.describe Hashtag do
       visit hashtag_path(hashtag.tag)
 
       json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize) } }
-      page.execute_script("add_multiple_messages(#{JSON.generate(json)})")
+      page.execute_script("add_multiple_messages(#{JSON.generate(json)}, add_chat_message, true)")
       
       expect(page).to have_content 'Since'
     end

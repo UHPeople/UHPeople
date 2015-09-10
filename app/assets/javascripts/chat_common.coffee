@@ -13,10 +13,8 @@ format_timestamp = (timestamp) ->
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
   last_visit = null
-  if (drawMarker and $('#last-visit').length)
+  if (drawMarker)
     last_visit = moment.utc($('#last-visit')[0].value)
-  else
-    drawMarker = false
 
   markerDrawn = false
   for message in data.messages
