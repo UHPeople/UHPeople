@@ -87,6 +87,7 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -95,9 +96,6 @@ ready = ->
 
   move_to_message()
   update_leave_button()
-
-  uri = websocket_scheme + websocket_host
-  ws = new WebSocket(uri)
 
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
@@ -108,44 +106,53 @@ ready = ->
   # page unload uses ajax unasync
   $.post "/update_last_visit/" + hashtag
 
-  ws.onopen = ->
-    ws.send JSON.stringify
+  on_open = (socket) ->
+    socket.send JSON.stringify
       event: 'online'
       hashtag: hashtag
       user: user
 
-  ws.onclose = ->
+  on_close = ->
     input = $('#input-text')
     input.addClass('has-error')
     input.prop('disabled', true)
     input[0].value = 'Connection lost!'
 
-  ws.onmessage = (message) ->
-    data = JSON.parse message.data
-    console.log(data)
+  on_message = (data) ->
+    add_message data
+    scroll_to_bottom()
 
-    if data.event == 'message'
-      add_message data
-      scroll_to_bottom()
-    else if data.event == 'online'
-      set_all_offline()
-      set_online id for id in data.onlines
-      sort_members members_list
-      sort_members members_list_dropdown
-      update_leave_button
-    else if data.event == 'join'
-      add_member data
-      sort_members members_list
-      sort_members members_list_dropdown
-      update_leave_button
-    else if data.event == 'leave'
-      remove_member data
-      update_leave_button
-    else if data.event == 'notification'
-      add_notification
-    else if data.event == 'messages'
-      add_multiple_messages data, add_message, true
-      move_to_message()
+  on_online = (data) ->
+    set_all_offline()
+    set_online id for id in data.onlines
+    sort_members members_list
+    sort_members members_list_dropdown
+    update_leave_button
+
+  on_join = (data) ->
+    add_member data
+    sort_members members_list
+    sort_members members_list_dropdown
+    update_leave_button
+
+  on_leave = (data) ->
+    remove_member data
+    update_leave_button
+
+  on_messages = (data) ->
+    add_multiple_messages data, add_message, true
+    move_to_message()
+
+  ws = create_websocket {
+    'open': on_open,
+    'close': on_close,
+    'message': on_message,
+    'online': on_online,
+    'join': on_join,
+    'leave': on_leave,
+    'notification': on_notification,
+    'messages': on_messages
+  }
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
