@@ -112,16 +112,12 @@ add_message = (data) ->
 
     set_star_hover()
 
-click_like = (e, id)->
+ws = ->
+
+click_like = ( e, message_id )->
   e.preventDefault()
-
-  $.ajax({
-    type: 'POST',
-    async: false,
-    url: '/like_this/' + id
-  })
-  change_thumb $('#'+id+' i')
-
+  change_thumb $('#' + message_id + ' i')
+  ws.send_like( message_id )  
 
 change_thumb = (t) ->
   if $(t).hasClass( "like-icon-liked" )
@@ -176,7 +172,7 @@ set_star_hover = ->
       else
         $(this).text 'star_border'
     )
-    
+
 add_notification = ->
   count = $('.notif-count')
   t = Number(count.text())
@@ -203,6 +199,17 @@ ready = ->
 
   # page unload uses ajax unasync
   #$.post "/update_last_visit/" + hashtag
+
+  send = ->
+    console.log 'asdadskj'
+
+  ws.send_like = (message)->
+    ws.send JSON.stringify
+      event: 'like'
+      user: user
+      hashtag: hashtag
+      message: message
+
 
   ws.onopen = ->
     ws.send JSON.stringify
