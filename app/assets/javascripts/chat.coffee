@@ -102,7 +102,7 @@ add_message = (data) ->
             '<span class="like-badge like-icon-color">' +
               data.likes +
             '</span>' +
-            '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+            '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
               '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
@@ -111,13 +111,15 @@ add_message = (data) ->
     '</div>'
 
     set_star_hover()
+    set_click_like(data.id)
 
 ws = ->
 
-click_like = ( e, message_id )->
-  e.preventDefault()
-  change_thumb $('#' + message_id + ' i')
-  ws.send_like( message_id )  
+set_click_like = (message_id) ->
+  $("#like-" + message_id).click (e)->
+    e.preventDefault()
+    change_thumb $('#' + message_id + ' i')
+    ws.send_like( message_id )
 
 change_thumb = (t) ->
   if $(t).hasClass( "like-icon-liked" )
@@ -151,7 +153,6 @@ add_multiple_messages = (data) ->
 exports = this
 exports.add_message = add_message
 exports.add_multiple_messages = add_multiple_messages
-exports.click_like = click_like
 
 add_like = (data) ->
   count = $('#' + data.message + ' .like-badge')
