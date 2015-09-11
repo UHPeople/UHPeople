@@ -14,7 +14,13 @@
 
 //= require joyride/jquery.joyride-2.1
 //= require jquery.atwho
-//= require_tree .
+
+//= require rails 
+//= require chat_common
+//= require chat
+//= require feed_chat
+//= require search
+// require_tree .
 
 // Change hash for page-reload
 $('.nav-tabs a').on('shown.bs.tab', function(e) {

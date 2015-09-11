@@ -1,3 +1,5 @@
+ws = null
+
 update_leave_button = () ->
   if $('.nav-list li').size() <= 3
     $('.leave-button').data('confirm', 'Are you sure you want to leave this channel? ' +
@@ -106,7 +108,7 @@ add_message = (data) ->
             '<span class="like-badge like-icon-color">' +
               data.likes +
             '</span>' +
-            '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+            '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
               '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
@@ -116,17 +118,6 @@ add_message = (data) ->
 
     set_star_hover()
 
-click_like = (e, id)->
-  e.preventDefault()
-
-  $.ajax({
-    type: 'POST',
-    async: false,
-    url: '/like_this/' + id
-  })
-  change_thumb $('#'+id+' i')
-
-
 change_thumb = (t) ->
   if $(t).hasClass( "like-icon-liked" )
     $(t).removeClass( "like-icon-liked" )
@@ -135,26 +126,21 @@ change_thumb = (t) ->
     $(t).addClass( "like-icon-liked" )
     $(t).text 'star'
 
-add_notification = ->
-  count = $('.notif-count')
-  t = Number(count.text())
-  if t == 0
-    $('.notif-count').append("<span class='badge badge-success'>1</span>");
-  else
-    $('.notif-count .badge').text(t + 1)
+add_click_handler_to_likes = ->
+  hashtag = $('#hashtag-id')[0].value
+  user = $('#user-id')[0].value
 
-add_multiple_messages = (data) ->
-  last_visit = moment.utc($('#last-visit')[0].value)
-  markerDrawn = false
-  for message in data.messages
-    if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
-      $('.chatbox').append ''+
-        '<div class="line text-center">' +
-          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
-        '</div>'
-      markerDrawn = true
-    add_message message
-  move_to_message()
+  $('.like-this').on 'click', (event) ->
+    event.preventDefault()
+
+    message = $(this)[0].id.substr(5)
+    change_thumb $('#' + message + ' i')
+
+    ws.send JSON.stringify
+      event: 'like'
+      user: user
+      hashtag: hashtag
+      message: message
 
 on_like = (data) ->
   count = $('#' + data.message + ' .like-badge')
@@ -209,6 +195,7 @@ on_leave = (data) ->
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
   move_to_message()
+  add_click_handler_to_likes()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -262,7 +249,6 @@ ready = ->
 exports = this
 exports.add_chat_message = add_message
 exports.add_multiple_messages = add_multiple_messages
-exports.click_like = click_like
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
