@@ -31,7 +31,7 @@
 
   .message {
     padding-left: 56px;
-    padding-top: 16px;
+    padding-top: 16px;;
 
     h5 {
       margin-top: 0;
@@ -53,8 +53,10 @@
       color: #3d3c40;
       word-wrap: break-word;
     }
+
   }
 }
+
 
 // Favourites Chatbox
 .favourites-chat-box {
@@ -96,7 +98,7 @@
   }
 }
 
-// INTEREST Chat
+// INTEREST Chat this is the hashtags own page
 .interest-chatbox {
   @include chat;
 
@@ -125,7 +127,9 @@
       color: #3d3c40;
       font-size: 15px;
       line-height: 22px;
-      word-wrap: break-word;
+
+      //issues on chrome
+      //word-wrap: break-word;
     }
   }
 }
@@ -267,5 +271,35 @@ div.line {
       font-weight: normal;
       color: $accent;
     }
+  }
+}
+
+
+span.space-left {
+  font-size: 70% !important;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 70%;
+  font-weight: normal;
+  padding-left: 1em;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover, a:active, a:visited, a:link {
+    text-decoration: none;
+  }
+
+  .like-badge {
+    text-decoration: none;
+    padding-right: 2px;
+  }
+
+  .like-icon {
+    line-height: 1.42857143 !important;
+  }
+
+  .like-icon-liked {
+    color: $accent !important
   }
 }

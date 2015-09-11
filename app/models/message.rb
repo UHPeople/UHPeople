@@ -17,6 +17,8 @@ class Message < ActiveRecord::Base
   belongs_to :hashtag
   belongs_to :user
 
+  has_many :likes, dependent: :destroy
+
   validates :content, :hashtag_id, :user_id, presence: true
   validates_with UserHashtagValidator
 
@@ -34,15 +36,33 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def serialize
+  def likes_count
+    if likes.count > 0
+      pluralize(likes.count, 'like')
+    end
+  end
+
+  def user_likes(current_user)
+    unless current_user.nil?
+      likes.exists? user_id: current_user.id
+    else
+      false
+    end
+  end
+
+  def serialize(current_user = nil)
     json = { 'event': 'message',
              'content': formatted_content,
              'hashtag': hashtag_id,
              'hashtag_name': hashtag.tag,
              'user': user_id,
+             'id': id,
              'username': user.name,
              'timestamp': timestamp,
-             'avatar': user.profile_picture_url}
+             'avatar': user.profile_picture_url,
+             'likes': likes.count,
+             'current_user_likes': user_likes(current_user)
+           }
 
     JSON.generate json
   end

@@ -73,8 +73,14 @@ add_message = (data) ->
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
     highlight = 'new_messages'
 
+  like_icon_liked = ''
+  star = 'star_border'
+  if data.current_user_likes
+    like_icon_liked = 'like-icon-liked'
+    star = 'star'
+
   $('.chatbox').append ''+
-    '<div class="panel-body ' + highlight + ' ">' +
+    '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -83,10 +89,82 @@ add_message = (data) ->
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
-        '<p>' + data.content + '</p>' +
+        '<p>' + data.content +
+          '<span class="space-left">' +
+            '<span class="like-badge like-icon-color">' +
+              data.likes +
+            '</span>' +
+            '<a class="send-hover like-this" href="#" id="like-' + data.id + '" onclick="click_like(event, ' + data.id + ');">' +
+              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+            '</a>' +
+          '</span>' +
+        '</p>' +
       '</div>' +
     '</div>'
 
+<<<<<<< HEAD
+=======
+    set_star_hover()
+
+click_like = (e, id)->
+  e.preventDefault()
+
+  $.ajax({
+    type: 'POST',
+    async: false,
+    url: '/like_this/' + id
+  })
+  change_thumb $('#'+id+' i')
+
+
+change_thumb = (t) ->
+  if $(t).hasClass( "like-icon-liked" )
+    $(t).removeClass( "like-icon-liked" )
+    $(t).text 'star_border'
+  else
+    $(t).addClass( "like-icon-liked" )
+    $(t).text 'star'
+
+add_notification = ->
+  count = $('.notif-count')
+  t = Number(count.text())
+  if t == 0
+    $('.notif-count').append("<span class='badge badge-success'>1</span>");
+  else
+    $('.notif-count .badge').text(t + 1)
+
+add_multiple_messages = (data) ->
+  last_visit = moment.utc($('#last-visit')[0].value)
+  markerDrawn = false
+  for message in data.messages
+    if (!markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
+      $('.chatbox').append ''+
+        '<div class="line text-center">' +
+          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
+        '</div>'
+      markerDrawn = true
+    add_message message
+  move_to_message()
+
+add_like = (data) ->
+  count = $('#' + data.message + ' .like-badge')
+  count.text(Number(count.text()) + 1)
+
+remove_like = (data) ->
+  count = $('#' + data.message + ' .like-badge')
+  count.text(Number(count.text()) - 1)
+
+set_star_hover = ->
+	$('.like-icon').hover( ->
+      $(this).text 'star_half'
+      return
+    , ->
+      if $(this).hasClass( "like-icon-liked" )
+        $(this).text 'star'
+        return
+      else
+        $(this).text 'star_border'
+    )
 
 ready = ->
   if not $('#hashtag-id').length
@@ -104,7 +182,7 @@ ready = ->
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
 
   # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
+  #$.post "/update_last_visit/" + hashtag
 
   on_open = (socket) ->
     socket.send JSON.stringify
@@ -151,7 +229,9 @@ ready = ->
     'join': on_join,
     'leave': on_leave,
     'notification': on_notification,
-    'messages': on_messages
+    'messages': on_messages,
+    'like': add_like,
+    'dislike': remove_like
   }
 
   $('#chat-send').on 'click', (event) ->
@@ -173,10 +253,12 @@ ready = ->
       async: false,
       url: '/update_last_visit/' + $('#hashtag-id')[0].value
     })
-    console.log "last visit updated"
+    console.log ""
 
 exports = this
 exports.add_chat_message = add_message
+exports.add_multiple_messages = add_multiple_messages
+exports.click_like = click_like
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

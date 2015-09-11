@@ -33,6 +33,7 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
+        env['chat.like_callback'] = proc { |event, message| like_callback(event, message) }
         env['chat.notification_callback'] = proc { |user| notification_callback(user) }
 
         @app.call(env)
@@ -49,6 +50,11 @@ module UHPeople
     def notification_callback(user)
       json = { 'event': 'notification' }
       send(JSON.generate(json), user)
+    end
+
+    def like_callback(event, message)
+      json = { 'event': event, 'hashtag': message.hashtag.id, 'message': message.id }
+      broadcast(JSON.generate(json), message.hashtag.id)
     end
 
     def send_error(socket, error)
@@ -92,12 +98,12 @@ module UHPeople
       end
 
       find_mentions(message)
-      broadcast(message.serialize, hashtag.id)
+      broadcast(message.serialize(user), hashtag.id)
     end
 
     def get_messages_event(user, hashtag, socket)
       h = hashtag.messages.last(20)
-      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize) } }
+      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize(user))} }
       #hashtag.messages.where("id > ? ", 1263)
       socket.send(JSON.generate(json))
     end

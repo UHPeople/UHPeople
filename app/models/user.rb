@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :messages, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :photos, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
   def unread_notifications?
     notifications.unread_count > 0
@@ -34,5 +35,10 @@ class User < ActiveRecord::Base
     timestamp = user_hashtags.find_by(hashtag_id: hashtag.id).last_visited
     timestamp = Time.zone.now if timestamp.nil?
     timestamp.strftime('%Y-%m-%dT%H:%M:%S')
+  end
+
+  def likes?(message)
+    likes.each { |like| return true if like.message == message }
+    return false
   end
 end
