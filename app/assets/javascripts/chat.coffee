@@ -1,3 +1,5 @@
+ws = null
+
 update_leave_button = () ->
   if $('.nav-list li').size() <= 3
     $('.leave-button').data('confirm', 'Are you sure you want to leave this channel? ' +
@@ -67,7 +69,7 @@ sort_members = (list) ->
       compare_text(a, b)
 
   $.each(items, (idx, itm) -> list.append(itm))
-  
+
 set_star_hover = ->
   $('.like-icon').hover( ->
       $(this).text 'star_half'
@@ -124,6 +126,22 @@ change_thumb = (t) ->
     $(t).addClass( "like-icon-liked" )
     $(t).text 'star'
 
+add_click_handler_to_likes = (element)->
+  hashtag = $('#hashtag-id')[0].value
+  user = $('#user-id')[0].value
+
+  $(element).on 'click', (event) ->
+    event.preventDefault()
+
+    message = $(this)[0].id.substr(5)
+    change_thumb $('#' + message + ' i')
+
+    ws.send JSON.stringify
+      event: 'like'
+      user: user
+      hashtag: hashtag
+      message: message
+
 on_like = (data) ->
   count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) + 1)
@@ -150,6 +168,7 @@ on_close = ->
 on_message = (data) ->
   add_message data
   scroll_to_bottom()
+  add_click_handler_to_likes('#like-' + data.id)
 
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
@@ -177,29 +196,30 @@ on_leave = (data) ->
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
   move_to_message()
-  add_click_handler_to_likes()
+  add_click_handler_to_likes('.like-this')
 
-# The click handler functions need the websocket
-# null value will get overwritten by the ready() function
-ws = null
+ready = ->
+  if not $('#hashtag-id').length
+    return
+  else
+    console.log('Chat page detected!')
 
-add_click_handler_to_likes = ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
+  move_to_message()
+  update_leave_button()
 
-  $('.like-this').on 'click', (event) ->
-    event.preventDefault()
+  ws = create_websocket {
+    'open': on_open,
+    'close': on_close,
+    'message': on_message,
+    'online': on_online,
+    'join': on_join,
+    'leave': on_leave,
+    'notification': on_notification,
+    'messages': on_messages,
+    'like': on_like,
+    'dislike': on_dislike
+  }
 
-    message = $(this)[0].id.substr(5)
-    change_thumb $('#' + message + ' i')
-
-    ws.send JSON.stringify
-      event: 'like'
-      user: user
-      hashtag: hashtag
-      message: message
-
-add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
@@ -216,31 +236,13 @@ add_click_handler_to_chat = ->
 
     $('#input-text')[0].value = ''
 
-ready = ->
-  if not $('#hashtag-id').length
-    return
-  else
-    console.log('Chat page detected!')
-
-  ws = create_websocket {
-    'open': on_open,
-    'close': on_close,
-    'message': on_message,
-    'online': on_online,
-    'join': on_join,
-    'leave': on_leave,
-    'notification': on_notification,
-    'messages': on_messages,
-    'like': on_like,
-    'dislike': on_dislike
-  }
-
-  # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
-
-  move_to_message()
-  update_leave_button()
-  add_click_handler_to_chat()
+  $(window).on 'beforeunload', ->
+    $.ajax({
+      type: 'POST',
+      async: false,
+      url: '/update_last_visit/' + $('#hashtag-id')[0].value
+    })
+    console.log ""
 
 exports = this
 exports.add_chat_message = add_message
@@ -248,11 +250,3 @@ exports.add_multiple_messages = add_multiple_messages
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
-$(window).on 'beforeunload', ->
-  $.ajax({
-    type: 'POST',
-    async: false,
-    url: '/update_last_visit/' + $('#hashtag-id')[0].value
-  })
-  console.log ""
