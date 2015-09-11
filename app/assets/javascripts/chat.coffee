@@ -67,6 +67,18 @@ sort_members = (list) ->
       compare_text(a, b)
 
   $.each(items, (idx, itm) -> list.append(itm))
+  
+set_star_hover = ->
+  $('.like-icon').hover( ->
+      $(this).text 'star_half'
+      return
+    , ->
+      if $(this).hasClass( "like-icon-liked" )
+        $(this).text 'star'
+        return
+      else
+        $(this).text 'star_border'
+    )
 
 add_message = (data) ->
   highlight = ''
@@ -102,8 +114,6 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
-<<<<<<< HEAD
-=======
     set_star_hover()
 
 click_like = (e, id)->
@@ -146,25 +156,59 @@ add_multiple_messages = (data) ->
     add_message message
   move_to_message()
 
-add_like = (data) ->
+on_like = (data) ->
   count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) + 1)
 
-remove_like = (data) ->
+on_dislike = (data) ->
   count = $('#' + data.message + ' .like-badge')
   count.text(Number(count.text()) - 1)
 
-set_star_hover = ->
-	$('.like-icon').hover( ->
-      $(this).text 'star_half'
-      return
-    , ->
-      if $(this).hasClass( "like-icon-liked" )
-        $(this).text 'star'
-        return
-      else
-        $(this).text 'star_border'
-    )
+on_open = (socket) ->
+  hashtag = $('#hashtag-id')[0].value
+  user = $('#user-id')[0].value
+
+  socket.send JSON.stringify
+    event: 'online'
+    hashtag: hashtag
+    user: user
+
+on_close = ->
+  input = $('#input-text')
+  input.addClass('has-error')
+  input.prop('disabled', true)
+  input[0].value = 'Connection lost!'
+
+on_message = (data) ->
+  add_message data
+  scroll_to_bottom()
+
+on_online = (data) ->
+  members_list = $('ul.nav-list:not(.dropdown-menu)')
+  members_list_dropdown = $('ul.nav-list.dropdown-menu')
+
+  set_all_offline()
+  set_online id for id in data.onlines
+  sort_members members_list
+  sort_members members_list_dropdown
+  update_leave_button
+
+on_join = (data) ->
+  members_list = $('ul.nav-list:not(.dropdown-menu)')
+  members_list_dropdown = $('ul.nav-list.dropdown-menu')
+
+  add_member data
+  sort_members members_list
+  sort_members members_list_dropdown
+  update_leave_button
+
+on_leave = (data) ->
+  remove_member data
+  update_leave_button
+
+on_messages = (data) ->
+  add_multiple_messages data, add_message, true
+  move_to_message()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -175,51 +219,8 @@ ready = ->
   move_to_message()
   update_leave_button()
 
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
-
-  members_list = $('ul.nav-list:not(.dropdown-menu)')
-  members_list_dropdown = $('ul.nav-list.dropdown-menu')
-
   # page unload uses ajax unasync
   #$.post "/update_last_visit/" + hashtag
-
-  on_open = (socket) ->
-    socket.send JSON.stringify
-      event: 'online'
-      hashtag: hashtag
-      user: user
-
-  on_close = ->
-    input = $('#input-text')
-    input.addClass('has-error')
-    input.prop('disabled', true)
-    input[0].value = 'Connection lost!'
-
-  on_message = (data) ->
-    add_message data
-    scroll_to_bottom()
-
-  on_online = (data) ->
-    set_all_offline()
-    set_online id for id in data.onlines
-    sort_members members_list
-    sort_members members_list_dropdown
-    update_leave_button
-
-  on_join = (data) ->
-    add_member data
-    sort_members members_list
-    sort_members members_list_dropdown
-    update_leave_button
-
-  on_leave = (data) ->
-    remove_member data
-    update_leave_button
-
-  on_messages = (data) ->
-    add_multiple_messages data, add_message, true
-    move_to_message()
 
   ws = create_websocket {
     'open': on_open,
@@ -230,9 +231,12 @@ ready = ->
     'leave': on_leave,
     'notification': on_notification,
     'messages': on_messages,
-    'like': add_like,
-    'dislike': remove_like
+    'like': on_like,
+    'dislike': on_dislike
   }
+
+  hashtag = $('#hashtag-id')[0].value
+  user = $('#user-id')[0].value
 
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
