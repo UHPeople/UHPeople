@@ -57,6 +57,19 @@ module UHPeople
       broadcast(JSON.generate(json), message.hashtag.id)
     end
 
+    def save_like(user, socket, message)
+      like = Like.find_by(user_id: user.id, message: message)
+
+      if like.nil?
+        like = Like.new(user_id: user.id, message: message)
+        return unless like.save
+        like_callback('like', message)
+      else
+        like.destroy
+        like_callback('dislike', message)
+      end
+    end
+
     def send_error(socket, error)
       json = { 'event': 'error', 'content': error }
       socket.send(JSON.generate(json))
@@ -143,6 +156,9 @@ module UHPeople
         online_event(user, hashtag, socket)
       elsif data['event'] == 'messages'
         get_messages_event(user, hashtag, socket)
+      elsif data['event'] == 'like'
+        message = graceful_find(Message, data['message'], socket)
+        save_like(user, socket, message)
       end
     end
   end
