@@ -67,7 +67,7 @@ sort_members = (list) ->
       compare_text(a, b)
 
   $.each(items, (idx, itm) -> list.append(itm))
-  
+
 set_star_hover = ->
   $('.like-icon').hover( ->
       $(this).text 'star_half'
@@ -150,7 +150,7 @@ on_close = ->
 on_message = (data) ->
   add_message data
   scroll_to_bottom()
-  add_click_handler_to_likes()
+  add_click_handler_to_likes('#like-' + data.id)
 
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
@@ -178,22 +178,20 @@ on_leave = (data) ->
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
   move_to_message()
-  add_click_handler_to_likes()
+  add_click_handler_to_likes('.like-this')
 
 # The click handler functions need the websocket
 # null value will get overwritten by the ready() function
 ws = null
 
-add_click_handler_to_likes = ->
+add_click_handler_to_likes = (element) ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
-  $('.like-this').on 'click', (event) ->
+  $(element).click (event) ->
     event.preventDefault()
-
     message = $(this)[0].id.substr(5)
     change_thumb $('#' + message + ' i')
-
     ws.send JSON.stringify
       event: 'like'
       user: user
@@ -204,7 +202,7 @@ add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
 
-  $('#chat-send').on 'click', (event) ->
+  $('#chat-send').click (event) ->
     event.preventDefault()
     if $('#input-text')[0].value.length > 0
       text = $('#input-text')[0].value
@@ -234,9 +232,6 @@ ready = ->
     'like': on_like,
     'dislike': on_dislike
   }
-
-  # page unload uses ajax unasync
-  $.post "/update_last_visit/" + hashtag
 
   move_to_message()
   update_leave_button()
