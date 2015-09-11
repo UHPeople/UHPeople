@@ -226,13 +226,13 @@ ready = ->
   $('#chat-send').on 'click', (event) ->
     event.preventDefault()
 
-    text = $('#input-text')[0].value
-
-    ws.send JSON.stringify
-      event: 'message'
-      content: text
-      hashtag: hashtag
-      user: user
+    if $('#input-text')[0].value.length > 0
+      text = $('#input-text')[0].value
+      ws.send JSON.stringify
+        event: 'message'
+        content: text
+        hashtag: hashtag
+        user: user
 
     $('#input-text')[0].value = ''
 
