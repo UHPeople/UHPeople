@@ -28,6 +28,34 @@ on_notification = ->
   else
     $('.notif-count .badge').text(t + 1)
 
+set_star_hover = ->
+  $('.like-icon').hover( ->
+      $(this).text 'star_half'
+      return
+    , ->
+      if $(this).hasClass( "like-icon-liked" )
+        $(this).text 'star'
+        return
+      else
+        $(this).text 'star_border'
+    )
+
+change_thumb = (t) ->
+  if $(t).hasClass( "like-icon-liked" )
+    $(t).removeClass( "like-icon-liked" )
+    $(t).text 'star_border'
+  else
+    $(t).addClass( "like-icon-liked" )
+    $(t).text 'star'
+
+on_like = (data) ->
+  count = $('#' + data.message + ' .like-badge')
+  count.text(Number(count.text()) + 1)
+
+on_dislike = (data) ->
+  count = $('#' + data.message + ' .like-badge')
+  count.text(Number(count.text()) - 1)
+
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
     timestamp = moment.utc(timestamp)
@@ -48,8 +76,25 @@ add_multiple_messages = (data, add_message, drawMarker = true) ->
       markerDrawn = true
     add_message message
 
+add_click_handler_to_likes = (element, socket) ->
+  user = $('#user-id')[0].value
+
+  $(element).click (event) ->
+    event.preventDefault()
+    message = $(this)[0].id.substr(5)
+    change_thumb $('#' + message + ' i')
+    socket.send JSON.stringify
+      event: 'like'
+      user: user
+      message: message
+
 exports = this
 exports.add_multiple_messages = add_multiple_messages
-exports.on_notification = on_notification
 exports.format_timestamp = format_timestamp
 exports.create_websocket = create_websocket
+exports.on_notification = on_notification
+exports.on_like = on_like
+exports.on_dislike = on_dislike
+exports.change_thumb = change_thumb
+exports.set_star_hover = set_star_hover
+exports.add_click_handler_to_likes = add_click_handler_to_likes

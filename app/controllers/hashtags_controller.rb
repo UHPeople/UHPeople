@@ -153,7 +153,9 @@ class HashtagsController < ApplicationController
   end
 
   def current_user_last_visited
-    current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).nil? || current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.nil? ? Time.now.strftime('%Y-%m-%dT%H:%M:%S') : current_user.user_hashtags.find_by(hashtag_id:@hashtag.id).last_visited.strftime('%Y-%m-%dT%H:%M:%S')
+    hashtag = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
+    hashtag.update_attribute(:last_visited, Time.zone.now) if hashtag.nil? or hashtag.last_visited.nil?
+    hashtag.last_visited.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   def current_user_unread_messages(count)

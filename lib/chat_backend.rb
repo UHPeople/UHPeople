@@ -86,8 +86,8 @@ module UHPeople
       hashtags = user.hashtags.map(&:id)
       add_client socket, user.id, hashtags
 
-      json = { 'event': 'feed', 'user': user.id }
-      socket.send(JSON.generate(json))
+      # json = { 'event': 'feed', 'user': user.id }
+      # socket.send(JSON.generate(json))
 
       # Stolen from feed_controller
       # Needs to be refactored
@@ -96,7 +96,7 @@ module UHPeople
                 .where(hashtag: tags)
                 .order(created_at: :desc).limit(20).reverse
 
-      json = { 'event': 'messages', 'messages': messages.map { |m| JSON.parse(m.serialize) } }
+      json = { 'event': 'messages', 'messages': messages.map { |m| JSON.parse(m.serialize(user)) } }
       socket.send(JSON.generate(json))
     end
 
@@ -150,6 +150,9 @@ module UHPeople
       if data['event'] == 'feed'
         feed_event(user, socket)
         return
+      elsif data['event'] == 'like'
+        message = graceful_find(Message, data['message'], socket)
+        save_like(user, socket, message)
       end
 
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
@@ -167,9 +170,6 @@ module UHPeople
         get_messages_event(user, hashtag, socket)
       elsif data['event'] == 'messages'
         get_messages_event(user, hashtag, socket)
-      elsif data['event'] == 'like'
-        message = graceful_find(Message, data['message'], socket)
-        save_like(user, socket, message)
       end
     end
   end

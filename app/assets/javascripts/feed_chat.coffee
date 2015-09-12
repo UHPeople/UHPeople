@@ -8,6 +8,17 @@ add_unread = (data) ->
       else
         ''
 add_feed_message = (data) ->
+  console.log data
+  #highlight = ''
+  #if moment.utc(data.timestamp).isAfter()
+  #  highlight = 'new_messages'
+
+  like_icon_liked = ''
+  star = 'star_border'
+  if data.current_user_likes
+    like_icon_liked = 'like-icon-liked'
+    star = 'star'
+
   $('#feed').prepend ''+
     '<div class="feed-chat-box">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -19,14 +30,26 @@ add_feed_message = (data) ->
           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
           '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
-        '<p>' + data.content + '</p>' +
+        '<p>' +
+          data.content +
+          '<span class="space-left">' +
+            '<span class="like-badge like-icon-color">' +
+              data.likes +
+            '</span>' +
+            '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
+              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+            '</a>' +
+          '</span>' +
+        '</p>' +
       '</div>' +
     '</div>'
+
+    set_star_hover()
 
 add_favourites_message = (data) ->
   if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
     $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
-  
+
   $('div.panel.fav#box-' + data.hashtag).append ''+
     '<div class="panel-body fav">' +
       '<div class="favourites-chat-box">' +
@@ -53,11 +76,11 @@ add_message = (data) ->
 
 on_open = (socket) ->
   user = $('#user-id')[0].value
-  
+
   socket.send JSON.stringify
     event: 'feed'
     user: user
-    
+
 on_message = (data) ->
   add_message data
   add_unread data

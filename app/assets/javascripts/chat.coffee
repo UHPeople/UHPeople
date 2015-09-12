@@ -1,3 +1,7 @@
+# The click handler functions need the websocket
+# null value will get overwritten by the ready() function
+ws = null
+
 update_leave_button = () ->
   if $('.nav-list li').size() <= 3
     $('.leave-button').data('confirm', 'Are you sure you want to leave this channel? ' +
@@ -68,18 +72,6 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
-set_star_hover = ->
-  $('.like-icon').hover( ->
-      $(this).text 'star_half'
-      return
-    , ->
-      if $(this).hasClass( "like-icon-liked" )
-        $(this).text 'star'
-        return
-      else
-        $(this).text 'star_border'
-    )
-
 add_message = (data) ->
   highlight = ''
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
@@ -116,22 +108,6 @@ add_message = (data) ->
 
     set_star_hover()
 
-change_thumb = (t) ->
-  if $(t).hasClass( "like-icon-liked" )
-    $(t).removeClass( "like-icon-liked" )
-    $(t).text 'star_border'
-  else
-    $(t).addClass( "like-icon-liked" )
-    $(t).text 'star'
-
-on_like = (data) ->
-  count = $('#' + data.message + ' .like-badge')
-  count.text(Number(count.text()) + 1)
-
-on_dislike = (data) ->
-  count = $('#' + data.message + ' .like-badge')
-  count.text(Number(count.text()) - 1)
-
 on_open = (socket) ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
@@ -160,7 +136,7 @@ on_online = (data) ->
   set_online id for id in data.onlines
   sort_members members_list
   sort_members members_list_dropdown
-  update_leave_button
+  update_leave_button()
 
 on_join = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
@@ -173,30 +149,12 @@ on_join = (data) ->
 
 on_leave = (data) ->
   remove_member data
-  update_leave_button
+  update_leave_button()
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
   move_to_message()
-  add_click_handler_to_likes('.like-this')
-
-# The click handler functions need the websocket
-# null value will get overwritten by the ready() function
-ws = null
-
-add_click_handler_to_likes = (element) ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
-
-  $(element).click (event) ->
-    event.preventDefault()
-    message = $(this)[0].id.substr(5)
-    change_thumb $('#' + message + ' i')
-    ws.send JSON.stringify
-      event: 'like'
-      user: user
-      hashtag: hashtag
-      message: message
+  add_click_handler_to_likes('.like-this', ws)
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
