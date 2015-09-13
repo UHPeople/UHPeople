@@ -53,7 +53,7 @@ class HashtagsController < ApplicationController
   end
 
   def add_multiple
-    new_tags = Array.new
+    new_tags = []
     tags = params[:hashtags]
     unless tags.nil?
       tags.split(',').each do |tag_name|
@@ -65,7 +65,7 @@ class HashtagsController < ApplicationController
 
     current_user.hashtags = (current_user.hashtags | new_tags) & new_tags
 
-    if request.referer and URI(request.referer).path == user_path(current_user.id)
+    if request.referer && URI(request.referer).path == user_path(current_user.id)
       redirect_to :back, notice: 'Your favourite things updated!'
     else
       redirect_to feed_index_path
@@ -94,7 +94,7 @@ class HashtagsController < ApplicationController
 
   def create
     hashtag = Hashtag.find_by tag: params[:tag]
-    if hashtag == nil
+    if hashtag.nil?
       hashtag = Hashtag.new tag: params[:tag]
       unless hashtag.save
         redirect_to feed_index_path, alert: 'Something went wrong!'
@@ -148,23 +148,21 @@ class HashtagsController < ApplicationController
 
   def topic_updater
     @topicker = User.find(@hashtag.topic_updater_id)
-    rescue
-      @topicker = nil
+  rescue
+    @topicker = nil
   end
 
   def current_user_last_visited
-    hashtag = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
-    hashtag.update_attribute(:last_visited, Time.zone.now) if hashtag.nil? or hashtag.last_visited.nil?
+    hashtag = current_user.user_hashtags.find_by(hashtag_id: @hashtag.id)
+    hashtag.update_attribute(:last_visited, Time.zone.now) if hashtag.nil? || hashtag.last_visited.nil?
     hashtag.last_visited.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   def current_user_unread_messages(count)
-    if current_user.hashtags.include? @hashtag
-      curre = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
-      count -= curre.nil? || curre.unread_messages.nil? ? 0 : curre.unread_messages
-      if count < 0 then 0 else count end
-    else
-      count
-    end
+    return count unless current_user.hashtags.include? @hashtag
+
+    curre = current_user.user_hashtags.find_by(hashtag_id: @hashtag.id)
+    count -= curre.nil? || curre.unread_messages.nil? ? 0 : curre.unread_messages
+    (count < 0) ? 0 : count
   end
 end

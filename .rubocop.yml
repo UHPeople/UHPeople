@@ -10,6 +10,7 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
+    - 'rails_autolink-1.1.6/**/*'
 
 Metrics/LineLength:
   Enabled: false

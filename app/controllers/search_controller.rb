@@ -19,12 +19,12 @@ class SearchController < ApplicationController
     @users = User.where('name ilike ?', "%#{@search}%").order('name ASC') unless hashtags_only
     @users_exact = User.where('name ilike ?', "#{@search}").order('name ASC') unless hashtags_only
 
-    redirect_to @users_exact.first if not hashtags_only and
-      (@hashtags.nil? or @hashtags.empty?) and
-      @users_exact.count == 1 and @users.count == 1
+    redirect_to @users_exact.first if !hashtags_only &&
+                                      (@hashtags.nil? || @hashtags.empty?) &&
+                                      @users_exact.count == 1 && @users.count == 1
 
-    redirect_to hashtag_path(@hashtags_exact.first.tag) if (@users.nil? or @users.empty?) and
-      @hashtags_exact.count == 1 and @hashtags.count == 1
+    redirect_to hashtag_path(@hashtags_exact.first.tag) if (@users.nil? || @users.empty?) &&
+                                                           @hashtags_exact.count == 1 && @hashtags.count == 1
   end
 
   private

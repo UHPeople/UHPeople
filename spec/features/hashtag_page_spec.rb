@@ -29,7 +29,7 @@ RSpec.describe Hashtag do
     end
 
     it 'has working leave button when not the only member' do
-      visit "/logout"
+      visit '/logout'
       user2 = FactoryGirl.create(:user, username: 'uusityyppi')
       visit "/login/#{user2.id}"
       visit "/hashtags/#{hashtag.tag}"
@@ -42,7 +42,7 @@ RSpec.describe Hashtag do
     it 'is deleted when last member leaves' do
       tag = hashtag.tag
       first('.leave-button').click
-      expect(page.current_path).to eq "/feed"
+      expect(page.current_path).to eq '/feed'
 
       visit "/search?search=%23#{tag}"
       expect(page).to have_no_content "Search results for channels: ##{tag}"

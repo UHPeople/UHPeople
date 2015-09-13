@@ -33,7 +33,7 @@ RSpec.describe 'Search page' do
   end
 
   it 'finds hashtag with exact match' do
-    hashtag.update_attribute('tag', hashtag.tag+'2')
+    hashtag.update_attribute('tag', hashtag.tag + '2')
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=#{hashtag2.tag}"
@@ -53,7 +53,7 @@ RSpec.describe 'Search page' do
   end
 
   it 'strips hashtag' do
-    hashtag.update_attribute('tag', hashtag.tag+'2')
+    hashtag.update_attribute('tag', hashtag.tag + '2')
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=%23#{hashtag2.tag}"
@@ -79,7 +79,7 @@ RSpec.describe 'Search page' do
     end
 
     it 'shows hashtags memberships' do
-      hashtag.update_attribute('tag', hashtag.tag+'2')
+      hashtag.update_attribute('tag', hashtag.tag + '2')
       hashtag2 = FactoryGirl.create(:hashtag)
       visit "/hashtags/#{hashtag2.tag}"
       click_link 'Join'
@@ -107,7 +107,7 @@ RSpec.describe 'Search page' do
       Message.create hashtag: hashtag, user: user, content: 'content', created_at: Time.zone.now
 
       visit '/search?search=a'
-      expect(page).to have_content "Latest message"
+      expect(page).to have_content 'Latest message'
     end
   end
 end

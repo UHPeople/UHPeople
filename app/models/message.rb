@@ -27,7 +27,7 @@ class Message < ActiveRecord::Base
   end
 
   after_save do
-    hashtag.update_attribute(:updated_at, Time.now)
+    hashtag.update_attribute(:updated_at, Time.now.utc)
   end
 
   def formatted_content
@@ -37,16 +37,14 @@ class Message < ActiveRecord::Base
   end
 
   def likes_count
-    if likes.count > 0
-      pluralize(likes.count, 'like')
-    end
+    pluralize(likes.count, 'like') if likes.count > 0
   end
 
   def user_likes(current_user)
-    unless current_user.nil?
-      likes.exists? user_id: current_user.id
-    else
+    if current_user.nil?
       false
+    else
+      likes.exists? user_id: current_user.id
     end
   end
 

@@ -41,10 +41,10 @@ RSpec.describe 'Notifications page' do
       visit hashtag_path(hashtag.tag)
       click_link 'Join'
 
-      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+      message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
 
       Notification.create(notification_type: 3, user: user, tricker_user: user,
-        tricker_hashtag: hashtag, message: message)
+                          tricker_hashtag: hashtag, message: message)
 
       visit '/notifications'
 

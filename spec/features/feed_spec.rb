@@ -19,7 +19,7 @@ RSpec.describe 'Feed page' do
     before :each do
       visit '/feed'
 
-      message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now
+      message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
       page.execute_script("add_feed_message(#{message.serialize})")
     end
 
@@ -28,7 +28,7 @@ RSpec.describe 'Feed page' do
     end
 
     it 'has messages in feed in order' do
-      message2 = Message.create user: user, hashtag: hashtag, content: 'Asdasd2', created_at: Time.now
+      message2 = Message.create user: user, hashtag: hashtag, content: 'Asdasd2', created_at: Time.now.utc
       page.execute_script("add_feed_message(#{message2.serialize})")
 
       expect(find('.feed-chat-box:nth-of-type(1)')).to have_content 'Asdasd2'
@@ -67,7 +67,7 @@ RSpec.describe 'Feed page' do
     it 'has unread count when visiting feed', js: true do
       visit "/users/#{user.id}"
       FactoryGirl.create(:message, user: user, hashtag: hashtag)
-      visit "/feed"
+      visit '/feed'
       expect(page).to have_content '#avantouinti 1'
     end
   end
@@ -98,19 +98,19 @@ RSpec.describe 'Feed page' do
   #     expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
   #   end
 
-    it 'wont let add more favourites than max' do
-      max = APP_CONFIG['max_faves']
-      for i in 1..max
-        hashtag =  FactoryGirl.create(:hashtag, tag: i)
-        visit "/hashtags/#{hashtag.tag}"
-        click_link 'Join'
-      end
-
-      visit '/feed'
-      page.all(:css, 'td a.glyphicon').each(&:click)
-
-      expect(page).to have_content "You already have #{max} favourites, remove some to add a new one!"
+  it 'wont let add more favourites than max' do
+    max = APP_CONFIG['max_faves']
+    for i in 1..max
+      hashtag = FactoryGirl.create(:hashtag, tag: i)
+      visit "/hashtags/#{hashtag.tag}"
+      click_link 'Join'
     end
+
+    visit '/feed'
+    page.all(:css, 'td a.glyphicon').each(&:click)
+
+    expect(page).to have_content "You already have #{max} favourites, remove some to add a new one!"
+  end
 
   #   context 'chatboxes' do
   #     let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
@@ -168,5 +168,3 @@ RSpec.describe 'Feed page' do
   #   end
   # end
 end
-
-

@@ -20,10 +20,10 @@ class UserHashtagsController < ApplicationController
   end
 
   def update_last_visit
-     ch = current_user.user_hashtags.find_by hashtag_id:params[:id]
-     ch.update_attribute(:last_visited, Time.now)
+    ch = current_user.user_hashtags.find_by hashtag_id: params[:id]
+    ch.update_attribute(:last_visited, Time.now.utc)
 
-     respond_to do |format|
+    respond_to do |format|
       format.json { render json: {} }
       format.html { redirect_to feed_index_path }
     end

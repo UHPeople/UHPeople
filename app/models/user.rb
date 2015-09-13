@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
     # 2 * On^2?
     # returns user_hashtag
     non_zero_tags = user_hashtags.where(hashtag_id: messages.map(&:hashtag_id).uniq)
-    non_zero_tags.sort_by{|h| messages.where(hashtag_id:h.hashtag_id).count}.reverse.first 6
+    non_zero_tags.sort_by { |h| messages.where(hashtag_id: h.hashtag_id).count }.reverse.first 6
   end
 
   def unactive_channels
@@ -39,6 +39,6 @@ class User < ActiveRecord::Base
 
   def likes?(message)
     likes.each { |like| return true if like.message == message }
-    return false
+    false
   end
 end

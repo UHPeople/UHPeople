@@ -23,7 +23,5 @@ class Hashtag < ActiveRecord::Base
     messages.order('created_at desc').first
   end
 
-  def empty?
-    messages.empty?
-  end
+  delegate :empty?, to: :messages
 end

@@ -59,7 +59,7 @@ RSpec.describe User do
 
     it 'has active channels if has' do
       Message.create content: 'asd', hashtag_id: hashtag.id, user_id: user.id
-      
+
       visit "/users/#{user.id}"
       expect(page).to have_content 'More active'
       expect(page).not_to have_content 'Less active'
@@ -82,6 +82,6 @@ RSpec.describe User do
 
       visit "/users/#{u2.id}"
       expect(page).not_to have_content 'You have'
-    end  
+    end
   end
 end

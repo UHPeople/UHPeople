@@ -7,6 +7,7 @@ add_unread = (data) ->
         Number(t) + 1
       else
         ''
+
 add_feed_message = (data) ->
   console.log data
   #highlight = ''

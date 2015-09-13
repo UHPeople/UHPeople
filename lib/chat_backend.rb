@@ -57,7 +57,7 @@ module UHPeople
       broadcast(JSON.generate(json), message.hashtag.id)
     end
 
-    def save_like(user, socket, message)
+    def save_like(user, _socket, message)
       like = Like.find_by(user_id: user.id, message: message)
 
       if like.nil?
@@ -77,9 +77,9 @@ module UHPeople
 
     def graceful_find(type, id, socket)
       type.find(id)
-      rescue ActiveRecord::RecordNotFound
-        send_error socket, "Invalid #{type} id"
-        return
+    rescue ActiveRecord::RecordNotFound
+      send_error socket, "Invalid #{type} id"
+      return
     end
 
     def feed_event(user, socket)
@@ -93,10 +93,14 @@ module UHPeople
       # Needs to be refactored
       tags = user.user_hashtags.includes(hashtag: :messages).map(&:hashtag)
       messages = Message.includes(:hashtag, :user)
-                .where(hashtag: tags)
-                .order(created_at: :desc).limit(20).reverse
+                 .where(hashtag: tags)
+                 .order(created_at: :desc).limit(20).reverse
 
-      json = { 'event': 'messages', 'messages': messages.map { |m| JSON.parse(m.serialize(user)) } }
+      json = {
+        'event': 'messages',
+        'messages': messages.map { |m| JSON.parse(m.serialize(user)) }
+      }
+
       socket.send(JSON.generate(json))
     end
 
@@ -116,8 +120,8 @@ module UHPeople
 
     def get_messages_event(user, hashtag, socket)
       h = hashtag.messages.last(20)
-      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize(user))} }
-      #hashtag.messages.where("id > ? ", 1263)
+      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize(user)) } }
+      # hashtag.messages.where("id > ? ", 1263)
       socket.send(JSON.generate(json))
     end
 
@@ -129,7 +133,7 @@ module UHPeople
     def find_mentions(message)
       message.hashtag.users.each do |user|
         send_mention(user.id, message.user_id,
-          message.hashtag_id, message) if message.content.include? "@#{user.username}"
+                     message.hashtag_id, message) if message.content.include? "@#{user.username}"
       end
     end
 

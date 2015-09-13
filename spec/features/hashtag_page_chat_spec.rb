@@ -18,7 +18,7 @@ RSpec.describe Hashtag do
 
     context 'messages', js: true do
       before :each do
-        message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now)
+        message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
         visit hashtag_path(hashtag.tag)
         page.execute_script("add_chat_message(#{message.serialize})")
       end
@@ -46,24 +46,24 @@ RSpec.describe Hashtag do
       it 'has unread marker' do
         json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize) } }
         page.execute_script("add_multiple_messages(#{JSON.generate(json)}, add_chat_message, true)")
-        
+
         expect(page).to have_content 'Since'
       end
 
       it 'thumb changes color if pressed' do
         expect(page).not_to have_css('.like-icon-liked')
-        page.find("#like-1").click
+        page.find('#like-1').click
         expect(page).to have_css('.like-icon-liked')
       end
     end
 
     context 'messages with second user', js: true do
       before :each do
-        user2 = FactoryGirl.create(:user, name:'user2', username:'asd2')
+        user2 = FactoryGirl.create(:user, name: 'user2', username: 'asd2')
         hashtag.users << user2
-        FactoryGirl.create(:message, user: user2, hashtag: hashtag, created_at: Time.now)
+        FactoryGirl.create(:message, user: user2, hashtag: hashtag, created_at: Time.now.utc)
         visit feed_index_path
-        user.user_hashtags.find_by( hashtag_id: hashtag.id ).update_attribute(:last_visited, 666.days.ago)
+        user.user_hashtags.find_by(hashtag_id: hashtag.id).update_attribute(:last_visited, 666.days.ago)
       end
 
       it 'has unread marker' do
