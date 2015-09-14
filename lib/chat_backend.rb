@@ -153,6 +153,7 @@ module UHPeople
       elsif data['event'] == 'like'
         message = graceful_find(Message, data['message'], socket)
         save_like(user, socket, message)
+        return
       end
 
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
