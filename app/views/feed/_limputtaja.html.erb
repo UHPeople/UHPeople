@@ -25,11 +25,17 @@
 
   <div class="top col-md-4">
     <h3>Top Kanavat</h3>
-    <ul>
-      <% @top_hashtags.each do |top| %>
-        <li><%= link_to "##{top[0].tag} - #{top[1]} messages", hashtag_path(top[0].tag) %></li>
-      <% end %>
-    </ul>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_hashtags.each do |top| %>
+          <tr>
+            <th>1</th>
+            <td><%= link_to "##{top[0].tag}", hashtag_path(top[0].tag) %><td>
+            <td><%= link_to "#{top[1]} messages", hashtag_path(top[0].tag) %><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
   <div class="top col-md-4">
