@@ -25,7 +25,7 @@ class FeedController < ApplicationController
 
     @top_hashtags = top('hashtag_id', Hashtag)
     @top_users = top('user_id', User)
-    @top_custom_hashtags = top('hashtag_id', Hashtag, [1, 2])
+    @top_custom_hashtags = top('hashtag_id', Hashtag, [1, 2, 3])
   end
 
   def top(id, type, custom_ids = nil)
@@ -33,7 +33,7 @@ class FeedController < ApplicationController
     if custom_ids.nil?
       ids = Message.group(id).count
     else
-      ids = Message.where('id in (?)', custom_ids).group(id).count
+      ids = Message.where('hashtag_id in (?)', custom_ids).group(id).count
     end
 
     top = type.all.map { |h| [h, ids[h.id]] unless ids[h.id].nil? }
