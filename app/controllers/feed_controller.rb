@@ -20,11 +20,11 @@ class FeedController < ApplicationController
 
     hashtag_ids = Message.group(:hashtag_id).count
     @top_hashtags = Hashtag.all.map { |h| [h, hashtag_ids[h.id]] unless hashtag_ids[h.id].nil? }
-    @top_hashtags = @top_hashtags.compact
+    @top_hashtags = @top_hashtags.compact.sort_by { |h| h[1] }.reverse
 
     user_ids = Message.group(:user_id).count
     @top_users = User.all.map { |h| [h, user_ids[h.id]] unless user_ids[h.id].nil? }
-    @top_users = @top_users.compact
+    @top_users = @top_users.compact.sort_by { |h| h[1] }.reverse
   end
 
   def cloud_cache
