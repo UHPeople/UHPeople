@@ -82,7 +82,11 @@ module UHPeople
     end
 
     def send_error(socket, error)
-      json = { 'event': 'error', 'content': error }
+      json = {
+        'event': 'error',
+        'content': error
+      }
+
       socket.send(JSON.generate(json))
     end
 
@@ -129,12 +133,17 @@ module UHPeople
       broadcast(message.serialize(user), hashtag.id)
     end
 
-    def get_messages_event(user, hashtag, socket)
-      # hashtag.messages.where("id > ? ", 1263)
-      h = hashtag.messages.last(20)
+    def messages_event(user, hashtag, message, socket)
+      messages = nil
+      if message.nil?
+        messages = hashtag.messages.all.order(created_at: :desc).limit(20)
+      else
+        messages = hashtag.messages.where("id > ? ", message.id).order(created_at: :desc).limit(20)
+      end
+
       json = {
         'event': 'messages',
-        'messages': h.map { |m| JSON.parse(m.serialize(user)) }
+        'messages': messages.map { |m| JSON.parse(m.serialize(user))}
       }
 
       socket.send(JSON.generate(json))
@@ -165,6 +174,8 @@ module UHPeople
     end
 
     def respond(socket, data)
+      p data
+
       user = graceful_find(User, data['user'], socket)
       return if user.nil?
 
@@ -173,6 +184,8 @@ module UHPeople
         return
       elsif data['event'] == 'like'
         message = graceful_find(Message, data['message'], socket)
+        return if message.nil?
+
         save_like(user, socket, message)
         return
       end
@@ -189,9 +202,12 @@ module UHPeople
         message_event(user, hashtag, socket, data['content'])
       elsif data['event'] == 'online'
         online_event(user, hashtag, socket)
-        get_messages_event(user, hashtag, socket)
+        messages_event(user, hashtag, nil, socket)
       elsif data['event'] == 'messages'
-        get_messages_event(user, hashtag, socket)
+        message = graceful_find(Message, data['message'], socket)
+        return if message.nil?
+
+        messages_event(user, hashtag, message, socket)
       end
     end
   end

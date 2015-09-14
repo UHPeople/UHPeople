@@ -153,7 +153,7 @@ on_leave = (data) ->
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
-  move_to_message()
+  # move_to_message()
   add_click_handler_to_likes('.like-this', ws)
 
 add_click_handler_to_chat = ->
@@ -171,6 +171,19 @@ add_click_handler_to_chat = ->
         user: user
 
     $('#input-text')[0].value = ''
+
+add_click_handler_to_loader = ->
+  hashtag = $('#hashtag-id')[0].value
+  user = $('#user-id')[0].value
+
+  $('#loader').click (event) ->
+    last_message = $('.panel-body:first')[0].id
+    console.log last_message
+    ws.send JSON.stringify
+      event: 'messages'
+      hashtag: hashtag
+      user: user
+      message: last_message
 
 ready = ->
   if not $('#hashtag-id').length
@@ -198,6 +211,7 @@ ready = ->
   move_to_message()
   update_leave_button()
   add_click_handler_to_chat()
+  add_click_handler_to_loader()
 
 exports = this
 exports.add_chat_message = add_message

@@ -274,6 +274,13 @@ div.line {
   }
 }
 
+.loader {
+  background-color: $accent;
+  height: 48px;
+  span {
+    
+  }
+}
 
 span.space-left {
   font-size: 70% !important;
