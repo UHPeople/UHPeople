@@ -45,7 +45,7 @@
         <% @top_users.each_with_index do |top, index| %>
           <tr>
             <th><%= index + 1%></th>
-            <td><%= link_to "##{truncate(top[0].name, length: 17)}", top[0] %><td>
+            <td><%= link_to truncate(top[0].name, length: 17), top[0] %><td>
             <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
           </tr>
         <% end %>
