@@ -8,7 +8,12 @@ class FeedController < ApplicationController
     @user_tags = cu_hashtags.downcase_sorted
 
     fav_user_tags = cu_hashtags.favourite
-    @chats = fav_user_tags.map { |user_hashtag| { tag: user_hashtag.hashtag, messages: user_hashtag.hashtag.messages.last(5) } }
+    @chats = fav_user_tags.map do |user_hashtag|
+      {
+        tag: user_hashtag.hashtag,
+        messages: user_hashtag.hashtag.messages.last(5)
+      }
+    end
 
     tags = @user_tags.map(&:hashtag)
     @messages = Message.includes(:hashtag, :user)
@@ -18,13 +23,21 @@ class FeedController < ApplicationController
     @word_array = cloud_cache
     @tab = current_user.tab
 
-    hashtag_ids = Message.group(:hashtag_id).count
-    @top_hashtags = Hashtag.all.map { |h| [h, hashtag_ids[h.id]] unless hashtag_ids[h.id].nil? }
-    @top_hashtags = @top_hashtags.compact.sort_by { |h| h[1] }.reverse.first(15)
+    @top_hashtags = top('hashtag_id', Hashtag)
+    @top_users = top('user_id', User)
+    @top_custom_hashtags = top('hashtag_id', Hashtag, [1, 2])
+  end
 
-    user_ids = Message.group(:user_id).count
-    @top_users = User.all.map { |h| [h, user_ids[h.id]] unless user_ids[h.id].nil? }
-    @top_users = @top_users.compact.sort_by { |h| h[1] }.reverse.first(15)
+  def top(id, type, custom_ids = nil)
+    ids = nil
+    if custom_ids.nil?
+      ids = Message.group(id).count
+    else
+      ids = Message.where('id in (?)', custom_ids).group(id).count
+    end
+
+    top = type.all.map { |h| [h, ids[h.id]] unless ids[h.id].nil? }
+    return top.compact.sort_by { |h| h[1] }.reverse.first(15)
   end
 
   def cloud_cache
