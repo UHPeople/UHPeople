@@ -25,7 +25,7 @@ class HashtagsController < ApplicationController
     @messages = @hashtag.messages.last(20)
 
     @lastvisit_index = current_user_unread_messages(@messages.count)
-    @lastvisit_date = current_user_last_visited
+    @lastvisit_date = current_user_last_visited if current_user.hashtags.include? @hashtag
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'
@@ -154,7 +154,7 @@ class HashtagsController < ApplicationController
 
   def current_user_last_visited
     hashtag = current_user.user_hashtags.find_by(hashtag_id:@hashtag.id)
-    hashtag.update_attribute(:last_visited, Time.zone.now) if hashtag.nil? or hashtag.last_visited.nil?
+    hashtag.update_attribute(:last_visited, Time.zone.now) if !hashtag.nil? and hashtag.last_visited.nil?
     hashtag.last_visited.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
