@@ -43,7 +43,13 @@ module UHPeople
     # private
 
     def hashtag_callback(event, user, hashtag)
-      json = { 'event': event, 'hashtag': hashtag.id, 'username': user.name, 'user': user.id }
+      json = {
+        'event': event,
+        'hashtag': hashtag.id,
+        'username': user.name,
+        'user': user.id
+      }
+
       broadcast(JSON.generate(json), hashtag.id)
     end
 
@@ -53,7 +59,12 @@ module UHPeople
     end
 
     def like_callback(event, message)
-      json = { 'event': event, 'hashtag': message.hashtag.id, 'message': message.id }
+      json = {
+        'event': event,
+        'hashtag': message.hashtag.id,
+        'message': message.id
+      }
+
       broadcast(JSON.generate(json), message.hashtag.id)
     end
 
@@ -119,9 +130,13 @@ module UHPeople
     end
 
     def get_messages_event(user, hashtag, socket)
-      h = hashtag.messages.last(20)
-      json = { 'event': 'messages', 'messages': h.map { |m| JSON.parse(m.serialize(user)) } }
       # hashtag.messages.where("id > ? ", 1263)
+      h = hashtag.messages.last(20)
+      json = {
+        'event': 'messages',
+        'messages': h.map { |m| JSON.parse(m.serialize(user)) }
+      }
+
       socket.send(JSON.generate(json))
     end
 
@@ -132,8 +147,10 @@ module UHPeople
 
     def find_mentions(message)
       message.hashtag.users.each do |user|
-        send_mention(user.id, message.user_id,
-                     message.hashtag_id, message) if message.content.include? "@#{user.username}"
+        send_mention(user.id,
+          message.user_id,
+          message.hashtag_id,
+          message) if message.content.include? "@#{user.username}"
       end
     end
 
@@ -157,6 +174,7 @@ module UHPeople
       elsif data['event'] == 'like'
         message = graceful_find(Message, data['message'], socket)
         save_like(user, socket, message)
+        return
       end
 
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)

@@ -154,7 +154,9 @@ class HashtagsController < ApplicationController
 
   def current_user_last_visited
     hashtag = current_user.user_hashtags.find_by(hashtag_id: @hashtag.id)
-    hashtag.update_attribute(:last_visited, Time.zone.now) if hashtag.nil? || hashtag.last_visited.nil?
+    return Time.now.utc if hashtag.nil?
+
+    hashtag.update_attribute(:last_visited, Time.now.utc) if hashtag.last_visited.nil?
     hashtag.last_visited.strftime('%Y-%m-%dT%H:%M:%S')
   end
 

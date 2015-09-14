@@ -55,10 +55,9 @@ RSpec.describe UHPeople::ChatBackend do
   end
 
   context 'on event' do
-    it 'feed adds all hashtags' do
+    it 'responds with messages' do
       subject.feed_event(user, socket)
-
-      expect(socket.sent.last['event']).to eq 'feed'
+      expect(socket.sent.last['event']).to eq 'messages'
     end
 
     it 'message adds new message' do

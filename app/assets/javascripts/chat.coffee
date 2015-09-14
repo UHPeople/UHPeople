@@ -178,6 +178,9 @@ ready = ->
   else
     console.log('Chat page detected!')
 
+  log_error = (data) ->
+    console.log data.content
+
   ws = create_websocket {
     'open': on_open,
     'close': on_close,
@@ -188,7 +191,8 @@ ready = ->
     'notification': on_notification,
     'messages': on_messages,
     'like': on_like,
-    'dislike': on_dislike
+    'dislike': on_dislike,
+    'error': log_error
   }
 
   move_to_message()

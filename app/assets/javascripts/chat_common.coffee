@@ -83,10 +83,12 @@ add_click_handler_to_likes = (element, socket) ->
     event.preventDefault()
     message = $(this)[0].id.substr(5)
     change_thumb $('#' + message + ' i')
-    socket.send JSON.stringify
+
+    json = JSON.stringify
       event: 'like'
       user: user
       message: message
+    socket.send json
 
 exports = this
 exports.add_multiple_messages = add_multiple_messages
