@@ -25,7 +25,7 @@ class FeedController < ApplicationController
 
     @top_hashtags = top('hashtag_id', Hashtag)
     @top_users = top('user_id', User)
-    @top_custom_hashtags = top('hashtag_id', Hashtag, [1, 2, 3])
+    @top_custom_hashtags = top('hashtag_id', Hashtag, [])
   end
 
   def top(id, type, custom_ids = nil)
