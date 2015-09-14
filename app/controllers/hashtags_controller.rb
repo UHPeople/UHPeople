@@ -25,7 +25,7 @@ class HashtagsController < ApplicationController
     @messages = @hashtag.messages.last(20)
 
     @lastvisit_index = current_user_unread_messages(@messages.count)
-    @lastvisit_date = current_user_last_visited
+    @lastvisit_date = current_user_last_visited if current_user.hashtags.include? @hashtag
 
     if @hashtag.topic.blank?
       @topic_button_text = 'Add topic'

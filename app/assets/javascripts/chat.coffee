@@ -126,7 +126,7 @@ on_close = ->
 on_message = (data) ->
   add_message data
   scroll_to_bottom()
-  add_click_handler_to_likes('#like-' + data.id)
+  add_click_handler_to_likes('#like-' + data.id, ws)
 
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
