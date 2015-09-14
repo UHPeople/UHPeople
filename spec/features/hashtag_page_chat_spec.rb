@@ -45,7 +45,7 @@ RSpec.describe Hashtag do
 
       it 'thumb changes color if pressed' do
         expect(page).not_to have_css('.like-icon-liked')
-        page.find("#like-1").click
+        click_link 'star_border'
         expect(page).to have_css('.like-icon-liked')
       end
     end
