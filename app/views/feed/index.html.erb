@@ -11,18 +11,22 @@
       <li role="presentation">
         <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab" id="feed-onboard-feed">Feed</a>
       </li>
+      <li role="presentation">
+        <a href="#limputtaja" aria-controls="limputtaja" role="tab" data-toggle="tab">Limputuskisa</a>
+      </li>
     </ul>
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane fade in active" id="favourites">
-        <%= render 'favourites' %>      
+        <%= render 'favourites' %>
       </div>
       <div role="tabpanel" class="tab-pane fade" id="feed">
         <%= render 'feed' %>
       </div>
-    </div> 
+      <div role="tabpanel" class="tab-pane fade white-bg" id="limputtaja">
+        <%= render 'limputtaja' %>
+      </div>
+    </div>
   </div>
   <%= render 'hashtaglist' %>
 </div>
-
-
