@@ -27,11 +27,11 @@
     <h3>Top Kanavat</h3>
     <table class="table table-condensed table-hover">
       <tbody>
-        <% @top_hashtags.each do |top| %>
+        <% @top_hashtags.each_with_index do |top, index| %>
           <tr>
-            <th>1</th>
-            <td><%= link_to "##{top[0].tag}", hashtag_path(top[0].tag) %><td>
-            <td><%= link_to "#{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag) %><td>
+            <th><%= index + 1%></th>
+            <td><%= link_to "##{truncate(top[0].tag, length: 17)}", hashtag_path(top[0].tag) %><td>
+            <td><%= link_to "#{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag), class:"pull-right" %><td>
           </tr>
         <% end %>
       </tbody>
