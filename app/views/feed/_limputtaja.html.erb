@@ -31,7 +31,7 @@
           <tr>
             <th><%= index + 1%></th>
             <td><%= link_to "##{truncate(top[0].tag, length: 17)}", hashtag_path(top[0].tag) %><td>
-            <td><%= link_to "#{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag), class:"pull-right" %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
           </tr>
         <% end %>
       </tbody>
@@ -40,19 +40,31 @@
 
   <div class="top col-md-4">
     <h3>Top Käyttäjät</h3>
-    <ul>
-      <% @top_users.each do |top| %>
-        <li><%= link_to "#{top[0].name} - #{pluralize(top[1], 'viesti', 'viestiä')}", top[0] %></li>
-      <% end %>
-    </ul>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_users.each_with_index do |top, index| %>
+          <tr>
+            <th><%= index + 1%></th>
+            <td><%= link_to "##{truncate(top[0].name, length: 17)}", top[0] %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 
   <div class="top col-md-4">
     <h3>Top Fuksiryhmät</h3>
-    <ul>
-      <% @top_custom_hashtags.each do |top| %>
-        <li><%= link_to "##{top[0].tag} - #{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag) %></li>
-      <% end %>
-    </ul>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_custom_hashtags.each_with_index do |top, index| %>
+          <tr>
+            <th><%= index + 1%></th>
+            <td><%= link_to "##{truncate(top[0].tag, length: 17)}", top[0] %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
 </div>
