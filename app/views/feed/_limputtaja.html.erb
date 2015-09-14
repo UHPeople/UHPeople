@@ -31,7 +31,7 @@
           <tr>
             <th>1</th>
             <td><%= link_to "##{top[0].tag}", hashtag_path(top[0].tag) %><td>
-            <td><%= link_to "#{top[1]} messages", hashtag_path(top[0].tag) %><td>
+            <td><%= link_to "#{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag) %><td>
           </tr>
         <% end %>
       </tbody>
@@ -42,7 +42,7 @@
     <h3>Top Käyttäjät</h3>
     <ul>
       <% @top_users.each do |top| %>
-        <li><%= link_to "#{top[0].name} - #{top[1]} messages", top[0] %></li>
+        <li><%= link_to "#{top[0].name} - #{pluralize(top[1], 'viesti', 'viestiä')}", top[0] %></li>
       <% end %>
     </ul>
   </div>
@@ -51,7 +51,7 @@
     <h3>Top Fuksiryhmät</h3>
     <ul>
       <% @top_custom_hashtags.each do |top| %>
-        <li><%= link_to "##{top[0].tag} - #{top[1]} messages", hashtag_path(top[0].tag) %></li>
+        <li><%= link_to "##{top[0].tag} - #{pluralize(top[1], 'viesti', 'viestiä')}", hashtag_path(top[0].tag) %></li>
       <% end %>
     </ul>
   </div>
