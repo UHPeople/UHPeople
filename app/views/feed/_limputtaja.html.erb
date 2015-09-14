@@ -1,6 +1,23 @@
-
 <div class="feed-paragraf">
   <h2>Suuri Limputuskisa!</h2>
+
+  <div class="top">
+    <h3>Top Hashtags</h3>
+    <ul>
+      <% @top_hashtags.each do |top| %>
+        <li><%= link_to "##{top[0].tag} - #{top[1]} messages", hashtag_path(top[0].tag) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="top">
+    <h3>Top Users</h3>
+    <ul>
+      <% @top_users.each do |top| %>
+        <li><%= link_to "#{top[0].name} - #{top[1]} messages", top[0] %></li>
+      <% end %>
+    </ul>
+  </div>
 
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 </div>

@@ -17,6 +17,14 @@ class FeedController < ApplicationController
 
     @word_array = cloud_cache
     @tab = current_user.tab
+
+    hashtag_ids = Message.group(:hashtag_id).count
+    @top_hashtags = Hashtag.all.map { |h| [h, hashtag_ids[h.id]] unless hashtag_ids[h.id].nil? }
+    @top_hashtags = @top_hashtags.compact
+
+    user_ids = Message.group(:user_id).count
+    @top_users = User.all.map { |h| [h, user_ids[h.id]] unless user_ids[h.id].nil? }
+    @top_users = @top_users.compact
   end
 
   def cloud_cache
