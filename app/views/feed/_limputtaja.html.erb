@@ -1,4 +1,4 @@
-<div class="feed-paragraf">
+<div class="feed-paragraf clearfix">
   <h2>Suuri Limputuskisa!</h2>
   <p class="lead">
     <a href="https://limppu.it.helsinki.fi/hashtags/UHPeople">UHPeople</a>-Kehitystiimi järjestää kilpailun, jossa palkitaan aktiivisimpia keskustelijoita. Palkintoja saavat fuksiryhmä, jonka kanavalla on keskusteltu
@@ -23,8 +23,8 @@
     </li>
   </ul>
 
-  <div class="top">
-    <h3>Top Hashtags</h3>
+  <div class="top col-md-4">
+    <h3>Top Kanavat</h3>
     <ul>
       <% @top_hashtags.each do |top| %>
         <li><%= link_to "##{top[0].tag} - #{top[1]} messages", hashtag_path(top[0].tag) %></li>
@@ -32,11 +32,20 @@
     </ul>
   </div>
 
-  <div class="top">
-    <h3>Top Users</h3>
+  <div class="top col-md-4">
+    <h3>Top Käyttäjät</h3>
     <ul>
       <% @top_users.each do |top| %>
         <li><%= link_to "#{top[0].name} - #{top[1]} messages", top[0] %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="top col-md-4">
+    <h3>Top Fuksiryhmät</h3>
+    <ul>
+      <% @top_custom_hashtags.each do |top| %>
+        <li><%= link_to "##{top[0].tag} - #{top[1]} messages", hashtag_path(top[0].tag) %></li>
       <% end %>
     </ul>
   </div>
