@@ -1,9 +1,13 @@
-<div id="masonry-container" class="transitions-enabled infinite-scroll clearfix col-xs-12">
-  <div class="container">
-    <% unless @chats.any? %>
-      <p class="lead">
-        You have no favourites selected. Star some interests to see something here!
-      </p>
+<% unless @chats.any? %>
+  <div class="feed-paragraf">
+    <p class="lead">
+      You have no favourites selected. Star some interests to see something here!
+    </p>
+  </div>
+<% else %>
+  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix col-xs-12">
+    <% @chats.each do |chat| %>
+      <%= render 'chatbox', chat: chat %>
     <% end %>
   </div>
-</div>
+<% end %>

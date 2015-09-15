@@ -1,0 +1,70 @@
+<div class="feed-paragraf clearfix">
+  <h2>Suuri Limputuskisa!</h2>
+  <p class="lead">
+    <a href="https://limppu.it.helsinki.fi/hashtags/UHPeople">UHPeople</a>-Kehitystiimi järjestää kilpailun, jossa palkitaan aktiivisimpia keskustelijoita. Palkintoja saavat fuksiryhmä, jonka kanavalla on keskusteltu
+    eniten ja koko sivustolla eniten keskustellut henkilö. Lisäksi suosituimman kanavan jäsenien kesken arvotaan palkintoja.
+  </p>
+
+  <p>
+    Tällä sivulla näkyvät aktiivisimmat fuksiryhmät ja
+    kovimmat limputtajat. Lisäksi keskustelua
+    <a href="https://limppu.it.helsinki.fi/hashtags/limputuskisa">#limputuskisa</a>-kanavalla.
+  </p>
+
+  <h3><small>Säännöt</small></h3>
+  <ul>
+    <li>Kilpailuaika 30.9.2015 asti</li>
+    <li>Jokainen voittaneen fuksiryhmän jäsen saa palkinnon</li>
+    <li>Kilpailuun osallistuvat fuksikanavat ilmoittautuvat
+      <a href="https://limppu.it.helsinki.fi/hashtags/limputuskisa">#limputuskisa</a>-kanavalla.</li>
+    <li>Aktiivisin henkilö palkitaan Kovin Limputtaja -tunnustuksella sekä yllätyspalkinnolla.</li>
+    <li>Kilpailun arvon raati arvioi lopuksi kanavien keskustelun laatua,
+      jotta vältytään spämmäykseltä.
+    </li>
+  </ul>
+
+  <div class="top col-md-4">
+    <h3>Top Kanavat</h3>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_hashtags.each_with_index do |top, index| %>
+          <tr>
+            <th><%= index + 1%></th>
+            <td><%= link_to "##{truncate(top[0].tag, length: 17)}", hashtag_path(top[0].tag) %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="top col-md-4">
+    <h3>Top Käyttäjät</h3>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_users.each_with_index do |top, index| %>
+          <tr>
+            <th><%= index + 1%></th>
+            <td><%= link_to truncate(top[0].name, length: 17), top[0] %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="top col-md-4">
+    <h3>Top Fuksiryhmät</h3>
+    <table class="table table-condensed table-hover">
+      <tbody>
+        <% @top_custom_hashtags.each_with_index do |top, index| %>
+          <tr>
+            <th><%= index + 1%></th>
+            <td><%= link_to "##{truncate(top[0].tag, length: 17)}", top[0] %><td>
+            <td><span class="pull-right"><%= pluralize(top[1], 'viesti', 'viestiä') %></span><td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

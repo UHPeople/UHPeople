@@ -46,13 +46,19 @@
 
 $border-color: #ddd;
 
-#feed.tab-pane {
+#feed.tab-pane, #limputtaja.tab-pane {
 
   border-bottom: 1px solid $border-color;
   border-left: 1px solid $border-color;
   border-radius: 0 0 5px 5px;
   border-right: 1px solid $border-color;
   padding-right: 16px;
+  background-color: white !important;
+}
+
+.feed-paragraf {
+  margin: auto 0;
+  padding: 20px;
 }
 
 .nav-tabs {
