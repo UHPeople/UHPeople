@@ -182,6 +182,12 @@ add_notification = ->
   else
     $('.notif-count .badge').text(t + 1)
 
+activate_load_spinner = ->
+  $('.mdl-spinner').addClass('is-active')
+
+disactivate_load_spinner = ->
+  $('.mdl-spinner').removeClass('is-active')
+
 ready = ->
   if not $('#hashtag-id').length
     return
@@ -197,9 +203,6 @@ ready = ->
 
   members_list = $('ul.nav-list:not(.dropdown-menu)')
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
-
-  # page unload uses ajax unasync
-  #$.post "/update_last_visit/" + hashtag
 
   send = ->
     console.log 'asdadskj'
@@ -258,6 +261,7 @@ ready = ->
     else if data.event == 'dislike'
       remove_like data
     else if data.event == 'messages'
+      disactivate_load_spinner()
       add_multiple_messages data
 
   $('#chat-send').on 'click', (event) ->
