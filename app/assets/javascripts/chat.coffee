@@ -155,6 +155,7 @@ on_messages = (data) ->
   add_multiple_messages data, add_message, true
   move_to_message()
   add_click_handler_to_likes('.like-this', ws)
+  disactivate_load_spinner()
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
@@ -184,6 +185,12 @@ add_click_handler_to_loader = ->
       hashtag: hashtag
       user: user
       message: last_message
+
+activate_load_spinner = ->
+  $('.mdl-spinner').addClass('is-active')
+
+disactivate_load_spinner = ->
+  $('.mdl-spinner').removeClass('is-active')
 
 ready = ->
   if not $('#hashtag-id').length

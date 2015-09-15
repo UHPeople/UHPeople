@@ -19,6 +19,7 @@ gem "paperclip", "~> 4.2"
 gem 'rb-readline'
 gem "select2-rails"
 gem 'material_icons'
+gem 'material_design_lite-rails'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'

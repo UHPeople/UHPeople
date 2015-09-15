@@ -127,7 +127,7 @@
       color: #3d3c40;
       font-size: 15px;
       line-height: 22px;
-      
+
       //issues on chrome
       //word-wrap: break-word;
     }
@@ -160,6 +160,17 @@
     }
   .panel-heading{
     height: 45px;
+  }
+  .center_spinner {
+    width: 90px;
+    height: 50%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
   }
 }
 .input-group.form-control{

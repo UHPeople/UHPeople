@@ -6,7 +6,7 @@
 
 //= require jqcloud
 //= require moment
-
+//= require material
 //= require select2
 
 //= require twitter/typeahead
