@@ -153,7 +153,7 @@ on_leave = (data) ->
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
-  # move_to_message()
+  move_to_message()
   add_click_handler_to_likes('.like-this', ws)
 
 add_click_handler_to_chat = ->

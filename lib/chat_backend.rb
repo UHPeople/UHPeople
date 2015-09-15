@@ -143,7 +143,7 @@ module UHPeople
 
       json = {
         'event': 'messages',
-        'messages': messages.map { |m| JSON.parse(m.serialize(user))}
+        'messages': messages.reverse.map { |m| JSON.parse(m.serialize(user))}
       }
 
       socket.send(JSON.generate(json))
