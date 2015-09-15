@@ -6,11 +6,7 @@ class FeedController < ApplicationController
   def index
     cu_hashtags = current_user.user_hashtags.includes(hashtag: :messages)
     @user_tags = cu_hashtags.downcase_sorted
-    @fav_user_tags = cu_hashtags.favourite
-    @chats = fav_user_tags.map do |user_hashtag|
-      { tag: user_hashtag.hashtag,
-        messages: user_hashtag.hashtag.messages.last(5) }
-    end
+    @fav_user_tags = cu_hashtags.favourite.map(&:hashtag)
 
     @word_array = cloud_cache
     @tab = current_user.tab
