@@ -10,7 +10,7 @@ create_websocket = (events) ->
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
-    console.log data
+    # console.log data
 
     event_handler = events[data.event]
     if event_handler != undefined

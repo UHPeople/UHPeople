@@ -1,3 +1,7 @@
+# The click handler functions need the websocket
+# null value will get overwritten by the ready() function
+ws = null
+
 add_unread = (data) ->
   if !$('td a#' + data.hashtag).children().hasClass('unread')
       $('td a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
@@ -21,7 +25,7 @@ add_feed_message = (data) ->
     star = 'star'
 
   $('#feed').prepend ''+
-    '<div class="feed-chat-box">' +
+    '<div class="feed-chat-box" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -85,9 +89,11 @@ on_open = (socket) ->
 on_message = (data) ->
   add_message data
   add_unread data
+  add_click_handler_to_likes('#like-' + data.id, ws)
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, false
+  add_click_handler_to_likes('.like-this', ws)
 
 ready = ->
   if not $('#feed').length
@@ -95,11 +101,13 @@ ready = ->
   else
     console.log('Feed page detected!')
 
-  create_websocket {
+  ws = create_websocket {
     'open': on_open,
     'message': on_message,
     'notification': on_notification,
-    'messages': on_messages
+    'messages': on_messages,
+    'like': on_like,
+    'dislike', on_dislike
   }
 
 exports = this
