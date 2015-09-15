@@ -75,10 +75,6 @@ add_favourites_message = (data) ->
 
   $('#masonry-container').masonry()
 
-add_message = (data) ->
-  add_feed_message data
-  add_favourites_message data
-
 on_open = (socket) ->
   user = $('#user-id')[0].value
 
@@ -86,13 +82,24 @@ on_open = (socket) ->
     event: 'feed'
     user: user
 
+  socket.send JSON.stringify
+    event: 'favourites'
+    user: user
+
 on_message = (data) ->
-  add_message data
+  add_feed_message data
+  add_favourites_message data
+
   add_unread data
+
   add_click_handler_to_likes('#like-' + data.id, ws)
 
 on_messages = (data) ->
-  add_multiple_messages data, add_message, false
+  add_multiple_messages data, add_feed_message, false
+  add_click_handler_to_likes('.like-this', ws)
+
+on_favourites = (data) ->
+  add_multiple_messages data, add_favourites_message, false
   add_click_handler_to_likes('.like-this', ws)
 
 ready = ->
@@ -107,11 +114,12 @@ ready = ->
     'notification': on_notification,
     'messages': on_messages,
     'like': on_like,
-    'dislike', on_dislike
+    'dislike': on_dislike,
+    'favourites': on_favourites
   }
 
 exports = this
-exports.add_feed_message = add_message
+exports.add_feed_message = add_feed_message
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

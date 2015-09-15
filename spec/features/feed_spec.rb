@@ -20,7 +20,7 @@ RSpec.describe 'Feed page' do
       visit '/feed'
 
       message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
-      page.execute_script("add_feed_message(#{message.serialize})")
+      page.execute_script("add_feed_message(#{JSON.generate(message.serialize(user))})")
     end
 
     it 'has messages in feed' do
@@ -29,7 +29,7 @@ RSpec.describe 'Feed page' do
 
     it 'has messages in feed in order' do
       message2 = Message.create user: user, hashtag: hashtag, content: 'Asdasd2', created_at: Time.now.utc
-      page.execute_script("add_feed_message(#{message2.serialize})")
+      page.execute_script("add_feed_message(#{JSON.generate(message2.serialize(user))})")
 
       expect(find('.feed-chat-box:nth-of-type(1)')).to have_content 'Asdasd2'
       expect(find('.feed-chat-box:nth-of-type(2)')).to have_content 'Asdasd'

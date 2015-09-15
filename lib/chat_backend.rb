@@ -113,7 +113,19 @@ module UHPeople
 
       json = {
         'event': 'messages',
-        'messages': messages.map { |m| JSON.parse(m.serialize(user)) }
+        'messages': messages.map { |m| m.serialize(user) }
+      }
+
+      socket.send(JSON.generate(json))
+    end
+
+    def favourites_event(user, socket)
+      hashtags = user.user_hashtags.includes(hashtag: :messages).favourite.map(&:hashtag)
+      messages = hashtags.map { |hashtag| hashtag.messages.order(created_at: :desc).limit(5).reverse }
+
+      json = {
+        'event': 'favourites',
+        'messages': messages.map { |m| m.serialize(user) }
       }
 
       socket.send(JSON.generate(json))
@@ -130,7 +142,7 @@ module UHPeople
       end
 
       find_mentions(message)
-      broadcast(message.serialize(user), hashtag.id)
+      broadcast(JSON.generate(message.serialize(user)), hashtag.id)
     end
 
     def messages_event(user, hashtag, message, socket)
@@ -143,7 +155,7 @@ module UHPeople
 
       json = {
         'event': 'messages',
-        'messages': messages.reverse.map { |m| JSON.parse(m.serialize(user))}
+        'messages': messages.reverse.map { |m| m.serialize(user) }
       }
 
       socket.send(JSON.generate(json))
@@ -181,6 +193,9 @@ module UHPeople
 
       if data['event'] == 'feed'
         feed_event(user, socket)
+        return
+      elsif data['event'] == 'favourites'
+        favourites_event(user, socket)
         return
       elsif data['event'] == 'like'
         message = graceful_find(Message, data['message'], socket)

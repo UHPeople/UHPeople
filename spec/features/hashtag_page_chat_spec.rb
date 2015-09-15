@@ -20,7 +20,7 @@ RSpec.describe Hashtag do
       before :each do
         message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
         visit hashtag_path(hashtag.tag)
-        page.execute_script("add_chat_message(#{message.serialize(user)})")
+        page.execute_script("add_chat_message(#{JSON.generate(message.serialize(user))})")
       end
 
       it 'have content' do
@@ -61,7 +61,7 @@ RSpec.describe Hashtag do
 
       # it 'has unread marker' do
       #   visit hashtag_path(hashtag.tag)
-      #   json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| JSON.parse(m.serialize(user)) } }
+      #   json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| m.serialize(user) } }
       #   page.execute_script("add_multiple_messages(#{JSON.generate(json)})")
       #   expect(page).to have_content 'Since'
       # end

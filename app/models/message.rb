@@ -49,19 +49,17 @@ class Message < ActiveRecord::Base
   end
 
   def serialize(current_user = nil)
-    json = { 'event': 'message',
-             'content': formatted_content,
-             'hashtag': hashtag_id,
-             'hashtag_name': hashtag.tag,
-             'user': user_id,
-             'id': id,
-             'username': user.name,
-             'timestamp': timestamp,
-             'avatar': user.profile_picture_url,
-             'likes': likes.count,
-             'current_user_likes': user_likes(current_user)
-           }
-
-    JSON.generate json
+    { 'event': 'message',
+      'content': formatted_content,
+      'hashtag': hashtag_id,
+      'hashtag_name': hashtag.tag,
+      'user': user_id,
+      'id': id,
+      'username': user.name,
+      'timestamp': timestamp,
+      'avatar': user.profile_picture_url,
+      'likes': likes.count,
+      'current_user_likes': user_likes(current_user)
+    }
   end
 end
