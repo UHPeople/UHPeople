@@ -27,7 +27,11 @@
                   <span class="badge badge-success unread"><%= tag.unread_messages.to_s %></span>
                 <% end %>
               </a>
-              <%= link_to '', {controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "glyphicon glyphicon-star#{'-empty' unless tag.favourite?} star" %>
+              <%= link_to({controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "send-hover like-this") do %>
+                <i class="material-icons md-18 like-icon like-icon-color <%= 'like-icon-liked' if tag.favourite? %>">
+                  <%= tag.favourite? ? 'star' : 'star_border' %>
+                </i>
+              <% end %>
             </td>
           </tr>
       <% end %>

@@ -15,7 +15,7 @@
 //= require joyride/jquery.joyride-2.1
 //= require jquery.atwho
 
-//= require rails 
+//= require rails
 //= require chat_common
 //= require chat
 //= require feed_chat
@@ -121,11 +121,6 @@ var ready = function() {
 		setTimeout(function() {
 			$('#collapseAlert').collapse('hide');
 		}, 5000);
-	});
-
-	$('.star').hover(function() {
-		$(this).toggleClass("glyphicon-star-empty");
-		$(this).toggleClass("glyphicon-star");
 	});
 
 	$('span.timestamp').each(function() {
