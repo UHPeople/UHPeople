@@ -83,8 +83,7 @@ add_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('.chatbox').append ''+
-    '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
+  $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -104,7 +103,7 @@ add_message = (data) ->
           '</span>' +
         '</p>' +
       '</div>' +
-    '</div>'
+    '</div>').insertAfter('.loader')
 
     set_star_hover()
 
@@ -153,7 +152,7 @@ on_leave = (data) ->
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
-  move_to_message()
+  #move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
 
@@ -178,8 +177,10 @@ add_click_handler_to_loader = ->
   user = $('#user-id')[0].value
 
   $('#loader').click (event) ->
+    event.preventDefault()
+    activate_load_spinner()
+
     last_message = $('.panel-body:first')[0].id
-    console.log last_message
     ws.send JSON.stringify
       event: 'messages'
       hashtag: hashtag
@@ -198,9 +199,6 @@ ready = ->
   else
     console.log('Chat page detected!')
 
-  log_error = (data) ->
-    console.log data.content
-
   ws = create_websocket {
     'open': on_open,
     'close': on_close,
@@ -211,8 +209,7 @@ ready = ->
     'notification': on_notification,
     'messages': on_messages,
     'like': on_like,
-    'dislike': on_dislike,
-    'error': log_error
+    'dislike': on_dislike
   }
 
   move_to_message()

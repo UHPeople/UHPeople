@@ -154,12 +154,12 @@ module UHPeople
       if message.nil?
         messages = hashtag.messages.all.order(created_at: :desc).limit(20)
       else
-        messages = hashtag.messages.where("id > ? ", message.id).order(created_at: :desc).limit(20)
+        messages = hashtag.messages.where("id < ? ", message.id).order(created_at: :desc).limit(20)
       end
 
       json = {
         'event': 'messages',
-        'messages': messages.reverse.map { |m| m.serialize(user) }
+        'messages': messages.map { |m| m.serialize(user) }
       }
 
       socket.send(JSON.generate(json))
