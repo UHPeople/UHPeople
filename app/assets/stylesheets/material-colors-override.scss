@@ -1,0 +1,120 @@
+// Color override file
+
+html body {
+  background-color: $body;
+
+  a {
+    color: $color-800;
+  }
+}
+
+.navbar {
+  background-color: $primary !important;
+  border: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+
+  a {
+    color: $navbar-link !important;
+  }
+}
+
+.dropdown-menu > li > a {
+  color: $color-900 !important;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
+  //background-color: $color-400 !important;
+  background-color: transparent !important;
+}
+
+h2, h3 {
+  color: $primary !important;
+  text-transform: uppercase;
+  font-weight: normal !important;
+}
+
+.jumbotron {
+
+  background: $jumbotron-color;
+  background-color: $jumbotron-color !important;
+  h1 {
+      color: $primary-link;
+      //text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
+  }
+
+  div {
+    color: $primary-link;
+  }
+
+  footer {
+    color: $fallback !important;
+  }
+}
+
+.well, .panel-default {
+  background-color: $white !important;
+}
+
+.panel-heading {
+  background-color: $primary !important;
+
+}
+
+#feed {
+  background-color: $white !important;
+}
+
+.panel-title > a {
+  color: $primary-link !important;
+}
+
+/* Notification Colouring */
+.navbar-inverse .navbar-nav > li > a.accent {
+  color: $accent !important;
+}
+
+.navbar-inverse .navbar-nav > li > .notif-link:hover,
+.navbar-inverse .navbar-nav > li > .notif-link:focus {
+  color: $accent-hover !important;
+}
+
+a.notif-link:hover {
+  color: $white;
+}
+
+/* notification hover */
+.notif > .alert:hover {
+  background-color: rgba(208, 237, 197, .1);
+}
+
+.alert-success .alert-link {
+  color: $black !important;
+}
+
+.type1 {
+  background-color: $type1 !important;
+}
+
+.type2 {
+  background-color: $type2 !important;
+}
+
+.type3 {
+  background-color: $type3 !important;
+}
+
+.icon-color{
+  color: $fallback-negative;
+}
+
+.btn-success{
+  background-color: $primary !important;
+  color: $white !important;
+}
+
+.badge-success {
+  background-color: $accent !important;
+}
+.like-icon-color {
+  color: rgba(0, 0, 0, .40);
+}
