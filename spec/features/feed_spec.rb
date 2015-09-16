@@ -18,6 +18,7 @@ RSpec.describe 'Feed page' do
   context 'feed tab', js: true do
     before :each do
       visit '/feed'
+      click_link 'Feed'
 
       message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
       page.execute_script("add_feed_message(#{JSON.generate(message.serialize(user))})")
