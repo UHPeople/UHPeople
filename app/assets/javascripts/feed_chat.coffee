@@ -24,7 +24,7 @@ add_feed_message = (data) ->
     star = 'star'
 
   $('#feed').prepend ''+
-    '<div class="feed-chat-box" id="' + data.id + '">' +
+    '<div class="feed-chat-box" id="feed-' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -40,7 +40,7 @@ add_feed_message = (data) ->
             '<span class="like-badge like-icon-color">' +
               data.likes +
             '</span>' +
-            '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
+            '<a class="send-hover like-this" href="#" id="feed-like-' + data.id + '">' +
               '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
@@ -54,8 +54,14 @@ add_favourites_message = (data) ->
   if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
     $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
+  like_icon_liked = ''
+  star = 'star_border'
+  if data.current_user_likes
+    like_icon_liked = 'like-icon-liked'
+    star = 'star'
+
   $('div.panel.fav#box-' + data.hashtag).append ''+
-    '<div class="panel-body fav">' +
+    '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
           '<img class="img-circle" src="' + data.avatar + '"></img>' +
@@ -67,7 +73,17 @@ add_favourites_message = (data) ->
             '<br/>' +
             '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
           '</h5>' +
-          '<p>' + data.content + '</p>' +
+          '<p>' +
+            data.content +
+            '<span class="space-left">' +
+              '<span class="like-badge like-icon-color">' +
+                data.likes +
+              '</span>' +
+              '<a class="send-hover like-this" href="#" id="favourites-like-' + data.id + '">' +
+                '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+              '</a>' +
+            '</span>' +
+          '</p>' +
         '</div>' +
       '</div>' +
     '</div>'
@@ -91,15 +107,24 @@ on_message = (data) ->
 
   add_unread data
 
-  add_click_handler_to_likes('#like-' + data.id, ws)
+  add_click_handler_to_likes('#feed-like-' + data.id, ws)
+  add_click_handler_to_likes('#favourites-like-' + data.id, ws)
 
 on_messages = (data) ->
   add_multiple_messages data, add_feed_message, false
-  add_click_handler_to_likes('.like-this', ws)
+  add_click_handler_to_likes('.feed-chat-box .like-this', ws)
 
 on_favourites = (data) ->
   add_multiple_messages data, add_favourites_message, false
-  add_click_handler_to_likes('.like-this', ws)
+  add_click_handler_to_likes('.fav .like-this', ws)
+
+like_both = (data) ->
+  on_like(data, 'favourites-')
+  on_like(data, 'feed-')
+
+dislike_both = (data) ->
+  on_dislike(data, 'favourites-')
+  on_dislike(data, 'feed-')
 
 ready = ->
   if not $('#feed').length
@@ -112,8 +137,8 @@ ready = ->
     'message': on_message,
     'notification': on_notification,
     'messages': on_messages,
-    'like': on_like,
-    'dislike': on_dislike,
+    'like': like_both,
+    'dislike': dislike_both,
     'favourites': on_favourites
   }
 

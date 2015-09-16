@@ -48,12 +48,12 @@ change_thumb = (t) ->
     $(t).addClass( "like-icon-liked" )
     $(t).text 'star'
 
-on_like = (data) ->
-  count = $('#' + data.message + ' .like-badge')
+on_like = (data, prefix = '') ->
+  count = $('#' + prefix + data.message + ' .like-badge')
   count.text(Number(count.text()) + 1)
 
-on_dislike = (data) ->
-  count = $('#' + data.message + ' .like-badge')
+on_dislike = (data, prefix = '') ->
+  count = $('#' + prefix + data.message + ' .like-badge')
   count.text(Number(count.text()) - 1)
 
 format_timestamp = (timestamp) ->
@@ -81,14 +81,16 @@ add_click_handler_to_likes = (element, socket) ->
 
   $(element).click (event) ->
     event.preventDefault()
-    message = $(this)[0].id.substr(5)
-    change_thumb $('#' + message + ' i')
 
-    json = JSON.stringify
+    id = $(this)[0].id.split('-')
+    message = id[id.length - 1]
+
+    change_thumb $('.like-this[id$='+message+'] i')
+
+    socket.send JSON.stringify
       event: 'like'
       user: user
       message: message
-    socket.send json
 
 exports = this
 exports.add_multiple_messages = add_multiple_messages
