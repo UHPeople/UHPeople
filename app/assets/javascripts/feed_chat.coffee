@@ -144,6 +144,7 @@ ready = ->
 
 exports = this
 exports.add_feed_message = add_feed_message
+exports.add_favourites_message = add_favourites_message
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

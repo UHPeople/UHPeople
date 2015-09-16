@@ -4,12 +4,8 @@
 @import 'select2';
 @import 'select2-bootstrap';
 @import 'jquery.atwho';
-@import 'material_icons';
-
-@import 'font-gotham';
 @import 'jqcloud';
-@import "material";
-@import 'material-colors';
+
 @import 'mobile-first';
 @import 'navbar';
 @import 'autocomplete';
@@ -17,6 +13,21 @@
 @import 'feed';
 @import 'user-style';
 @import 'search';
+
+@import "material";
+// @import "material_icons";
+
+// Rules for sizing the icon.
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap-custom';
+
+@import 'material-colors';
+@import 'font-gotham';
 
 .notification-seen {
   opacity: 0.5;
@@ -38,7 +49,6 @@
 .modal-body > div > button {
   margin-top: 5px;
 }
-
 
 main > .container {
   padding-top: 20px;
@@ -145,6 +155,3 @@ main > .container {
   font-size: 80%;
   font-style: italic;
 }
-
-@import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
