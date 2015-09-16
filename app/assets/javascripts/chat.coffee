@@ -95,17 +95,18 @@ add_message = (data) ->
         '</h5>' +
         '<p>' + data.content +
           '<span class="space-left">' +
-            '<span class="like-badge like-icon-color">' +
+            '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
               '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
+          '<div class="mdl-tooltip" for="tt' + data.id + '"></div>' +
         '</p>' +
       '</div>' +
     '</div>'
-
+    add_mouseover_to_get_likers(data.id)
     set_star_hover()
 
 on_open = (socket) ->
@@ -127,6 +128,7 @@ on_message = (data) ->
   add_message data
   scroll_to_bottom()
   add_click_handler_to_likes('#like-' + data.id, ws)
+  componentHandler.upgradeDom();
 
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
@@ -156,6 +158,10 @@ on_messages = (data) ->
   move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
+  componentHandler.upgradeDom();
+
+on_likers = ->
+  console.log 'got likers'
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
@@ -172,6 +178,17 @@ add_click_handler_to_chat = ->
         user: user
 
     $('#input-text')[0].value = ''
+
+add_mouseover_to_get_likers = (id)->
+  $('#tt' + id).hover( ->
+    likers = $.getJSON("../get_message_likers/" + id)
+    likers.done (data)->
+      $('[for="tt' + id + '"]').append($.parseJSON(data.liker).join(', '))
+    return
+  , ->
+    $('[for="tt' + id + '"]').empty()
+    return
+  )
 
 add_click_handler_to_loader = ->
   hashtag = $('#hashtag-id')[0].value
@@ -212,6 +229,7 @@ ready = ->
     'messages': on_messages,
     'like': on_like,
     'dislike': on_dislike,
+    'likers': on_likers
     'error': log_error
   }
 
