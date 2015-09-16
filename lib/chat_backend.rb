@@ -121,11 +121,15 @@ module UHPeople
 
     def favourites_event(user, socket)
       hashtags = user.user_hashtags.includes(hashtag: :messages).favourite.map(&:hashtag)
-      messages = hashtags.map { |hashtag| hashtag.messages.order(created_at: :desc).limit(5).reverse }
+      messages_json = []
+      hashtags.each do |hashtag|
+        messages = hashtag.messages.order(created_at: :desc).limit(5).reverse
+        messages_json += messages.map { |message| message.serialize(user) }
+      end
 
       json = {
         'event': 'favourites',
-        'messages': messages.map { |m| m.serialize(user) }
+        'messages': messages_json
       }
 
       socket.send(JSON.generate(json))

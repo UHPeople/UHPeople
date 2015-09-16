@@ -13,7 +13,6 @@ add_unread = (data) ->
         ''
 
 add_feed_message = (data) ->
-  console.log data
   #highlight = ''
   #if moment.utc(data.timestamp).isAfter()
   #  highlight = 'new_messages'
