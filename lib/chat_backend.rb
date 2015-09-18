@@ -183,9 +183,9 @@ module UHPeople
 
     def send_mention(user, tricker, hashtag, message)
       Notification.create notification_type: 3,
-                          user_id: user,
-                          tricker_user_id: tricker,
-                          tricker_hashtag_id: hashtag,
+                          user_id: user.id,
+                          tricker_user_id: tricker.id,
+                          tricker_hashtag_id: hashtag.id,
                           message: message
 
       notification_callback(user)
@@ -194,9 +194,9 @@ module UHPeople
     def add_likenotif(user, message)
       if (message.likes.count == 1)
         send_likenotif(message.user_id,
-                     user,
+                     user.id,
                      message.hashtag_id,
-                     message)
+                     message.id)
       else
         update_likenotif(message.user_id, user)
       end
@@ -219,7 +219,7 @@ module UHPeople
 
     def remove_likenotif(message)
       if (message.likes.count == 0)
-        Notification.find(params[message_id: message, notification_type: 4, user_id: message.user_id]).destroy
+        Notification.find(params[message_id: message.id, notification_type: 4, user_id: message.user_id]).destroy
       else
         update_likenotif(message.user_id, message.likes.last.user_id)
       end
