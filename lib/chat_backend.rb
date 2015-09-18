@@ -74,11 +74,11 @@ module UHPeople
       if like.nil?
         like = Like.new(user_id: user.id, message: message)
         return unless like.save
-        add_likenotif(message)
+        # add_likenotif(message)
         like_callback('like', message)
       else
         like.destroy
-        remove_likenotif(message)
+        # remove_likenotif(message)
         like_callback('dislike', message)
       end
     end
