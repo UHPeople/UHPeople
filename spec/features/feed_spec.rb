@@ -50,7 +50,7 @@ RSpec.describe 'Feed page' do
     end
 
     it 'redirects to favourites tab when changing favourites', js: true do
-      find('td a.glyphicon').click
+      find('td a.like-this').click
 
       expect(URI.parse(page.current_url).fragment).to eq 'favourites'
     end
@@ -73,31 +73,26 @@ RSpec.describe 'Feed page' do
     end
   end
 
-  # context 'favourites tab' do
-  #   it 'is empty when no favorites' do
-  #     create_and_visit
-  #     click_link 'Favourites'
-  #     expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
-  #   end
+  context 'favourites tab', js: true do
+    before :each do
+      visit '/feed'
+      find('td a.like-this').click
+      click_link 'Favourites'
 
-  #   it 'has the right content when favourites exist' do
-  #     create_and_visit
-  #     find('td a.glyphicon').click
-  #     click_link 'Favourites'
-  #     expect(find('div.favourites-chat-box:first-child')).to have_content 'Asdasd'
-  #   end
+      message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
+      page.execute_script("add_favourites_message(#{JSON.generate(message.serialize(user))})")
+    end
 
-  #   it 'is empty when favourite removed' do
-  #     create_and_visit
-  #     find('td a.glyphicon').click
-  #     click_link 'Favourites'
+    it 'has the right content when favourites exist' do
+      expect(find('.favourites-chat-box:nth-of-type(1)')).to have_content 'Asdasd'
+    end
 
-  #     expect(find('div.favourites-chat-box:first-child')).to have_content 'Asdasd'
-  #     find('td a.glyphicon').click
-  #     click_link 'Favourites'
-
-  #     expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
-  #   end
+    it 'is empty when favourite removed' do
+      find('td a.like-this').click
+      click_link 'Favourites'
+      expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
+    end
+  end
 
   it 'wont let add more favourites than max' do
     max = APP_CONFIG['max_faves']
@@ -108,7 +103,7 @@ RSpec.describe 'Feed page' do
     end
 
     visit '/feed'
-    page.all(:css, 'td a.glyphicon').each(&:click)
+    page.all(:css, 'td a.like-this').each(&:click)
 
     expect(page).to have_content "You already have #{max} favourites, remove some to add a new one!"
   end
@@ -119,7 +114,7 @@ RSpec.describe 'Feed page' do
 
   #     before :each do
   #       create_and_visit
-  #       page.all(:css, 'td a.glyphicon').each(&:click)
+  #       page.all(:css, 'td a.like-this').each(&:click)
   #     end
 
   #     it 'are in order' do
@@ -155,17 +150,17 @@ RSpec.describe 'Feed page' do
     expect(find('span.w10')).to have_content 'cloudtag2'
   end
 
-  # context 'tab' do
-  #   it 'is stored', js: true do
-  #     create_and_visit
+  context 'tab' do
+    it 'is stored', js: true do
+      create_and_visit
 
-  #     click_link 'Favourites'
-  #     visit '/feed'
-  #     expect(user.tab).to eq 0
+      click_link 'Favourites'
+      visit '/feed'
+      expect(user.tab).to eq 0
 
-  #     click_link 'Feed'
-  #     visit '/feed'
-  #     # expect(user.tab).to eq 1
-  #   end
-  # end
+      click_link 'Feed'
+      visit '/feed'
+      #expect(user.tab).to eq 1
+    end
+  end
 end

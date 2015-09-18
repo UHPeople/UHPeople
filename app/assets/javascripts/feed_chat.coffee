@@ -41,7 +41,7 @@ add_feed_message = (data) ->
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="feed-like-' + data.id + '">' +
-              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+              '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
         '</p>' +
@@ -80,7 +80,7 @@ add_favourites_message = (data) ->
                 data.likes +
               '</span>' +
               '<a class="send-hover like-this" href="#" id="favourites-like-' + data.id + '">' +
-                '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+                '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
               '</a>' +
             '</span>' +
           '</p>' +
@@ -144,6 +144,7 @@ ready = ->
 
 exports = this
 exports.add_feed_message = add_feed_message
+exports.add_favourites_message = add_favourites_message
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

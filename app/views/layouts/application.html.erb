@@ -6,6 +6,7 @@
     <title>UHPeople</title>
 
     <%= stylesheet_link_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
     <%= csrf_meta_tags %>
 
     <script>
@@ -22,7 +23,7 @@
        <%= yield %>
     </main>
 
-    <% 
+    <%
       #onboarding #help1
       #new user onboard:
       #feed onboard: header, tabs, hashtaglist
@@ -33,7 +34,7 @@
       <%= render 'onboards/feed_onboard' if current_page? feed_index_path %>
       <%= render 'onboards/new_user_onboard' if current_page? edit_user_path(current_user) %>
     <% end %>
-   
+
     <%= javascript_include_tag 'application' %>
   </body>
   <% if ENV['RAILS_ENV'] == "production" %>
