@@ -74,11 +74,11 @@ module UHPeople
       if like.nil?
         like = Like.new(user_id: user.id, message: message)
         return unless like.save
-        # add_likenotif(message)
+        add_likenotif(user, message)
         like_callback('like', message)
       else
         like.destroy
-        # remove_likenotif(message)
+        remove_likenotif(message)
         like_callback('dislike', message)
       end
     end
@@ -191,14 +191,14 @@ module UHPeople
       notification_callback(user)
     end
 
-    def add_likenotif(message)
-      if (message.likes <= 1)
+    def add_likenotif(user, message)
+      if (message.likes.count == 1)
         send_likenotif(message.user_id,
-                     current_user,
+                     user,
                      message.hashtag_id,
                      message)
       else
-        update_likenotif(message.user_id, current_user)
+        update_likenotif(message.user_id, user)
       end
     end
 
@@ -208,7 +208,6 @@ module UHPeople
                           tricker_user_id: tricker,
                           tricker_hashtag_id: hashtag,
                           message: message
-
       notification_callback(user)
     end
 
@@ -219,7 +218,7 @@ module UHPeople
     end
 
     def remove_likenotif(message)
-      if (message.likes <= 1)
+      if (message.likes.count == 0)
         Notification.find(params[message_id: message, notification_type: 4, user_id: message.user_id]).destroy
       else
         update_likenotif(message.user_id, message.likes.last.user_id)
