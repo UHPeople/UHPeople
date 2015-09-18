@@ -1,9 +1,9 @@
-<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type3 <%= "notification-seen" if not notification.visible %>" role="alert">
+<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type4 <%= "notification-seen" if not notification.visible %>" role="alert">
   <div class="notification-title">
     <%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
     <% if notification.tricker_hashtag != nil %>
       <% if notification.message.likes.count > 1 %>
-        and <%= notification.message.likes.count -1 %> others
+        and <%= notification.message.likes.count-1 %> others
       <% end %>
     <% else %>
       someone 

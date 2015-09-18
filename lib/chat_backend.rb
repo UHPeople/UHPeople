@@ -74,11 +74,11 @@ module UHPeople
       if like.nil?
         like = Like.new(user_id: user.id, message: message)
         return unless like.save
-        add_likenotif(user, message)
+        add_likenotif(message, user)
         like_callback('like', message)
       else
         like.destroy
-        remove_likenotif(message)
+        remove_likenotif(message, user)
         like_callback('dislike', message)
       end
     end
@@ -191,14 +191,15 @@ module UHPeople
       notification_callback(user)
     end
 
-    def add_likenotif(user, message)
-      if (message.likes.count == 1)
+    def add_likenotif(message, tricker_user)
+      if (message.likes.count == 1 ||
+          Notification.find_by_message_id_and_notification_type(message.id, 4) == nil)
         send_likenotif(message.user_id,
-                     user.id,
+                     tricker_user.id,
                      message.hashtag_id,
-                     message.id)
+                     message)
       else
-        update_likenotif(message.user_id, user)
+        update_likenotif(message, tricker_user.id, true)
       end
     end
 
@@ -208,20 +209,30 @@ module UHPeople
                           tricker_user_id: tricker,
                           tricker_hashtag_id: hashtag,
                           message: message
-      notification_callback(user)
+      notification_callback(User.find_by_id user)
     end
 
-    def update_likenotif(user, tricker_user)
-      Notification.update tricker_user_id: tricker_user
-
-      notification_callback(user)
+    def update_likenotif(message, tricker_user, renotify)
+      notif = Notification.find_by_message_id_and_notification_type(message.id, 4)
+      notif.update(tricker_user_id: tricker_user)
+      if renotify = true && notif.visible == false
+        notif.update(visible: true)
+        notification_callback(User.find_by_id message.user_id)
+      end
     end
 
-    def remove_likenotif(message)
+    def remove_likenotif(message, tricker_user)
       if (message.likes.count == 0)
-        Notification.find(params[message_id: message.id, notification_type: 4, user_id: message.user_id]).destroy
-      else
-        update_likenotif(message.user_id, message.likes.last.user_id)
+        Notification.find_by_message_id_and_notification_type(message.id, 4).destroy if not nil
+        else
+          if Notification.find_by_message_id_and_notification_type(message.id, 4) == nil
+            send_likenotif(message.user_id,
+                     tricker_user.id,
+                     message.hashtag_id,
+                     message)
+          else
+            update_likenotif(message, message.likes.last.user_id, false)
+          end
       end
     end
 
