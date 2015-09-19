@@ -289,7 +289,7 @@ div.line {
   background-color: $accent;
   height: 48px;
   span {
-    
+
   }
 }
 
@@ -312,12 +312,12 @@ span.space-left {
     text-decoration: none;
     padding-right: 2px;
   }
+}
 
-  .like-icon {
-    line-height: 1.42857143 !important;
-  }
+.like-icon {
+  line-height: 1.42857143 !important;
+}
 
-  .like-icon-liked {
-    color: $accent !important
-  }
+.like-icon-liked {
+  color: $accent !important
 }

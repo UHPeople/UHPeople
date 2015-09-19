@@ -99,7 +99,7 @@ add_message = (data) ->
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
-              '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
+              '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
         '</p>' +
