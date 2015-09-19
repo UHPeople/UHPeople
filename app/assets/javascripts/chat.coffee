@@ -157,7 +157,6 @@ on_messages = (data) ->
   move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
-  componentHandler.upgradeDom()
 
 on_likers = ->
   console.log 'got likers'

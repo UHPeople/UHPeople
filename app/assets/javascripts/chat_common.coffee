@@ -17,7 +17,6 @@ create_websocket = (events) ->
       event_handler(data)
     else
       console.log 'Unknown event "' + data.event + '"'
-
   return ws
 
 on_notification = ->
@@ -111,7 +110,6 @@ append_tooltip_element = (element, id, prefix) ->
   div.setAttribute('for', '' + prefix + id)
   componentHandler.upgradeElement(div)
   $(element).parent().append( div )
-  #componentHandler.upgradeDom()
 
 get_likers_json_to_tooltip = (id, prefix) ->
   jsonData = $.getJSON("../get_message_likers/" + id)
