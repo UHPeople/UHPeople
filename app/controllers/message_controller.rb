@@ -5,13 +5,8 @@ class MessageController < ApplicationController
     respond_to do |format|
       format.json do
         message = Message.find(params[:id])
-        m = message.likes.map(&:user_id)
-        likers = User.where(id: m)#.map(&:name)
-        json = {
-          'likers': likers = User.where(id: m).map(&:name)
-        }
-        render json: {
-          :liker => likers.to_json(:only => [:name]) }
+        likers = message.likers.map{|h| h.user.name}.as_json
+        render json: {"likers": likers}
       end
       format.html { redirect_to feed_index_path }
     end

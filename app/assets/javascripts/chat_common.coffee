@@ -92,11 +92,36 @@ add_click_handler_to_likes = (element, socket) ->
       user: user
       message: message
 
+add_mouseover_to_get_likers = (prefix, id)->
+  $('#' + prefix + id).hover( ->
+    if (Number $(this).text() > 0)
+      append_tooltip_element(this, id, prefix)
+      get_likers_json_to_tooltip(id, prefix)
+    else
+      $('[for="'+ prefix + id + '"]').remove()
+    return
+  , ->
+    $('[for="'+ prefix + id + '"]').empty()
+    return
+  )
+
+append_tooltip_element = (element, id, prefix) ->
+  div = '<div class="mdl-tooltip" for="'+ prefix + id + '"></div>'
+  $(element).parent().append( div )
+  #should be upgradeElement, but could not got it working
+  componentHandler.upgradeDom()
+
+get_likers_json_to_tooltip = (id, prefix) ->
+  jsonData = $.getJSON("../get_message_likers/" + id)
+  jsonData.done (json)->
+    $('[for="'+ prefix + id + '"]').append(json.likers.join(', '))
+
 exports = this
 exports.add_multiple_messages = add_multiple_messages
 exports.format_timestamp = format_timestamp
 exports.create_websocket = create_websocket
 exports.on_notification = on_notification
+exports.add_mouseover_to_get_likers = add_mouseover_to_get_likers
 exports.on_like = on_like
 exports.on_dislike = on_dislike
 exports.change_thumb = change_thumb

@@ -93,7 +93,7 @@ add_message = (data) ->
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
-        '<p>' + data.content +
+        '<p class="message_content">' + data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
               data.likes +
@@ -102,11 +102,11 @@ add_message = (data) ->
               '<i class="material-icons md-18 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
             '</a>' +
           '</span>' +
-          '<div class="mdl-tooltip" for="tt' + data.id + '"></div>' +
         '</p>' +
       '</div>' +
     '</div>'
-    add_mouseover_to_get_likers(data.id)
+
+    add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
 
 on_open = (socket) ->
@@ -158,7 +158,7 @@ on_messages = (data) ->
   move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
-  componentHandler.upgradeDom();
+  componentHandler.upgradeDom()
 
 on_likers = ->
   console.log 'got likers'
@@ -178,17 +178,6 @@ add_click_handler_to_chat = ->
         user: user
 
     $('#input-text')[0].value = ''
-
-add_mouseover_to_get_likers = (id)->
-  $('#tt' + id).hover( ->
-    likers = $.getJSON("../get_message_likers/" + id)
-    likers.done (data)->
-      $('[for="tt' + id + '"]').append($.parseJSON(data.liker).join(', '))
-    return
-  , ->
-    $('[for="tt' + id + '"]').empty()
-    return
-  )
 
 add_click_handler_to_loader = ->
   hashtag = $('#hashtag-id')[0].value
