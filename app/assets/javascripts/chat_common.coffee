@@ -106,10 +106,12 @@ add_mouseover_to_get_likers = (prefix, id)->
   )
 
 append_tooltip_element = (element, id, prefix) ->
-  div = '<div class="mdl-tooltip" for="'+ prefix + id + '"></div>'
+  div = document.createElement('div')
+  div.setAttribute('class', 'mdl-tooltip')
+  div.setAttribute('for', '' + prefix + id)
+  componentHandler.upgradeElement(div)
   $(element).parent().append( div )
-  #should be upgradeElement, but could not got it working
-  componentHandler.upgradeDom()
+  #componentHandler.upgradeDom()
 
 get_likers_json_to_tooltip = (id, prefix) ->
   jsonData = $.getJSON("../get_message_likers/" + id)
