@@ -1,13 +1,13 @@
-<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type2 <%= "notification-seen" if not notification.visible %>" role="alert">
-  <div class="notification-title">
-  	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
-  	made up a hot new topic over at
-    <% if notification.tricker_hashtag != nil %>
-      <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
-    <% else %>
-      <i>deleted channel</i>
-    <% end %>
-    <span class="timestamp"><%= notification.timestamp %></span>
-  </div>
-</div>
-
+<tr>
+  <td class="mdl-data-table__cell--non-numeric">
+    	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
+    	made up a hot new topic over at
+      <% if notification.tricker_hashtag != nil %>
+        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
+      <% else %>
+        <i>deleted channel</i>
+      <% end %>
+      <span class="timestamp"><%= notification.timestamp %></span>
+    </div>
+  </td>
+</tr>

@@ -1,17 +1,23 @@
-<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type3 <%= "notification-seen" if not notification.visible %>" role="alert">
-  <div class="notification-title">
-  	<%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
-  	mentioned you at
-    <% if notification.tricker_hashtag != nil %>
-      <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
-    <% else %>
-      <i>deleted channel</i>
-    <% end %>
-    <span class="timestamp"><%= notification.timestamp %></span>
+
+<div class="notification-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+  <div class="mdl-card__supporting-text">
+    <img class="img-circle mdl-card__supporting-image" src="<%= notification.tricker_user.profile_picture_url %>" height="30px"></img>
+    <div class="mdl-card__supporting-text-paragraph">
+      <%= link_to notification.tricker_user.name, notification.tricker_user %>
+      mentioned you at
+      <% if notification.tricker_hashtag != nil %>
+        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag) %>
+      <% else %>
+        <i>deleted channel</i>
+      <% end %>
+      <span class="timestamp"><%= notification.timestamp %></span>
+    </div>
   </div>
-  <div class="notification-actions">
-    <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
-      <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
-    <% end %>
-  </div>
+  <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
+    <div class="mdl-card__menu">
+      <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" href="<%= hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}"%>">
+        <i class="material-icons">arrow_forward</i>
+      </a>
+    </div>
+  <% end %>
 </div>

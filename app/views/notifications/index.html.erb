@@ -1,15 +1,56 @@
+<style>
+.notification-card-wide.mdl-card {
+  margin-bottom: 10px;
+  min-height: 56px !important;
+
+}
+.notification-card-wide.mdl-card:hover {
+  -webkit-transform: scale(1.01);
+  -ms-transition: all .3s ease-in-out;
+  -ms-transform: scale(1.01);
+  -moz-transition: all .3s ease-in-out;
+  -moz-transform: scale(1.01);
+  transition: all .3s ease-in-out;
+  transform: scale(1.01);
+  
+  z-index:1000;
+  box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+  -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+}
+.mdl-card__title-text{
+  color: #fff;
+}
+.notification-card-wide > .mdl-card__menu {
+  color: #cdd1cc;
+}
+.mdl-card__supporting-image{
+  float: left;
+}
+.mdl-card__supporting-text-paragraph{
+  padding-left: 40px;
+}
+.timestamp{
+  display: block;
+  font-weight: normal;
+}
+a.mdl-button{
+  font-weight: 500;
+}
+a.mdl-button:hover{
+  text-decoration: none;
+}
+</style>
 <div class="container">
-  <h1>Your notifications</h1>
-    <% if current_user.notifications.empty? %>
-      You don't have any notifications.
-    <% else %>
-      <div class="notif transitions-enabled infinite-scroll clearfix">
-        <% @notifications.each do |notif| %>
-          <%= render 'invite', notification: notif if notif.notification_type == 1 %>
-          <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
-          <%= render 'mention', notification: notif if notif.notification_type == 3 %>
-          <%= render 'likes', notification: notif if notif.notification_type == 4 %>
-        <% end %>
-      </div>
+  <h2>Your notifications</h2>
+  <% if current_user.notifications.empty? %>
+    You don't have any notifications.
+  <% else %>
+    <% @notifications.each do |notif| %>
+      <%= render 'invite', notification: notif if notif.notification_type == 1 %>
+      <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
+      <%= render 'mention', notification: notif if notif.notification_type == 3 %>
+      <%# render 'likes', notification: notif if notif.notification_type == 4 %>
+    <% end %>
   <% end %>
 </div>
