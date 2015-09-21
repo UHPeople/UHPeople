@@ -183,9 +183,9 @@ module UHPeople
 
     def send_mention(user, tricker, hashtag, message)
       Notification.create notification_type: 3,
-                          user_id: user.id,
-                          tricker_user_id: tricker.id,
-                          tricker_hashtag_id: hashtag.id,
+                          user_id: user,
+                          tricker_user_id: tricker,
+                          tricker_hashtag_id: hashtag,
                           message: message
 
       notification_callback(user)
@@ -215,7 +215,7 @@ module UHPeople
     def update_likenotif(message, tricker_user, renotify)
       notif = Notification.find_by_message_id_and_notification_type(message.id, 4)
       notif.update(tricker_user_id: tricker_user)
-      if renotify = true && notif.visible == false
+      if renotify == true && notif.visible == false
         notif.update(visible: true)
         notification_callback(User.find_by_id message.user_id)
       end
