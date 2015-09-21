@@ -45,33 +45,27 @@ RSpec.describe Hashtag do
 
       it 'thumb changes color if pressed' do
         expect(page).to have_content('star_border')
-        page.find('#like-1').click
+        click_link('star_border')
         expect(page).to have_content('star')
       end
     end
 
-    context 'messages with second user', js: true do
+    context 'messages with likers', js: true do
       before :each do
-        user2 = FactoryGirl.create(:user, name: 'user2', username: 'asd2')
-        hashtag.users << user2
-        FactoryGirl.create(:message, user: user2, hashtag: hashtag, created_at: Time.now.utc)
-        visit feed_index_path
-        user.user_hashtags.find_by(hashtag_id: hashtag.id).update_attribute(:last_visited, 666.days.ago)
+        message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
+        Like.create(user_id: user.id, message_id: message.id)
+        visit hashtag_path(hashtag.tag)
+        page.execute_script("add_chat_message(#{JSON.generate(message.serialize(user))})")
       end
 
-      # it 'has unread marker' do
-      #   visit hashtag_path(hashtag.tag)
-      #   json = { 'event': 'messages', 'messages': hashtag.messages.map { |m| m.serialize(user) } }
-      #   page.execute_script("add_multiple_messages(#{JSON.generate(json)})")
-      #   expect(page).to have_content 'Since'
+      it 'has likers count from db' do
+        expect(page).to have_css('#tt1', text: '1')
+      end
+
+      # it 'has likers hover' do
+      #   page.find('#tt1').trigger(:mouseover)
+      #   expect(page).to have_css('.mdl-tooltip', text: 'asd asd')
       # end
     end
-
-    # it 'can send a message' do
-    #   visit hashtag_path(hashtag.tag)
-    #   fill_in('input-text', with: 'Hello world!')
-    #   click_button('send')
-    #   expect(page).to have_content('Hello world!')
-    # end
   end
 end
