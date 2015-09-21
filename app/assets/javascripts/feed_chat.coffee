@@ -89,7 +89,6 @@ add_favourites_message = (data) ->
     '</div>'
 
   add_mouseover_to_get_likers('fav-tt', data.id)
-  $('#masonry-container').masonry()
 
 on_open = (socket) ->
   user = $('#user-id')[0].value

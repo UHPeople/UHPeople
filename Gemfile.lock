@@ -121,8 +121,6 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    masonry-rails (0.2.4)
-      railties
     material_design_lite-rails (1.0.3)
       railties (>= 3.1)
     material_icons (1.0.1)
@@ -295,7 +293,6 @@ DEPENDENCIES
   jquery-atwho-rails
   jquery-rails
   launchy
-  masonry-rails
   material_design_lite-rails
   material_icons
   momentjs-rails

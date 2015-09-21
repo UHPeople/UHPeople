@@ -32,7 +32,6 @@ gem 'handlebars_assets'
 
 gem 'faye-websocket'
 gem 'puma'
-gem 'masonry-rails'
 gem 'jquery-atwho-rails'
 gem 'pg'
 gem 'omniauth-shibboleth'
