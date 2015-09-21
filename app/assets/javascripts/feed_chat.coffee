@@ -61,7 +61,7 @@ add_favourites_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('div.panel.fav#box-' + data.hashtag).append ''+
+  $('#box-' + data.hashtag).append ''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +

@@ -5,17 +5,27 @@
     </p>
   </div>
 <% else %>
-  <div class="infinite-scroll clearfix col-xs-12">
+  <div class="mdl-grid">
+  <!--<div class="infinite-scroll clearfix col-xs-12">-->
     <% @fav_user_tags.each do |chat| %>
-      <div class="box col-xs-12">
-        <div class="panel panel-default fav" id="box-<%= chat.id %>">
+      <div class="mdl-cell mdl-cell--12-col mdl-card mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-card--border">
+          <h3 class="mdl-card__title-text" style="text-align: center;">
+            <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
+          </h3>
+        </div>
+        <div class="mdl-card__supporting-text" id="box-<%= chat.id %>">
+        </div>
+      </div>
+
+      <!--<div class="box col-xs-12">
+        <div class="panel panel-default fav" >
           <div class="panel-heading">
             <h2 class="panel-title" style="text-align: center;">
-              <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
             </h2>
           </div>
         </div>
-      </div>
+      </div>-->
     <% end %>
   </div>
 <% end %>
