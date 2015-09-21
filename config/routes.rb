@@ -28,9 +28,9 @@ Rails.application.routes.draw do
   get 'auth/shibboleth/callback', to: 'users#shibboleth_callback'
 
   match '/invite', to: 'invite#send_email', via: 'post'
-  
+
   post 'notifications/seen', to: 'notifications#seen', via: 'post'
-  
+
   post 'set_profile_picture', to: 'users#set_profile_picture'
   post 'firsttime/:value', to: 'users#set_first_time_use', as: 'first_time'
   post 'tab/:value', to: 'users#set_tab', as: 'tab'
@@ -39,5 +39,6 @@ Rails.application.routes.draw do
   post 'update_last_visit/:id', to: 'user_hashtags#update_last_visit', via: 'post'
 
   post 'like_this/:id', to: 'like#index', via: 'post'
+  get 'get_message_likers/:id', to: 'message#get_message_likers'
 
 end

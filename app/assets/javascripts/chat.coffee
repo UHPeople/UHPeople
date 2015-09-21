@@ -93,9 +93,9 @@ add_message = (data) ->
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
         '</h5>' +
-        '<p>' + data.content +
+        '<p class="message_content">' + data.content +
           '<span class="space-left">' +
-            '<span class="like-badge like-icon-color">' +
+            '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
@@ -106,6 +106,7 @@ add_message = (data) ->
       '</div>' +
     '</div>'
 
+    add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
 
 on_open = (socket) ->
@@ -156,6 +157,9 @@ on_messages = (data) ->
   move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
+
+on_likers = ->
+  console.log 'got likers'
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
@@ -212,6 +216,7 @@ ready = ->
     'messages': on_messages,
     'like': on_like,
     'dislike': on_dislike,
+    'likers': on_likers
     'error': log_error
   }
 
