@@ -224,15 +224,15 @@ module UHPeople
     def remove_likenotif(message, tricker_user)
       if (message.likes.count == 0)
         Notification.find_by_message_id_and_notification_type(message.id, 4).destroy if not nil
+      else
+        if Notification.find_by_message_id_and_notification_type(message.id, 4) == nil
+          send_likenotif(message.user_id,
+                   tricker_user.id,
+                   message.hashtag_id,
+                   message)
         else
-          if Notification.find_by_message_id_and_notification_type(message.id, 4) == nil
-            send_likenotif(message.user_id,
-                     tricker_user.id,
-                     message.hashtag_id,
-                     message)
-          else
-            update_likenotif(message, message.likes.last.user_id, false)
-          end
+          update_likenotif(message, message.likes.last.user_id, false)
+        end
       end
     end
 
