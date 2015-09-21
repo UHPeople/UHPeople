@@ -1,0 +1,26 @@
+<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type4 <%= "notification-seen" if not notification.visible %>" role="alert">
+  <div class="notification-title">
+    <%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
+    <% if notification.tricker_hashtag != nil %>
+      <% if notification.message.likes.count > 1 %>
+        and <%= notification.message.likes.count-1 %> others
+      <% end %>
+    <% else %>
+      someone 
+    <% end %>
+    liked your
+    <% if notification.tricker_hashtag != nil %>
+        <%= link_to 'message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'alert-link' %>
+        in
+        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
+    <% else %>
+        message in <i>deleted channel</i>
+    <% end %>
+    <span class="timestamp"><%= notification.timestamp %></span>
+  </div>
+  <div class="notification-actions">
+    <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
+        <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
+    <% end %>
+  </div>
+</div>

@@ -8,6 +8,7 @@
           <%= render 'invite', notification: notif if notif.notification_type == 1 %>
           <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
           <%= render 'mention', notification: notif if notif.notification_type == 3 %>
+          <%= render 'likes', notification: notif if notif.notification_type == 4 %>
         <% end %>
       </div>
   <% end %>
