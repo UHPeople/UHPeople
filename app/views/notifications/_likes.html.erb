@@ -9,7 +9,7 @@
       liked your
       <% if notification.tricker_hashtag != nil %>
         <%= link_to 'message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'alert-link' %>
-        in
+        at
         <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
       <% else %>
         message in <i>deleted channel</i>
