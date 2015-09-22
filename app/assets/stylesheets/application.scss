@@ -13,7 +13,7 @@
 @import 'feed';
 @import 'user-style';
 @import 'search';
-
+@import 'notification';
 @import 'material-colors';
 @import 'material';
 // @import "material_icons";
@@ -30,14 +30,6 @@
 
 @import 'material-colors-override';
 @import 'font-gotham';
-
-.notification-seen {
-  opacity: 0.5;
-}
-
-.notification-seen:hover {
-  opacity: 1;
-}
 
 .invite-button {
   margin-top: -4px;

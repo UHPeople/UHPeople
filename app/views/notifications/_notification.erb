@@ -14,9 +14,9 @@
   </div>
   <div class="mdl-card__menu">
     <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
-      <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" href="<%= hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}"%>">
+      <%= link_to hashtag_path(notification.tricker_hashtag.tag) + '#' + notification.message.id.to_s, class:"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" do %>
         <i class="material-icons">arrow_forward</i>
-      </a>
+      <% end %>
     <% end %>
     <% unless current_user.hashtags.include? notification.tricker_hashtag %>
       <% if !notification.tricker_hashtag.nil? %>
