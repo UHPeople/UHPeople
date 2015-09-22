@@ -2,7 +2,6 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require twitter/bootstrap/rails/confirm
-//= require masonry/jquery.masonry
 
 //= require jqcloud
 //= require moment
@@ -109,14 +108,6 @@ if ($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('path
 }
 
 var ready = function() {
-	$('#masonry-container').masonry({
-		itemSelector: '.box',
-		"isOriginTop": true
-		//columnWidth: 100,
-		//isAnimated: !Modernizr.csstransitions,
-		//isRTL: true
-	});
-
 	$(function() {
 		setTimeout(function() {
 			$('#collapseAlert').collapse('hide');

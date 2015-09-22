@@ -48,6 +48,10 @@ class Message < ActiveRecord::Base
     end
   end
 
+  def likers
+    Like.includes(:user).where(message_id: self.id)
+  end
+
   def serialize(current_user = nil)
     { 'event': 'message',
       'content': formatted_content,

@@ -1,5 +1,3 @@
-@import 'masonry/basic';
-@import 'masonry/transitions';
 @import 'joyride/joyride-2.1';
 @import 'select2';
 @import 'select2-bootstrap';
@@ -16,13 +14,18 @@
 
 @import 'material-colors';
 @import 'material';
-// @import "material_icons";
 
 .material-icons.md-15 {
   font-size: 15px;
+  width: 15px;
+  height: 15px;
+  vertical-align: baseline;
 }
 .material-icons.md-18 {
   font-size: 18px;
+  width: 18px;
+  height: 18px;
+  vertical-align: baseline;
 }
 
 @import 'bootstrap-sprockets';

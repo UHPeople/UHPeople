@@ -1,28 +1,27 @@
-
 // Feed page css
 
-
 // feed masonry box
-
 .box {
   background-color: inherit;
   font-size: inherit;
 }
 
-
 // Favourites
-
 .panel.fav {
   border-radius: 0;
   margin-bottom: 0;
+  margin-top: 3vh;
 
   .panel-heading {
     border-radius: 0;
   }
+
+  .panel-title {
+    text-align: center;
+  }
 }
 
 // favourite star
-
 .star {
   color: $star-color;
   float: right;
@@ -43,11 +42,9 @@
 }
 
 // TAB border
-
 $border-color: #ddd;
 
 #feed.tab-pane, #limputtaja.tab-pane {
-
   border-bottom: 1px solid $border-color;
   border-left: 1px solid $border-color;
   border-radius: 0 0 5px 5px;

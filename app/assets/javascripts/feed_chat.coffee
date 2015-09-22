@@ -37,7 +37,7 @@ add_feed_message = (data) ->
         '<p>' +
           data.content +
           '<span class="space-left">' +
-            '<span class="like-badge like-icon-color">' +
+            '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
               data.likes +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="feed-like-' + data.id + '">' +
@@ -48,6 +48,7 @@ add_feed_message = (data) ->
       '</div>' +
     '</div>'
 
+    add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
 
 add_favourites_message = (data) ->
@@ -70,13 +71,12 @@ add_favourites_message = (data) ->
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
             '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-            '<br/>' +
             '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
           '</h5>' +
           '<p>' +
             data.content +
             '<span class="space-left">' +
-              '<span class="like-badge like-icon-color">' +
+              '<span class="like-badge like-icon-color" id="fav-tt' + data.id + '">' +
                 data.likes +
               '</span>' +
               '<a class="send-hover like-this" href="#" id="favourites-like-' + data.id + '">' +
@@ -88,7 +88,7 @@ add_favourites_message = (data) ->
       '</div>' +
     '</div>'
 
-  $('#masonry-container').masonry()
+  add_mouseover_to_get_likers('fav-tt', data.id)
 
 on_open = (socket) ->
   user = $('#user-id')[0].value
