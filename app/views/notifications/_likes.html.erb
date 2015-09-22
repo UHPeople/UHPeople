@@ -1,26 +1,31 @@
-<div id="<%= notification.id %>" class="box col-xs-12 alert alert-success alert-dismissible type4 <%= "notification-seen" if not notification.visible %>" role="alert">
-  <div class="notification-title">
-    <%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
-    <% if notification.tricker_hashtag != nil %>
-      <% if notification.message.likes.count > 1 %>
-        and <%= notification.message.likes.count-1 %> others
+<div class="notification-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+  <div class="mdl-card__supporting-text">
+    <img class="img-circle mdl-card__supporting-image" src="<%= notification.tricker_user.profile_picture_url %>" ></img>
+    <div class="mdl-card__supporting-text-paragraph">
+      <%= link_to notification.tricker_user.name, notification.tricker_user, class: 'alert-link' %>
+      <% if notification.tricker_hashtag != nil %>
+        <% if notification.message.likes.count > 1 %>
+          and <%= pluralize(notification.message.likes.count-1, "other" ) %>
+        <% end %>
+      <% else %>
+        someone
       <% end %>
-    <% else %>
-      someone 
-    <% end %>
-    liked your
-    <% if notification.tricker_hashtag != nil %>
-        <%= link_to 'message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'alert-link' %>
-        in
-        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
-    <% else %>
-        message in <i>deleted channel</i>
-    <% end %>
-    <span class="timestamp"><%= notification.timestamp %></span>
+      liked your
+      <% if notification.tricker_hashtag != nil %>
+          <%= link_to 'message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'alert-link' %>
+          in
+          <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag), class: 'alert-link' %>
+      <% else %>
+          message in <i>deleted channel</i>
+      <% end %>
+      <span class="timestamp"><%= notification.timestamp %></span>
+    </div>
   </div>
-  <div class="notification-actions">
+  <div class="mdl-card__menu">
     <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
-        <%= link_to 'See message', hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}", class: 'btn btn-default' %>
+      <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" href="<%= hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}"%>">
+        <i class="material-icons">arrow_forward</i>
+      </a>
     <% end %>
   </div>
 </div>
