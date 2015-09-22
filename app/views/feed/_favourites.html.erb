@@ -5,10 +5,10 @@
     </p>
   </div>
 <% else %>
-  <div id="masonry-container" class="transitions-enabled infinite-scroll clearfix col-xs-12">
+  <div class="infinite-scroll clearfix col-xs-12">
     <% @fav_user_tags.each do |chat| %>
-      <div class="box col3">
-        <div class="panel panel-default fav" id="box-<%= chat.id %>">
+      <div class="box col-xs-12">
+        <div class="fav mdl-shadow--2dp" id="box-<%= chat.id %>">
           <div class="panel-heading">
             <h2 class="panel-title">
               <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
