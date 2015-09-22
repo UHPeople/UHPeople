@@ -52,8 +52,8 @@ add_feed_message = (data) ->
     set_star_hover()
 
 add_favourites_message = (data) ->
-  if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
-    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
+  if $('div.fav#box-' + data.hashtag + ' .panel-body').length >= 5
+    $('div.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
   like_icon_liked = ''
   star = 'star_border'
@@ -61,7 +61,7 @@ add_favourites_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('div.panel.fav#box-' + data.hashtag).append ''+
+  $('div.fav#box-' + data.hashtag).append ''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
