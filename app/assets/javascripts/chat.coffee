@@ -149,12 +149,17 @@ on_leave = (data) ->
   update_leave_button()
 
 on_messages = (data) ->
-  add_multiple_messages data, add_message, true
-  add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
 
-  first = data.messages[0].id
-  move_to_message first
+  if data.messages.length > 0
+    add_multiple_messages data, add_message, true
+    add_click_handler_to_likes('.like-this', ws)
+
+    first = data.messages[0].id
+    move_to_message first
+
+  if data.messages.length < 20
+    $('.loader').hide()
 
 on_likers = ->
   console.log 'got likers'
