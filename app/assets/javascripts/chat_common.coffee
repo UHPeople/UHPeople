@@ -65,7 +65,8 @@ add_multiple_messages = (data, add_message, drawMarker = true) ->
   if (drawMarker)
     last_visit = moment.utc($('#last-visit')[0].value)
 
-  markerDrawn = false
+  markerDrawn = $('div.line').length != 0
+
   for message in data.messages
     if (drawMarker and !markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
       $('.chatbox').append ''+
