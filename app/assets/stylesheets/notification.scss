@@ -1,0 +1,46 @@
+.notification-card-wide.mdl-card {
+  margin-bottom: 8px;
+  min-height: 72px !important;
+
+  .mdl-card__supporting-text {
+    .mdl-card__supporting-image {
+      float: left;
+      height: 35px;
+    }
+
+    .mdl-card__supporting-text-paragraph {
+      padding-left: 47px;
+
+      .timestamp{
+        display: block;
+        font-weight: normal;
+      }
+    }
+  }
+
+  .mdl-card__menu {
+    color: #cdd1cc;
+
+    a.mdl-button {
+      font-weight: 500;
+    }
+
+    a.mdl-button:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.notification-card-wide.mdl-card:hover {
+  @extend .mdl-shadow--4dp;
+
+  -webkit-transform: scale(1.003);
+  -ms-transition: all .2s ease-in-out;
+  -ms-transform: scale(1.003);
+  -moz-transition: all .2s ease-in-out;
+  -moz-transform: scale(1.003);
+  transition: all .2s ease-in-out;
+  transform: scale(1.003);
+
+  z-index: 1000;
+}
