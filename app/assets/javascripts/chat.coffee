@@ -36,12 +36,9 @@ scroll_to_bottom = ->
       scrollTop: height
     }, 800
 
-move_to_message = ->
-  if !(window.location.hash)
-    $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
-  else
-    message_id = window.location.hash
-    $('.panel-body'+message_id).addClass('unread_messages')
+move_to_message = (id) ->
+  chatbox = $('.chatbox')
+  chatbox.scrollTop($('#' + id).offset().top - chatbox.offset().top + chatbox.scrollTop())
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
@@ -153,9 +150,11 @@ on_leave = (data) ->
 
 on_messages = (data) ->
   add_multiple_messages data, add_message, true
-  #move_to_message()
   add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
+
+  first = data.messages[0].id
+  move_to_message first
 
 on_likers = ->
   console.log 'got likers'
@@ -217,7 +216,6 @@ ready = ->
     'likers': on_likers
   }
 
-  move_to_message()
   update_leave_button()
   add_click_handler_to_chat()
   add_click_handler_to_loader()
