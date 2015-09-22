@@ -40,5 +40,6 @@ Rails.application.routes.draw do
 
   post 'like_this/:id', to: 'like#index', via: 'post'
   get 'get_message_likers/:id', to: 'message#get_message_likers'
+  get 'privacy_policy', to: 'about#privacy_policy'
 
 end

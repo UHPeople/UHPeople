@@ -52,8 +52,8 @@ add_feed_message = (data) ->
     set_star_hover()
 
 add_favourites_message = (data) ->
-  if $('div.panel.fav#box-' + data.hashtag + ' .panel-body').length >= 5
-    $('div.panel.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
+  if $('div.fav#box-' + data.hashtag + ' .panel-body').length >= 5
+    $('div.fav#box-' + data.hashtag + ' .panel-body.fav:first').remove()
 
   like_icon_liked = ''
   star = 'star_border'
@@ -61,7 +61,7 @@ add_favourites_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('div.panel.fav#box-' + data.hashtag).append ''+
+  $('div.fav#box-' + data.hashtag).append ''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -69,9 +69,7 @@ add_favourites_message = (data) ->
         '</a>' +
         '<div class="message">' +
           '<h5>' +
-            '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-            '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-            '<br/>' +
+            '<a href="/users/' + data.user + '">' + data.username + '</a> ' +
             '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
           '</h5>' +
           '<p>' +
@@ -90,7 +88,6 @@ add_favourites_message = (data) ->
     '</div>'
 
   add_mouseover_to_get_likers('fav-tt', data.id)
-  $('#masonry-container').masonry()
 
 on_open = (socket) ->
   user = $('#user-id')[0].value
