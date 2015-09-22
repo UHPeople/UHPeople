@@ -69,8 +69,7 @@ add_favourites_message = (data) ->
         '</a>' +
         '<div class="message">' +
           '<h5>' +
-            '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
-            '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
+            '<a href="/users/' + data.user + '">' + data.username + '</a> ' +
             '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
           '</h5>' +
           '<p>' +
