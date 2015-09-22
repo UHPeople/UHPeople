@@ -14,15 +14,13 @@
   </div>
   <div class="mdl-card__menu">
     <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
-      <%= link_to hashtag_path(notification.tricker_hashtag.tag) + '#' + notification.message.id.to_s, class:"mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" do %>
+      <%= link_to hashtag_path(notification.tricker_hashtag.tag) + '#' + notification.message.id.to_s, class: 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect' do %>
         <i class="material-icons">arrow_forward</i>
       <% end %>
     <% end %>
-    <% unless current_user.hashtags.include? notification.tricker_hashtag %>
-      <% if !notification.tricker_hashtag.nil? %>
-        <%= link_to join_path(tag: notification.tricker_hashtag.tag), method: 'post', class: 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect' do %>
-          <i class="material-icons">add</i>
-        <% end %>
+    <% unless current_user.hashtags.include?(notification.tricker_hashtag) or notification.tricker_hashtag.nil? %>
+      <%= link_to join_path(tag: notification.tricker_hashtag.tag), method: 'post', class: 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect' do %>
+        <i class="material-icons">add</i>
       <% end %>
     <% end %>
   </div>

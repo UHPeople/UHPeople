@@ -32,7 +32,7 @@ RSpec.describe 'Notifications page' do
   describe 'actions' do
     it 'joins' do
       visit '/notifications'
-      first('.type1 > .notification-actions > a').click
+      first('.mdl-card__menu > a').click
       expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
     end
 
@@ -48,7 +48,7 @@ RSpec.describe 'Notifications page' do
 
       visit '/notifications'
 
-      first('.type3 > .notification-actions > a').click
+      first('.mdl-card__menu > a').click
 
       expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
       expect(URI.parse(page.current_url).fragment).to eq "#{message.id}"
