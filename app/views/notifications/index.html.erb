@@ -1,22 +1,22 @@
 <style>
 .notification-card-wide.mdl-card {
-  margin-bottom: 10px;
-  min-height: 56px !important;
+  margin-bottom: 8px;
+  min-height: 72px !important;
 
 }
 .notification-card-wide.mdl-card:hover {
-  -webkit-transform: scale(1.01);
-  -ms-transition: all .3s ease-in-out;
-  -ms-transform: scale(1.01);
-  -moz-transition: all .3s ease-in-out;
-  -moz-transform: scale(1.01);
-  transition: all .3s ease-in-out;
-  transform: scale(1.01);
-  
+  -webkit-transform: scale(1.003);
+  -ms-transition: all .2s ease-in-out;
+  -ms-transform: scale(1.003);
+  -moz-transition: all .2s ease-in-out;
+  -moz-transform: scale(1.003);
+  transition: all .2s ease-in-out;
+  transform: scale(1.003);
+
   z-index:1000;
-  box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
-  -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
-  -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 16px 16px 0;
+  box-shadow:rgba(0, 0, 0, 0.3) 0 6px 6px 0;
+  -webkit-box-shadow:rgba(0, 0, 0, 0.3) 0 6px 6px 0;
+  -moz-box-shadow:rgba(0, 0, 0, 0.3) 0 6px 6px 0;
 }
 .mdl-card__title-text{
   color: #fff;
@@ -26,9 +26,10 @@
 }
 .mdl-card__supporting-image{
   float: left;
+  height: 35px;
 }
 .mdl-card__supporting-text-paragraph{
-  padding-left: 40px;
+  padding-left: 47px;
 }
 .timestamp{
   display: block;
@@ -47,10 +48,10 @@ a.mdl-button:hover{
     You don't have any notifications.
   <% else %>
     <% @notifications.each do |notif| %>
-      <%= render 'invite', notification: notif if notif.notification_type == 1 %>
-      <%= render 'new_topic', notification: notif if notif.notification_type == 2 %>
-      <%= render 'mention', notification: notif if notif.notification_type == 3 %>
-      <%# render 'likes', notification: notif if notif.notification_type == 4 %>
+      <%= render 'notification', notification: notif, partial_message:"has invited you to join" if notif.notification_type == 1 %>
+      <%= render 'notification', notification: notif, partial_message:"made up a hot new topic over at" if notif.notification_type == 2 %>
+      <%= render 'notification', notification: notif, partial_message:"mentioned you at" if notif.notification_type == 3 %>
+      <%= render 'likes', notification: notif if notif.notification_type == 4 %>
     <% end %>
   <% end %>
 </div>

@@ -1,0 +1,30 @@
+
+<div class="notification-card-wide mdl-card mdl-shadow--2dp mdl-cell mdl-cell--8-col">
+  <div class="mdl-card__supporting-text">
+    <img class="img-circle mdl-card__supporting-image" src="<%= notification.tricker_user.profile_picture_url %>" ></img>
+    <div class="mdl-card__supporting-text-paragraph">
+      <%= link_to notification.tricker_user.name, notification.tricker_user %>
+      <%= partial_message %>
+      <% if notification.tricker_hashtag != nil %>
+        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag) %>
+      <% else %>
+        <i>deleted channel</i>
+      <% end %>
+      <span class="timestamp"><%= notification.timestamp %></span>
+    </div>
+  </div>
+  <div class="mdl-card__menu">
+    <% unless notification.message.nil? or notification.tricker_hashtag.nil? %>
+      <a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect" href="<%= hashtag_path(notification.tricker_hashtag.tag) + "##{notification.message.id}"%>">
+        <i class="material-icons">arrow_forward</i>
+      </a>
+    <% end %>
+    <% unless current_user.hashtags.include? notification.tricker_hashtag %>
+      <% if !notification.tricker_hashtag.nil? %>
+        <%= link_to join_path(tag: notification.tricker_hashtag.tag), method: 'post', class: 'mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect' do %>
+          <i class="material-icons">add</i>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
