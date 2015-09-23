@@ -80,11 +80,9 @@ module UHPeople
       message = graceful_find(Message, data['message'], socket)
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
 
-      if user != nil and hashtags != nil
-        unless user.hashtags.include?(hashtag)
-          send_error socket, 'User not member of hashtag'
-          hashtag = nil
-        end
+      if user.present? and hashtag.present? and !user.hashtags.include?(hashtag)
+        send_error socket, 'User not member of hashtag'
+        hashtag = nil
       end
 
       return user, message, hashtag
