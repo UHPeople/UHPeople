@@ -14,10 +14,20 @@
 
   .panel-heading {
     border-radius: 0;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .panel-title {
-    text-align: center;
+    text-decoration: none;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+
+    a {
+      color: $fallback-negative;
+    }
   }
 
   .panel-body {

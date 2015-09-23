@@ -56,16 +56,11 @@ h2, h3 {
 }
 
 .panel-heading {
-  background-color: $primary !important;
-
+  background-color: $white !important;
 }
 
 #feed {
   background-color: $white !important;
-}
-
-.panel-title > a {
-  color: $primary-link !important;
 }
 
 /* Notification Colouring */
