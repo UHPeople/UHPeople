@@ -3,9 +3,11 @@ create_websocket = (events) ->
   ws = new WebSocket(uri)
 
   ws.onopen = ->
+    console.log 'opened'
     events['open'] ws
 
   ws.onclose = ->
+    console.log 'closed'
     events['close']
 
   ws.onmessage = (message) ->

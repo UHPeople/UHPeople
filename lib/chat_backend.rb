@@ -2,12 +2,17 @@ require 'faye/websocket'
 require 'json'
 require 'erb'
 
+require_relative 'support/messages_controller.rb'
+require_relative 'support/notification_controller.rb'
+
 require_relative 'support/client.rb'
 require_relative 'support/client_list.rb'
 
 module UHPeople
   class ChatBackend
     include ClientList
+    include MessagesController
+    include NotificationController
 
     KEEPALIVE_TIME = 15
 
@@ -74,11 +79,13 @@ module UHPeople
       if like.nil?
         like = Like.new(user_id: user.id, message: message)
         return unless like.save
-        add_likenotif(message, user)
+
+        add_likenotif(message, user) #NotificationController.
         like_callback('like', message)
       else
         like.destroy
-        remove_likenotif(message, user)
+
+        remove_likenotif(message, user) #NotificationController.
         like_callback('dislike', message)
       end
     end
@@ -103,44 +110,25 @@ module UHPeople
       hashtags = user.hashtags.map(&:id)
       add_client socket, user.id, hashtags
 
-      # json = { 'event': 'feed', 'user': user.id }
-      # socket.send(JSON.generate(json))
-
-      # Stolen from feed_controller
-      # Needs to be refactored
-      tags = user.user_hashtags.includes(hashtag: :messages).map(&:hashtag)
-      messages = Message.includes(:hashtag, :user)
-                 .where(hashtag: tags)
-                 .order(created_at: :desc).limit(20).reverse
-
       json = {
         'event': 'messages',
-        'messages': messages.map { |m| m.serialize(user) }
+        'messages': get_feed_messages(user) #MessagesController.
       }
 
       socket.send(JSON.generate(json))
     end
 
     def favourites_event(user, socket)
-      hashtags = user.user_hashtags.includes(hashtag: :messages).favourite.map(&:hashtag)
-      messages_json = []
-      hashtags.each do |hashtag|
-        messages = hashtag.messages.order(created_at: :desc).limit(5).reverse
-        messages_json += messages.map { |message| message.serialize(user) }
-      end
-
       json = {
         'event': 'favourites',
-        'messages': messages_json
+        'messages': get_favourites_messages(user) #MessagesController.
       }
 
       socket.send(JSON.generate(json))
     end
 
     def message_event(user, hashtag, socket, content)
-      message = Message.create content: content,
-                               hashtag_id: hashtag.id,
-                               user_id: user.id
+      message = create_message content, user.id, hashtag.id #MessagesController.
 
       unless message.valid?
         send_error socket, 'Invalid message'
@@ -148,16 +136,12 @@ module UHPeople
       end
 
       find_mentions(message)
+
       broadcast(JSON.generate(message.serialize(user)), hashtag.id)
     end
 
-    def messages_event(user, hashtag, message, socket)
-      messages = nil
-      if message.nil?
-        messages = hashtag.messages.all.order(created_at: :desc).limit(20)
-      else
-        messages = hashtag.messages.where("id < ? ", message.id).order(created_at: :desc).limit(20)
-      end
+    def messages_event(user, hashtag, from, socket)
+      messages = get_multiple_messages(hashtag, from) #MessagesController.
 
       json = {
         'event': 'messages',
@@ -180,62 +164,6 @@ module UHPeople
           message) if message.content.include? "@#{user.username}"
       end
     end
-
-    def send_mention(user, tricker, hashtag, message)
-      Notification.create notification_type: 3,
-                          user_id: user,
-                          tricker_user_id: tricker,
-                          tricker_hashtag_id: hashtag,
-                          message: message
-
-      notification_callback(user)
-    end
-
-    def add_likenotif(message, tricker_user)
-      if (message.likes.count == 1 ||
-          Notification.find_by_message_id_and_notification_type(message.id, 4) == nil)
-        send_likenotif(message.user_id,
-                     tricker_user.id,
-                     message.hashtag_id,
-                     message)
-      else
-        update_likenotif(message, tricker_user.id, true)
-      end
-    end
-
-    def send_likenotif(user, tricker, hashtag, message)
-      Notification.create notification_type: 4,
-                          user_id: user,
-                          tricker_user_id: tricker,
-                          tricker_hashtag_id: hashtag,
-                          message: message
-      notification_callback(user)
-    end
-
-    def update_likenotif(message, tricker_user, renotify)
-      notif = Notification.find_by_message_id_and_notification_type(message.id, 4)
-      notif.update(tricker_user_id: tricker_user)
-      if renotify == true && notif.visible == false
-        notif.update(visible: true)
-        notification_callback(message.user_id)
-      end
-    end
-
-    def remove_likenotif(message, tricker_user)
-      if (message.likes.count == 0)
-        Notification.find_by_message_id_and_notification_type(message.id, 4).destroy if not nil
-      else
-        if Notification.find_by_message_id_and_notification_type(message.id, 4) == nil
-          send_likenotif(message.user_id,
-                   tricker_user.id,
-                   message.hashtag_id,
-                   message)
-        else
-          update_likenotif(message, message.likes.last.user_id, false)
-        end
-      end
-    end
-
 
     def respond(socket, data)
       p data
