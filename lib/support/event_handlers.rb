@@ -2,23 +2,27 @@ require 'json'
 
 module EventHandlers
   def like_event(user, message)
-    like = Like.find_by(user_id: user.id, message: message)
-
-    if like.nil?
-      like = Like.new(user_id: user.id, message: message)
-      unless like.valid?
-        send_error socket, 'Invalid like'
-        return
-      end
-
-      add_likenotif(message, user) #NotificationController.
-      like_callback('like', message)
-    else
-      like.destroy
-
-      remove_likenotif(message, user) #NotificationController.
-      like_callback('dislike', message)
+    like = Like.create user: user, message: message
+    unless like.valid?
+      send_error socket, 'Invalid like'
+      return
     end
+
+    add_likenotif message, user #NotificationController.
+    like_callback 'like', message
+  end
+
+  def dislike_event(user, message)
+    like = Like.find_by user: user, message: message
+    if like.nil?
+      send_error socket, 'Invalid like'
+      return
+    end
+
+    like.destroy
+
+    remove_likenotif message, user #NotificationController.
+    like_callback 'dislike', message
   end
 
   def feed_event(user, socket)
@@ -52,13 +56,13 @@ module EventHandlers
 
     find_mentions(message)
 
-    broadcast(JSON.generate(message.serialize(user)), hashtag.id)
+    broadcast(JSON.generate(message.serialize), hashtag.id)
   end
 
   def messages_event(user, hashtag, from, socket)
     json = {
       'event': 'messages',
-      'messages': get_hashtag_messages(hashtag, from) #MessagesController.
+      'messages': get_hashtag_messages(user, hashtag, from) #MessagesController.
     }
 
     socket.send(JSON.generate(json))

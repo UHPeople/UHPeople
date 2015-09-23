@@ -98,6 +98,8 @@ module UHPeople
         favourites_event(user, socket) unless user.nil?
       elsif data['event'] == 'like'
         like_event(user, message) unless user.nil? or message.nil?
+      elsif data['event'] == 'dislike'
+        dislike_event(user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
         message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'online'

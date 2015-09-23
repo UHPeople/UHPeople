@@ -41,13 +41,15 @@ set_star_hover = ->
         $(this).text 'star_border'
     )
 
-change_thumb = (t) ->
-  if $(t).hasClass( "like-icon-liked" )
-    $(t).removeClass( "like-icon-liked" )
+change_like_star = (t) ->
+  if $(t).hasClass 'like-icon-liked'
+    $(t).removeClass 'like-icon-liked'
     $(t).text 'star_border'
+    return 'dislike'
   else
-    $(t).addClass( "like-icon-liked" )
+    $(t).addClass 'like-icon-liked'
     $(t).text 'star'
+    return 'like'
 
 on_like = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
@@ -87,14 +89,14 @@ add_click_handler_to_likes = (element, socket) ->
     id = $(this)[0].id.split('-')
     message = id[id.length - 1]
 
-    change_thumb $('.like-this[id$='+message+'] i')
+    event = change_like_star $('.like-this[id$='+message+'] i')
 
     socket.send JSON.stringify
-      event: 'like'
+      event: event
       user: user
       message: message
 
-add_mouseover_to_get_likers = (prefix, id)->
+add_mouseover_to_get_likers = (prefix, id) ->
   $('#' + prefix + id).hover( ->
     if (Number $(this).text() > 0)
       append_tooltip_element(this, id, prefix)
@@ -127,6 +129,6 @@ exports.on_notification = on_notification
 exports.add_mouseover_to_get_likers = add_mouseover_to_get_likers
 exports.on_like = on_like
 exports.on_dislike = on_dislike
-exports.change_thumb = change_thumb
+exports.change_like_star = change_like_star
 exports.set_star_hover = set_star_hover
 exports.add_click_handler_to_likes = add_click_handler_to_likes
