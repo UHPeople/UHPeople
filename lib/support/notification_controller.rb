@@ -1,6 +1,9 @@
 require 'json'
 require 'erb'
 
+# These two controllers shouldn't be in lib/
+# They should be included in the correct controllers in app/controllers/
+
 module NotificationController
   def send_mention(user, tricker, hashtag, message)
     Notification.create notification_type: 3,

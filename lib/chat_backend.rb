@@ -141,11 +141,9 @@ module UHPeople
     end
 
     def messages_event(user, hashtag, from, socket)
-      messages = get_multiple_messages(hashtag, from) #MessagesController.
-
       json = {
         'event': 'messages',
-        'messages': messages.map { |m| m.serialize(user) }
+        'messages': get_hashtag_messages(hashtag, from) #MessagesController.
       }
 
       socket.send(JSON.generate(json))
@@ -168,39 +166,68 @@ module UHPeople
     def respond(socket, data)
       p data
 
-      user = graceful_find(User, data['user'], socket)
-      return if user.nil?
-
       if data['event'] == 'feed'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
+
         feed_event(user, socket)
         return
       elsif data['event'] == 'favourites'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
+
         favourites_event(user, socket)
         return
       elsif data['event'] == 'like'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
+
         message = graceful_find(Message, data['message'], socket)
         return if message.nil?
 
         save_like(user, socket, message)
         return
-      end
+      elsif data['event'] == 'message'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
 
-      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
-      return if hashtag.nil?
+        hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+        return if hashtag.nil?
 
-      unless user.hashtags.include? hashtag
-        send_error socket, 'User not member of hashtag'
-        return
-      end
+        unless user.hashtags.include? hashtag
+          send_error socket, 'User not member of hashtag'
+          return
+        end
 
-      if data['event'] == 'message'
         message_event(user, hashtag, socket, data['content'])
       elsif data['event'] == 'online'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
+
+        hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+        return if hashtag.nil?
+
+        unless user.hashtags.include? hashtag
+          send_error socket, 'User not member of hashtag'
+          return
+        end
+
         online_event(user, hashtag, socket)
         messages_event(user, hashtag, nil, socket)
       elsif data['event'] == 'messages'
+        user = graceful_find(User, data['user'], socket)
+        return if user.nil?
+
         message = graceful_find(Message, data['message'], socket)
         return if message.nil?
+
+        hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+        return if hashtag.nil?
+
+        unless user.hashtags.include? hashtag
+          send_error socket, 'User not member of hashtag'
+          return
+        end
 
         messages_event(user, hashtag, message, socket)
       end
