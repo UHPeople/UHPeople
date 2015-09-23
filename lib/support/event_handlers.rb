@@ -1,12 +1,15 @@
 require 'json'
 
 module EventHandlers
-  def like_event(user, _socket, message)
+  def like_event(user, message)
     like = Like.find_by(user_id: user.id, message: message)
 
     if like.nil?
       like = Like.new(user_id: user.id, message: message)
-      return unless like.save
+      unless like.valid?
+        send_error socket, 'Invalid like'
+        return
+      end
 
       add_likenotif(message, user) #NotificationController.
       like_callback('like', message)

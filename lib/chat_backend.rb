@@ -85,18 +85,19 @@ module UHPeople
         hashtag = nil
       end
 
-      return user, message, hashtag
+      return user, hashtag, message
     end
 
     def respond(socket, data)
       user, hashtag, message = graceful_find_all(socket, data)
+      p data, user, hashtag, message
 
       if data['event'] == 'feed'
         feed_event(user, socket) unless user.nil?
       elsif data['event'] == 'favourites'
         favourites_event(user, socket) unless user.nil?
       elsif data['event'] == 'like'
-        like_event(user, socket, message) unless user.nil? or message.nil?
+        like_event(user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
         message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'online'
