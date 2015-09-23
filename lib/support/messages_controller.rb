@@ -29,11 +29,9 @@ module MessagesController
     return messages_json
   end
 
-  def get_hashtag_messages(hashtag, from)
-    if from.nil?
-      return hashtag.messages.all.order(created_at: :desc).limit(20)
-    else
-      return hashtag.messages.where("id < ? ", from.id).order(created_at: :desc).limit(20)
-    end
+  def get_hashtag_messages(user, hashtag, from)
+    messages = hashtag.messages.includes(:user, :likes)
+    messages = from.nil? ? messages.all : messages.where("id < ? ", from.id)
+    messages.order(created_at: :desc).limit(20).map { |m| m.serialize(user) }
   end
 end
