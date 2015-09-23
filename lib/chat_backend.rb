@@ -5,7 +5,7 @@ require 'erb'
 require_relative 'support/messages_controller.rb'
 require_relative 'support/notification_controller.rb'
 
-require_relative 'support/callbacks.rb'
+require_relative 'support/chat_callbacks.rb'
 require_relative 'support/event_handlers.rb'
 
 require_relative 'support/client.rb'
@@ -69,46 +69,42 @@ module UHPeople
     end
 
     def graceful_find(type, id, socket)
-      type.find(id)
+      id.nil? ? nil : type.find(id)
     rescue ActiveRecord::RecordNotFound
       send_error socket, "Invalid #{type} id"
-      return
+      nil
     end
 
-    def graceful_find_all(socket, user_id = nil, hashtag_id = nil, message_id = nil)
-      user = graceful_find(User, user_id, socket) unless user_id.nil?
-      message = graceful_find(Message, message_id, socket) unless message_id.nil?
-      hashtag = graceful_find(Hashtag, hashtag_id, socket) unless hashtag_id.nil?
+    def graceful_find_all(socket, data)
+      user = graceful_find(User, data['user'], socket)
+      message = graceful_find(Message, data['message'], socket)
+      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
 
-      unless user.hashtags.include? hashtag
-        send_error socket, 'User not member of hashtag'
-        hashtag = nil
+      if user != nil and hashtags != nil
+        unless user.hashtags.include?(hashtag)
+          send_error socket, 'User not member of hashtag'
+          hashtag = nil
+        end
       end
 
       return user, message, hashtag
     end
 
     def respond(socket, data)
-      p data
+      user, hashtag, message = graceful_find_all(socket, data)
 
       if data['event'] == 'feed'
-        user, hashtag, message = graceful_find_all(socket, data['user'], nil, nil)
         feed_event(user, socket) unless user.nil?
       elsif data['event'] == 'favourites'
-        user, hashtag, message = graceful_find_all(socket, data['user'], nil, nil)
         favourites_event(user, socket) unless user.nil?
       elsif data['event'] == 'like'
-        user, hashtag, message = graceful_find_all(socket, data['user'], nil, data['message'])
         like_event(user, socket, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
-        user, hashtag, message = graceful_find_all(socket, data['user'], data['hashtag'], nil)
         message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'online'
-        user, hashtag, message = graceful_find_all(socket, data['user'], data['hashtag'], nil)
         online_event(user, hashtag, socket) unless user.nil? or hashtag.nil?
         messages_event(user, hashtag, nil, socket) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'messages'
-        user, hashtag, message = graceful_find_all(socket, data['user'], data['hashtag'], data['message'])
         messages_event(user, hashtag, message, socket) unless user.nil? or hashtag.nil? or message.nil?
       end
     end
