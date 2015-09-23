@@ -5,6 +5,8 @@ require 'erb'
 require_relative 'support/messages_controller.rb'
 require_relative 'support/notification_controller.rb'
 
+require_relative 'support/callbacks.rb'
+
 require_relative 'support/client.rb'
 require_relative 'support/client_list.rb'
 
@@ -13,6 +15,7 @@ module UHPeople
     include ClientList
     include MessagesController
     include NotificationController
+    include ChatCallbacks
 
     KEEPALIVE_TIME = 15
 
@@ -43,34 +46,6 @@ module UHPeople
 
         @app.call(env)
       end
-    end
-
-    # private
-
-    def hashtag_callback(event, user, hashtag)
-      json = {
-        'event': event,
-        'hashtag': hashtag.id,
-        'username': user.name,
-        'user': user.id
-      }
-
-      broadcast(JSON.generate(json), hashtag.id)
-    end
-
-    def notification_callback(user)
-      json = { 'event': 'notification' }
-      send(JSON.generate(json), user)
-    end
-
-    def like_callback(event, message)
-      json = {
-        'event': event,
-        'hashtag': message.hashtag.id,
-        'message': message.id
-      }
-
-      broadcast(JSON.generate(json), message.hashtag.id)
     end
 
     def like_event(user, _socket, message)
