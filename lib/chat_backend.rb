@@ -209,7 +209,7 @@ module UHPeople
                           tricker_user_id: tricker,
                           tricker_hashtag_id: hashtag,
                           message: message
-      notification_callback(User.find_by_id user)
+      notification_callback(user)
     end
 
     def update_likenotif(message, tricker_user, renotify)
@@ -217,7 +217,7 @@ module UHPeople
       notif.update(tricker_user_id: tricker_user)
       if renotify == true && notif.visible == false
         notif.update(visible: true)
-        notification_callback(User.find_by_id message.user_id)
+        notification_callback(message.user_id)
       end
     end
 
