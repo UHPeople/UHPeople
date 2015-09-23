@@ -21,14 +21,6 @@
 //= require search
 // require_tree .
 
-// Change hash for page-reload
-$('.nav-tabs a').on('shown.bs.tab', function(e) {
-	window.location.hash = e.target.hash;
-	window.scrollTo(0, 0);
-
-	$.post("/tab/" + e.target.text);
-});
-
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
 		$(".notif-count .badge").remove();
@@ -128,6 +120,15 @@ var ready = function() {
 	}
 
 	if ($(location).attr('pathname') == "/feed") {
+		// Change hash for page-reload
+		$('.mdl-tabs__tab').click( function(e) {
+			var href = $(this).attr('href')
+			window.location.hash = href
+			window.scrollTo(0, 0);
+			$.post("/tab/" + href);
+		});
+
+
 		$('#new-interest-revealer').click(function() {
 			$('.create').toggle('slow');
 			$('.create input.form-control').focus();
@@ -138,9 +139,8 @@ var ready = function() {
 
 		var url = document.location.toString();
 		if (url.match('#')) {
-			$('.nav-tabs a[href=#' + url.split('#')[1] + ']').tab('show');
-		} else {
-			$('.nav-tabs a:nth(' + tab + ')').tab('show');
+			componentHandler.upgradeDom();
+			$('a[href="#' + url.split('#')[1] + '"] span').click()
 		}
 	}
 
