@@ -16,6 +16,10 @@ RSpec.describe UHPeople::ChatBackend do
       @sent << 'closed'
     end
 
+    def map(key)
+      @sent.map { |packet| packet[key] }
+    end
+
     attr_reader :sent
   end
 
@@ -30,19 +34,19 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'responds with error to' do
     it 'invalid user' do
-      message = { 'event': 'online', 'user': -1, 'hashtag': hashtag.id }
+      message = "{ \"event\": \"online\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
       subject.respond(socket, message)
 
-      expect(socket.sent.last['event']).to eq 'error'
-      expect(socket.sent.last['content']).to eq 'Invalid User'
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Invalid User'
     end
 
     it 'invalid hashtag' do
-      message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
+      message = "{ \"event\": \"online\", \"user\": #{user.id}, \"hashtag\": -1 }"
       subject.respond(socket, message)
 
-      expect(socket.sent.last['event']).to eq 'error'
-      expect(socket.sent.last['content']).to eq 'Invalid Hashtag'
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Invalid Hashtag'
     end
 
     it 'invalid message' do

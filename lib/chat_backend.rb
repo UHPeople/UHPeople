@@ -76,9 +76,9 @@ module UHPeople
     end
 
     def graceful_find_all(socket, data)
-      user = graceful_find(User, data[:'user'], socket)
-      message = graceful_find(Message, data[:'message'], socket)
-      hashtag = graceful_find(Hashtag, data[:'hashtag'], socket)
+      user = graceful_find(User, data['user'], socket)
+      message = graceful_find(Message, data['message'], socket)
+      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
 
       if user.present? and hashtag.present? and !user.hashtags.include?(hashtag)
         send_error socket, 'User not member of hashtag'
