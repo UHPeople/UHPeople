@@ -26,7 +26,7 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:socket) { MockSocket.new }
 
   let!(:app) { -> { [200, { 'Content-Type' => 'text/plain' }, ['OK']] } }
-  subject { described_class.new app  }
+  subject { described_class.new app }
 
   context 'responds with error to' do
     it 'invalid user' do
@@ -34,15 +34,16 @@ RSpec.describe UHPeople::ChatBackend do
       subject.respond(socket, message)
 
       expect(socket.sent.last['event']).to eq 'error'
-      expect(socket.sent.last['content']).to eq 'Invalid User id'
+      expect(socket.sent.last['content']).to eq 'Invalid User'
     end
 
-    # it 'responds with error to invalid hashtag' do
-    #  message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
-    #  subject.respond(socket, message)
-    #  expect(socket.sent.last['event']).to eq 'error'
-    #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
-    # end
+    it 'invalid hashtag' do
+      message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
+      subject.respond(socket, message)
+
+      expect(socket.sent.last['event']).to eq 'error'
+      expect(socket.sent.last['content']).to eq 'Invalid Hashtag'
+    end
 
     it 'invalid message' do
       subject.online_event(user, hashtag, socket)

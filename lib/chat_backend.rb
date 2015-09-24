@@ -71,14 +71,14 @@ module UHPeople
     def graceful_find(type, id, socket)
       id.nil? ? nil : type.find(id)
     rescue ActiveRecord::RecordNotFound
-      send_error socket, "Invalid #{type} id"
+      send_error socket, "Invalid #{type}"
       nil
     end
 
     def graceful_find_all(socket, data)
-      user = graceful_find(User, data['user'], socket)
-      message = graceful_find(Message, data['message'], socket)
-      hashtag = graceful_find(Hashtag, data['hashtag'], socket)
+      user = graceful_find(User, data[:'user'], socket)
+      message = graceful_find(Message, data[:'message'], socket)
+      hashtag = graceful_find(Hashtag, data[:'hashtag'], socket)
 
       if user.present? and hashtag.present? and !user.hashtags.include?(hashtag)
         send_error socket, 'User not member of hashtag'
@@ -90,7 +90,6 @@ module UHPeople
 
     def respond(socket, data)
       user, hashtag, message = graceful_find_all(socket, data)
-      p data, user, hashtag, message
 
       if data['event'] == 'feed'
         feed_event(user, socket) unless user.nil?
