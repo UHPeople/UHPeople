@@ -14,28 +14,32 @@
     </script>
   </head>
   <body>
-    <header>
-      <%= render 'layouts/navigation' %>
-    </header>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <header class="mdl-layout__header">
+        <%= render 'layouts/navigation' %>
+      </header>
 
-    <main role="main">
-       <%= render 'layouts/messages' %>
-       <%= yield %>
-    </main>
+      <%= render 'layouts/drawer' %>
 
-    <%
-      #onboarding #help1
-      #new user onboard:
-      #feed onboard: header, tabs, hashtaglist
-      #hashtag onboard:
-    %>
+      <main role="main">
+         <%= render 'layouts/messages' %>
+         <%= yield %>
+      </main>
 
-    <% if not current_user.nil? and current_user.first_time %>
-      <%= render 'onboards/feed_onboard' if current_page? feed_index_path %>
-      <%= render 'onboards/new_user_onboard' if current_page? edit_user_path(current_user) %>
-    <% end %>
+      <%
+        #onboarding #help1
+        #new user onboard:
+        #feed onboard: header, tabs, hashtaglist
+        #hashtag onboard:
+      %>
 
-    <%= javascript_include_tag 'application' %>
+      <% if not current_user.nil? and current_user.first_time %>
+        <%= render 'onboards/feed_onboard' if current_page? feed_index_path %>
+        <%= render 'onboards/new_user_onboard' if current_page? edit_user_path(current_user) %>
+      <% end %>
+
+      <%= javascript_include_tag 'application' %>
+    </div>
   </body>
   <% if ENV['RAILS_ENV'] == "production" %>
     <script>
