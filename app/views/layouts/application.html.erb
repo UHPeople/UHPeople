@@ -15,9 +15,11 @@
   </head>
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
-      <header class="mdl-layout__header">
-        <%= render 'layouts/navigation' unless current_user.nil? %>
-      </header>
+      <% unless current_user.nil? %>
+        <header class="mdl-layout__header">
+          <%= render 'layouts/navigation' %>
+        </header>
+      <% end %>
 
       <%# render 'layouts/drawer' %>
 
