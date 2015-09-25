@@ -32,7 +32,7 @@ header {
     font-size: 18px;
   }
 
-  .mdl-layout__header-row .mdl-navigation__link:hover{
+  a:hover{
     text-decoration: none;
     color: $accent;
   }
@@ -42,5 +42,8 @@ header {
       line-height: 64px !important;
       font-size: 22px;
     }
+  }
+  .navbar-user-menu{
+    z-index: 1000;
   }
 }
