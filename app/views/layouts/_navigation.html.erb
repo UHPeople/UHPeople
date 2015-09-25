@@ -1,4 +1,4 @@
-<div class="mdl-layout__header-row  mdl-color--cyan-500">
+<div class="mdl-layout__header-row  mdl-color--cyan-600">
 
   <div id="feed-onboard-header">
     <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
@@ -25,9 +25,21 @@
 </div>
 
 <% if current_page?(feed_index_path) %>
-  <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--cyan-500">
+  <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--cyan-600">
     <a href="#favourites" class="mdl-layout__tab is-active" id="feed-onboard-favourites" target="1">Favourites</a>
     <a href="#feed" class="mdl-layout__tab" id="feed-onboard-feed" target="2">Feed</a>
     <a href="#limputtaja" class="mdl-layout__tab" target="3">Limputuskisa</a>
+  </div>
+<% end %>
+
+<% if controller_name == "hashtags" %>
+  <div class="mdl-layout__header-row  mdl-color--cyan-600 mdl-hashtag-topic">
+      <span>#<%= @hashtag.tag %>
+        <% unless @hashtag.topic.nil? && @hashtag.topic.blank? %>
+          <span class="material-icons title-separator">chevron_right</span>
+          <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) %><br>
+          <span class="hashtag_topicker"> Updated by <b><%= @topicker.name %></b> on <span class="timestamp"><%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') %></span></span>
+        <% end %>
+      </span>
   </div>
 <% end %>

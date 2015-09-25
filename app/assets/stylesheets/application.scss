@@ -58,12 +58,6 @@ main > .container {
   float: right;
 }
 
-.hashtag_topicker {
-  font-size: 65%;
-  font-weight: normal;
-  font-style: italic;
-}
-
 // Jumbotron material desing
 
 .jumbotron {
@@ -71,7 +65,7 @@ main > .container {
   // Make the background image cover the area of the <div>, and clip the excess
   background-size: cover;
   border-radius: 0 !important;
-  height: 320px;
+  height: 40vh;
   margin-bottom: 0;
 
   h1 {

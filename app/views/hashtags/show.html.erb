@@ -1,11 +1,11 @@
 <%= render 'topic' %>
 
-<div class="container" >
+<div class="mdl-grid">
   <% if @user_has_tag %>
-    <div class="col-sm-8" >
+    <div class="neg-margin mdl-card mdl-cell mdl-cell--8-col">
       <%= render 'chat' %>
     </div>
-    <div class="hidden-xs col-sm-4">
+    <div class="neg-margin mdl-card mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop">
       <%= render 'grouplist' %>
     </div>
   <% else %>
