@@ -124,7 +124,6 @@ var ready = function() {
 		$('.mdl-layout__tab').click( function(e) {
 			var href = $(this).attr('href').split('#')[1]
 			window.location.hash = href
-			window.scrollTo(0, 0);
 			$.post("/tab/" + href);
 		});
 
