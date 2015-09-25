@@ -1,10 +1,17 @@
 <div class="mdl-layout__drawer">
   <span class="mdl-layout-title">UHPeople</span>
+  <style>
+    .mdl-navigation {
+      overflow-y: scroll !important; /* has to be scroll, not auto */
+     -webkit-overflow-scrolling: touch !important;
+    }
+  </style>
   <nav class="mdl-navigation">
     <% link_to 'Home', feed_index_path, class:'mdl-navigation__link' %>
     <a class="mdl-navigation__link" href="">Link</a>
     <a class="mdl-navigation__link" href="">Link</a>
     <a class="mdl-navigation__link" href="">Link</a>
     <a class="mdl-navigation__link" href="">Link</a>
+    <a class="mdl-navigation__link" href="#">Hello</a>
   </nav>
 </div>

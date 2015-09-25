@@ -1,7 +1,8 @@
 
-<%= link_to "Home", root_path, id:"feed-onboard-home", class:"mdl-navigation__link"%>
+<%= link_to "Home", root_path, id:"feed-onboard-home",
+	class:"mdl-navigation__link mdl-layout--large-screen-only"%>
 
-<a href="<%= notifications_path %>" class="mdl-navigation__link notif-link feed-onboard-notif">
+<%= link_to notifications_path, class:"mdl-navigation__link notif-link feed-onboard-notif" do %>
 	<i class="material-icons">notifications</i>
 	<span class="notif-count">
 		<% if current_user.unread_notifications? %>
@@ -10,7 +11,7 @@
 			</span>
 		<% end %>
 	</span>
-</a>
+<% end %>
 
 <a id="menu-lower-right" class="mdl-navigation__link">
 	<%= current_user.name.partition(" ").first %>
