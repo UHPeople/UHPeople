@@ -14,7 +14,7 @@ RSpec.describe 'Navbar' do
 
     visit feed_index_path
 
-    first('.dropdown-toggle').click
+    first('#menu-lower-right').click
     click_link 'Start tour'
 
     expect(page).to have_content 'Hello and welcome to UHPeople!'
