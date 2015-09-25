@@ -122,7 +122,7 @@ var ready = function() {
 	if ($(location).attr('pathname') == "/feed") {
 		// Change hash for page-reload
 		$('.mdl-layout__tab').click( function(e) {
-			var href = $(this).attr('href')
+			var href = $(this).attr('href').split('#')[1]
 			window.location.hash = href
 			window.scrollTo(0, 0);
 			$.post("/tab/" + href);
@@ -140,7 +140,10 @@ var ready = function() {
 		var url = document.location.toString();
 		if (url.match('#')) {
 			componentHandler.upgradeDom();
-			$('a[href="#' + url.split('#')[1] + '"] span').click()
+			$('a[href="#' + url.split('#')[1] + '"] span').click();
+		} else if(tab == 1){
+			componentHandler.upgradeDom();
+			$('a[href="#feed"] span').click();
 		}
 	}
 
