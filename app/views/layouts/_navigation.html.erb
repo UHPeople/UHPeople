@@ -7,22 +7,27 @@
   <div class="mdl-layout--large-screen-only">
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
+  <%= form_tag search_index_path, method: 'get', class: 'col-md-5 col-sm-5 col-xs-8 navbar-f', role: 'search' do %>
+    <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
+      <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
 
-  <% unless current_user.nil? %>
-    <%= form_tag search_index_path, method: 'get', class: 'col-md-5 col-sm-5 col-xs-8 navbar-f', role: 'search' do %>
-      <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
-        <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
-
-        <div style="width: 0; height: 0; overflow: hidden;">
-          <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
-        </div>
+      <div style="width: 0; height: 0; overflow: hidden;">
+        <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
       </div>
-    <% end %>
+    </div>
+  <% end %>
 
-    <div class="mdl-layout-spacer"></div>
+  <div class="mdl-layout-spacer"></div>
 
-    <nav class="mdl-navigation">
-      <%= render 'layouts/navigation_links' %>
-    </nav>
-  <% end %> <!-- end current_user.nil? -->
+  <nav class="mdl-navigation">
+    <%= render 'layouts/navigation_links' %>
+  </nav>
 </div>
+
+<% if current_page?(feed_index_path) %>
+  <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--cyan-500">
+    <a href="#favourites" class="mdl-layout__tab is-active">Favourites</a>
+    <a href="#feed" class="mdl-layout__tab">Feed</a>
+    <a href="#limputtaja" class="mdl-layout__tab">Limputuskisa</a>
+  </div>
+<% end %>

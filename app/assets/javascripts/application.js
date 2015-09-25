@@ -121,7 +121,7 @@ var ready = function() {
 
 	if ($(location).attr('pathname') == "/feed") {
 		// Change hash for page-reload
-		$('.mdl-tabs__tab').click( function(e) {
+		$('.mdl-layout__tab').click( function(e) {
 			var href = $(this).attr('href')
 			window.location.hash = href
 			window.scrollTo(0, 0);

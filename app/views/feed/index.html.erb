@@ -2,22 +2,15 @@
   var tab = <%= @tab %>
 </script>
 
-<div class="container">
-  <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect col-md-9 col-lg-10">
-    <div class="mdl-tabs__tab-bar">
-        <a href="#favourites" class="mdl-tabs__tab">Favourites</a>
-        <a href="#feed" class="mdl-tabs__tab">Feed</a>
-        <a href="#limputtaja" class="mdl-tabs__tab">Limputuskisa</a>
-    </div>
-    <div class="mdl-tabs__panel mdl-color--white is-active" id="favourites">
-      <%= render 'favourites' %>
-    </div>
-    <div class="mdl-tabs__panel mdl-color--white mdl-shadow--2dp" id="feed">
-      <%= render 'feed' %>
-    </div>
-    <div class="mdl-tabs__panel mdl-color--white mdl-shadow--2dp" id="limputtaja">
-      <%= render 'limputtaja' %>
-    </div>
-  </div>
-  <%= render 'hashtaglist' %>
+<div class="col-md-9 col-lg-10">
+  <section class="mdl-layout__tab-panel is-active" id="favourites">
+    <div class="page-content"><%= render 'favourites' %></div>
+  </section>
+  <section class="mdl-layout__tab-panel fav mdl-color--white mdl-shadow--2dp" id="feed">
+    <div class="page-content"><%= render 'feed' %></div>
+  </section>
+  <section class="mdl-layout__tab-panel fav mdl-color--white mdl-shadow--2dp" id="limputtaja">
+    <div class="page-content"><%= render 'limputtaja' %></div>
+  </section>
 </div>
+<%= render 'hashtaglist' %>
