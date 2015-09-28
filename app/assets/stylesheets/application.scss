@@ -47,30 +47,11 @@
   margin-top: 5px;
 }
 
-main > .container {
-  padding-top: 20px;
-}
-
 .alert .timestamp {
   color: $timestamp-color;
   font-size: 70%;
   font-weight: normal;
   float: right;
-}
-
-// Jumbotron material desing
-
-.jumbotron {
-  background-position: center;
-  // Make the background image cover the area of the <div>, and clip the excess
-  background-size: cover;
-  border-radius: 0 !important;
-  height: 40vh;
-  margin-bottom: 0;
-
-  h1 {
-    word-wrap: break-word;
-  }
 }
 
 .panel-title {

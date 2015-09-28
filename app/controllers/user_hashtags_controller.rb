@@ -16,7 +16,7 @@ class UserHashtagsController < ApplicationController
       end
     end
 
-    redirect_to request.referer + params[:backurl]
+    redirect_to feed_index_path(tab: 'favourites')
   end
 
   def update_last_visit

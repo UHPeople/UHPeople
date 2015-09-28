@@ -1,5 +1,5 @@
 defaults: &defaults
-  max_faves: 6
+  max_faves: 20
 
 development:
   <<: *defaults
