@@ -3,10 +3,11 @@
 ws = null
 
 add_unread = (data) ->
-  if !$('td a#' + data.hashtag).children().hasClass('unread')
-      $('td a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
+  console.log data.hashtag
+  if !$('.interest-list-hashtag p a#' + data.hashtag).children().hasClass('unread')
+      $('.interest-list-hashtag p a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
   else
-    $('td a#' + data.hashtag + ' .unread').text (i, t) ->
+    $('.interest-list-hashtag p a#' + data.hashtag + ' .unread').text (i, t) ->
       if t > 0
         Number(t) + 1
       else
