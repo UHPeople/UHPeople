@@ -7,16 +7,18 @@
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
 
-  <%= form_tag search_index_path, method: 'get', role: 'search' do %>
-    <div id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
-    </div>
-    <div class="mdl-textfield mdl-js-textfield">
-      <%= text_field_tag :search, '', placeholder: 'Search', class: "mdl-textfield__input typeahead", id: 'search', style: 'background-color: inherit !important;' %>
-    </div>
-    <div style="width: 0; height: 0; overflow: hidden;">
-      <%= submit_tag "Search", name: nil %>
-    </div>
-  <% end %>
+  <div class="mdl-navbar">
+    <%= form_tag search_index_path, method: 'get', role: 'search' do %>
+      <div id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
+      </div>
+      <div class="mdl-textfield mdl-js-textfield">
+        <%= text_field_tag :search, '', placeholder: 'Search', class: "mdl-textfield__input typeahead", id: 'search', style: 'background-color: inherit !important;' %>
+      </div>
+      <div style="width: 0; height: 0; overflow: hidden;">
+        <%= submit_tag "Search", name: nil %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="mdl-layout-spacer"></div>
 
