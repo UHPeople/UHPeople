@@ -79,6 +79,15 @@ main > .container {
 
 // Frontpage setup
 
+.hashtag_bg {
+  background-position: center / cover;
+  height: 80vh;
+  width: 100%;
+  position: absolute;
+  z-index: -2;
+  background-color: rgb(54, 135, 210);
+}
+
 .head {
   background-image: image-url('bg.jpg');
   background-position: center;

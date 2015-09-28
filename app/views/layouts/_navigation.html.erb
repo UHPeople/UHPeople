@@ -1,4 +1,4 @@
-<div class="mdl-layout__header-row  mdl-color--cyan-600">
+<div class="mdl-layout__header-row  <%= 'mdl-color--cyan-600' unless controller_name == "hashtags" %>">
 
   <div id="feed-onboard-header">
     <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
@@ -32,8 +32,8 @@
   </div>
 <% end %>
 
-<% if controller_name == "hashtags" %>
-  <div class="mdl-layout__header-row  mdl-color--cyan-600 mdl-hashtag-topic">
+<% if controller_name == "hashtags" && action_name == "show"  %>
+  <div class="mdl-layout__header-row mdl-hashtag-topic">
       <span>#<%= @hashtag.tag %>
         <% unless @hashtag.topic.nil? && @hashtag.topic.blank? %>
           <span class="material-icons title-separator">chevron_right</span>

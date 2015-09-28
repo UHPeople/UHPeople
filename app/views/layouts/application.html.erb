@@ -13,10 +13,17 @@
       var first_time = <%= !current_user.nil? ? current_user.first_time : false %>;
     </script>
   </head>
-  <body>adasdas
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+      <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>
+
+    ">
+    <% if controller_name == "hashtags" %>
+      <div class="hashtag_bg" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0;"></div>
+    <% end %>
+
       <% unless current_user.nil? %>
-        <header class="mdl-layout__header">
+        <header class="mdl-layout__header <%= 'mdl-layout__header--transparent' if controller_name == "hashtags"%>">
           <%= render 'layouts/navigation' %>
         </header>
       <% end %>
