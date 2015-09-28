@@ -1,5 +1,18 @@
 // Autocomplete css
 
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+  color: rgba(255, 255, 255, 0.6);
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+  color: rgba(255, 255, 255, 0.6);
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  color: rgba(255, 255, 255, 0.6);
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .typeahead-invite,
 .typeahead {
   width: 100% !important;
@@ -9,27 +22,17 @@
   width: 100%;
 
   .tt-hint {
-    color: $fallback-negative;
+    color: rgba(255, 255, 255, 0.6);
   }
 
   .tt-dropdown-menu {
+    @extend .mdl-shadow--2dp;
     background-color: $white;
-    
-    border: 1px solid $fallback;
-
-    -webkit-border-radius: 2px;
-       -moz-border-radius: 2px;
-            border-radius: 2px;
-
-    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-       -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-
-    width: 100%;        
+    width: 100%;
   }
 
   .tt-cursor {
-    background-color: $primary;
+    background-color: $accent;
     color: $white;
   }
 
@@ -39,7 +42,7 @@
 
     a {
       color: $black !important;
-      text-decoration: none; 
+      text-decoration: none;
     }
 
     div {
