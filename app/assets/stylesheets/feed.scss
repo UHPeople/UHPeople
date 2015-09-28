@@ -10,7 +10,7 @@
 .fav {
   border-radius: 0;
   margin-bottom: 0;
-  margin-top: 3vh;
+  margin-top: 8px;
 
   .panel-heading {
     border-radius: 0;
@@ -53,7 +53,7 @@
 }
 
 .star:hover {
-    color: $star-color;
+  color: $star-color;
 }
 
 // TAB border

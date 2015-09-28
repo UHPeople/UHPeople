@@ -1,5 +1,4 @@
-<div class="mdl-layout__header-row  <%= 'mdl-color--cyan-600' unless controller_name == "hashtags" %>">
-
+<div class="mdl-layout__header-row <%= 'mdl-color--cyan-600' unless controller_name == "hashtags" %>">
   <div id="feed-onboard-header">
     <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
   </div>
@@ -7,13 +6,15 @@
   <div class="mdl-layout--large-screen-only">
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
-  <%= form_tag search_index_path, method: 'get', class: 'col-md-5 col-sm-5 col-xs-8 navbar-f', role: 'search' do %>
-    <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
-      <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
 
-      <div style="width: 0; height: 0; overflow: hidden;">
-        <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
-      </div>
+  <%= form_tag search_index_path, method: 'get', role: 'search' do %>
+    <div id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
+    </div>
+    <div class="mdl-textfield mdl-js-textfield">
+      <%= text_field_tag :search, '', placeholder: 'Search', class: "mdl-textfield__input typeahead", id: 'search', style: 'background-color: inherit !important;' %>
+    </div>
+    <div style="width: 0; height: 0; overflow: hidden;">
+      <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
     </div>
   <% end %>
 

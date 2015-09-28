@@ -2,12 +2,6 @@
   <div class="visible-xs toolbar pull-right">
     <%= render 'channel_buttons' %>
   </div>
-
-  <%= javascript_tag do %>
-      var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
-      var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
-  <% end %>
-
   <div class="mdl-card__supporting-text chatbox-outer">
     <div class="chatbox interest-chatbox">
       <!--<div class="loader" id="loader">
@@ -18,21 +12,20 @@
       <div class="mdl-spinner mdl-js-spinner is-active"></div>
     </div>
   </div>
-
-  <div class="mdl-card__actions mdl-card--border">
-    <form action="#">
-      <div class="mdl-textfield mdl-js-textfield" style="width: 90%;">
+  <div class="mdl-card__actions mdl-card--border" style="padding: 0;">
+    <form action="#" style="height: 100% !important;">
+      <div class="mdl-textfield mdl-js-textfield" style="width: 80%;">
         <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
         <label class="mdl-textfield__label" for="input-text">Write a message...</label>
       </div>
-
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
-
-      <%= button_tag(type:'submit', class: 'btn-borderless', id: 'chat-send') do %>
-        <i class="material-icons md-30 icon-color send-hover">send</i>
-      <% end %>
+      <div style="width: 4%; display: inline-block; padding-left: 8px;">
+        <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send', style: 'padding: 0 !important;') do %>
+          <i class="material-icons md-30 icon-color send-hover">send</i>
+        <% end %>
+      </div>
     </form>
   </div>
 </div>
