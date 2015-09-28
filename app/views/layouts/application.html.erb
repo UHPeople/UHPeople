@@ -19,7 +19,7 @@
 
     ">
     <% if controller_name == "hashtags" %>
-      <div class="hashtag_bg" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0;"></div>
+      <div class="hashtag_bg" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0; background-color: <%= @hashtag.color %>;"></div>
     <% end %>
 
       <% unless current_user.nil? %>

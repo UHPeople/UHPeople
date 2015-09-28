@@ -380,3 +380,12 @@ span.space-left {
 .asd {
   @include calc("height", "70vh - 113px");
 }
+
+.hashtag_bg {
+  background-position: center / cover;
+  height: 33vh;
+  width: 100%;
+  position: absolute;
+  z-index: -2;
+  background-color: rgb(54, 135, 210);
+}
