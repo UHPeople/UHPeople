@@ -10,7 +10,7 @@
 .fav {
   border-radius: 0;
   margin-bottom: 0;
-  margin-top: 8px;
+  margin-top: 16px;
 
   .panel-heading {
     border-radius: 0;
@@ -78,6 +78,82 @@ $border-color: #ddd;
 }
 
 .hashtaglist-position {
-  margin-top: -8px;
   overflow-x: auto;
+}
+
+input.mdl-grey-placeholder{
+  margin-left: 16px;
+  font-size: 75%;
+
+  &:focus, &:valid {
+    &::-webkit-input-placeholder {
+      color: $fallback-negative;
+    }
+  }
+}
+
+.interest-card {
+  width: 100% !important;
+
+  .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background-color: #4CAB8D;
+
+    h2.mdl-card__title-text{
+      color: #fff !important;
+    }
+  }
+
+  .interest-list{
+    padding-bottom: 16px;
+    padding-top: 16px;
+    font-weight: 300;
+
+    a{
+      color: $black;
+    }
+    a:hover{
+      color: $primary;
+      text-decoration: none;
+    }
+    .small-fallback{
+      color: $fallback-negative;
+      font-size: 75%;
+    }
+
+    .interest-list-item {
+      padding-left: 16px;
+      height: 48px;
+      padding-top: 8px;
+
+      .interest-list-star {
+        width: 32px;
+        height: inherit;
+        float: left;
+      }
+
+      .send-hover:hover{
+        text-decoration: none;
+      }
+
+      .interest-list-hashtag{
+        display:inline-block;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+div.fav-card {
+  width: 100%;
+
+  h2.mdl-card__title-text {
+    a {
+      color: $white !important;
+      font-weight: normal;
+    }
+  }
 }
