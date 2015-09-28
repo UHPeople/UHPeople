@@ -14,7 +14,7 @@
       <%= text_field_tag :search, '', placeholder: 'Search', class: "mdl-textfield__input typeahead", id: 'search', style: 'background-color: inherit !important;' %>
     </div>
     <div style="width: 0; height: 0; overflow: hidden;">
-      <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+      <%= submit_tag "Search", name: nil %>
     </div>
   <% end %>
 
@@ -35,11 +35,16 @@
 
 <% if controller_name == "hashtags" && action_name == "show"  %>
   <div class="mdl-layout__header-row mdl-hashtag-topic">
-      <span>#<%= @hashtag.tag %>
-        <% unless @hashtag.topic.nil? && @hashtag.topic.blank? %>
+      <span>#<%= @hashtag.tag if @hashtag %>
+        <% if @hashtag && !@hashtag.topic.nil? && !@hashtag.topic.blank? %>
           <span class="material-icons title-separator">chevron_right</span>
-          <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) %><br>
-          <span class="hashtag_topicker"> Updated by <b><%= @topicker.name %></b> on <span class="timestamp"><%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') %></span></span>
+          <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
+          <span class="hashtag_topicker">
+            Updated by <b><%= @topicker.name if @topicker %></b> on
+            <span class="timestamp">
+              <%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag%>
+            </span>
+          </span>
         <% end %>
       </span>
   </div>
