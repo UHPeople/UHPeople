@@ -93,7 +93,14 @@ class HashtagsController < ApplicationController
   def create
     hashtag = Hashtag.find_by tag: params[:tag]
     if hashtag.nil?
-      hashtag = Hashtag.new tag: params[:tag]
+
+      colors = ['#ED4634', '#EA4963', '#9E42B0', '#673AB7', '#3F51B5',
+        '#2996F3', '#39A9F4', '#4EBDD4', '#419688',
+        '#52AF50', '#8BC34A', '#CDDC39', '#FFEB3B',
+        '#F9C132', '#F49731', '#EE5330', '#795548', '#9E9E9E', '#607D8B'
+      ]
+
+      hashtag = Hashtag.new tag: params[:tag], color: colors.sample
       unless hashtag.save
         redirect_to feed_index_path, alert: 'Something went wrong!'
         return
