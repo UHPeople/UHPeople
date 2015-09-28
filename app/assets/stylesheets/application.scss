@@ -54,6 +54,22 @@
   float: right;
 }
 
+// Jumbotron material desing
+
+.frontpage-jumbotron {
+  background: image-url('bg.jpg') center / cover;
+  height: 100vh;
+  width: 100%;
+  color: $white;
+
+  h1 {
+    word-wrap: break-word;
+  }
+  .middle {
+    padding-top: 150px;
+  }
+}
+
 .panel-title {
   word-wrap: break-word;
 }
@@ -67,16 +83,6 @@
   position: absolute;
   z-index: -2;
   background-color: rgb(54, 135, 210);
-}
-
-.head {
-  background-image: image-url('bg.jpg');
-  background-position: center;
-  height: 100vh;
-
-  .middle {
-    padding-top: 150px;
-  }
 }
 
 // other
