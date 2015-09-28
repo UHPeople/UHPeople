@@ -103,13 +103,14 @@
 .interest-chatbox {
   @include chat;
 
-  overflow: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
   height: 100%;
 
   .message {
     padding-top: 16px;
     padding-left: 56px;
+    padding-right: 16px;
 
     h5 {
       margin-top: 0;
@@ -157,13 +158,15 @@
 .panel-chat {
   //height: 100%;
 
-  .panel-footer{
+  .panel-footer {
     background-color: #fff !important;
     padding: 0;
-    }
-  .panel-heading{
+  }
+
+  .panel-heading {
     height: 45px;
   }
+
   .center_spinner {
     width: 90px;
     height: 50%;
@@ -195,21 +198,24 @@
   border-style: none;
 }
 
-.btn-borderless{
+.btn-borderless {
   border-top: 0 !important;
   border-right: 0 !important;
   border-bottom: 0 !important;
+  border-left: 0 !important;
   border-radius: 0 !important;
-  height: 50px;
+  // height: 50px;
   padding-left: 18px !important;
   padding-right: 18px !important;
-}
-.input-group-btn > .btn-borderless:hover{
   background-color: $white;
 }
 
-.input-group-btn > .btn-borderless{
-  .send-hover:hover{
+.btn-borderless:hover {
+  background-color: $white;
+}
+
+.btn-borderless {
+  .send-hover:hover {
     color: $black;
   }
 }
@@ -219,7 +225,7 @@
   width: 100%;
 }
 
-.input-group-btn:last-child > .btn{
+.input-group-btn:last-child > .btn {
   margin-left: 0px !important;
   border-left: 0 !important;
 }
@@ -229,9 +235,6 @@
 }
 
 // Interest page members list
-.grouplist-position {
-}
-
 .chat-button {
   margin-bottom: 10px;
 }
@@ -354,8 +357,26 @@ span.space-left {
     color: $fallback;
   }
 }
-.neg-margin{
+
+.neg-margin {
   margin-top: -40vh !important;
   height: 70vh;
   overflow: auto;
+}
+
+.chatbox-outer {
+  height: 60vh !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+@mixin calc($key, $value) {
+  #{$key}: -webkit-calc(#{$value});
+  #{$key}: -moz-calc(#{$value});
+  #{$key}: calc(#{$value});
+}
+
+.asd {
+  @include calc("height", "70vh - 113px");
 }

@@ -1,21 +1,21 @@
-<div class="well grouplist-position ">
-  <% if @user_has_tag %>
-    <span class="btn-group">
-      <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'btn btn-danger leave-button'%>
-    </span>
-    <span class="btn-group">
-      <%= link_to 'Invite', '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#invite' %>
-    </span>
-    <span class="btn-group">
-      <%= link_to 'Edit Channel' , '#', class: 'btn btn-default', "data-toggle":'modal', "data-target":'#edit' %>
-    </span>
-  <% else %>
-    <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
-  <% end %>
-  <h3>Members</h3>
-  <ul class="nav nav-list scrollable">
-    <% @hashtag.users.each do |m| %>
+<div class="mdl-card mdl-shadow--2dp" style="height: 70vh !important;">
+  <div class="mdl-card__title">
+    <h4 class="mdl-card__title-text">Members</h4>
+  </div>
+  <div class="mdl-card__supporting-text asd" style="width: 100% !important; margin: 0 !important; padding 0 !important;">
+    <ul class="nav nav-list scrollable">
+      <% @hashtag.users.each do |m| %>
         <li class='member-<%= m.id %>'><%= link_to m.name, m %></li>
+      <% end %>
+    </ul>
+  </div>
+  <div class="mdl-card__actions mdl-card--border" style="height: 48px; !important;">
+    <% if @user_has_tag %>
+      <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent leave-button' %>
+      <%= link_to 'Invite', '#', class: 'mdl-button mdl-js-button mdl-js-ripple-effect', "data-toggle":'modal', "data-target":'#invite' %>
+      <%= link_to 'Edit Channel' , '#', class: 'mdl-button mdl-js-button mdl-js-ripple-effect', "data-toggle":'modal', "data-target":'#edit' %>
+    <% else %>
+      <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
     <% end %>
-  </ul>
+  </div>
 </div>
