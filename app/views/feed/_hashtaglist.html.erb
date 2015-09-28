@@ -4,8 +4,11 @@
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text" id="feed-onboard-interest">
         Groups
-        <%= link_to 'add', '#', class:"material-icons", id:"new-interest-revealer", style:"text-decoration: none;" %>
+        <%# link_to 'add', '#', class:"material-icons", id:"new-interest-revealer", style:"text-decoration: none;" %>
       </h2>
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="new-interest-revealer">
+        <i class="material-icons">add</i>
+      </button>
     </div>
 
     <%= form_tag(hashtags_path, method: "post") do %>
