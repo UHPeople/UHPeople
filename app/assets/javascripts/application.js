@@ -19,7 +19,6 @@
 //= require chat
 //= require feed_chat
 //= require search
-// require_tree .
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
@@ -27,38 +26,6 @@ $(document).ready(function() {
 		$.post("notifications/seen");
 	}
 });
-
-function chatComplete() {
-	$('input.mentions').atwho({
-		at: "@",
-		data: userdata,
-		displayTpl: '<li>${name} <small>${username}</small></li>',
-		insertTpl: '@${username}'
-	})
-	.atwho({
-		at: "#",
-		data: hashtagdata,
-		displayTpl: '<li>${name}</li>',
-		insertTpl: '#${name}',
-    limit: 30
-	});
-}
-
-function topicComplete(){
-  $('#topic').atwho({
-		at: "@",
-		data: userdata,
-		displayTpl: '<li>${name} <small>${username}</small></li>',
-		insertTpl: '@${username}'
-	})
-	.atwho({
-		at: "#",
-		data: hashtagdata,
-		displayTpl: '<li>${name}</li>',
-		insertTpl: '#${name}',
-    limit: 30
-	});
-}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {
@@ -127,7 +94,6 @@ var ready = function() {
 			$.post("/tab/" + href);
 		});
 
-
 		$('#new-interest-revealer').click(function() {
 			$('.create').toggle('slow');
 			$('.create input.form-control').focus();
@@ -144,11 +110,6 @@ var ready = function() {
 			componentHandler.upgradeDom();
 			$('a[href="#feed"] span').click();
 		}
-	}
-
-	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
-		chatComplete();
-    topicComplete();
 	}
 };
 
