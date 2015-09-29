@@ -1,17 +1,14 @@
-<div class="mdl-layout__drawer">
-  <span class="mdl-layout-title">UHPeople</span>
-  <style>
-    .mdl-navigation {
-      overflow-y: scroll !important; /* has to be scroll, not auto */
-     -webkit-overflow-scrolling: touch !important;
-    }
-  </style>
-  <nav class="mdl-navigation">
-    <% link_to 'Home', feed_index_path, class:'mdl-navigation__link' %>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="">Link</a>
-    <a class="mdl-navigation__link" href="#">Hello</a>
-  </nav>
+<div class="grouplist-drawer mdl-shadow--2dp">
+  <div class="mdl-card">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text mdl-color-text--grey-600">Members</h2>
+    </div>
+    <div class="mdl-card__supporting-text">
+      <ul class="nav nav-list scrollable">
+        <% @hashtag.users.each do |m| %>
+          <li class='member-<%= m.id %>'><%= link_to truncate(m.name, length: 15), m %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
 </div>

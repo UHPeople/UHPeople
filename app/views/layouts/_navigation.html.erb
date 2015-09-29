@@ -43,9 +43,7 @@
           <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
           <span class="hashtag_topicker">
             Updated by <b><%= @topicker.name if @topicker %></b> on
-            <span class="timestamp">
-              <%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag%>
-            </span>
+            <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
           </span>
         <% end %>
       </span>

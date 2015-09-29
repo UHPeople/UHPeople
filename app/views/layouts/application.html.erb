@@ -25,12 +25,14 @@
         </header>
       <% end %>
 
-      <%# render 'layouts/drawer' %>
+
 
       <main role="main" class="mdl-layout__content">
          <%= render 'layouts/messages' %>
          <%= yield %>
       </main>
+
+      <%= render 'layouts/drawer' %>
 
       <%
         #onboarding #help1

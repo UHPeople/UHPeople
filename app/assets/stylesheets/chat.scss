@@ -393,10 +393,25 @@ span.space-left {
   width: 100% !important;
 
   .mdl-card__title {
-    
+
     .mdl-button {
       margin-right: 16px;
       margin-bottom: -36px;
     }
   }
+}
+
+.chat-main-card {
+  max-width: 978px;
+}
+
+.grouplist-drawer {
+  float: right;
+  width: 200px;
+  height: calc(100vh - 64px);
+  top: 64px;
+  right: 3px;
+  position: absolute;
+  background-color: $white;
+  overflow-y: auto;
 }
