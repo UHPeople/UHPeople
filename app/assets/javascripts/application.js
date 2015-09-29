@@ -19,7 +19,6 @@
 //= require chat
 //= require feed_chat
 //= require search
-// require_tree .
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
@@ -27,38 +26,6 @@ $(document).ready(function() {
 		$.post("notifications/seen");
 	}
 });
-
-function chatComplete() {
-	$('input.mentions').atwho({
-		at: "@",
-		data: userdata,
-		displayTpl: '<li>${name} <small>${username}</small></li>',
-		insertTpl: '@${username}'
-	})
-	.atwho({
-		at: "#",
-		data: hashtagdata,
-		displayTpl: '<li>${name}</li>',
-		insertTpl: '#${name}',
-    limit: 30
-	});
-}
-
-function topicComplete(){
-  $('#topic').atwho({
-		at: "@",
-		data: userdata,
-		displayTpl: '<li>${name} <small>${username}</small></li>',
-		insertTpl: '@${username}'
-	})
-	.atwho({
-		at: "#",
-		data: hashtagdata,
-		displayTpl: '<li>${name}</li>',
-		insertTpl: '#${name}',
-    limit: 30
-	});
-}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {
@@ -106,11 +73,12 @@ var ready = function() {
 		}, 5000);
 	});
 
-	$('span.timestamp').each(function() {
-		var text = $(this).text();
-		var timestamp = moment.utc(text).local().format('MMM D, H:mm');
-		$(this).text(timestamp);
-	});
+	setInterval(function() {
+		$('.timestamp').each(function() {
+			var timestamp = moment.utc($(this).data('timestamp')).local().fromNow();
+			$(this).text(timestamp);
+		});
+	}, 60000);
 
 	//Onboarding
 	if (first_time) {
@@ -126,7 +94,6 @@ var ready = function() {
 			window.location.hash = href
 			$.post("/tab/" + href);
 		});
-
 
 		$('#new-interest-revealer').click(function() {
 			$('.create').toggle('slow');
@@ -144,11 +111,6 @@ var ready = function() {
 			componentHandler.upgradeDom();
 			$('a[href="#feed"] span').click();
 		}
-	}
-
-	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
-		chatComplete();
-    topicComplete();
 	}
 };
 

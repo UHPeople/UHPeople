@@ -7,18 +7,13 @@
       </div>
       <div class="modal-body invite-modal">
     		<p>Invite friends and colleques to your interest!</p>
-  	
       	<%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post', "data-toggle": "tooltip", "data-placement": "top", title: "Invite people to the channel. Start typing, choose a right person and press enter.", id: 'invite-form') do %>
-          <div class="input-group">
-            <%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'form-control typeahead-invite' %>
-            <span class="input-group-btn">
-          		<%= submit_tag('Invite', class: 'btn btn-default invite-button') %>
-            </span>
-          </div>
+          <%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'typeahead-invite' %>
+        	<%= submit_tag('Invite', class: 'mdl-button invite-button') %>
 				<% end %>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="mdl-button" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

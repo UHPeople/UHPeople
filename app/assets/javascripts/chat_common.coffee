@@ -58,7 +58,7 @@ on_dislike = (data, prefix = '') ->
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
     timestamp = moment.utc(timestamp)
-  timestamp.local().format('MMM D, H:mm')
+  timestamp.local().fromNow() #.format('MMM D, H:mm')
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
   last_visit = null
@@ -70,7 +70,9 @@ add_multiple_messages = (data, add_message, drawMarker = true) ->
     if (drawMarker and !markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
       $('.chatbox').append ''+
         '<div class="line text-center">' +
-          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
+          '<span>Since<span class="timestamp" data-timestamp="' + last_visit + '">' +
+            format_timestamp(last_visit) +
+          '</span></span>'+
         '</div>'
       markerDrawn = true
     add_message message

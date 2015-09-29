@@ -91,7 +91,9 @@ add_message = (data) ->
       '<div class="message">' +
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
-          '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+          '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
+            format_timestamp(data.timestamp) +
+          '</span>' +
         '</h5>' +
         '<p class="message_content">' + data.content +
           '<span class="space-left">' +
