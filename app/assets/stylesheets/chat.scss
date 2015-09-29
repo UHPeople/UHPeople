@@ -389,3 +389,14 @@ span.space-left {
   z-index: -2;
   background-color: rgb(54, 135, 210);
 }
+.grouplist-card {
+  width: 100% !important;
+
+  .mdl-card__title {
+    
+    .mdl-button {
+      margin-right: 16px;
+      margin-bottom: -36px;
+    }
+  }
+}
