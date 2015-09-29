@@ -26,8 +26,17 @@ $(document).ready(function() {
 		$.post("notifications/seen");
 	}
 	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
+
+		$('.grouplist-drawer').next("div").hide();
+
 		$('.close-card i').click(function() {
-			$('.grouplist-drawer').animate({width:'toggle'}, 350);
+			$('.grouplist-drawer').toggle( "slide" );
+			//$('.grouplist-drawer').animate({width:'toggle'}, 350);
+		});
+
+		$('.open-card').click(function() {
+			$('.grouplist-drawer').toggle( "slide" );
+			//$('.grouplist-drawer').animate({width:'toggle'}, 350);
 		});
 	}
 });

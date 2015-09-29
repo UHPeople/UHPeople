@@ -406,16 +406,18 @@ span.space-left {
 
 }
 .grouplist-drawer {
+  display:none;
   float: right;
-  width: 200px;
-  height: calc(100vh - 64px);
-  top: 64px;
+  width: 260px;
+  height: calc(100% - 128px);
+  top: 128px;
   right: 0;
   position: absolute;
   z-index: 9999999;
 
   .grouplist-drawer-card {
     width: 100%;
+    height: 100%;
     overflow-y: auto;
 
     .mdl-card__title {

@@ -9,7 +9,7 @@
     <div class="mdl-card__supporting-text">
       <ul class="nav nav-list scrollable">
         <% @hashtag.users.each do |m| %>
-          <li class='member-<%= m.id %>'><%= link_to truncate(m.name, length: 15), m %></li>
+          <li class='member-<%= m.id %>'><%= link_to truncate(m.name, length: 27), m %></li>
         <% end %>
       </ul>
     </div>
