@@ -33,7 +33,9 @@ add_feed_message = (data) ->
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-          '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+          '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
+            format_timestamp(data.timestamp) +
+          '</span>' +
         '</h5>' +
         '<p>' +
           data.content +
@@ -71,7 +73,9 @@ add_favourites_message = (data) ->
         '<div class="message">' +
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a> ' +
-            '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+            '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
+              format_timestamp(data.timestamp) +
+            '</span>' +
           '</h5>' +
           '<p>' +
             data.content +

@@ -165,10 +165,13 @@ $(document).ready ->
 $(document).ready ->
   users_mentions.initialize()
 
-  $('.typeahead-mention').typeahead {
+  $('.typeahead-mention').typeahead({
     highlight: true
   }, {
     name: 'users'
     displayKey: 'name'
     source: users_mentions.ttAdapter()
-  }
+  }).on('typeahead:selected', (obj, datum) ->
+    console.log $('.typeahead-mention').text()
+    console.log $('.typeahead-mention').val()
+  )

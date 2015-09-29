@@ -73,11 +73,12 @@ var ready = function() {
 		}, 5000);
 	});
 
-	$('span.timestamp').each(function() {
-		var text = $(this).text();
-		var timestamp = moment.utc(text).local().format('MMM D, H:mm');
-		$(this).text(timestamp);
-	});
+	setInterval(function() {
+		$('.timestamp').each(function() {
+			var timestamp = moment.utc($(this).data('timestamp')).local().fromNow();
+			$(this).text(timestamp);
+		});
+	}, 60000);
 
 	//Onboarding
 	if (first_time) {
