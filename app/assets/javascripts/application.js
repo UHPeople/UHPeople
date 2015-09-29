@@ -25,6 +25,11 @@ $(document).ready(function() {
 		$(".notif-count .badge").remove();
 		$.post("notifications/seen");
 	}
+	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
+		$('.close-card i').click(function() {
+			$('.grouplist-drawer').animate({width:'toggle'}, 350);
+		});
+	}
 });
 
 function startOnboard() {

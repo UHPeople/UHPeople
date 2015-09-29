@@ -403,15 +403,28 @@ span.space-left {
 
 .chat-main-card {
   max-width: 978px;
-}
 
+}
 .grouplist-drawer {
   float: right;
   width: 200px;
   height: calc(100vh - 64px);
   top: 64px;
-  right: 3px;
+  right: 0;
   position: absolute;
-  background-color: $white;
-  overflow-y: auto;
+  z-index: 9999999;
+
+  .grouplist-drawer-card {
+    width: 100%;
+    overflow-y: auto;
+
+    .mdl-card__title {
+
+      .mdl-button {
+        right: 8px;
+        margin-bottom: 8px;
+        position:absolute;
+      }
+    }
+  }
 }

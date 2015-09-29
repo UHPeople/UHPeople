@@ -32,7 +32,7 @@
          <%= yield %>
       </main>
 
-      <%= render 'layouts/drawer' %>
+      <%= render 'layouts/drawer' if controller_name == "hashtags" %>
 
       <%
         #onboarding #help1
