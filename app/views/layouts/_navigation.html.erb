@@ -1,4 +1,4 @@
-<div class="mdl-layout__header-row <%= 'mdl-color--cyan-600' unless controller_name == "hashtags" %>">
+<div class="mdl-layout__header-row">
   <div id="feed-onboard-header">
     <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
   </div>
@@ -51,18 +51,12 @@
     <div class="mdl-layout-spacer"></div>
 
     <nav class="mdl-navigation">
-      <a class="open-card mdl-navigation__link">
-        <i class="material-icons md-28">people</i>
-      </a>
-      <a class="mdl-navigation__link" >
-        <i class="material-icons md-28">settings</i>
-      </a>
-      <a class="mdl-navigation__link" >
-        <i class="material-icons md-28">group_add</i>
-      </a>
-      <a class="mdl-navigation__link" >
-        <i class="material-icons md-28">exit_to_app</i>
-      </a>
+      <a class="open-card mdl-navigation__link" href="#">Members</a>
+       <% if @user_has_tag %>
+         <%= link_to 'Invite', '#', class: 'mdl-navigation__link', "data-toggle":'modal', "data-target":'#invite' %>
+         <%= link_to 'Edit Channel' , '#', class: 'mdl-navigation__link', "data-toggle":'modal', "data-target":'#edit' %>
+         <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), class: 'mdl-navigation__link leave-button',  method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel' %>
+       <% end %>
     </nav>
   </div>
 <% end %>

@@ -1,0 +1,7 @@
+<div class="hashtag_bg" style="<%= 'background-image: url(#{@hashtag.cover_photo.url || })'%>; padding-top: 0; background-color: <%= @hashtag.color %>;">
+  <% unless @user_has_tag %>
+    <%= link_to join_path(tag: @hashtag.tag), method: :post, class: 'channel-join-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' do %>
+      <i class="material-icons">add</i>
+    <% end %>
+  <% end %>
+</div>

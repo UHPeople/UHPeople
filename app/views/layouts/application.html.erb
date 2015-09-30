@@ -16,23 +16,20 @@
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
       <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
-    <% if controller_name == "hashtags" %>
-      <div class="hashtag_bg" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0; background-color: <%= @hashtag.color %>;"></div>
-    <% end %>
+      <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" %>
+
       <% unless current_user.nil? %>
-        <header class="mdl-layout__header <%= 'mdl-layout__header--transparent' if controller_name == "hashtags"%>">
+        <header class="mdl-layout__header <%= controller_name == "hashtags" && action_name == "show" ? 'mdl-layout__header--transparent' : 'mdl-color--cyan-600' %>">
           <%= render 'layouts/navigation' %>
         </header>
       <% end %>
-
-
 
       <main role="main" class="mdl-layout__content">
          <%= render 'layouts/messages' %>
          <%= yield %>
       </main>
 
-      <%= render 'layouts/drawer' if controller_name == "hashtags" %>
+      <%= render 'layouts/users_drawer' if controller_name == "hashtags" && action_name == "show" %>
 
       <%
         #onboarding #help1

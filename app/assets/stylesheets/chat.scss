@@ -386,8 +386,14 @@ span.space-left {
   height: 33vh;
   width: 100%;
   position: absolute;
-  z-index: -2;
   background-color: rgb(54, 135, 210);
+
+  .channel-join-button {
+    right: 25%;
+    bottom: -32px;
+    position: absolute;
+    z-index: 99999;
+  }
 }
 
 .grouplist-card {
@@ -425,7 +431,7 @@ span.space-left {
       .mdl-button {
         right: 8px;
         margin-bottom: 8px;
-        position:absolute;
+        position: absolute;
       }
     }
   }
