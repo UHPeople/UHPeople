@@ -9,7 +9,7 @@ RSpec.describe Hashtag do
       visit "/login/#{user.id}"
       visit hashtag_path(hashtag.tag)
 
-      click_link 'Join'
+      click_link 'add'
     end
 
     it 'has send button' do

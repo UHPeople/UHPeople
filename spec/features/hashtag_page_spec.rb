@@ -8,7 +8,7 @@ RSpec.describe Hashtag do
     before :each do
       visit "/login/#{user.id}"
       visit "/hashtags/#{hashtag.tag}"
-      click_link 'Join'
+      click_link 'add'
     end
 
     it 'has add topic button' do
@@ -33,10 +33,10 @@ RSpec.describe Hashtag do
       user2 = FactoryGirl.create(:user, username: 'uusityyppi')
       visit "/login/#{user2.id}"
       visit "/hashtags/#{hashtag.tag}"
-      click_link 'Join'
+      click_link 'add'
       first('.leave-button').click
 
-      expect(page).to have_content 'Join'
+      expect(page).to have_content 'add'
     end
 
     it 'is deleted when last member leaves' do

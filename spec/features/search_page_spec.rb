@@ -8,7 +8,7 @@ RSpec.describe 'Search page' do
     visit "/login/#{user.id}"
     visit "/hashtags/#{hashtag.tag}"
 
-    click_link 'Join'
+    click_link 'add'
   end
 
   it 'creates hashtags' do
@@ -82,7 +82,7 @@ RSpec.describe 'Search page' do
       hashtag.update_attribute('tag', hashtag.tag + '2')
       hashtag2 = FactoryGirl.create(:hashtag)
       visit "/hashtags/#{hashtag2.tag}"
-      click_link 'Join'
+      click_link 'add'
 
       visit '/search?search=asd'
 

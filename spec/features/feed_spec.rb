@@ -12,7 +12,7 @@ RSpec.describe 'Feed page' do
   before :each do
     visit "/login/#{user.id}"
     visit "/hashtags/#{hashtag.tag}"
-    click_link 'Join'
+    click_link 'add'
   end
 
   context 'feed tab', js: true do
@@ -99,7 +99,7 @@ RSpec.describe 'Feed page' do
     for i in 1..max
       hashtag = FactoryGirl.create(:hashtag, tag: i)
       visit "/hashtags/#{hashtag.tag}"
-      click_link 'Join'
+      click_link 'add'
     end
 
     visit '/feed'
