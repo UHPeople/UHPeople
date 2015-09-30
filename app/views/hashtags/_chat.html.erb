@@ -12,18 +12,18 @@
       <div class="mdl-spinner mdl-js-spinner is-active"></div>
     </div>
   </div>
-  <div class="mdl-card__actions mdl-card--border" style="padding: 8px; height: 52px !important;">
+  <div class="mdl-card__actions mdl-card--border chat-form">
     <form action="#">
-      <div class="mdl-textfield mdl-js-textfield" style="width: calc(100% - 40px); padding: 0;">
-        <input class="mdl-textfield__input typeahead-mention" type="text" id="input-text" autocomplete="off" />
-        <!--<label class="mdl-textfield__label" for="input-text">Write a message...</label>-->
+      <div class="mdl-textfield mdl-js-textfield chat-form-input">
+        <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
+        <label class="mdl-textfield__label" for="input-text">Write a message...</label>
       </div>
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
-      <div style="float: right; display: inline-block; padding-top: 6px;">
-        <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send', style: 'padding: 0 !important;') do %>
-          <i class="material-icons md-30 icon-color send-hover">send</i>
+      <div class="chat-form-send">
+        <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>
+          <i class="material-icons md-24 icon-color send-hover">send</i>
         <% end %>
       </div>
     </form>
