@@ -50,6 +50,7 @@ RSpec.describe Hashtag do
 
     context 'invitation box' do
       it 'doesn\'t send invitation to member' do
+        save_and_open_page
         first('//a[data-target="#invite"]').click
         fill_in 'user', with: user.name
         find('input[value="Invite"]').click

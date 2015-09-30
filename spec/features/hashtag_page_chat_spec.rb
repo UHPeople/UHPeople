@@ -13,7 +13,7 @@ RSpec.describe Hashtag do
     end
 
     it 'has send button' do
-      expect(find('//form/div/span/button/i')).to have_content 'send'
+      expect(page).to have_selector(:link_or_button, 'send')
     end
 
     context 'messages', js: true do
