@@ -49,13 +49,6 @@ RSpec.describe Hashtag do
     end
 
     context 'invitation box' do
-      it 'doesn\'t send invitation to member' do
-        save_and_open_page
-        first('//a[data-target="#invite"]').click
-        fill_in 'user', with: user.name
-        find('input[value="Invite"]').click
-        expect(find('.notif-count')).to_not have_content '1'
-      end
 
       it 'sends invitation to non-member user' do
         user2 = User.create name: 'asd', username: 'asdasd', campus: 'asd'
@@ -66,6 +59,13 @@ RSpec.describe Hashtag do
         visit "/login/#{user2.id}"
 
         expect(find('.notif-count')).to have_content '1'
+      end
+
+      it 'doesn\'t send invitation to member' do
+        first('//a[data-target="#invite"]').click
+        fill_in 'user', with: user.name
+        find('input[value="Invite"]').click
+        expect(find('.notif-count')).to_not have_content '1'
       end
     end
   end
