@@ -31,12 +31,16 @@ $(document).ready(function() {
 
 		$('.close-card i').click(function() {
 			$('.grouplist-drawer').toggle( "slide" );
-			//$('.grouplist-drawer').animate({width:'toggle'}, 350);
 		});
 
 		$('.open-card').click(function() {
 			$('.grouplist-drawer').toggle( "slide" );
-			//$('.grouplist-drawer').animate({width:'toggle'}, 350);
+		});
+		$('.invite-modal__open').click(function() {
+			$('.invite-card').slideToggle("slow");
+		});
+		$('.invite-modal__close').click(function() {
+			$('.invite-card').slideToggle("slow");
 		});
 	}
 });
