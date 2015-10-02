@@ -1,16 +1,26 @@
 // Autocomplete css
 
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color: rgba(255, 255, 255, 0.6);
+  //color: rgba(255, 255, 255, 0.6);
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-  color: rgba(255, 255, 255, 0.6);
+  //color: rgba(255, 255, 255, 0.6);
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-  color: rgba(255, 255, 255, 0.6);
+  //color: rgba(255, 255, 255, 0.6);
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: rgba(255, 255, 255, 0.6);
+  //color: rgba(255, 255, 255, 0.6);
+}
+
+.search-card {
+  width: inherit !important;
+  overflow: visible !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  background-color: #fff;
+  padding: 0 !important;
+  color: $black;
 }
 
 .typeahead-invite,
@@ -22,7 +32,7 @@
   width: 100%;
 
   .tt-hint {
-    color: rgba(255, 255, 255, 0.6);
+    color: $accent;
   }
 
   .tt-dropdown-menu {
