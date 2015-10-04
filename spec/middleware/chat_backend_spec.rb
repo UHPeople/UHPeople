@@ -59,26 +59,51 @@ RSpec.describe UHPeople::ChatBackend do
     end
   end
 
-  context 'on event' do
-    it 'responds with messages' do
-      subject.feed_event(user, socket)
-      expect(socket.sent.last['event']).to eq 'messages'
+  context 'on' do
+    context 'feed event' do
+      it 'responds with messages' do
+        subject.feed_event(user, socket)
+        expect(socket.sent.last['event']).to eq 'messages'
+      end
+
+      # it 'subscribes client to feed messages' do
     end
 
-    it 'message adds new message' do
-      subject.online_event(user, hashtag, socket)
+    context 'favourites event' do
+      it 'responds with messages' do
+        subject.favourites_event(user, socket)
+        expect(socket.sent.last['event']).to eq 'favourites'
+      end
 
-      subject.message_event(user, hashtag, socket, 'asd')
-
-      expect(Message.count).to eq 1
-      expect(socket.sent.last['content']).to eq 'asd'
-      expect(socket.sent.last['event']).to eq 'message'
+      # it 'subscribes client to favourites messages' do
     end
 
-    it 'online adds new client' do
-      subject.online_event(user, hashtag, socket)
+    context 'like event' do
+    end
 
-      expect(socket.sent.last['event']).to eq 'online'
+    context 'dislike event' do
+    end
+
+    context 'message event' do
+      it 'adds new message' do
+        subject.online_event(user, hashtag, socket)
+
+        subject.message_event(user, hashtag, socket, 'asd')
+
+        expect(Message.count).to eq 1
+        expect(socket.sent.last['content']).to eq 'asd'
+        expect(socket.sent.last['event']).to eq 'message'
+      end
+    end
+
+    context 'online event' do
+      it 'responds with online users' do
+        subject.online_event(user, hashtag, socket)
+        expect(socket.map 'event').to include 'online'
+      end
+    end
+
+    context 'messages event' do
     end
   end
 
