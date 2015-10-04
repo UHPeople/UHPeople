@@ -69,7 +69,7 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
-add_message = (data) ->
+add_message = (data, after = '.loader') ->
   highlight = ''
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
     highlight = 'new_messages'
@@ -100,7 +100,7 @@ add_message = (data) ->
           '</span>' +
         '</p>' +
       '</div>' +
-    '</div>').insertAfter('.loader')
+    '</div>').insertAfter(after)
 
     add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
@@ -121,7 +121,7 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
-  add_message data
+  add_message data, '.panel-body:last'
   scroll_to_bottom()
   add_click_handler_to_likes('#like-' + data.id, ws)
 
