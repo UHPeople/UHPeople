@@ -17,7 +17,7 @@ gem 'rails_autolink', :path => "rails_autolink-1.1.6/"
 gem 'momentjs-rails'
 gem "paperclip", "~> 4.2"
 gem 'rb-readline'
-gem "select2-rails"
+gem "select2-rails", '~> 3.5.2'
 gem 'material_icons'
 gem 'material_design_lite-rails'
 
