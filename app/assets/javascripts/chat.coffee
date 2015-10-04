@@ -160,6 +160,8 @@ on_messages = (data) ->
 
   if data.messages.length < 20
     $('.loader').hide()
+  else
+    $('.loader').show()
 
 on_likers = ->
   console.log 'got likers'
