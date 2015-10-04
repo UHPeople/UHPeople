@@ -31,7 +31,9 @@ scroll_to_bottom = ->
   chatbox = $('.chatbox')
   height = chatbox[0].scrollHeight
 
-  if ((height - chatbox[0].scrollTop) < 600)
+  threshold = $('.panel-body:last').height() + 500 + 40
+
+  if ((height - chatbox[0].scrollTop) < threshold)
     chatbox.stop().animate {
       scrollTop: height
     }, 800
