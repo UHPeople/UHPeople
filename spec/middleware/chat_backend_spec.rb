@@ -16,6 +16,10 @@ RSpec.describe UHPeople::ChatBackend do
       @sent << 'closed'
     end
 
+    def map(key)
+      @sent.map { |packet| packet[key] }
+    end
+
     attr_reader :sent
   end
 
@@ -26,23 +30,24 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:socket) { MockSocket.new }
 
   let!(:app) { -> { [200, { 'Content-Type' => 'text/plain' }, ['OK']] } }
-  subject { described_class.new app  }
+  subject { described_class.new app }
 
   context 'responds with error to' do
     it 'invalid user' do
-      message = { 'event': 'online', 'user': -1, 'hashtag': hashtag.id }
+      message = "{ \"event\": \"online\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
       subject.respond(socket, message)
 
-      expect(socket.sent.last['event']).to eq 'error'
-      expect(socket.sent.last['content']).to eq 'Invalid User id'
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Invalid User'
     end
 
-    # it 'responds with error to invalid hashtag' do
-    #  message = { 'event': 'online', 'user': user.id, 'hashtag': -1 }
-    #  subject.respond(socket, message)
-    #  expect(socket.sent.last['event']).to eq 'error'
-    #  expect(socket.sent.last['content']).to eq 'Invalid hashtag id'
-    # end
+    it 'invalid hashtag' do
+      message = "{ \"event\": \"online\", \"user\": #{user.id}, \"hashtag\": -1 }"
+      subject.respond(socket, message)
+
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Invalid Hashtag'
+    end
 
     it 'invalid message' do
       subject.online_event(user, hashtag, socket)
@@ -54,26 +59,51 @@ RSpec.describe UHPeople::ChatBackend do
     end
   end
 
-  context 'on event' do
-    it 'responds with messages' do
-      subject.feed_event(user, socket)
-      expect(socket.sent.last['event']).to eq 'messages'
+  context 'on' do
+    context 'feed event' do
+      it 'responds with messages' do
+        subject.feed_event(user, socket)
+        expect(socket.sent.last['event']).to eq 'messages'
+      end
+
+      # it 'subscribes client to feed messages' do
     end
 
-    it 'message adds new message' do
-      subject.online_event(user, hashtag, socket)
+    context 'favourites event' do
+      it 'responds with messages' do
+        subject.favourites_event(user, socket)
+        expect(socket.sent.last['event']).to eq 'favourites'
+      end
 
-      subject.message_event(user, hashtag, socket, 'asd')
-
-      expect(Message.count).to eq 1
-      expect(socket.sent.last['content']).to eq 'asd'
-      expect(socket.sent.last['event']).to eq 'message'
+      # it 'subscribes client to favourites messages' do
     end
 
-    it 'online adds new client' do
-      subject.online_event(user, hashtag, socket)
+    context 'like event' do
+    end
 
-      expect(socket.sent.last['event']).to eq 'online'
+    context 'dislike event' do
+    end
+
+    context 'message event' do
+      it 'adds new message' do
+        subject.online_event(user, hashtag, socket)
+
+        subject.message_event(user, hashtag, socket, 'asd')
+
+        expect(Message.count).to eq 1
+        expect(socket.sent.last['content']).to eq 'asd'
+        expect(socket.sent.last['event']).to eq 'message'
+      end
+    end
+
+    context 'online event' do
+      it 'responds with online users' do
+        subject.online_event(user, hashtag, socket)
+        expect(socket.map 'event').to include 'online'
+      end
+    end
+
+    context 'messages event' do
     end
   end
 

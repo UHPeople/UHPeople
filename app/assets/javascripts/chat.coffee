@@ -31,17 +31,16 @@ scroll_to_bottom = ->
   chatbox = $('.chatbox')
   height = chatbox[0].scrollHeight
 
-  if ((height - chatbox[0].scrollTop) < 600)
+  threshold = $('.panel-body:last').height() + 500 + 40
+
+  if ((height - chatbox[0].scrollTop) < threshold)
     chatbox.stop().animate {
       scrollTop: height
     }, 800
 
-move_to_message = ->
-  if !(window.location.hash)
-    $('.chatbox')[0].scrollTop = $('.chatbox')[0].scrollHeight
-  else
-    message_id = window.location.hash
-    $('.panel-body'+message_id).addClass('unread_messages')
+move_to_message = (id) ->
+  chatbox = $('.chatbox')
+  chatbox.scrollTop($('#' + id).offset().top - chatbox.offset().top + chatbox.scrollTop())
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
@@ -72,7 +71,7 @@ sort_members = (list) ->
 
   $.each(items, (idx, itm) -> list.append(itm))
 
-add_message = (data) ->
+add_message = (data, after = '.loader') ->
   highlight = ''
   if moment.utc(data.timestamp).isAfter(moment.utc($('#last-visit')[0].value))
     highlight = 'new_messages'
@@ -83,8 +82,7 @@ add_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('.chatbox').append ''+
-    '<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
+  $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
@@ -106,7 +104,7 @@ add_message = (data) ->
           '</span>' +
         '</p>' +
       '</div>' +
-    '</div>'
+    '</div>').insertAfter(after)
 
     add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
@@ -127,7 +125,7 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
-  add_message data
+  add_message data, '.panel-body:last'
   scroll_to_bottom()
   add_click_handler_to_likes('#like-' + data.id, ws)
 
@@ -155,10 +153,19 @@ on_leave = (data) ->
   update_leave_button()
 
 on_messages = (data) ->
-  add_multiple_messages data, add_message, true
-  move_to_message()
-  add_click_handler_to_likes('.like-this', ws)
   disactivate_load_spinner()
+
+  if data.messages.length > 0
+    add_multiple_messages data, add_message, true
+    add_click_handler_to_likes('.like-this', ws)
+
+    first = data.messages[0].id
+    move_to_message first
+
+  if data.messages.length < 20
+    $('.loader').hide()
+  else
+    $('.loader').show()
 
 on_likers = ->
   console.log 'got likers'
@@ -184,8 +191,10 @@ add_click_handler_to_loader = ->
   user = $('#user-id')[0].value
 
   $('#loader').click (event) ->
+    event.preventDefault()
+    activate_load_spinner()
+
     last_message = $('.panel-body:first')[0].id
-    console.log last_message
     ws.send JSON.stringify
       event: 'messages'
       hashtag: hashtag
@@ -204,9 +213,6 @@ ready = ->
   else
     console.log('Chat page detected!')
 
-  log_error = (data) ->
-    console.log data.content
-
   ws = create_websocket {
     'open': on_open,
     'close': on_close,
@@ -219,10 +225,8 @@ ready = ->
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers
-    'error': log_error
   }
 
-  move_to_message()
   update_leave_button()
   add_click_handler_to_chat()
   add_click_handler_to_loader()
