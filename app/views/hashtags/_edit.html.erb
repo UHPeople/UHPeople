@@ -10,13 +10,12 @@
           <div class="form-group">
             <%= f.label(:topic, "Channel description")%>
             <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
-            <%= f.label(:cover_photo, "Background image")%>
-            <%= f.file_field :cover_photo, id: 'cover_photo' %>
           </div>
         </div>
         <div class="modal-footer">
           <%= f.submit value: "Update", class: 'btn btn-primary' %>
         <% end %>
+        <button type="button" class="btn btn-danger"><%= "Change background image (not working)" %></button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
     </div>

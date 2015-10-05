@@ -1,4 +1,4 @@
-<div class="jumbotron" style="background-image: url('<%= @hashtag.cover_photo.url() %>'); padding-top: 0;">
+<div class="jumbotron" style="background-image: url('<%= @hashtag.photo.image.url() if @hashtag.photo != nil %>'); padding-top: 0;">
   <div class="container text-center">
     <h1>#<%= @hashtag.tag %></h1>
 

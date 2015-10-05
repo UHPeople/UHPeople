@@ -3,15 +3,20 @@ class Photo < ActiveRecord::Base
   validates :image, presence: true
 
   belongs_to :user
+  has_many :hashtags
+  has_many :message_photos, dependent: :destroy
+  has_many :messages, through: :message_photos
 
   has_attached_file :image,
                     styles: {
+                      cover: '320x1000^',
                       medium: '300x300>',
                       thumb: '45x45#',
                       small: '65x65#',
                       original: '640x480>'
                     },
                     convert_options: {
+                      cover: '-quality 75 -strip',
                       medium: '-quality 75 -strip',
                       thumb: '-quality 75 -strip',
                       small: '-quality 75 -strip',

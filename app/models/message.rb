@@ -18,6 +18,8 @@ class Message < ActiveRecord::Base
   belongs_to :user
 
   has_many :likes, dependent: :destroy
+  has_many :message_photos, dependent: :destroy
+  has_many :photos, through: :message_photos
 
   validates :content, :hashtag_id, :user_id, presence: true
   validates_with UserHashtagValidator
