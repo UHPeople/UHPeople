@@ -1,18 +1,18 @@
-<div class="mdl-layout__header-row">
+<div class="mdl-layout__header-row nav-toggleable">
   <div id="feed-onboard-header">
     <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
   </div>
-
   <div class="mdl-layout--large-screen-only">
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
-
   <div class="mdl-layout-spacer"></div>
-  
-  <div class="mdl-navbar mdl-card search-card">
+  <nav class="mdl-navigation">
+    <%= render 'layouts/navigation_links' %>
+  </nav>
+</div>
+<div class="mdl-layout__header-row nav-toggleable" style="display: none;">
+  <div class="mdl-navbar">
     <%= form_tag search_index_path, method: 'get', role: 'search' do %>
-      <div id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
-      </div>
       <div class="mdl-textfield mdl-js-textfield" style="padding: 8px;">
         <%= text_field_tag :search, '', placeholder: 'Search', class: "mdl-textfield__input typeahead", id: 'search', style: 'background-color: inherit !important;' %>
       </div>
@@ -21,11 +21,11 @@
       </div>
     <% end %>
   </div>
-
   <div class="mdl-layout-spacer"></div>
-
   <nav class="mdl-navigation">
-    <%= render 'layouts/navigation_links' %>
+    <a href="#" onclick="$('.nav-toggleable').toggle();" class="mdl-navigation__link">
+    	<i class="material-icons md-24">close</i>
+    </a>
   </nav>
 </div>
 
@@ -56,7 +56,7 @@
       <a class="open-card mdl-navigation__link" href="#">Members</a>
        <% if @user_has_tag %>
          <%= link_to 'Invite', '#', class: 'mdl-navigation__link invite-modal__open' %>
-         <%= link_to 'Edit' , '#', class: 'mdl-navigation__link', "data-toggle":'modal', "data-target":'#edit' %>
+         <%= link_to 'Edit' , '#', class: 'mdl-navigation__link edit-modal__open' %>
          <%= link_to 'Leave', leave_path(tag: @hashtag.tag), class: 'mdl-navigation__link leave-button',  method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel' %>
        <% end %>
     </nav>

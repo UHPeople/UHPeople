@@ -1,9 +1,12 @@
+<a href="#" onclick="$('.nav-toggleable').toggle();" class="mdl-navigation__link">
+	<i class="material-icons md-24">search</i>
+</a>
 
-<%= link_to "Home", root_path, id:"feed-onboard-home",
-	class: "mdl-navigation__link mdl-layout--large-screen-only" %>
+<%= link_to "Home", root_path, id: 'feed-onboard-home',
+	class: 'mdl-navigation__link mdl-layout--large-screen-only' %>
 
-<%= link_to notifications_path, class:"mdl-navigation__link notif-link feed-onboard-notif" do %>
-	<i class="material-icons">notifications</i>
+<%= link_to notifications_path, class: 'mdl-navigation__link notif-link feed-onboard-notif' do %>
+	<i class="material-icons md-24">notifications</i>
 	<span class="notif-count">
 		<% if current_user.unread_notifications? %>
 			<span class="badge badge-success">
@@ -14,7 +17,7 @@
 <% end %>
 
 <a id="menu-lower-right" class="mdl-navigation__link">
-	<%= current_user.name.partition(" ").first %>
+	<%= current_user.name.partition(' ').first %>
 	<span class="caret"></span>
 </a>
 

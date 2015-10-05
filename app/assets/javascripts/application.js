@@ -42,6 +42,12 @@ $(document).ready(function() {
 		$('.invite-modal__close').click(function() {
 			$('.invite-card').slideToggle("slow");
 		});
+		$('.edit-modal__open').click(function() {
+			$('.edit-card').slideToggle("slow");
+		});
+		$('.edit-modal__close').click(function() {
+			$('.edit-card').slideToggle("slow");
+		});
 	}
 });
 
