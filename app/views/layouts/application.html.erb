@@ -16,7 +16,7 @@
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
       <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
-      <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" %>
+      <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" && @hashtag %>
 
       <% unless current_user.nil? %>
         <header class="mdl-layout__header <%= controller_name == "hashtags" && action_name == "show" ? 'mdl-layout__header--transparent' : 'mdl-color--cyan-600' %>">
@@ -29,7 +29,7 @@
          <%= yield %>
       </main>
 
-      <%= render 'layouts/users_drawer' if controller_name == "hashtags" && action_name == "show" %>
+      <%= render 'layouts/users_drawer' if controller_name == "hashtags" && action_name == "show" && @hashtag %>
 
       <%
         #onboarding #help1
