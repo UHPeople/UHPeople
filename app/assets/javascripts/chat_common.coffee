@@ -65,20 +65,17 @@ format_timestamp = (timestamp) ->
   timestamp.local().format('MMM D, H:mm')
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
-  last_visit = null
-  if (drawMarker)
+  for message in data.messages
+    add_message message
+
+  if drawMarker and $('div.line').length == 0
     last_visit = moment.utc($('#last-visit')[0].value)
 
-  markerDrawn = $('div.line').length != 0
-
-  for message in data.messages
-    if (drawMarker and !markerDrawn and moment.utc(message.timestamp).isAfter(last_visit))
-      $('.chatbox').append ''+
-        '<div class="line text-center">' +
-          '<span>Since<span class="timestamp">' + format_timestamp(last_visit) + '</span></span>'+
-        '</div>'
-      markerDrawn = true
-    add_message message
+    $('<div class="line text-center">' +
+        '<span>Since<span class="timestamp" data-timestamp="' + last_visit + '">' +
+          format_timestamp(last_visit) +
+        '</span></span>'+
+      '</div>').insertBefore('.new_messages:first')
 
 add_click_handler_to_likes = (element, socket) ->
   user = $('#user-id')[0].value
