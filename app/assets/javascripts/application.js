@@ -84,6 +84,13 @@ if ($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('path
 	});
 }
 
+var updateTimestamps = function() {
+	$('.timestamp').each(function() {
+		var timestamp = moment.utc($(this).data('timestamp')).local().fromNow();
+		$(this).text(timestamp);
+	});
+};
+
 var ready = function() {
 	$(function() {
 		setTimeout(function() {
@@ -91,11 +98,9 @@ var ready = function() {
 		}, 5000);
 	});
 
+	updateTimestamps();
 	setInterval(function() {
-		$('.timestamp').each(function() {
-			var timestamp = moment.utc($(this).data('timestamp')).local().fromNow();
-			$(this).text(timestamp);
-		});
+		updateTimestamps();
 	}, 60000);
 
 	//Onboarding
