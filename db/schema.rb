@@ -43,12 +43,8 @@ ActiveRecord::Schema.define(version: 20151005114414) do
     t.string   "content"
     t.integer  "user_id"
     t.integer  "hashtag_id"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
