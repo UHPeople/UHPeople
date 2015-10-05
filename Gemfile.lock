@@ -320,6 +320,3 @@ DEPENDENCIES
   twitter-typeahead-rails (~> 0.10.5)
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
-
-BUNDLED WITH
-   1.10.6
