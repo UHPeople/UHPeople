@@ -125,7 +125,11 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
-  add_message data, '.panel-body:last'
+  after = '.panel-body:last'
+  if $('.panel-body').length == 0
+    after = '.loader'
+
+  add_message data, after
   scroll_to_bottom()
   add_click_handler_to_likes('#like-' + data.id, ws)
 

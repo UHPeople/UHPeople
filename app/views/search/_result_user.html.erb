@@ -6,13 +6,13 @@
     <h4><%= link_to user.name, user %></h4>
   </div>
   <div class="result-supporting-text">
-    <% unless user.about.nil? and user.about.empty? %>
+    <% unless user.about.nil? or user.about.empty? %>
       <span class="result-supporting-primary">
         <%= truncate(user.about, length: 60, separator: ' ') %>
       </span>
     <% end %>
 
-    <% unless (user.about.nil? and user.about.empty?) or user.hashtags.empty? %>
+    <% unless (user.about.nil? or user.about.empty?) or user.hashtags.empty? %>
       <span class="result-text-divider"> - </span>
     <% end %>
 
