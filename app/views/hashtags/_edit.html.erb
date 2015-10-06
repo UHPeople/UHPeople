@@ -8,16 +8,16 @@
         <div class="modal-body edit-modal">
           <div class="form-group">
             <div>
-              <%= f.label(:topic, "Channel description")%>
+              <%= f.label(:topic, 'Channel description')%>
               <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
             </div>
             <div>
-              <%= f.label(:cover_photo, "Background image")%>
+              <%= f.label(:cover_photo, 'Background image')%>
               <%= f.file_field :cover_photo, id: 'cover_photo' %>
             </div>
           </div>
 
-          <%= f.submit value: "Update", class: 'mdl-button mdl-button--raised' %>
+          <%= f.submit value: 'Update', class: 'mdl-button mdl-button--raised' %>
         </div>
       <% end %>
     </div>

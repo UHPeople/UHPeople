@@ -14,6 +14,7 @@
     </script>
   </head>
   <body>
+
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
       <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
       <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" && @hashtag %>
@@ -25,6 +26,15 @@
       <% end %>
 
       <main role="main" class="mdl-layout__content">
+        <div class="overlay" style="
+        background-color: rgba(0, 0, 0, 0.3);
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: none;"></div>
          <%= render 'layouts/messages' %>
          <%= yield %>
       </main>
