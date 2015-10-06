@@ -97,7 +97,26 @@ var updateTimestamps = function() {
 	});
 };
 
+var toggleSearch = function() {
+	$('.nav-toggleable').toggle();
+	$('.mdl-layout__tab-bar-container').toggle();
+	$('.overlay').toggle();
+
+	if ($('.nav-toggleable')[0].style.display != 'none') {
+		$('.search-toggle i').text('clear');
+
+		$('.site-search').focus();
+		$('.site-search').on('blur', toggleSearch);
+	} else {
+		$('.search-toggle i').text('search');
+
+		$('.site-search').off('blur');
+	}
+}
+
 var ready = function() {
+	$('.search-toggle').on('click', toggleSearch);
+
 	$(function() {
 		setTimeout(function() {
 			$('#collapseAlert').collapse('hide');

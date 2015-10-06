@@ -12,6 +12,22 @@
   color: $fallback
 }
 
+.site-search {
+  //padding-left: 48px;
+  box-sizing: border-box;
+  height: inherit;
+  width: 100%;
+  //padding-top: 0;
+  padding-bottom: 0;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  color: #444444;
+  background-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
 .search-card {
   width: inherit !important;
   overflow: visible !important;
