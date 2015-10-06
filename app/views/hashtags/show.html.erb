@@ -1,12 +1,11 @@
-<div class="mdl-grid chat-main-card">
+<div class="mdl-grid">
   <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-  <div class="mdl-cell mdl-cell--10-col">
+  <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
     <%= render 'chat' if @user_has_tag %>
   </div>
-  <%#
-  <div class="mdl-cell mdl-cell--8-col mdl-cell--4-col-desktop hidden-xs hidden-sm">
-    <% render 'grouplist' %>
-  <%# </div> %>
+  <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet">
+    <%= render 'grouplist' %>
+  </div>
 </div>
 <%= render 'invite' %>
 <%= render 'edit' %>

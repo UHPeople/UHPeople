@@ -37,14 +37,5 @@
         </span>
       <% end %>
     </span>
-    <div class="mdl-layout-spacer"></div>
-    <nav class="mdl-navigation">
-      <a class="open-card mdl-navigation__link" href="#">Members</a>
-       <% if @user_has_tag %>
-         <%= link_to 'Invite', '#', class: 'mdl-navigation__link invite-modal__open' %>
-         <%= link_to 'Edit' , '#', class: 'mdl-navigation__link edit-modal__open' %>
-         <%= link_to 'Leave', leave_path(tag: @hashtag.tag), class: 'mdl-navigation__link leave-button',  method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel' %>
-       <% end %>
-    </nav>
   </div>
 <% end %>
