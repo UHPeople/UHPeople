@@ -1,11 +1,14 @@
 <div class="hashtag_bg"
     style="
     <% if @hashtag.cover_photo.present? %>
-      background-image: url(<%= @hashtag.cover_photo.url %>);
+      background: url(<%= @hashtag.cover_photo.url %>) no-repeat center center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
     <% end %>
-    padding-top: 0;
     background-color: <%= @hashtag.color %>;
-    <%= 'z-index: -1;' if @user_has_tag %>">
+    z-index: -100;">
   <% unless @user_has_tag %>
     <%= link_to join_path(tag: @hashtag.tag), method: :post, class: 'channel-join-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' do %>
       <i class="material-icons">add</i>

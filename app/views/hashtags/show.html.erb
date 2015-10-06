@@ -1,8 +1,10 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-  <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
-    <%= render 'chat' if @user_has_tag %>
-  </div>
+  <%  if @user_has_tag %>
+    <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
+      <%= render 'chat' %>
+    </div>
+  <% end %>
   <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet">
     <%= render 'grouplist' %>
   </div>
