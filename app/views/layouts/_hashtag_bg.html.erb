@@ -2,6 +2,12 @@
     style="
     <% if @hashtag.cover_photo.present? %>
       background-image: url(<%= @hashtag.cover_photo.url %>);
+
+      -webkit-filter: brightness(75%);
+      -moz-filter: brightness(75%);
+      -o-filter: brightness(75%);
+      -ms-filter: brightness(75%);
+      filter: brightness(75%);
     <% end %>
     padding-top: 0;
     background-color: <%= @hashtag.color %>;
