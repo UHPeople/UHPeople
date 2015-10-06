@@ -18,10 +18,10 @@
           <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'leave-button' %>
         </li>
         <li>
-          <%= link_to 'Invite people', "#", "data-toggle":'modal', "data-target":'#invite' %>
+          <%= link_to 'Invite', '#', class: 'invite-modal__open' %>
         </li>
         <li>
-          <%= link_to 'Edit channel' , '#', "data-toggle":'modal', "data-target":'#edit' %>
+          <%= link_to 'Edit' , '#', class: 'edit-modal__open' %>
         </li>
       </ul>
     </div>
