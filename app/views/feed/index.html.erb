@@ -2,8 +2,8 @@
   var tab = <%= @tab %>
 </script>
 
-<div class="container">
-  <div class="col-md-7 col-lg-8">
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--8-col mdl-cell--12-col-tablet">
     <section class="mdl-layout__tab-panel is-active" id="favourites">
       <div class="page-content"><%= render 'favourites' %></div>
     </section>
@@ -14,7 +14,7 @@
       <div class="page-content"><%= render 'limputtaja' %></div>
     </section>
   </div>
-  <div class="col-md-5 col-lg-4 hashtaglist-position fav">
+  <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet hashtaglist-position">
     <%= render 'hashtaglist' %>
   </div>
 </div>

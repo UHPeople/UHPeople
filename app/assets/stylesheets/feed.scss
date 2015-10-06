@@ -78,7 +78,7 @@ $border-color: #ddd;
 }
 
 .hashtaglist-position {
-  overflow-x: auto;
+  padding-top: 16px;
 }
 
 input.mdl-grey-placeholder{
@@ -94,6 +94,7 @@ input.mdl-grey-placeholder{
 
 .interest-card {
   width: 100% !important;
+  margin-bottom: 16px;
 
   .mdl-card__title {
     color: #fff;
