@@ -52,7 +52,7 @@ $(document).ready(function() {
 		$(".topic__toggle").click(function(){
 			if ($(".mdl-layout__header-row.mdl-hashtag-topic").height() == 56 ){
 				$(".mdl-layout__header-row.mdl-hashtag-topic").css("overflow", "scroll");
-		    $(".mdl-layout__header-row.mdl-hashtag-topic").animate({height: '236px'});
+		    $(".mdl-layout__header-row.mdl-hashtag-topic").animate({height: '32vh'});
 				$(".topic__toggle").text('Hide topic');
 			} else {
 				$(".mdl-layout__header-row.mdl-hashtag-topic").css("overflow", "hidden");
