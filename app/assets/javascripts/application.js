@@ -48,6 +48,18 @@ $(document).ready(function() {
 		$('.edit-modal__close').click(function() {
 			$('.edit-card').slideToggle("slow");
 		});
+
+		$(".topic__toggle").click(function(){
+			if ($(".mdl-layout__header-row.mdl-hashtag-topic").height() == 56 ){
+				$(".mdl-layout__header-row.mdl-hashtag-topic").css("overflow", "scroll");
+		    $(".mdl-layout__header-row.mdl-hashtag-topic").animate({height: '236px'});
+				$(".topic__toggle").text('Hide topic');
+			} else {
+				$(".mdl-layout__header-row.mdl-hashtag-topic").css("overflow", "hidden");
+				$(".mdl-layout__header-row.mdl-hashtag-topic").animate({height: '56px'});
+				$(".topic__toggle").text('Show topic');
+			}
+		});
 	}
 });
 

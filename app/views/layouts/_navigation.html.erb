@@ -18,6 +18,7 @@
     <%= render 'layouts/navigation_links' %>
   </nav>
 </div>
+<!-- ROW 2 -->
 <% if current_page?(feed_index_path) %>
   <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--cyan-600">
     <a href="#favourites" class="mdl-layout__tab is-active" id="feed-onboard-favourites" target="1">Favourites</a>
@@ -27,15 +28,19 @@
 <% end %>
 <% if controller_name == "hashtags" && action_name == "show"  %>
   <div class="mdl-layout__header-row mdl-hashtag-topic">
-    <span>#<%= @hashtag.tag if @hashtag %>
+    <div class="mdl-cell mdl-cell--10-col mdl-cell--top">
+      <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
       <% if @hashtag && !@hashtag.topic.nil? && !@hashtag.topic.blank? %>
-        <span class="material-icons title-separator">chevron_right</span>
-        <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
-        <span class="hashtag_topicker">
-          Updated by <b><%= @topicker.name if @topicker %></b> on
-          <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
-        </span>
+        <p class="mdl-typography--body-1">
+          <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
+          <span class="mdl-typography--caption">
+            Updated by <b><%= @topicker.name if @topicker %></b> on
+            <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
+          </span>
+        </p>
       <% end %>
-    </span>
+    </div>
+    <div class="mdl-layout-spacer"></div>
+    <div class=""><%= link_to 'Show topic', '#', class: 'mdl-navigation__link topic__toggle' %></div>
   </div>
 <% end %>
