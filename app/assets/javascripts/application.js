@@ -27,26 +27,17 @@ $(document).ready(function() {
 	}
 	if ($(location).attr('pathname').indexOf("hashtag") > -1) {
 
-		$('.grouplist-drawer').next("div").hide();
-
-		$('.close-card i').click(function() {
-			$('.grouplist-drawer').toggle( "slide" );
-		});
-
-		$('.open-card').click(function() {
-			$('.grouplist-drawer').toggle( "slide" );
-		});
 		$('.invite-modal__open').click(function() {
-			$('.invite-card').slideToggle("slow");
+			$('.invite-card').fadeIn(300);
 		});
 		$('.invite-modal__close').click(function() {
-			$('.invite-card').slideToggle("slow");
+			$('.invite-card').fadeOut(300);
 		});
 		$('.edit-modal__open').click(function() {
-			$('.edit-card').slideToggle("slow");
+			$('.edit-card').fadeIn(300);
 		});
 		$('.edit-modal__close').click(function() {
-			$('.edit-card').slideToggle("slow");
+			$('.edit-card').fadeOut(300);
 		});
 
 		$(".topic__toggle").click(function(){

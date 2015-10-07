@@ -462,14 +462,14 @@ span.space-left {
 .bottom-sheet-overlay {
   display: none;
   position: absolute;
-  bottom: 0;
   left: 50vw;
   width: 70vw;
   margin-left: -35vw;
   z-index: 9;
+  bottom: 10%;
 
   .bottom-sheet-card.mdl-card {
-    height: 75vh;
+    height: 65vh;
     width: 100%;
     margin: 0 auto;
     max-width: 500px;
