@@ -28,7 +28,7 @@
 <% end %>
 <% if controller_name == "hashtags" && action_name == "show"  %>
   <div class="mdl-layout__header-row mdl-hashtag-topic">
-    <div class="mdl-cell mdl-cell--10-col mdl-cell--top">
+    <div class="header-topic-container mdl-cell--top">
       <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
       <% if @hashtag && !@hashtag.topic.nil? && !@hashtag.topic.blank? %>
         <p class="mdl-typography--body-1">
@@ -42,5 +42,6 @@
     </div>
     <div class="mdl-layout-spacer"></div>
     <div class=""><%= link_to 'Show topic', '#', class: 'mdl-navigation__link topic__toggle' %></div>
+
   </div>
 <% end %>

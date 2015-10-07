@@ -492,4 +492,8 @@ span.space-left {
 .mdl-layout__header-row.mdl-hashtag-topic{
   height: 56px;
   overflow: hidden;
+  .header-topic-container {
+    width: 70%; /* fallback if needed */
+    width: calc(100% - 100px);
+  }
 }
