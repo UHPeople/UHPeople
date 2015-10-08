@@ -163,13 +163,13 @@ on_messages = (data) ->
     add_multiple_messages data, add_message, true
     add_click_handler_to_likes('.like-this', ws)
 
-    first = data.messages[0].id
-    move_to_message first
-
   if data.messages.length < 20
     $('.loader').hide()
   else
     $('.loader').show()
+
+  first = data.messages[0].id
+  move_to_message first
 
 on_likers = ->
   console.log 'got likers'
