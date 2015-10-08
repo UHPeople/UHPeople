@@ -23,19 +23,9 @@
   border: none;
   border-radius: 0;
   outline: none;
-  color: #444444;
+  color: $white;
   background-color: transparent;
   -webkit-font-smoothing: antialiased;
-}
-
-.search-card {
-  width: inherit !important;
-  overflow: visible !important;
-  min-height: 52px !important;
-  height: 52px !important;
-  background-color: #fff;
-  padding: 0 !important;
-  color: $black;
 }
 
 .typeahead-invite,
@@ -47,17 +37,18 @@
   width: 100%;
 
   .tt-hint {
-    color: $accent;
+    color: $fallback;
   }
 
   .tt-dropdown-menu {
     @extend .mdl-shadow--2dp;
     background-color: $white;
     width: 100%;
+    margin-top: 32px;
   }
 
   .tt-cursor {
-    background-color: $accent;
+    background-color: $primary;
     color: $white;
   }
 
