@@ -27,7 +27,7 @@ a img.img-circle {
 
     .user-img-circle {
       margin: 0 auto;
-      margin-top: 60px;
+      margin-top: 32px;
       width: 200px;
       height: 200px;
       border-radius: 5%;
@@ -42,12 +42,12 @@ a img.img-circle {
     .mdl-cell-margin-auto {
       margin: 0 auto;
     }
-    .mdl-card__actions {
-      padding-left: 64px;
-    }
   }
   .next{
     background-color: white;
+    .mdl-card__actions {
+      padding-left: 64px;
+    }
   }
   .parallax__layer {
     position: absolute;
@@ -62,7 +62,7 @@ a img.img-circle {
     transform: translateZ(-1px) scale(2);;
   }
   .overflow-div{
-    margin-top: 65vh;
+    margin-top: 70vh;
     transform: translateZ(-1);
   }
 }

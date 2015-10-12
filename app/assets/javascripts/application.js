@@ -163,6 +163,12 @@ var ready = function() {
 			$('a[href="#feed"] span').click();
 		}
 	}
+	if ($(location).attr('pathname').indexOf("users") > -1 ) {
+		// fix tooltip position
+		$('span.tooltip_top').each(function() {
+			$(this).attr('style', 'top:' + ($('.mdl-cell-margin-auto').position().top - $(this).height() - 45) + 'px !important; max-width: initial !important;');
+		});
+	}
 };
 
 $(document).ready(ready);

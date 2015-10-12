@@ -99,7 +99,7 @@ input.mdl-grey-placeholder{
   .mdl-card__title {
     color: #fff;
     height: 176px;
-    background-color: #4CAB8D;
+    background-color: #3699D0;
 
     h2.mdl-card__title-text{
       color: #fff !important;
@@ -161,4 +161,13 @@ div.fav-card {
       font-weight: normal;
     }
   }
+}
+
+/* Override mdl tab colors with unibranding */
+/* TODO set with variables */
+a.mdl-layout__tab {
+  color: #0098d0;
+}
+a.mdl-layout__tab.is-active {
+  color: #0882B3 !important;
 }
