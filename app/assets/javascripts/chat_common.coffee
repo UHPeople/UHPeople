@@ -80,7 +80,8 @@ add_multiple_messages = (data, add_message, drawMarker = true) ->
 add_click_handler_to_likes = (element, socket) ->
   user = $('#user-id')[0].value
 
-  $(element).click (event) ->
+  $(element).off 'click'
+  $(element).on 'click', (event) ->
     event.preventDefault()
 
     id = $(this)[0].id.split('-')
