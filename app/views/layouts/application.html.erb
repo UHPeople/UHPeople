@@ -20,7 +20,7 @@
       <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" && @hashtag %>
 
       <% unless current_user.nil? %>
-        <header class="mdl-layout__header <%= controller_name == "hashtags" && action_name == "show" ? 'mdl-layout__header--transparent' : 'mdl-color--cyan-600' %>">
+        <header class="mdl-layout__header <%= controller_name == "hashtags" && action_name == "show" ? 'mdl-layout__header--transparent' : 'mdl-color--black' %>">
           <%= render 'layouts/navigation' %>
         </header>
       <% end %>
