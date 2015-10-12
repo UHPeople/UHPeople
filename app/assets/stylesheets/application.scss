@@ -4,6 +4,9 @@
 @import 'jquery.atwho';
 @import 'jqcloud';
 
+@import 'uh-styleguide/sass/variables/**/*';
+@import 'uh-styleguide/sass/mixins/_mixins.scss';
+
 @import 'mobile-first';
 @import 'navbar';
 @import 'autocomplete';
@@ -15,6 +18,19 @@
 @import 'material-colors';
 
 @import 'material';
+
+@import 'bootstrap-sprockets';
+@import 'bootstrap-custom';
+
+@import 'material-colors-override';
+
+html, h1, h2, h3, h4, h5, h6 {
+	@include font-family-main;
+}
+
+p {
+  // @include font-family-bodytext;
+}
 
 .material-icons.md-15 {
   font-size: 15px;
@@ -36,12 +52,6 @@
   height: 24px;
   vertical-align: top;
 }
-
-@import 'bootstrap-sprockets';
-@import 'bootstrap-custom';
-
-@import 'material-colors-override';
-@import 'font-gotham';
 
 .invite-button {
   margin-top: -4px;
