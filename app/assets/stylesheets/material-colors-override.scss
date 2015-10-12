@@ -84,3 +84,11 @@ h2, h3 {
 .like-icon-color {
   color: rgba(0, 0, 0, .40);
 }
+
+.mdl-layout.is-upgraded .mdl-layout__tab.is-active::after {
+  background-color: $accent !important;
+}
+
+.mdl-button--fab.mdl-button--colored, .mdl-button--fab.mdl-button--colored:active {
+  background-color: $accent !important;
+}

@@ -100,20 +100,25 @@ var updateTimestamps = function() {
 	});
 };
 
-var toggleSearch = function() {
+var toggleSearch = function(event) {
+	event.preventDefault();
+	
 	$('.nav-toggleable').toggle();
 	$('.mdl-layout__tab-bar-container').toggle();
 	$('.overlay').toggle();
 
-	if ($('.nav-toggleable')[0].style.display != 'none') {
+	var search = $('.site-search');
+	if (search.parents('.nav-toggleable')[0].style.display !== 'none') {
 		$('.search-toggle i').text('clear');
 
-		$('.site-search').focus();
-		$('.site-search').on('blur', toggleSearch);
+		search.focus();
+		search.on('blur', toggleSearch);
 	} else {
 		$('.search-toggle i').text('search');
 
-		$('.site-search').off('blur');
+		search.off('blur');
+		search.blur();
+		search.val('');
 	}
 }
 

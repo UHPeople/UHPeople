@@ -95,18 +95,12 @@ input.mdl-grey-placeholder{
 .interest-card {
   width: 100% !important;
   margin-bottom: 16px;
+  overflow: visible !important;
 
   .mdl-card__title {
-    color: #fff;
-    height: 176px;
-    background-color: #3699D0;
-
-    h2.mdl-card__title-text{
-      color: #fff !important;
-    }
     .mdl-button {
       margin-right: 16px;
-      margin-bottom: -36px;
+      margin-top: -36px;
     }
   }
 
