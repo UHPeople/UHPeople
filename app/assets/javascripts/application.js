@@ -105,19 +105,15 @@ var toggleSearch = function() {
 	$('.mdl-layout__tab-bar-container').toggle();
 	$('.overlay').toggle();
 
-	var search = $('.site-search');
-
-	if (search.parents('.nav-toggleable')[0].style.display != 'none') {
+	if ($('.nav-toggleable')[0].style.display != 'none') {
 		$('.search-toggle i').text('clear');
 
-		search.focus();
-		search.on('blur', toggleSearch);
+		$('.site-search').focus();
+		$('.site-search').on('blur', toggleSearch);
 	} else {
 		$('.search-toggle i').text('search');
 
-		search.off('blur');
-		search.blur();
-		search.val('');
+		$('.site-search').off('blur');
 	}
 }
 
