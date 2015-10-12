@@ -48,13 +48,12 @@ RSpec.describe Hashtag do
       expect(page).to have_no_content "Search results for channels: ##{tag}"
     end
 
-    context 'invitation box' do
-
+    context 'invitation box', js: true do
       it 'sends invitation to non-member user' do
         user2 = User.create name: 'asd', username: 'asdasd', campus: 'asd'
-        first('//a[data-target="#invite"]').click
+        first('a.invite-modal__open').click
         fill_in 'user', with: user2.name
-        find('input[value="Invite"]').click
+        find('.invite-button').click
 
         visit "/login/#{user2.id}"
 
@@ -62,9 +61,9 @@ RSpec.describe Hashtag do
       end
 
       it 'doesn\'t send invitation to member' do
-        first('//a[data-target="#invite"]').click
+        first('a.invite-modal__open').click
         fill_in 'user', with: user.name
-        find('input[value="Invite"]').click
+        find('.invite-button').click
         expect(find('.notif-count')).to_not have_content '1'
       end
     end
