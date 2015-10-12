@@ -8,25 +8,6 @@ html body {
   }
 }
 
-.navbar {
-  background-color: $primary !important;
-  border: none !important;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
-
-  a {
-    color: $navbar-link !important;
-  }
-}
-
-.dropdown-menu > li > a {
-  color: $color-900 !important;
-}
-
-.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover {
-  //background-color: $color-400 !important;
-  background-color: transparent !important;
-}
-
 h2, h3 {
   color: $primary !important;
   text-transform: uppercase;
@@ -61,20 +42,6 @@ h2, h3 {
 
 #feed {
   background-color: $white !important;
-}
-
-/* Notification Colouring */
-.navbar-inverse .navbar-nav > li > a.accent {
-  color: $accent !important;
-}
-
-.navbar-inverse .navbar-nav > li > .notif-link:hover,
-.navbar-inverse .navbar-nav > li > .notif-link:focus {
-  color: $accent-hover !important;
-}
-
-a.notif-link:hover {
-  color: $white;
 }
 
 /* notification hover */
