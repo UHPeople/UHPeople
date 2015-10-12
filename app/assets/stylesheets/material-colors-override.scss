@@ -4,43 +4,20 @@ html body {
   background-color: $body;
 
   a {
-    color: $color-800;
+    color: $accent;
+  }
+
+  a:hover {
+    color: $accent-hover;
   }
 }
 
 h2, h3 {
-  // color: $primary !important;
   text-transform: uppercase;
   font-weight: normal !important;
 }
 
-.jumbotron {
-
-  background: $jumbotron-color;
-  background-color: $jumbotron-color !important;
-  h1 {
-      color: $primary-link;
-      //text-shadow: 0 0 20px #000000, 0 0 20px #000000, 0 0 20px magenta;
-  }
-
-  div {
-    color: $primary-link;
-  }
-
-  footer {
-    color: $fallback !important;
-  }
-}
-
-.well, .panel-default {
-  background-color: $white !important;
-}
-
-.panel-heading {
-  background-color: $white !important;
-}
-
-#feed {
+.well, .panel-default, .panel-heading, #feed {
   background-color: $white !important;
 }
 
@@ -53,34 +30,14 @@ h2, h3 {
   color: $black !important;
 }
 
-.type1 {
-  background-color: $type1 !important;
-}
-
-.type2 {
-  background-color: $type2 !important;
-}
-
-.type3 {
-  background-color: $type3 !important;
-}
-
-.type4 {
-  background-color: $type4 !important;
-}
-
-.icon-color{
+.icon-color {
   color: $fallback-negative;
-}
-
-.btn-success{
-  background-color: $primary !important;
-  color: $white !important;
 }
 
 .badge-success {
   background-color: $accent !important;
 }
+
 .like-icon-color {
   color: rgba(0, 0, 0, .40);
 }
@@ -90,5 +47,13 @@ h2, h3 {
 }
 
 .mdl-button--fab.mdl-button--colored, .mdl-button--fab.mdl-button--colored:active {
-  background-color: $accent !important;
+  background-color: $accent-hover !important;
+}
+
+.mdl-menu__item {
+  color: $accent;
+}
+
+.mdl-menu__item:hover {
+  color: $accent-hover;
 }

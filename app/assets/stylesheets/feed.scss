@@ -109,14 +109,16 @@ input.mdl-grey-placeholder{
     padding-top: 16px;
     font-weight: 300;
 
-    a{
+    a {
       color: $black;
     }
-    a:hover{
-      color: $primary;
+
+    a:hover {
+      color: $accent;
       text-decoration: none;
     }
-    .small-fallback{
+
+    .small-fallback {
       color: $fallback-negative;
       font-size: 75%;
     }
@@ -132,12 +134,12 @@ input.mdl-grey-placeholder{
         float: left;
       }
 
-      .send-hover:hover{
+      .send-hover:hover {
         text-decoration: none;
       }
 
-      .interest-list-hashtag{
-        display:inline-block;
+      .interest-list-hashtag {
+        display: inline-block;
 
         p {
           margin: 0;
@@ -146,6 +148,7 @@ input.mdl-grey-placeholder{
     }
   }
 }
+
 div.fav-card {
   width: 100%;
 
@@ -157,11 +160,12 @@ div.fav-card {
   }
 }
 
-/* Override mdl tab colors with unibranding */
-/* TODO set with variables */
+// Override mdl tab colors with unibranding
+
 a.mdl-layout__tab {
-  color: #0098d0;
+  color: $accent;
 }
+
 a.mdl-layout__tab.is-active {
-  color: #0882B3 !important;
+  color: $accent-hover !important;
 }
