@@ -102,19 +102,23 @@ var updateTimestamps = function() {
 
 var toggleSearch = function(event) {
 	event.preventDefault();
-	
+
 	$('.nav-toggleable').toggle();
 	$('.mdl-layout__tab-bar-container').toggle();
 	$('.overlay').toggle();
 
+	$('.search-toggle').off('click');
+
 	var search = $('.site-search');
 	if (search.parents('.nav-toggleable')[0].style.display !== 'none') {
-		$('.search-toggle i').text('clear');
+		// $('.search-toggle i').text('clear');
 
 		search.focus();
 		search.on('blur', toggleSearch);
+		$('.search-toggle').on('click', toggleSearch);
 	} else {
-		$('.search-toggle i').text('search');
+		// $('.search-toggle i').text('search');
+		$('.search-toggle').on('click', toggleSearch);
 
 		search.off('blur');
 		search.blur();
@@ -123,7 +127,7 @@ var toggleSearch = function(event) {
 }
 
 var ready = function() {
-	$('.search-toggle').click(toggleSearch);
+	$('.search-toggle').on('click', toggleSearch);
 
 	$(function() {
 		setTimeout(function() {
@@ -145,10 +149,8 @@ var ready = function() {
 
 	if ($(location).attr('pathname') == "/feed") {
 		// Change hash for page-reload
-		$('.mdl-layout__tab').click( function(e) {
-			var href = $(this).attr('href').split('#')[1]
-			window.location.hash = href
-			$.post("/tab/" + href);
+		$('.mdl-layout__tab').click(function(e) {
+			window.location.hash = '/' + $(this).attr('href').split('#')[1]
 		});
 
 		$('#new-interest-revealer').click(function() {
@@ -162,12 +164,10 @@ var ready = function() {
 		var url = document.location.toString();
 		if (url.match('#')) {
 			componentHandler.upgradeDom();
-			$('a[href="#' + url.split('#')[1] + '"] span').click();
-		} else if(tab == 1){
-			componentHandler.upgradeDom();
-			$('a[href="#feed"] span').click();
+			$('a[href="#' + url.split('#/')[1] + '"] span').click();
 		}
 	}
+
 	if ($(location).attr('pathname').indexOf("users") > -1 ) {
 		// fix tooltip position
 		$('span.tooltip_top').each(function() {
@@ -178,3 +178,13 @@ var ready = function() {
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+
+$(window).on 'beforeunload', function() {
+  $.ajax({
+    type: 'POST',
+    async: false,
+    url: '/tab/' + window.location.hash.split('/')[1]
+  });
+
+  console.log('');
+}
