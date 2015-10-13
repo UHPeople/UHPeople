@@ -11,101 +11,98 @@
           <div class="mdl-card__title-row">
             <h2 class="mdl-typography--text-center mdl-color-text--white"><%= @user.name %></h2>
             <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.campus %></p>
-          </div>
-          <div class="mdl-cell-margin-auto">
-            <button id="email" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="new-interest-revealer">
-              <i class="material-icons">email</i>
-            </button>
-            <span for="email" class="mdl-tooltip mdl-tooltip--large tooltip_top" style="max-width: 100% !important;">
-              <%= @user.email %>
-            </span>
-            <button id="same_count" class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="new-interest-revealer">
-              <%= @same_tags.count %>
-            </button>
-            <span for="same_count" class="mdl-tooltip mdl-tooltip--large tooltip_top">
-              You have <%= @same_tags.count %><br>
-              same <%= "interest".pluralize(@same_tags.count) %>!<br><br>
-              <% @same_tags.each do |hashtag| %>
-                <%= "#" + truncate(hashtag.tag, length: 17) %><br>
-              <% end %>
-            </span>
+              <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.email %></p>
           </div>
         </div>
       </div>
     </div>
   </div>
   <div class="parallax__layer overflow-div">
-    <div class="next">
-      <div class="mdl-grid">
-        <% if @user.photos.count > 1 %>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="mdl-cell mdl-cell--10-col">
-            <h2>Photos</h2>
-            <br>
-            <% @user.photos.each do |pic| %>
-              <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), pic, data: {toggle: "modal", target: "#image_" + pic.id.to_s} %>
-              <%= render "img_modal", pic: pic %>
-            <% end %>
-          </div>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-        <% end %>
-        <% if @user.six_most_active_channels.count > 0 %>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="mdl-cell mdl-cell--10-col">
-            <h2>Active in</h2>
-            <% @user.six_most_active_channels.each do |user_hashtag| %>
-              <%= link_to "#" + user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag), class:'mdl-typography--body-1' %>
-            <% end %>
-          </div>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-        <% end %>
-        <% if @user.unactive_channels.count > 0 %>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-          <div class="mdl-cell mdl-cell--10-col">
-              <h2>Other groups</h2>
-              <% @user.unactive_channels.each do |user_hashtag| %>
-                <%= link_to "#" + user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag), class:'mdl-typography--body-1'  %>
-              <% end %>
-          </div>
-          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-        <% end %>
-        <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-        <div class="mdl-cell mdl-cell--10-col">
-          <% unless @user.about.blank? %>
-            <h2>About me</h2>
-            <p><%= simple_format(auto_link(ERB::Util.html_escape(@user.about), html: { target: '_blank' })) %></p>
-          <% end %>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+            mdl-layout--fixed-tabs">
+      <header class="mdl-layout__header mdl-layout__header--transparent mdl-layout--fixed-header">
+        <div class="mdl-layout__header-row">
         </div>
-        <%# render "hashtaglist", user: @user %>
-      </div>
-      <div class="mdl-card__actions mdl-card--border">
-        <% if @user == current_user and action == 'show' %>
-          <%= link_to "Add photo", '#', class: 'lead mdl-button mdl-js-button mdl-js-ripple-effect', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-          <%= link_to "Edit profile", edit_user_path(current_user), method: :get, class: "lead mdl-button mdl-js-button mdl-js-ripple-effect" %>
-          <div id="target" class="hidden">
-            <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
-              <div class="field element-position">
-                <%= label_tag :image_text, "Photo title" %>
-                <%= text_field_tag :image_text %>
+        <!-- Tabs -->
+        <div class="mdl-layout__tab-bar mdl-js-ripple-effect  mdl-color--white">
+          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Channels</a>
+          <a href="#fixed-tab-2" class="mdl-layout__tab">Photos</a>
+          <a href="#fixed-tab-3" class="mdl-layout__tab">About</a>
+        </div>
+      </header>
+      <main class="mdl-layout__content next">
+        <div class="mdl-grid">
+          <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+          <div class="mdl-cell mdl-cell--10-col">
+            <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+              <div class="page-content">
+                <h2>Channels</h2>
+                <% if @user.six_most_active_channels.count > 0 %>
+                  <h4>Most active</h4>
+                  <% @user.six_most_active_channels.each do |user_hashtag| %>
+                    <%= link_to "#" + user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag), class:'mdl-typography--body-1' %>
+                  <% end %><br>
+                <% end %>
+                <% if @user.unactive_channels.count > 0 %>
+                  <h4>Other</h4>
+                  <% @user.unactive_channels.each do |user_hashtag| %>
+                    <%= link_to "#" + user_hashtag.hashtag.tag, hashtag_path(tag: user_hashtag.hashtag.tag), class:'mdl-typography--body-1'  %>
+                  <% end %>
+                <% end %>
               </div>
-              <div class="field element-position">
-                <%= file_field_tag :image %>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+              <div class="page-content">
+                <% if @user.photos.count > 1 %>
+                  <h2>Photos</h2>
+                  <br>
+                  <% @user.photos.each do |pic| %>
+                    <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), pic, data: {toggle: "modal", target: "#image_" + pic.id.to_s} %>
+                    <%= render "img_modal", pic: pic %>
+                  <% end %>
+                  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+                <% end %>
+                <% if @user == current_user and action == 'show' %>
+                  <%= link_to "Add photo", '#', class: 'lead mdl-button mdl-js-button mdl-js-ripple-effect', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
+                  <div id="target" class="hidden">
+                    <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
+                      <div class="field element-position">
+                        <%= label_tag :image_text, "Photo title" %>
+                        <%= text_field_tag :image_text %>
+                      </div>
+                      <div class="field element-position">
+                        <%= file_field_tag :image %>
+                      </div>
+                      <div class="actions element-position">
+                        <%= submit_tag("Add photo", class: "btn btn-default") %>
+                      </div>
+                    <% end %>
+                  </div>
+                <% elsif action == 'new' %>
+                  <div class="field element-position">
+                    <%= label_tag :image_text, "Photo title" %>
+                    <%= text_field_tag :image_text %>
+                  </div>
+                  <div class="field element-position">
+                    <%= file_field_tag :image %>
+                  </div>
+                <% end %>
               </div>
-              <div class="actions element-position">
-                <%= submit_tag("Add photo", class: "btn btn-default") %>
+            </section>
+            <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+              <div class="page-content">
+                <% unless @user.about.blank? %>
+                  <h2>About me</h2>
+                  <p><%= simple_format(auto_link(ERB::Util.html_escape(@user.about), html: { target: '_blank' })) %></p>
+                <% end %>
+                <% if @user == current_user and action == 'show' %>
+                  <%= link_to "Edit profile", edit_user_path(current_user), method: :get, class: "lead mdl-button mdl-js-button mdl-js-ripple-effect" %>
+                <% end %>
               </div>
-            <% end %>
+            </section>
           </div>
-        <% elsif action == 'new' %>
-          <div class="field element-position">
-            <%= label_tag :image_text, "Photo title" %>
-            <%= text_field_tag :image_text %>
-          </div>
-          <div class="field element-position">
-            <%= file_field_tag :image %>
-          </div>
-        <% end %>
-      </div>
+        </div><!--end grid  -->
+      </main>
     </div>
   </div>
 </div>
