@@ -8,7 +8,7 @@
   <div class="infinite-scroll clearfix">
     <% @fav_user_tags.each do |chat| %>
       <div class="box fav fav-card mdl-card mdl-shadow--2dp" id="box-<%= chat.id %>">
-        <div class="mdl-card__title" style="background-color: <%= chat.color %>;">
+        <div class="mdl-card__title hashtag-color--<%= chat.color %>">
           <h2 class="mdl-card__title-text">
             <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
           </h2>
