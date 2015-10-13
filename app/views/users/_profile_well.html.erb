@@ -49,7 +49,7 @@
                   <% end %>
                 <% end %>
               </div>
-              <div class="mdl-cell mdl-cell--3-col">
+              <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
                 <%= render 'same_intrests' %>
               </div>
             </div>
@@ -60,40 +60,7 @@
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
                 <div class="mdl-cell mdl-cell--10-col">
-                  <% if @user.photos.count > 1 %>
-                    <h2 class="mdl-color-text--grey">Photos</h2>
-                    <br>
-                    <% @user.photos.each do |pic| %>
-                      <%= link_to image_tag(pic.image.url(:small), class: "img-rounded"), pic, data: {toggle: "modal", target: "#image_" + pic.id.to_s} %>
-                      <%= render "img_modal", pic: pic %>
-                    <% end %>
-                    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                  <% end %>
-                  <% if @user == current_user and action == 'show' %>
-                    <%= link_to "Add photo", '#', class: 'lead mdl-button mdl-js-button mdl-js-ripple-effect', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');" %>
-                    <div id="target" class="hidden">
-                      <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
-                        <div class="field element-position">
-                          <%= label_tag :image_text, "Photo title" %>
-                          <%= text_field_tag :image_text %>
-                        </div>
-                        <div class="field element-position">
-                          <%= file_field_tag :image %>
-                        </div>
-                        <div class="actions element-position">
-                          <%= submit_tag("Add photo", class: "btn btn-default") %>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% elsif action == 'new' %>
-                    <div class="field element-position">
-                      <%= label_tag :image_text, "Photo title" %>
-                      <%= text_field_tag :image_text %>
-                    </div>
-                    <div class="field element-position">
-                      <%= file_field_tag :image %>
-                    </div>
-                  <% end %>
+                  <%= render 'photo_section', action: action %>
                 </div>
               </div>
             </div>
