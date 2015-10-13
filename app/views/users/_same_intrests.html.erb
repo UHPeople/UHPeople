@@ -1,18 +1,13 @@
-
-
-<a class="btn btn-success btn-margin center-block" role="button" data-toggle="collapse" href="#collapseList" aria-expanded="false" aria-controls="collapseList">
-  You have <%= @same_tags.count %><br>
-  same <%= "interest".pluralize(@same_tags.count) %>!
-</a>
-
-<div class="collapse" id="collapseList">
-  <div class="well text-center">
+<div class="mdl-card collapse-card mdl-shadow--2dp">
+  <div class="mdl-card__title">
+    <p class="mdl-card__title-text">
+      You have <%= @same_tags.count %><br>
+      same <%= "interest".pluralize(@same_tags.count) %>!
+    </p>
+  </div>
+  <div class="mdl-card__supporting-text">
     <% @same_tags.each do |hashtag| %>
-      <tr>
-        <td>
-          <%= link_to "#" + truncate(hashtag.tag, length: 17), hashtag_path(tag: hashtag.tag) %><br>
-        </td>
-      </tr>
+      <%= link_to "#" + truncate(hashtag.tag, length: 17), hashtag_path(tag: hashtag.tag) %>
     <% end %>
   </div>
 </div>
