@@ -127,8 +127,6 @@ $(document).ready ->
   if $('.typeahead-invite').length == 0
     return
 
-  # users.initialize()
-
   $('.typeahead-invite').typeahead {
     highlight: true
   }, {
@@ -147,8 +145,6 @@ $(document).ready ->
 $(document).ready ->
   if $('.typeahead-add').length == 0
     return
-
-  # hashtags.initialize()
 
   $('.typeahead-add').typeahead {
     highlight: true
