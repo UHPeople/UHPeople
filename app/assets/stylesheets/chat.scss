@@ -490,11 +490,27 @@ span.space-left {
     color: #fff;
   }
 }
+
 .mdl-layout__header-row.mdl-hashtag-topic{
   height: 56px;
   overflow: hidden;
+
   .header-topic-container {
     width: 70%; /* fallback if needed */
     width: calc(100% - 100px);
+
+    a {
+      color: $white;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: $fallback;
+      text-decoration: none;
+    }
+
+    .mdl-typography--caption {
+      font-size: 80%;
+    }
   }
 }
