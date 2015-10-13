@@ -167,13 +167,6 @@ var ready = function() {
 			$('a[href="#' + url.split('#/')[1] + '"] span').click();
 		}
 	}
-
-	if ($(location).attr('pathname').indexOf("users") > -1 ) {
-		// fix tooltip position
-		$('span.tooltip_top').each(function() {
-			//this.style.setProperty( 'top', ($('.mdl-cell-margin-auto').position().top - $(this).height()- 45 )+'px', 'important' );
-		});
-	}
 };
 
 $(document).ready(ready);

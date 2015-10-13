@@ -25,6 +25,12 @@ a img.img-circle {
     width: 100%;
     top: 56px;
 
+  @media (max-width: 767px){
+    .mdl-card__title {
+      padding: 0;
+    }
+  }
+
     .user-img-circle {
       margin: 0 auto;
       margin-top: 32px;
@@ -45,10 +51,7 @@ a img.img-circle {
   }
   .next{
     background-color: white;
-    min-height: 90vh;
-    .mdl-card__actions {
-      padding-left: 64px;
-    }
+    min-height: 70vh;
   }
   .parallax__layer {
     position: absolute;
@@ -63,7 +66,11 @@ a img.img-circle {
     transform: translateZ(-1px) scale(2);;
   }
   .overflow-div{
-    margin-top: 70vh;
+    margin-top: 65vh;
     transform: translateZ(-1);
+
+    .mdl-layout__container {
+      height: inherit;
+    }
   }
 }
