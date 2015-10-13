@@ -45,7 +45,7 @@
         <% end %>
       </p>
     </div>
-    <% if @hashtag.topic %>
+    <% if @hashtag && @hashtag.topic %>
       <div class="mdl-layout-spacer"></div>
       <div class=""><%= link_to 'Show topic', '#', class: 'mdl-navigation__link topic__toggle' %></div>
     <% end %>
