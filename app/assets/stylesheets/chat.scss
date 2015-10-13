@@ -383,8 +383,9 @@ span.space-left {
 }
 
 .channel-join-button {
+  @include calc("bottom", "-45vh + 160px");
+
   left: 25%;
-  bottom: -35vh;
   position: absolute;
   z-index: 99999;
 }
