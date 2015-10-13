@@ -380,13 +380,13 @@ span.space-left {
   height: 45vh;
   width: 100%;
   position: absolute;
+}
 
-  .channel-join-button {
-    right: 25%;
-    bottom: -32px;
-    position: absolute;
-    z-index: 99999;
-  }
+.channel-join-button {
+  left: 25%;
+  bottom: -35vh;
+  position: absolute;
+  z-index: 99999;
 }
 
 .grouplist-card {

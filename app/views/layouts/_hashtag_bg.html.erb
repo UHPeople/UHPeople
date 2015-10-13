@@ -14,9 +14,4 @@
       filter: brightness(75%);
     <% end %>
     z-index: -100;">
-  <% unless @user_has_tag %>
-    <%= link_to join_path(tag: @hashtag.tag), method: :post, class: 'channel-join-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' do %>
-      <i class="material-icons">add</i>
-    <% end %>
-  <% end %>
 </div>

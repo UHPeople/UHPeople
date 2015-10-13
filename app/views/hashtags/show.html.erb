@@ -1,10 +1,14 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-  <%  if @user_has_tag %>
-    <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
+  <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
+    <% if @user_has_tag %>
       <%= render 'chat' %>
-    </div>
-  <% end %>
+    <% else %>
+      <%= link_to join_path(tag: @hashtag.tag), method: :post, class: 'channel-join-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' do %>
+        <i class="material-icons">add</i>
+      <% end %>
+    <% end %>
+  </div>
   <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone">
     <%= render 'grouplist' %>
   </div>
