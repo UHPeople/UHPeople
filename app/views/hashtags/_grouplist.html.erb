@@ -9,13 +9,11 @@
       <% end %>
     </ul>
   </div>
-  <div class="mdl-card__actions mdl-card--border" style="height: 48px !important;">
-    <% if @user_has_tag %>
+  <% if @user_has_tag %>
+    <div class="mdl-card__actions mdl-card--border" style="height: 48px !important;">
       <%= link_to 'Leave', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'mdl-button mdl-js-button mdl-js-ripple-effect leave-button' %>
       <%= link_to 'Invite', '#', class: 'mdl-button mdl-js-button mdl-js-ripple-effect invite-modal__open' %>
       <%= link_to 'Edit' , '#', class: 'mdl-button mdl-js-button mdl-js-ripple-effect edit-modal__open' %>
-    <% else %>
-      <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
 </div>

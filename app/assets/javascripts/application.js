@@ -111,14 +111,17 @@ var toggleSearch = function(event) {
 
 	var search = $('.site-search');
 	if (search.parents('.nav-toggleable')[0].style.display !== 'none') {
-		// $('.search-toggle i').text('clear');
+		$('.search-toggle i').text('clear');
 
 		search.focus();
 		search.on('blur', toggleSearch);
 		$('.search-toggle').on('click', toggleSearch);
 	} else {
-		// $('.search-toggle i').text('search');
-		$('.search-toggle').on('click', toggleSearch);
+		$('.search-toggle i').text('search');
+
+		setTimeout(function() {
+			$('.search-toggle').on('click', toggleSearch);
+		}, 500);
 
 		search.off('blur');
 		search.blur();
