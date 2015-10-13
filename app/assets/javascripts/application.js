@@ -179,7 +179,7 @@ var ready = function() {
 $(document).ready(ready);
 $(document).on('page:load', ready);
 
-$(window).on 'beforeunload', function() {
+$(window).on('beforeunload', function() {
   $.ajax({
     type: 'POST',
     async: false,
@@ -187,4 +187,4 @@ $(window).on 'beforeunload', function() {
   });
 
   console.log('');
-}
+});
