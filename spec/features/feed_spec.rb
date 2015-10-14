@@ -68,6 +68,8 @@ RSpec.describe 'Feed page' do
     it 'has unread count when visiting feed', js: true do
       visit "/users/#{user.id}"
       FactoryGirl.create(:message, user: user, hashtag: hashtag)
+      hashtag.update_attribute(:updated_at, Time.now.utc)
+
       visit '/feed'
       expect(page).to have_content '#avantouinti 1'
     end

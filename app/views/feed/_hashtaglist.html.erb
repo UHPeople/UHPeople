@@ -9,15 +9,14 @@
       </button>
     </div>
 
-    <%= form_tag(hashtags_path, method: "post") do %>
+    <%= form_tag(hashtags_path, method: 'post') do %>
       <div class="create" style="display: none;">
         <div class="mdl-textfield mdl-js-textfield">
-          <%= text_field_tag :search, '', placeholder: 'Search',
+          <%= text_field_tag :search, '',
             class: "mdl-textfield__input typeahead-add mdl-grey-placeholder",
             id: 'search', style: 'background-color: inherit !important;',
-            name:"tag", placeholder:"Add a new group" %>
+            name:"tag", placeholder: 'Add a new group' %>
         </div>
-
         <div style="width: 0; height: 0; overflow: hidden;">
           <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
         </div>

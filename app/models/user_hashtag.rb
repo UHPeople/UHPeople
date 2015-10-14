@@ -12,7 +12,7 @@ class UserHashtag < ActiveRecord::Base
 
   def unread_messages
     return hashtag.messages.count if last_visited.nil?
-    return 0 if last_visited < updated_at
+    return 0 if last_visited > updated_at
     hashtag.messages.where('created_at > ?', last_visited).count
   end
 end
