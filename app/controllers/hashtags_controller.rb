@@ -106,9 +106,8 @@ class HashtagsController < ApplicationController
     if user.hashtags.include? @hashtag
       respond_to do |format|
         format.html { redirect_to hashtag_path(@hashtag), alert: 'User already a member!' }
-        format.json { render status: 400 }
+        format.json { redirect_to feed_index_path, status: 400 }
       end
-
       return
     end
 
