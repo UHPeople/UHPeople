@@ -25,7 +25,7 @@ RSpec.describe HashtagsController do
     end
 
     it 'adds and creates multiple hashtags' do
-      post :add_multiple, hashtags: 'asdsasdasd,' + hashtag.tag
+      post :add_multiple, hashtags: "asdsasdasd,#{hashtag.tag}"
       user.reload
 
       expect(user.hashtags.count).to eq 2

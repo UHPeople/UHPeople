@@ -11,7 +11,7 @@
         <%= text_field_tag(:hashtags, current_user.hashtags.map(&:tag).join(",")) %>
       </div>
       <div class="col-sm-2">
-        <%= submit_tag("Update", class:"btn btn-primary")  %>
+        <%= submit_tag("Update", class: 'mdl-button mdl-js-button')  %>
       </div>
     <% end %>
   </div>

@@ -54,20 +54,19 @@ class HashtagsController < ApplicationController
     new_tags = []
     tags = params[:hashtags]
     unless tags.nil?
-      tags.split(',').each do |tag_name|
-        h = Hashtag.find_by tag: tag_name
-        h = create_hashtag(tag_name) if h.nil?
-        new_tags << h
+      tags.split(',').each do |tag|
+        hashtag = Hashtag.find_by tag: tag
+        hashtag = create_hashtag(tag) if hashtag.nil?
+
+        redirect_to(feed_index_path, alert: 'Something went wrong!') &&
+          return if hashtag.nil?
+
+        new_tags << hashtag
       end
     end
 
     current_user.hashtags = (current_user.hashtags | new_tags) & new_tags
-
-    if request.referer && URI(request.referer).path == user_path(current_user.id)
-      redirect_to :back, notice: 'Your favourite things updated!'
-    else
-      redirect_to feed_index_path
-    end
+    redirect_to feed_index_path
   end
 
   def update
@@ -92,9 +91,10 @@ class HashtagsController < ApplicationController
 
   def create
     hashtag = Hashtag.find_by tag: params[:tag]
-    if hashtag.nil?
-      hashtag = create_hashtag params[:tag]
-    end
+    hashtag = create_hashtag params[:tag] if hashtag.nil?
+
+    redirect_to(feed_index_path, alert: 'Something went wrong!') &&
+      return if hashtag.nil?
 
     current_user.hashtags << hashtag
     redirect_to hashtag_path(hashtag.tag)
@@ -128,12 +128,8 @@ class HashtagsController < ApplicationController
   private
 
   def create_hashtag(tag)
-    hashtag = Hashtag.new tag: params[:tag], color: rand(12)
-    unless hashtag.save
-      redirect_to feed_index_path, alert: 'Something went wrong!'
-      return
-    end
-    return hashtag
+    hashtag = Hashtag.create tag: tag, color: rand(12)
+    hashtag.save ? hashtag : nil
   end
 
   def set_hashtag
