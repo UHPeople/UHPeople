@@ -53,16 +53,16 @@ RSpec.describe User do
 
     it 'doesn´t have active channels if should not' do
       visit "/users/#{user.id}"
-      expect(page).not_to have_content 'More active'
-      expect(page).to have_content 'Less active'
+      expect(page).not_to have_content 'Most active'
+      expect(page).to have_content 'Other'
     end
 
     it 'has active channels if has' do
       Message.create content: 'asd', hashtag_id: hashtag.id, user_id: user.id
 
       visit "/users/#{user.id}"
-      expect(page).to have_content 'More active'
-      expect(page).not_to have_content 'Less active'
+      expect(page).to have_content 'Most active'
+      expect(page).not_to have_content 'Other'
     end
 
     it 'has in common button if same hashtag' do

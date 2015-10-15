@@ -13,7 +13,6 @@ RSpec.describe 'Navbar' do
     execute_script '$.post( "/firsttime/false");'
 
     visit feed_index_path
-
     first('#menu-lower-right').click
     click_link 'Start tour'
 

@@ -50,7 +50,7 @@
                 <% end %>
               </div>
               <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone">
-                <%= render 'same_intrests' %>
+                <%= render 'same_intrests' if @user != current_user && @same_tags.count > 0 %>
               </div>
             </div>
           </div>
