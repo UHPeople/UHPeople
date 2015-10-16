@@ -36,7 +36,7 @@
           <div class="interest-list-hashtag">
             <p>
               <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>" >
-                <%= '#'+ truncate(tag.hashtag.tag, length: 23)%>
+                <%= '#' + tag.hashtag.tag %>
                 <% if !tag.unread_messages.nil? && tag.unread_messages > 0 %>
                   <span class="badge badge-success unread"><%= tag.unread_messages.to_s %></span>
                 <% end %>
@@ -44,7 +44,7 @@
             </p>
           </div>
           <% if !tag.hashtag.topic.nil? %>
-            <div class="small-fallback"><%= truncate(tag.hashtag.topic, length: 30)%></div>
+            <div class="small-fallback"><span><%= tag.hashtag.topic %></span></div>
           <% end %>
         </div>
       <% end %>
