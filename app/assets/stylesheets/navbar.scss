@@ -19,9 +19,10 @@
 }
 
 header {
-  div.mdl-menu__container.is-upgraded.is-visible{
+  div.mdl-menu__container.is-upgraded.is-visible {
     right: 16px !important;
   }
+
   .mdl-navbar {
     padding-left: 16px;
   }
@@ -30,6 +31,14 @@ header {
     .material-icons.md-24 {
       line-height: inherit !important;
     }
+  }
+
+  .topic {
+    overflow-wrap: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 50%;
+    display: inline-block;
   }
 
   .logo-font {
