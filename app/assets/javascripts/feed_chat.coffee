@@ -3,10 +3,11 @@
 ws = null
 
 add_unread = (data) ->
-  if !$('td a#' + data.hashtag).children().hasClass('unread')
-      $('td a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
+  console.log data.hashtag
+  if !$('.interest-list-hashtag p a#' + data.hashtag).children().hasClass('unread')
+      $('.interest-list-hashtag p a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
   else
-    $('td a#' + data.hashtag + ' .unread').text (i, t) ->
+    $('.interest-list-hashtag p a#' + data.hashtag + ' .unread').text (i, t) ->
       if t > 0
         Number(t) + 1
       else
@@ -32,7 +33,9 @@ add_feed_message = (data) ->
         '<h5>' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
-          '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+          '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
+            format_timestamp(data.timestamp) +
+          '</span>' +
         '</h5>' +
         '<p>' +
           data.content +
@@ -70,7 +73,9 @@ add_favourites_message = (data) ->
         '<div class="message">' +
           '<h5>' +
             '<a href="/users/' + data.user + '">' + data.username + '</a> ' +
-            '<span class="timestamp">' + format_timestamp(data.timestamp) + '</span>' +
+            '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
+              format_timestamp(data.timestamp) +
+            '</span>' +
           '</h5>' +
           '<p>' +
             data.content +

@@ -13,8 +13,7 @@ RSpec.describe 'Navbar' do
     execute_script '$.post( "/firsttime/false");'
 
     visit feed_index_path
-
-    first('.dropdown-toggle').click
+    first('#menu-lower-right').click
     click_link 'Start tour'
 
     expect(page).to have_content 'Hello and welcome to UHPeople!'

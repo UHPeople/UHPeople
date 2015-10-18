@@ -10,14 +10,24 @@
 .fav {
   border-radius: 0;
   margin-bottom: 0;
-  margin-top: 3vh;
+  margin-top: 16px;
 
   .panel-heading {
     border-radius: 0;
+    border-bottom: 1px solid #e0e0e0;
   }
 
   .panel-title {
-    text-align: center;
+    text-decoration: none;
+    height: 48px;
+    line-height: 48px;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+
+    a {
+      color: $fallback-negative;
+    }
   }
 
   .panel-body {
@@ -43,7 +53,7 @@
 }
 
 .star:hover {
-    color: $star-color;
+  color: $star-color;
 }
 
 // TAB border
@@ -68,6 +78,94 @@ $border-color: #ddd;
 }
 
 .hashtaglist-position {
-  margin-top: -21px;
-  overflow-x: auto;
+  padding-top: 16px;
+}
+
+input.mdl-grey-placeholder{
+  margin-left: 16px;
+  font-size: 75%;
+
+  &:focus, &:valid {
+    &::-webkit-input-placeholder {
+      color: $fallback-negative;
+    }
+  }
+}
+
+.interest-card {
+  width: 100% !important;
+  margin-bottom: 16px;
+  overflow: visible !important;
+
+  .mdl-card__title {
+    .mdl-button {
+      margin-right: 16px;
+      margin-top: -36px;
+    }
+  }
+
+  .interest-list{
+    padding-bottom: 16px;
+    padding-top: 16px;
+    font-weight: 300;
+
+    a {
+      color: $black;
+    }
+
+    a:hover {
+      color: $accent;
+      text-decoration: none;
+    }
+
+    .small-fallback {
+      color: $fallback-negative;
+      font-size: 75%;
+    }
+
+    .interest-list-item {
+      padding-left: 16px;
+      height: 48px;
+      padding-top: 8px;
+
+      .interest-list-star {
+        width: 32px;
+        height: inherit;
+        float: left;
+      }
+
+      .send-hover:hover {
+        text-decoration: none;
+      }
+
+      .interest-list-hashtag {
+        display: inline-block;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+div.fav-card {
+  width: 100%;
+
+  h2.mdl-card__title-text {
+    a {
+      color: $white !important;
+      font-weight: normal;
+    }
+  }
+}
+
+// Override mdl tab colors with unibranding
+
+a.mdl-layout__tab {
+  color: $accent;
+}
+
+a.mdl-layout__tab.is-active {
+  color: $accent-hover !important;
 }

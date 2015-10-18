@@ -1,18 +1,18 @@
-<%= render 'topic' %>
-
-<div class="container" >
-  <% if @user_has_tag %>
-    <div class="col-sm-8" >
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--7-col mdl-cell--12-col-tablet">
+    <% if @user_has_tag %>
       <%= render 'chat' %>
-    </div>
-    <div class="hidden-xs col-sm-4">
-      <%= render 'grouplist' %>
-    </div>
-  <% else %>
-    <div class="col-sm-4 col-sm-offset-8">
-      <%= render 'grouplist' %>
-    </div>
-  <% end %>
+    <% else %>
+      <%= link_to join_path(tag: @hashtag.tag), method: :post, class: 'channel-join-button mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored' do %>
+        <i class="material-icons">add</i>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone">
+    <%= render 'grouplist' %>
+  </div>
 </div>
-
+<%= render 'invite' %>
+<%= render 'edit' %>
 <%= render './onboards/hashtag_onboard' %>

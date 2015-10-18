@@ -4,6 +4,9 @@
 @import 'jquery.atwho';
 @import 'jqcloud';
 
+@import 'uh-styleguide/sass/variables/**/*';
+@import 'uh-styleguide/sass/mixins/_mixins.scss';
+
 @import 'mobile-first';
 @import 'navbar';
 @import 'autocomplete';
@@ -13,26 +16,55 @@
 @import 'search';
 @import 'notification';
 @import 'material-colors';
-@import 'material';
 
-.material-icons.md-15 {
-  font-size: 15px;
-  width: 15px;
-  height: 15px;
-  vertical-align: baseline;
-}
-.material-icons.md-18 {
-  font-size: 18px;
-  width: 18px;
-  height: 18px;
-  vertical-align: baseline;
-}
+@import 'material';
 
 @import 'bootstrap-sprockets';
 @import 'bootstrap-custom';
 
 @import 'material-colors-override';
-@import 'font-gotham';
+
+html, h1, h2, h3, h4, h5, h6 {
+	@include font-family-main;
+}
+
+p {
+  // @include font-family-bodytext;
+}
+
+.hashtag-color--0 { background-color: $lightblue; }
+.hashtag-color--1 { background-color: $darkgreen; }
+.hashtag-color--2 { background-color: $yellow; }
+.hashtag-color--3 { background-color: $lila; }
+.hashtag-color--4 { background-color: $darkred; }
+.hashtag-color--5 { background-color: $red; }
+.hashtag-color--6 { background-color: $orange; }
+.hashtag-color--7 { background-color: $turquoise; }
+.hashtag-color--8 { background-color: $darkturquoise; }
+.hashtag-color--9 { background-color: $lightturquoise; }
+.hashtag-color--10 { background-color: $limegreen; }
+.hashtag-color--11 { background-color: $pink; }
+
+.material-icons.md-15 {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+  vertical-align: top;
+}
+
+.material-icons.md-18 {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  vertical-align: top;
+}
+
+.material-icons.md-24 {
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
+  vertical-align: top;
+}
 
 .invite-button {
   margin-top: -4px;
@@ -47,10 +79,6 @@
   margin-top: 5px;
 }
 
-main > .container {
-  padding-top: 20px;
-}
-
 .alert .timestamp {
   color: $timestamp-color;
   font-size: 70%;
@@ -58,24 +86,19 @@ main > .container {
   float: right;
 }
 
-.hashtag_topicker {
-  font-size: 65%;
-  font-weight: normal;
-  font-style: italic;
-}
-
 // Jumbotron material desing
 
-.jumbotron {
-  background-position: center;
-  // Make the background image cover the area of the <div>, and clip the excess
-  background-size: cover;
-  border-radius: 0 !important;
-  height: 320px;
-  margin-bottom: 0;
+.frontpage-jumbotron {
+  background: image-url('bg.jpg') center / cover;
+  height: 100vh;
+  width: 100%;
+  color: $white;
 
   h1 {
     word-wrap: break-word;
+  }
+  .middle {
+    padding-top: 150px;
   }
 }
 
@@ -83,28 +106,12 @@ main > .container {
   word-wrap: break-word;
 }
 
-// Frontpage setup
-
-.head {
-  background-image: image-url('bg.jpg');
-  background-position: center;
-  height: 100vh;
-
-  .middle {
-    padding-top: 150px;
-
-    h1, p, a {
-      text-shadow:  1px 1px 11px rgba(0, 0, 0, .81);
-    }
-  }
-}
-
 // other
 
 .flow-alert {
   background-color: $success;
   margin-bottom: 0;
-  position:absolute;
+  position: absolute;
   top: 75px;
   z-index: 2000;
   margin: 0 auto;
@@ -153,8 +160,11 @@ main > .container {
   font-style: italic;
 }
 
-.hover-shadow:hover {
-  box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
-  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
-  -moz-box-shadow: rgba(0, 0, 0, 0.3) 0 4px 4px 0;
+textarea:focus,
+input[type="text"]:focus {
+  outline: none !important;
+}
+
+.mdl-button {
+  text-decoration: none !important;
 }

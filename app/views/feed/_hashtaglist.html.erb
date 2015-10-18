@@ -1,47 +1,60 @@
-<% backurl = '#favourites' %>
+<% unless @user_tags.empty? %>
+  <div class="interest-card mdl-card mdl-shadow--2dp mdl-color--white">
+    <div class="mdl-card__title">
+      <h2 class="mdl-card__title-text" id="feed-onboard-interest">
+        Channels
+      </h2>
+      <button class="mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" id="new-interest-revealer">
+        <i class="material-icons">add</i>
+      </button>
+    </div>
 
-<div class="col-md-3 col-lg-2 hashtaglist-position">
-  <% unless @user_tags.empty? %>
-    <h3 id="feed-onboard-interest">
-      Interests
-      <a href="#" class="glyphicon glyphicon-plus" id="new-interest-revealer" style="font-size: 75%; text-decoration: none;"></a>
-    </h3>
-
-    <%= form_tag(hashtags_path, method: "post") do %>
-      <div class="create form-group" style="display: none; padding-bottom: 12px;">
-        <input class="form-control typeahead-add" type="text" name="tag" placeholder="Add new interest"/>
-
+    <%= form_tag(hashtags_path, method: 'post') do %>
+      <div class="create" style="display: none;">
+        <div class="mdl-textfield mdl-js-textfield">
+          <%= text_field_tag :search, '',
+            class: "mdl-textfield__input typeahead-add mdl-grey-placeholder",
+            id: 'search', style: 'background-color: inherit !important;',
+            name:"tag", placeholder: 'Add a new group' %>
+        </div>
         <div style="width: 0; height: 0; overflow: hidden;">
           <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
         </div>
       </div>
     <% end %>
 
-    <table class="table table-hover table-condensed">
+    <div class="interest-list">
       <% @user_tags.each do |tag| %>
-          <tr>
-            <td>
-              <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>"  >
-                <%= '#'+ truncate(tag.hashtag.tag, length: 14)%>
+        <div class="interest-list-item">
+          <div class="interest-list-star">
+            <%= link_to({controller: "user_hashtags", action: "update", id: tag.id}, method: :put, class: "send-hover like-this") do %>
+              <i class="material-icons md-18 like-icon like-icon-color <%= 'like-icon-liked' if tag.favourite? %>">
+                <%= tag.favourite? ? 'star' : 'star_border' %>
+              </i>
+            <% end %>
+          </div>
+          <div class="interest-list-hashtag">
+            <p>
+              <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>" >
+                <%= '#'+ truncate(tag.hashtag.tag, length: 23)%>
                 <% if !tag.unread_messages.nil? && tag.unread_messages > 0 %>
                   <span class="badge badge-success unread"><%= tag.unread_messages.to_s %></span>
                 <% end %>
               </a>
-              <%= link_to({controller: "user_hashtags", action: "update", id: tag.id, backurl: backurl}, method: :put, class: "send-hover like-this") do %>
-                <i class="material-icons md-18 like-icon like-icon-color <%= 'like-icon-liked' if tag.favourite? %>">
-                  <%= tag.favourite? ? 'star' : 'star_border' %>
-                </i>
-              <% end %>
-            </td>
-          </tr>
+            </p>
+          </div>
+          <% if !tag.hashtag.topic.nil? %>
+            <div class="small-fallback"><%= truncate(tag.hashtag.topic, length: 30)%></div>
+          <% end %>
+        </div>
       <% end %>
-    </table>
-  <% end %>
+    </div>
+  </div>
+<% end %>
 
-  <div id="feed-onboard-hot">
+<div id="feed-onboard-hot">
   <div id="tag_cloud" style="width: 100% !important; height: 350px;"></div>
   <script type="text/javascript">
     var word_array = <%= raw @word_array.to_json %>
   </script>
-  </div>
 </div>

@@ -1,5 +1,4 @@
-$black: rgba(0, 0, 0, 1);
-$white: rgba(255, 255, 255, 1);
+@import 'uh-styleguide/sass/variables/_colors.scss';
 
 $fallback: rgba(255, 255, 255, .55);
 $fallback-negative: rgba(0, 0, 0, .50);
@@ -16,21 +15,13 @@ $color-700: #0097A7;
 $color-800: #00838F;
 $color-900: #006064;
 
-$primary: $color-600;
+$primary: $black;
 $primary-link: $white;
-//$accent: #FFC107;
-$accent: #E91E63;
-$accent-hover: #C2185B;
-$jumbotron-color: $color-500;
+$accent: $blue;
+$accent-hover: $blue--active;
 
 $success: #CCFF90; // Light green 100
 $star-color: $accent;
 $avatar-border-color: #d9d9d9;
 $timestamp-color: $fallback-negative;
-$body: rgba(0, 167, 248, .02);
-
-// notification types
-$type1: #EF9A9A; // red 200
-$type2: #CE93D8; // purple 200
-$type3: #FFF59D; // yellow 200
-$type4: #FFCC80; // orange 200
+$body: rgba(0, 0, 0, .02);

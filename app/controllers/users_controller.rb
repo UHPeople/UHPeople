@@ -135,7 +135,7 @@ class UsersController < ApplicationController
   end
 
   def tab_to_int(tab)
-    (tab == 'Feed') ? 1 : 0
+    (tab == 'feed') ? 1 : 0
   end
 
   def random_string
