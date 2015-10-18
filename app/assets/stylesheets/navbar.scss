@@ -1,10 +1,5 @@
-
-
 //  Navbar Styles
-
-
 .navbar {
-
   margin-bottom: 0 !important;
   border-radius: 0 !important;
 
@@ -17,20 +12,43 @@
     box-shadow: none;
   }
 
-  .navbar-brand {
-    color: #FFFFFF;
-
-    img{
-      margin-top: -7px;
-    }
-  }
   .badge {
     margin-top: -25px;
     margin-left: -5px;
   }
+}
 
-  li > .notif-link{
-    padding-left: 0px;
-    padding-right: 0px;
+header {
+  div.mdl-menu__container.is-upgraded.is-visible{
+    right: 16px !important;
+  }
+  .mdl-navbar {
+    padding-left: 16px;
+  }
+
+  .mdl-navigation__link {
+
+    .material-icons.md-24{
+      line-height: 64px !important;
+    }
+  }
+
+  .logo-font {
+    font-size: 18px;
+  }
+
+  a:hover{
+    text-decoration: none;
+    color: $accent;
+  }
+
+  a.notif-link{
+    .material-icons{
+      line-height: 64px !important;
+      font-size: 22px;
+    }
+  }
+  .navbar-user-menu{
+    z-index: 1000;
   }
 }

@@ -11,21 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825082033) do
+ActiveRecord::Schema.define(version: 20151013065812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "hashtags", force: :cascade do |t|
     t.string   "tag"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "topic"
     t.integer  "topic_updater_id"
     t.string   "cover_photo_file_name"
     t.string   "cover_photo_content_type"
     t.integer  "cover_photo_file_size"
     t.datetime "cover_photo_updated_at"
+    t.integer  "color",                    default: 0, null: false
   end
 
   create_table "likes", force: :cascade do |t|

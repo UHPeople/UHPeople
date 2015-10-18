@@ -3,9 +3,6 @@ normalize = (str) ->
     return str.substring(1)
   str
 
-queryTokenizer = (q) ->
-  Bloodhound.tokenizers.whitespace normalize(q)
-
 users = new Bloodhound(
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name')
   queryTokenizer: Bloodhound.tokenizers.whitespace
@@ -15,9 +12,21 @@ users = new Bloodhound(
 
 hashtags = new Bloodhound(
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag')
-  queryTokenizer: queryTokenizer
+  queryTokenizer: (query) ->
+    Bloodhound.tokenizers.whitespace normalize(query)
   prefetch:
     url: '/hashtags/'
+    ttl: 1)
+
+users_mentions = new Bloodhound(
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name')
+  queryTokenizer: (query) ->
+    matches = query.toLowerCase().match(/@\w+/g)
+    matches = if (matches == null) then [] else matches
+    matches = (m.substr(1) for m in matches)
+    return matches
+  prefetch:
+    url: '/users/'
     ttl: 1)
 
 addNotice = (name, avatar) ->
@@ -31,7 +40,7 @@ addNotice = (name, avatar) ->
         '<a href="#"><img class="img-circle" src="' + avatar + '"></img></a>' +
       '</div>' +
     '</div>'
-  
+
   $('.invite-notice').slideDown 'slow'
 
   $('.invite-notice button').on 'click', ->
@@ -73,7 +82,7 @@ send = (name) ->
   $('form#invite-form').submit()
 
 $(document).ready ->
-  users.clearPrefetchCache()
+  # users.clearPrefetchCache()
 
   users.initialize()
   hashtags.initialize()
@@ -118,8 +127,6 @@ $(document).ready ->
   if $('.typeahead-invite').length == 0
     return
 
-  users.initialize()
-
   $('.typeahead-invite').typeahead {
     highlight: true
   }, {
@@ -139,8 +146,6 @@ $(document).ready ->
   if $('.typeahead-add').length == 0
     return
 
-  hashtags.initialize()
-
   $('.typeahead-add').typeahead {
     highlight: true
   }, {
@@ -152,3 +157,17 @@ $(document).ready ->
         '<div><span>#{{tag}}</span></div>' +
       '</a>')
   }
+
+$(document).ready ->
+  users_mentions.initialize()
+
+  $('.typeahead-mention').typeahead({
+    highlight: true
+  }, {
+    name: 'users'
+    displayKey: 'name'
+    source: users_mentions.ttAdapter()
+  }).on('typeahead:selected', (obj, datum) ->
+    console.log $('.typeahead-mention').text()
+    console.log $('.typeahead-mention').val()
+  )

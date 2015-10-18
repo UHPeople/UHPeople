@@ -102,13 +102,14 @@
 .interest-chatbox {
   @include chat;
 
-  height: 500px;
-  overflow: auto;
+  overflow-y: scroll;
   overflow-x: hidden;
+  height: 100%;
 
   .message {
     padding-top: 16px;
     padding-left: 56px;
+    padding-right: 16px;
 
     h5 {
       margin-top: 0;
@@ -154,13 +155,17 @@
 
 // chat input moved inside chat panel
 .panel-chat {
-  .panel-footer{
+  //height: 100%;
+
+  .panel-footer {
     background-color: #fff !important;
     padding: 0;
-    }
-  .panel-heading{
+  }
+
+  .panel-heading {
     height: 45px;
   }
+
   .center_spinner {
     width: 90px;
     height: 50%;
@@ -192,21 +197,24 @@
   border-style: none;
 }
 
-.btn-borderless{
+.btn-borderless {
   border-top: 0 !important;
   border-right: 0 !important;
   border-bottom: 0 !important;
+  border-left: 0 !important;
   border-radius: 0 !important;
-  height: 50px;
+  // height: 50px;
   padding-left: 18px !important;
   padding-right: 18px !important;
-}
-.input-group-btn > .btn-borderless:hover{
   background-color: $white;
 }
 
-.input-group-btn > .btn-borderless{
-  .send-hover:hover{
+.btn-borderless:hover {
+  background-color: $white;
+}
+
+.btn-borderless {
+  .send-hover:hover {
     color: $black;
   }
 }
@@ -216,21 +224,16 @@
   width: 100%;
 }
 
-.input-group-btn:last-child > .btn{
+.input-group-btn:last-child > .btn {
   margin-left: 0px !important;
   border-left: 0 !important;
 }
 
 .panel-chat {
   margin-bottom: 20px;
-  margin-top: -160px;
 }
 
 // Interest page members list
-.grouplist-position {
-  margin-top: -160px;
-}
-
 .chat-button {
   margin-bottom: 10px;
 }
@@ -318,4 +321,196 @@ span.space-left {
 
 .like-icon-liked {
   color: $accent !important
+}
+
+.mdl-hashtag-topic {
+  display:inline;
+  position: relative;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-weight: 300;
+  box-sizing: border-box;
+  line-height: 22px;
+  padding-left: 10px;
+  overflow-x: auto;
+
+  span {
+    display: inline-block;
+  }
+
+  span.material-icons.title-separator {
+    font-size: 18px;
+    line-height: 22px !important;
+  }
+
+  .hashtag_topicker {
+    font-size: 50%;
+    font-weight: normal;
+    font-style: italic;
+    color: $fallback;
+  }
+}
+
+.neg-margin {
+  margin-top: -40vh !important;
+  height: 70vh;
+  overflow: auto;
+}
+
+@mixin calc($key, $value) {
+  #{$key}: -webkit-calc(#{$value});
+  #{$key}: -moz-calc(#{$value});
+  #{$key}: calc(#{$value});
+}
+
+.asd {
+  @include calc("height", "70vh - 61px - 52px");
+}
+
+.chatbox-outer {
+  @include calc("height", "70vh - 52px");
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.hashtag_bg {
+  height: 45vh;
+  width: 100%;
+  position: absolute;
+}
+
+.channel-join-button {
+  @include calc("bottom", "-45vh + 160px");
+
+  left: 25%;
+  position: absolute;
+  z-index: 99999;
+}
+
+.grouplist-card {
+  width: 100% !important;
+
+  .mdl-card__title {
+    .mdl-button {
+      margin-right: 16px;
+      margin-bottom: -36px;
+    }
+  }
+}
+
+.chat-main-card {
+  max-width: 978px;
+
+}
+.grouplist-drawer {
+  display:none;
+  float: right;
+  width: 260px;
+  height: calc(100% - 128px);
+  top: 128px;
+  right: 0;
+  position: absolute;
+  z-index: 9999999;
+
+  .grouplist-drawer-card {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+
+    .mdl-card__title {
+
+      .mdl-button {
+        right: 8px;
+        margin-bottom: 8px;
+        position: absolute;
+      }
+    }
+  }
+}
+
+.chat-form {
+  padding: 0 0 0 16px !important;
+  height: 52px !important;
+
+  .chat-form-input {
+    @include calc("width", "100% - 48px");
+    padding-top: 8px !important;
+
+    label {
+      margin-top: -10px;
+    }
+  }
+
+  .chat-form-send {
+    float: right;
+    display: inline-block;
+    padding: 12px;
+    width: 48px !important;
+    height: 48px !important;
+
+    .btn-borderless {
+      height: 24px !important;
+      width: 24px !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+
+.bottom-sheet-overlay {
+  display: none;
+  position: absolute;
+  left: 50vw;
+  width: 70vw;
+  margin-left: -35vw;
+  z-index: 9;
+  bottom: 10%;
+
+  .bottom-sheet-card.mdl-card {
+    height: 65vh;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 500px;
+    z-index: 9;
+  }
+
+  .bottom-sheet-card > .mdl-card__supporting-text {
+    height: 100%;
+  }
+
+  .bottom-sheet-card > .mdl-card__title {
+    color: #fff;
+    height: 176px;
+    background-color: #607D8B;
+  }
+  .bottom-sheet-card > .mdl-card__menu {
+    color: #fff;
+  }
+}
+
+.mdl-layout__header-row.mdl-hashtag-topic{
+  height: 56px;
+  overflow: hidden;
+
+  .header-topic-container {
+    width: 70%; /* fallback if needed */
+    width: calc(100% - 100px);
+
+    a {
+      color: $white;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: $fallback;
+      text-decoration: none;
+    }
+
+    .mdl-typography--caption {
+      font-size: 80%;
+    }
+  }
 }

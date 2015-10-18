@@ -10,13 +10,13 @@ class UserHashtagsController < ApplicationController
       if UserHashtag.where(user_id: current_user.id, favourite: true).count < APP_CONFIG['max_faves']
         user_hashtag.update(favourite: true)
       else
-        redirect_to feed_index_path(tab: 'favourites'),
+        redirect_to feed_index_path + '#favourites',
                     alert: "You already have #{APP_CONFIG['max_faves']} favourites, remove some to add a new one!"
         return
       end
     end
 
-    redirect_to request.referer + params[:backurl]
+    redirect_to feed_index_path + '#favourites'
   end
 
   def update_last_visit

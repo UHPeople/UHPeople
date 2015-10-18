@@ -1,27 +1,53 @@
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <div class="navbar-brand" id="feed-onboard-header">
-        <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
-      </div>
-        <%= link_to 'UHPeople', root_path, class: 'hidden-xs hidden-sm visible-lg-block navbar-brand' %>
+<div class="mdl-layout__header-row">
+  <div id="feed-onboard-header">
+    <%= link_to image_tag('helsinki53x50.png', height: '32', width: '32'), root_path %>
+  </div>
+  <div class="mdl-layout--large-screen-only">
+    <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
+  </div>
+  <% if controller_name == "hashtags" && action_name == "show" %>
+    <div class="mdl-layout-spacer nav-toggleable"></div>
+    <div class="nav-toggleable">
+      <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <% unless current_user.nil? %>
-      <%= form_tag search_index_path, method: 'get', class: 'col-md-5 col-sm-5 col-xs-9 navbar-f', role: 'search' do %>
-        <div class="form-group" style="display:inline; width: 100%;" id="feed-onboard-search" data-toggle="tooltip" data-placement="bottom" title="Start typing names of users or tags here to search. If your tag does not exist, you'll be offered to add a new one.">
-          <%= text_field_tag :search, '', placeholder: "Search", class: "form-control typeahead" %>
-
-          <div style="width: 0; height: 0; overflow: hidden;">
-            <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
-          </div>
-        </div>
-      <% end %>
-      <ul class="nav navbar-nav navbar-right">
-        <%= render 'layouts/navigation_links' %>
-      </ul>
+  <% end %>
+  <div class="mdl-layout-spacer mdl-navbar nav-toggleable" style="display: none;">
+    <%= form_tag search_index_path, method: 'get', role: 'search' do %>
+      <%= text_field_tag :search, '', placeholder: 'Search', class: 'typeahead site-search', id: 'search', style: 'background-color: inherit !important;' %>
+      <div style="width: 0; height: 0; overflow: hidden;">
+        <%= submit_tag "Search", name: nil %>
+      </div>
     <% end %>
-  </div><!-- /.container-fluid -->
-</nav>
+  </div>
+  <div class="mdl-layout-spacer nav-toggleable"></div>
+  <nav class="mdl-navigation">
+    <%= render 'layouts/navigation_links' %>
+  </nav>
+</div>
+<!-- ROW 2 -->
+<% if current_page?(feed_index_path) %>
+  <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white">
+    <a href="#favourites" class="mdl-layout__tab is-active" id="feed-onboard-favourites" target="1">Favourites</a>
+    <a href="#feed" class="mdl-layout__tab" id="feed-onboard-feed" target="2">Feed</a>
+    <a href="#limputtaja" class="mdl-layout__tab" target="3">Limputuskisa</a>
+  </div>
+<% end %>
+<% if controller_name == "hashtags" && action_name == "show"  %>
+  <div class="mdl-layout__header-row mdl-hashtag-topic">
+    <div class="header-topic-container mdl-cell--top">
+      <p class="mdl-typography--body-1">
+        <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
+        <% if @topicker %>
+          <span class="mdl-typography--caption">
+            Updated by <b><%= @topicker.name if @topicker %></b>
+            <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
+          </span>
+        <% end %>
+      </p>
+    </div>
+    <% if @hashtag && @hashtag.topic %>
+      <div class="mdl-layout-spacer"></div>
+      <div class=""><%= link_to 'Show topic', '#', class: 'mdl-navigation__link topic__toggle' %></div>
+    <% end %>
+  </div>
+<% end %>

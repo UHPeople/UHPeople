@@ -5,15 +5,13 @@
     </p>
   </div>
 <% else %>
-  <div class="infinite-scroll clearfix col-xs-12">
+  <div class="infinite-scroll clearfix">
     <% @fav_user_tags.each do |chat| %>
-      <div class="box col-xs-12">
-        <div class="fav mdl-shadow--2dp" id="box-<%= chat.id %>">
-          <div class="panel-heading">
-            <h2 class="panel-title">
-              <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
-            </h2>
-          </div>
+      <div class="box fav fav-card mdl-card mdl-shadow--2dp" id="box-<%= chat.id %>">
+        <div class="mdl-card__title hashtag-color--<%= chat.color %>">
+          <h2 class="mdl-card__title-text">
+            <%= link_to '#' + chat.tag, hashtag_path(chat.tag) %>
+          </h2>
         </div>
       </div>
     <% end %>

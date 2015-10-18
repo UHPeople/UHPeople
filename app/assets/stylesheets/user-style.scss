@@ -1,11 +1,9 @@
 // User styles
 
 // User image crop
-
 .profileCrop {
   height: 300px;
   background-position: center;
-  /* Make the background image cover the area of the <div>, and clip the excess */
   background-size: cover;
 }
 
@@ -15,23 +13,67 @@ a img.img-circle {
   height: 45px;
 }
 
-.element-position {
-	margin-top: 10px;
-}
+.parallax {
+  perspective: 1px;
+  height: 100vh;
+  perspective-origin-x: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 
-.user-position {
-	margin-top: 0px;
-}
+  .mdl-user-card {
+    height: 100vh;
+    width: 100%;
+    top: 56px;
 
-.favorite-position {
-	margin-top: 0px;
-}
+  @media (max-width: 767px){
+    .mdl-card__title {
+      padding: 0;
+    }
+  }
 
-.edit-position {
-	margin-left: 15px;
-}
-.btn-margin {
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
+    .user-img-circle {
+      margin: 0 auto;
+      margin-top: 32px;
+      width: 200px;
+      height: 200px;
+      border-radius: 5%;
+    	-webkit-border-radius: 5%;
+    	-moz-border-radius: 5%;
+    }
 
+    .mdl-card__title-row {
+      width: 100%;
+      display: block;
+    }
+    .mdl-cell-margin-auto {
+      margin: 0 auto;
+    }
+  }
+  .next{
+    background-color: white;
+    min-height: 70vh;
+  }
+  .parallax__layer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform-origin-x: 100%;
+  }
+
+  .background-div {
+    transform: translateZ(-1px) scale(2);;
+  }
+  .overflow-div{
+    margin-top: 65vh;
+    transform: translateZ(-1);
+
+    .mdl-layout__container {
+      height: inherit;
+    }
+    .collapse-card {
+      width: 100%;
+    }
+  }
+}

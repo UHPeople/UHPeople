@@ -39,7 +39,7 @@ RSpec.describe 'Notifications page' do
     it 'takes to message', js: true do
       visit "/login/#{user.id}"
       visit hashtag_path(hashtag.tag)
-      click_link 'Join'
+      click_link 'add'
 
       message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
 

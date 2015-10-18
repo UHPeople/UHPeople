@@ -62,7 +62,7 @@ on_dislike = (data, prefix = '') ->
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
     timestamp = moment.utc(timestamp)
-  timestamp.local().format('MMM D, H:mm')
+  timestamp.local().fromNow() #.format('MMM D, H:mm')
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
   for message in data.messages
@@ -80,7 +80,8 @@ add_multiple_messages = (data, add_message, drawMarker = true) ->
 add_click_handler_to_likes = (element, socket) ->
   user = $('#user-id')[0].value
 
-  $(element).click (event) ->
+  $(element).off 'click'
+  $(element).on 'click', (event) ->
     event.preventDefault()
 
     id = $(this)[0].id.split('-')

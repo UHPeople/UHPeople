@@ -2,31 +2,20 @@
   var tab = <%= @tab %>
 </script>
 
-<div class="container">
-  <div role="tabpanel" class="col-md-9 col-lg-10">
-    <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active">
-        <a href="#favourites" aria-controls="favourites" role="tab" data-toggle="tab" id="feed-onboard-favourites">Favourites</a>
-      </li>
-      <li role="presentation">
-        <a href="#feed" aria-controls="feed" role="tab" data-toggle="tab" id="feed-onboard-feed">Feed</a>
-      </li>
-      <li role="presentation">
-        <a href="#limputtaja" aria-controls="limputtaja" role="tab" data-toggle="tab">Limputuskisa</a>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane fade in active" id="favourites">
-        <%= render 'favourites' %>
-      </div>
-      <div role="tabpanel" class="tab-pane fade" id="feed">
-        <%= render 'feed' %>
-      </div>
-      <div role="tabpanel" class="tab-pane fade white-bg" id="limputtaja">
-        <%= render 'limputtaja' %>
-      </div>
-    </div>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+    <section class="mdl-layout__tab-panel is-active" id="favourites">
+      <div class="page-content"><%= render 'favourites' %></div>
+    </section>
+    <section class="mdl-layout__tab-panel fav mdl-shadow--2dp mdl-color--white" id="feed">
+      <div class="page-content"><%= render 'feed' %></div>
+    </section>
+    <section class="mdl-layout__tab-panel fav mdl-shadow--2dp mdl-color--white" id="limputtaja">
+      <div class="page-content"><%= render 'limputtaja' %></div>
+    </section>
   </div>
-  <%= render 'hashtaglist' %>
+  <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet hashtaglist-position">
+    <%= render 'hashtaglist' %>
+  </div>
 </div>

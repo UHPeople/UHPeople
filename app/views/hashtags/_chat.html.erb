@@ -1,38 +1,31 @@
-<div class="panel panel-default panel-chat">
+<div class="mdl-card mdl-shadow--4dp" style="width: 100% !important; height: 70vh !important;">
   <div class="visible-xs toolbar pull-right">
     <%= render 'channel_buttons' %>
   </div>
-
-  <%= javascript_tag do %>
-      var userdata = <%= raw @hashtag.users.to_json(only: [:name, :username]) %>;
-      var hashtagdata = <%= raw Hashtag.all.map(&:tag).to_json %>;
-  <% end %>
-
-  <div class="chatbox interest-chatbox">
-    <div class="loader mdl-button mdl-js-button mdl-js-ripple-effect" id="loader" style="display: none;">
-      Load more
+  <div class="mdl-card__supporting-text chatbox-outer">
+    <div class="chatbox interest-chatbox">
+      <div class="loader mdl-button mdl-js-button mdl-js-ripple-effect" id="loader" style="display: none;">
+        Load more
+      </div>
+    </div>
+    <div class="center_spinner">
+      <div class="mdl-spinner mdl-js-spinner is-active"></div>
     </div>
   </div>
-
-  <div class="center_spinner">
-    <div class="mdl-spinner mdl-js-spinner is-active"></div>
-  </div>
-
-  <form>
-    <div class="panel-footer input-group input-chat">
-      <input autocomplete="off" class="form-control mentions" id="input-text" placeholder="Write a message..." type="text"/>
-
+  <div class="mdl-card__actions mdl-card--border chat-form">
+    <form action="#">
+      <div class="mdl-textfield mdl-js-textfield chat-form-input">
+        <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
+        <label class="mdl-textfield__label" for="input-text">Write a message...</label>
+      </div>
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
-
-      <span class="input-group-btn">
-        <%= button_tag(type:'submit', class: 'btn btn-default btn-borderless', id: 'chat-send') do %>
-          <i class="material-icons md-30 icon-color send-hover">send</i>
+      <div class="chat-form-send">
+        <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>
+          <i class="material-icons md-24 icon-color send-hover">send</i>
         <% end %>
-      </span>
-    </div>
-  </form>
+      </div>
+    </form>
+  </div>
 </div>
-<%= render 'invite' %>
-<%= render 'edit' %>

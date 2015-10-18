@@ -25,7 +25,7 @@ module UHPeople
     config.active_record.raise_in_transactional_callbacks = true
 
     config.middleware.use UHPeople::ChatBackend
-
+    config.autoload_paths += %W(#{config.root}/lib) #test 
     config.exceptions_app = self.routes
 
     # Configure these for smtp

@@ -1,0 +1,3 @@
+[submodule "app/assets/stylesheets/uh-styleguide"]
+	path = app/assets/stylesheets/uh-styleguide
+	url = https://github.com/UH-StudentServices/Styleguide.git
