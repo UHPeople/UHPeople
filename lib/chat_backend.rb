@@ -100,7 +100,7 @@ module UHPeople
       elsif data['event'] == 'dislike'
         dislike_event(user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
-        message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
+        message_event(user, hashtag, socket, data['content'], data['photo_ids']) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'online'
         online_event(user, hashtag, socket) unless user.nil? or hashtag.nil?
         messages_event(user, hashtag, nil, socket) unless user.nil? or hashtag.nil?

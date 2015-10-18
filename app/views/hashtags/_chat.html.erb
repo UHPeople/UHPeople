@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class="mdl-card__actions mdl-card--border chat-form">
-    <form action="#">
+    <form action="#" enctype="multipart/form-data">
       <div class="mdl-textfield mdl-js-textfield chat-form-input">
         <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
         <label class="mdl-textfield__label" for="input-text">Write a message...</label>
@@ -21,6 +21,14 @@
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
+
+      <!--
+      Tähän väliin photo upload -boksi, jossa voi uploadaa lisää kuvia omaan kansioonsa ja lisätä
+      kansiossa jo olevia kuvia viestin liitteeksi.
+      Lisää siis message_photo-olioita, kun viesti luodaan (photo.id:t napattava)
+      -->
+      <input id="photo_ids" type="hidden" value="" />
+      
       <div class="chat-form-send">
         <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>
           <i class="material-icons md-24 icon-color send-hover">send</i>

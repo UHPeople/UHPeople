@@ -46,13 +46,17 @@ module EventHandlers
     socket.send(JSON.generate(json))
   end
 
-  def message_event(user, hashtag, socket, content)
-    message = create_message content, user.id, hashtag.id #MessagesController.
+  def message_event(user, hashtag, socket, content, photo_ids)
+    message = create_message content, user.id, hashtag.id, photo_ids #MessagesController.
 
     unless message.valid?
       send_error socket, 'Invalid message'
       return
     end
+
+    # parse photo_ids in separate
+    # for each id in photo_ids
+    # Message_photo.create message_id: message.id, photo_id: id
 
     find_mentions(message)
 

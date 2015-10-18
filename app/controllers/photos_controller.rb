@@ -22,10 +22,9 @@ class PhotosController < ApplicationController
     photo = Photo.new(photo_params)
 
     if photo.save
-      current_user.update_attribute(:profilePicture, photo.id) if current_user.photos.count == 1
-      redirect_to current_user, notice: 'Photo was successfully added.'
+      # redirect_to current_user, notice: 'Photo was successfully added.'
     else
-      redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'
+      # redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'
     end
   end
 
