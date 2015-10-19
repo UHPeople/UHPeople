@@ -57,6 +57,13 @@ $(document).ready(function() {
 			$('.image-overlay').fadeIn();
 			getAndShowImage($(this).attr('id'));
 		});
+		$('#but').click(function(event){
+			event.preventDefault();
+			$('#image').click();
+		});
+		$('#image').change(function() {
+		  $('#add-photo').submit();
+		});
 	}
 });
 
