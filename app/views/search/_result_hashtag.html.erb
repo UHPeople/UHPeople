@@ -8,19 +8,17 @@
     <span class="result-supporting-primary">
       <%= pluralize(hashtag.users.count, 'member') %>
     </span>
-
     <% unless hashtag.topic.nil? or hashtag.topic.empty? %>
       <span class="result-text-divider"> - </span>
       <span class="result-supporting-primary">
         <%= truncate(hashtag.topic, length: 60, separator: ' ') %>
       </span>
     <% end %>
-
     <% unless hashtag.empty? %>
       <span class="result-text-divider"> - </span>
       <span class="result-supporting-secondary">
         Latest message
-        <span class="timestamp"><%= hashtag.latest_message.timestamp %></span>
+        <span class="timestamp" data-timestamp="<%= hashtag.latest_message.timestamp %>"></span>
       </span>
     <% end %>
   </div>

@@ -20,7 +20,7 @@ class Hashtag < ActiveRecord::Base
   validates_attachment_size :cover_photo, in: 0..10.megabytes
 
   def latest_message
-    messages.order('created_at desc').first
+    messages.order('created_at desc').limit(1).first
   end
 
   delegate :empty?, to: :messages
