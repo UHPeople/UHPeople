@@ -104,7 +104,7 @@ input.mdl-grey-placeholder{
     }
   }
 
-  .interest-list{
+  .interest-list {
     padding-bottom: 16px;
     padding-top: 16px;
     font-weight: 300;
@@ -121,6 +121,12 @@ input.mdl-grey-placeholder{
     .small-fallback {
       color: $fallback-negative;
       font-size: 75%;
+
+      overflow-wrap: normal;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 80%;
+      height: 17px;
     }
 
     .interest-list-item {
@@ -140,8 +146,18 @@ input.mdl-grey-placeholder{
 
       .interest-list-hashtag {
         display: inline-block;
+        max-width: 80%;
+        height: 24px;
 
         p {
+          display: inline-block;
+          overflow-wrap: normal;
+          text-overflow: ellipsis;
+          overflow: hidden;
+
+          height: 100%;
+          width: 100%;
+
           margin: 0;
         }
       }
