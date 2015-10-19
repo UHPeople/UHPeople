@@ -1,36 +1,38 @@
-<div class="overlay-center-inner">
-  <div class="mdl-card overlay-card mdl-shadow--8dp">
-    <%= image_tag @photo.image.url(:original), width:"640px" %>
-    <div class="mdl-card__actions">
-
-      <% if current_user == @photo.user %>
-        <span class="image_filename">
-          <%= form_tag({controller: "photos", action: "update"}, method: "patch", class: "form-inline", action:"#") do %>
-            <div class="mdl-textfield mdl-js-textfield">
-              <%= text_field_tag :image_text, @photo.image_text, class:"mdl-textfield__input" %>
-            </div>
-            <%= submit_tag "Save", class: "mdl-button mdl-js-button mdl-color-text--white" %>
+<div class="mdl-card overlay-card mdl-shadow--8dp">
+  <%= image_tag @photo.image.url(:original) %>
+  <div class="mdl-card__actions">
+    <% if current_user == @photo.user %>
+      <span class="image_filename">
+        <%= form_tag({controller: "photos", action: "update"}, method: "patch", class: "form-inline", action:"#") do %>
+          <div class="mdl-textfield mdl-js-textfield">
+            <%= text_field_tag :image_text, @photo.image_text, class:"mdl-textfield__input" %>
+          </div>
+          <%= submit_tag "Save", class: "mdl-button mdl-js-button mdl-color-text--white" %>
+        <% end %>
+      </span>
+      <div class="mdl-layout-spacer"></div>
+      <button id="menu<%= @photo.id %>" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons mdl-color-text--white">more_vert</i>
+      </button>
+      <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+          for="menu<%= @photo.id %>">
+        <% if current_user.profilePicture == @photo.id %>
+          <li disabled class="mdl-menu__item">Set as profile photo</li>
+        <% else %>
+          <%= link_to set_profile_picture_path(pic_id: @photo.id), method: :post do %>
+            <li class="mdl-menu__item">Set as profile photo</li>
           <% end %>
-        </span>
-        <div class="mdl-layout-spacer"></div>
-        <button id="menu<%= @photo.id %>" class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons mdl-color-text--white">more_vert</i>
-        </button>
-        <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
-            for="menu<%= @photo.id %>">
-          <% if current_user.profilePicture == @photo.id %>
-            <li disabled class="mdl-menu__item">Set as profile photo</li>
-          <% else %>
-            <%= link_to set_profile_picture_path(pic_id: @photo.id), method: :post do %>
-              <li class="mdl-menu__item">Set as profile photo</li>
-            <% end %>
-          <% end %>
-        </ul>
-      <% else %>
-        <span class="image_filename">
-          <%= @photo.image_text %>
-        </span>
-      <% end %>
-    </div>
+        <% end %>
+      </ul>
+    <% else %>
+      <span class="image_filename">
+        <%= @photo.image_text %>
+      </span>
+    <% end %>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect image__close">
+      <i class="material-icons">close</i>
+    </button>
   </div>
 </div>

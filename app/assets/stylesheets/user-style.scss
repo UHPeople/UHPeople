@@ -22,21 +22,24 @@ a img.img-circle {
   z-index: 100;
   display: none;
 
-  .overlay-center-inner {
+  .overlay-card {
+    z-index: 110;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-  }
-  .overlay-card {
-    width: 100%;
-    height: 100%;
+    max-width:640px;
+    width: inherit;
+    height: auto;
+    display: block;
 
     img {
+      max-width: 100%;
+      height:auto;
+      margin: 0 auto;
       display: block;
-      width: auto;
-      height: auto;
     }
+
     .mdl-card__actions {
       height: 52px;
       padding: 16px;

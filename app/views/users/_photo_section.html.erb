@@ -3,7 +3,7 @@
   <% if @user.photos.count > 0 %>
     <% @user.photos.each do |pic| %>
       <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
-        <a href="#" class="show-image" id="<%= pic.id %>">
+        <a href="#" class="image__show" id="<%= pic.id %>">
           <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;"></div>
         </a>
       </div>

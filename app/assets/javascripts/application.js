@@ -53,25 +53,23 @@ $(document).ready(function() {
 		});
 	}
 	if ($(location).attr('pathname').indexOf("users") > -1) {
-		$(".show-image").click(function(){
+		$(".image__show").click(function(){
 			$('.image-overlay').fadeIn();
-			getImage($(this).attr('id'));
-
+			getAndShowImage($(this).attr('id'));
 		});
-		// $(".image-overlay").blur(function(){
-		// 	$(".image-overlay").empty();
-		// 	$('.image-overlay').fadeOut();
-		// });
-
 	}
-
 });
 
-function getImage(id){
+
+function getAndShowImage(id){
 	$.get('/photos/' + id, function(){
 	})
 	.done(function( data ) {
 		$('.image-overlay').html(data);
+		$(".image__close").click(function(){
+			$(".image-overlay").empty();
+			$('.image-overlay').fadeOut();
+		});
 		componentHandler.upgradeDom();
   });
 }
