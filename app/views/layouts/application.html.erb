@@ -11,9 +11,9 @@
   <body>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
       <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
-      <%= render 'layouts/hashtag_bg' if @hashtag %>
+      <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" %>
       <% unless current_user.nil? %>
-        <header class="mdl-layout__header <%= @hashtag ? 'mdl-layout__header--transparent' : 'mdl-color--black' %>">
+        <header class="mdl-layout__header <%= (controller_name == "hashtags" && action_name == "show") ? 'mdl-layout__header--transparent' : 'mdl-color--black' %>">
           <%= render 'layouts/navigation' %>
         </header>
       <% end %>
