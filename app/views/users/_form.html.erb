@@ -1,6 +1,5 @@
 <div class="container">
   <%= form_for @user, html: { multipart: true } do |f| %>
-    <%# render 'users/profile_well', action: action %>
     <div class="col-sm-5">
       <% if @user.errors.any? %>
         <div id="error_explanation">
