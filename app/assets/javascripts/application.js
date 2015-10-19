@@ -52,7 +52,29 @@ $(document).ready(function() {
 			}
 		});
 	}
+	if ($(location).attr('pathname').indexOf("users") > -1) {
+		$(".show-image").click(function(){
+			$('.image-overlay').fadeIn();
+			getImage($(this).attr('id'));
+
+		});
+		// $(".image-overlay").blur(function(){
+		// 	$(".image-overlay").empty();
+		// 	$('.image-overlay').fadeOut();
+		// });
+
+	}
+
 });
+
+function getImage(id){
+	$.get('/photos/' + id, function(){
+	})
+	.done(function( data ) {
+		$('.image-overlay').html(data);
+		componentHandler.upgradeDom();
+  });
+}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {

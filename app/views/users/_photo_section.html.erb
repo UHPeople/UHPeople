@@ -1,78 +1,11 @@
-<style>
-.tile-cell {
-  margin: 1px;
-}
-.card-image.mdl-card {
-  width: 100%;
-  height: 256px;
-}
-.card-image > .mdl-card__actions {
-  height: 52px;
-  padding: 16px;
-  background: rgba(0, 0, 0, 0.2);
-}
-.image_filename {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 500;
-}
-.card-image > .mdl-card__title {
-  align-items: flex-start;
-}
-.card-image > .mdl-card__actions {
-  display: flex;
-  box-sizing:border-box;
-  align-items: center;
-}
-.mdl-textfield {
-  width: 300px;
-  max-width: 60%;
-  margin: 0;
-  padding: 0 !important;
-}
-</style>
-
 <h2 class="mdl-color-text--grey">Photos</h2>
 <div class="mdl-grid">
   <% if @user.photos.count > 0 %>
     <% @user.photos.each do |pic| %>
-      <div class="mdl-cell tile-cell mdl-cell--4-col">
-
-        <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;">
-          <div class="mdl-card__title mdl-card--expand"></div>
-          <div class="mdl-card__actions">
-            <span class="image_filename">
-              <% if current_user == pic.user %>
-                <%= form_tag({controller: "photos", action: "update"}, method: "patch", class: "form-inline", action:"#") do %>
-                  <div class="mdl-textfield mdl-js-textfield">
-                    <%= text_field_tag :image_text, pic.image_text, class:"mdl-textfield__input" %>
-                  </div>
-                  <%= submit_tag "Save", class: "mdl-button mdl-js-button mdl-color-text--white" %>
-                <% end %>
-              <% else %>
-                <%= pic.image_text %>
-              <% end %>
-            </span>
-            <div class="mdl-layout-spacer"></div>
-            <% if @user == current_user %>
-              <button id="<%= pic.id %>" class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons mdl-color-text--white">more_vert</i>
-              </button>
-
-              <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
-                  for="<%=  pic.id %>">
-                  <% if current_user.profilePicture == pic.id %>
-                    <li disabled class="mdl-menu__item">Set as profile photo</li>
-                  <% else %>
-                    <%= link_to set_profile_picture_path(pic_id: pic.id), method: :post do %>
-                      <li class="mdl-menu__item">Set as profile photo</li>
-                    <% end %>
-                  <% end %>
-                <li class="mdl-menu__item">Edit</li>
-              </ul>
-            <% end %>
-          </div>
-        </div>
+      <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+        <a href="#" class="show-image" id="<%= pic.id %>">
+          <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;"></div>
+        </a>
       </div>
     <% end %>
   <% end %>

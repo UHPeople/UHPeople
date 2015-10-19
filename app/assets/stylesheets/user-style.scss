@@ -21,6 +21,43 @@ a img.img-circle {
   background-color: rgba(0, 0, 0, 0.29);
   z-index: 100;
   display: none;
+
+  .overlay-center-inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+  }
+  .overlay-card {
+    width: 100%;
+    height: 100%;
+
+    img {
+      display: block;
+      width: auto;
+      height: auto;
+    }
+    .mdl-card__actions {
+      height: 52px;
+      padding: 16px;
+      background-color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+    }
+    .mdl-textfield {
+      color: $white;
+      width: 300px;
+      max-width: 60%;
+      margin: 0;
+      padding: 0 !important;
+    }
+    .image_filename {
+
+      font-size: 14px;
+      font-weight: 500;
+    }
+  }
 }
 
 .parallax {
@@ -84,6 +121,14 @@ a img.img-circle {
     }
     .collapse-card {
       width: 100%;
+    }
+    .tile-cell {
+      margin: 1px;
+    }
+    .card-image.mdl-card {
+      width: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
     }
   }
 }
