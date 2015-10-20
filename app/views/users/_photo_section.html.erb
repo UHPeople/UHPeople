@@ -1,4 +1,5 @@
 <h2 class="mdl-color-text--grey">Photos</h2>
+<%= render 'new_photo', action: action %>
 <div class="mdl-grid">
   <% if @user.photos.count > 0 %>
     <% @user.photos.each do |pic| %>
@@ -8,38 +9,5 @@
         </a>
       </div>
     <% end %>
-  <% end %>
-  <% if @user == current_user and action == 'show' %>
-    <div class="mdl-cell tile-cell mdl-cell--4-col">
-      <div class="mdl-card add-photo-card">
-        <div class="mdl-card__title">
-          <h4 class="mdl-card__title-text mdl-color-text--grey">Add photo</h4>
-        </div>
-        <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true) do %>
-          <div class="mdl-card__supporting-text">
-            <div class="mdl-textfield mdl-js-textfield">
-              <%= text_field_tag :image_text, '',  class:"mdl-textfield__input", id:"new-title" %>
-              <label class="mdl-textfield__label" for="new-title">Write a title...</label>
-            </div>
-            <%= file_field_tag :image, id:"image", accept: 'image/png,image/gif,image/jpeg', style:"display:none"%>
-          </div>
-          <div class="mdl-card__menu">
-            <%= button_tag 'add', id:"but", class:"material-icons mdl-button mdl-js-button mdl-button--fab mdl-button--colored" do %>
-              <i class="material-icons">add</i>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% elsif action == 'new' %>
-    <div class="mdl-cell mdl-cell--4-col">
-      <div class="field element-position">
-        <%= label_tag :image_text, "Photo title" %>
-        <%= text_field_tag :image_text %>
-      </div>
-      <div class="field element-position">
-        <%= file_field_tag :image %>
-      </div>
-    </div>
   <% end %>
 </div>

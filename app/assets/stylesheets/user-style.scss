@@ -138,23 +138,11 @@ a img.img-circle {
       background-repeat: no-repeat;
     }
     .add-photo-card {
-      width: 100%;
-      height: 265px;
-
-      .mdl-card__title {
-        padding-bottom: 0;
-      }
-      .mdl-card__supporting-text {
-        padding-top: 0;
-      }
-
-      .mdl-card__actions {
-        float: right;
-        margin-right: 32px;
-        margin-bottom: 32px;
-        display: flex;
-        box-sizing: border-box;
-      }
+      min-height: 80px;
+      position: absolute;
+      bottom: 8%;
+      right: 16%;
+      z-index: 120;
     }
   }
 }
