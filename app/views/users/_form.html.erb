@@ -1,10 +1,10 @@
 <div class="mdl-grid">
-  <div class="mdl-cell mdl-cell--3-col"></div>
-  <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+  <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
     <div class="">
       <!-- Photo upload here -->
     </div>
-    <div class="mdl-card__supporting-text">
+    <div class="mdl-card__supporting-text" style="width: 100%;">
       <%= form_for @user, html: { multipart: true } do |f| %>
         <% if @user.errors.any? %>
           <div id="error_explanation">
@@ -19,11 +19,11 @@
         <% if action == 'new' %>
           <%= f.hidden_field :username, value: @user.username %>
         <% end %>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
           <input class="mdl-textfield__input" type="text" id="name" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
           <label class="mdl-textfield__label" for="name">Name</label>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
           <input class="mdl-textfield__input" type="text" id="email" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
           <label class="mdl-textfield__label" for="email">Email</label>
         </div>
@@ -32,11 +32,11 @@
             <p><input type="radio" name="campus" value="<%= campus %>"> <%= campus %></input></p>
           <% end %>
         </div>
-        <div class="mdl-textfield mdl-js-textfield">
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
           <textarea class="mdl-textfield__input" type="text" rows="3" id="about" ></textarea>
           <label class="mdl-textfield__label" for="about">About me</label>
         </div>
-        <div class="actions element-position">
+        <div class="pull-right">
           <button class="mdl-button mdl-js-button">
             <%= action == 'new' ? 'Create' : 'Update' %>
           </button>
