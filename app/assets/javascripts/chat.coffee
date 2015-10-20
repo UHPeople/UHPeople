@@ -241,14 +241,3 @@ exports.add_multiple_messages = add_multiple_messages
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
-$(window).on 'beforeunload', ->
-  if not $('#hashtag-id').length
-    return
-  else
-    $.ajax({
-      type: 'POST',
-      async: false,
-      url: '/update_last_visit/' + $('#hashtag-id')[0].value
-    })
-    console.log ""

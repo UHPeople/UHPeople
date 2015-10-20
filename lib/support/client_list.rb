@@ -16,10 +16,13 @@ module ClientList
     hashtags = client.hashtags
     @clients.delete(client)
 
+    User.find_by(id: client.user).update_attribute(:last_online, Time.now.utc)
+
     return if hashtags.count > 1
 
     hashtag = hashtags.first
     broadcast(online_users(hashtag), hashtag)
+    UserHashtag.find_by(hashtag_id: hashtag, user_id: user).update_attribute(:last_visit, Time.now.utc)
   end
 
   def add_client(socket, user, hashtag)
