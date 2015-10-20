@@ -12,8 +12,8 @@
 	</span>
 <% end %>
 <a id="menu-lower-right" class="mdl-navigation__link">
-	<%= current_user.name.partition(' ').first %>
-	<span class="caret"></span>
+	<%= image_tag(current_user.profile_picture_url(:thumb), class: "img-circle", style: 'height: 30px; width: 30px;') %>
+	<i class="material-icons md-24">arrow_drop_down</i>
 </a>
 <ul class="navbar-user-menu mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
     for="menu-lower-right">
