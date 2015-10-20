@@ -3,7 +3,7 @@
   <% unless @users.blank? %>
     <div id="users" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Results for users: <%= @search %></h2>
+        <h2 class="mdl-card__title-text">Users</h2>
       </div>
       <div class="mdl-card__supporting-text">
         <% @users.each do |user| %>
@@ -15,7 +15,7 @@
   <% unless @hashtags.blank? %>
     <div id="hashtags" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title">
-        <h2 class="mdl-card__title-text">Results for channels: #<%= @search %></h2>
+        <h2 class="mdl-card__title-text">Channels</h2>
       </div>
       <div class="mdl-card__supporting-text">
         <% @hashtags.each do |hashtag| %>
@@ -27,7 +27,7 @@
       </div>
     </div>
   <% end %>
-  <% if @hashtags_exact.blank? and @hashtag.valid? %>
+  <% if !@hashtag.nil? && @hashtag.valid? %>
     <div id="new_hashtag" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">How about a new channel?</h2>
