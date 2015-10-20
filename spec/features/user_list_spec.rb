@@ -8,12 +8,35 @@ RSpec.describe User do
     expect(page).to have_content 'asd asd'
   end
 
-  it 'user creation fails with no name' do
+  it 'creation fails with no name' do
     visit users_path
     click_link('Add new user')
 
-    click_button('Update')
+    find('#user_campus_city_centre_campus').click
+    click_button('Create')
 
     expect(described_class.count).to eq 0
+  end
+
+  it 'creation fails with no campus' do
+    visit users_path
+    click_link('Add new user')
+
+    fill_in('name', with: 'Matti Meilahti')
+    click_button('Create')
+
+    expect(described_class.count).to eq 0
+  end
+
+  it 'creation works with name and campus', js: true do
+    visit users_path
+    click_link('Add new user')
+
+    fill_in('name', with: 'Matti Meilahti')
+    find('#user_campus_city_centre_campus').click
+
+    click_button('Create')
+
+    expect(described_class.count).to eq 1
   end
 end

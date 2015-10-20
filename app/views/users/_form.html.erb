@@ -1,12 +1,15 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
   <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
-    <div class="">
-      <!-- Photo upload here -->
+    <div class="mdl-user-card mdl-color--grey-800">
+      <div class="mdl-card__title">
+        <div class="profileCrop user-img-circle" style="background-image: url('<%= @user.profile_picture_url(:medium) %>'); height: 200px;">
+        </div>
+      </div>
     </div>
     <div>
       <% if @user.errors.any? %>
-        <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
+        <h2><%= pluralize(@user.errors.count, "error") %></h2>
         <ul>
           <% @user.errors.full_messages.each do |msg| %>
             <li><%= msg %></li>
@@ -40,7 +43,7 @@
           <label class="mdl-textfield__label" for="about">About me</label>
         </div>
         <div class="pull-right">
-          <button class="mdl-button mdl-js-button">
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--raised">
             <%= action == 'new' ? 'Create' : 'Update' %>
           </button>
         </div>
