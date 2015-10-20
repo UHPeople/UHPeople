@@ -5,14 +5,21 @@ class SearchController < ApplicationController
   def index
     hashtags_only = strip_hashtag
 
-    @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%").order('tag ASC').limit(10)
+    @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%").order('tag ASC')
+      .includes(:messages).limit(10)
+
     @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}").limit(1)
-    @hashtags_topic_match = (Hashtag.where('topic ilike ?', "%#{@search}%").order('tag ASC').limit(10) - @hashtags)
+
+    @hashtags_topic_match = (Hashtag.where('topic ilike ?', "%#{@search}%")
+      .order('tag ASC').includes(:messages).limit(10) - @hashtags)
 
     @hashtag = Hashtag.new tag: @search if (@hashtags.nil? || @hashtags.empty?)
 
-    @users = User.where('name ilike ?', "%#{@search}%").order('name ASC').limit(20) unless hashtags_only
-    @users_exact = User.where('name ilike ?', "#{@search}").order('name ASC').limit(1) unless hashtags_only
+    @users = User.where('name ilike ?', "%#{@search}%").order('name ASC')
+      .includes(:hashtags, :user_hashtags).limit(20) unless hashtags_only
+
+    @users_exact = User.where('name ilike ?', "#{@search}").order('name ASC')
+      .limit(1) unless hashtags_only
 
     redirect_to @users_exact.first if !hashtags_only &&
                                       (@hashtags.nil? || @hashtags.empty?) &&
