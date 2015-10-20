@@ -4,36 +4,39 @@
     <div class="">
       <!-- Photo upload here -->
     </div>
+    <div>
+      <% if @user.errors.any? %>
+        <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
     <div class="mdl-card__supporting-text" style="width: 100%;">
       <%= form_for @user, html: { multipart: true } do |f| %>
-        <% if @user.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
-            <ul>
-              <% @user.errors.full_messages.each do |msg| %>
-                <li><%= msg %></li>
-              <% end %>
-            </ul>
-          </div>
-        <% end %>
         <% if action == 'new' %>
           <%= f.hidden_field :username, value: @user.username %>
         <% end %>
         <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-          <input class="mdl-textfield__input" type="text" id="name" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
+          <%= f.text_field :name, id: 'name', class: 'mdl-textfield__input', value: @user.name, disabled: ENV['RAILS_ENV'] == 'production' %>
           <label class="mdl-textfield__label" for="name">Name</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-          <input class="mdl-textfield__input" type="text" id="email" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
+          <%= f.text_field :email, id: 'email', class: 'mdl-textfield__input', value: @user.email, disabled: ENV['RAILS_ENV'] == 'production' %>
           <label class="mdl-textfield__label" for="email">Email</label>
         </div>
         <div class="">
           <% @campuses.each do |campus| %>
-            <p><input type="radio" name="campus" value="<%= campus %>"> <%= campus %></input></p>
+            <p>
+              <%= f.radio_button :campus, campus %>
+              <%= label :campus, campus %>
+            </p>
           <% end %>
         </div>
         <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-          <textarea class="mdl-textfield__input" type="text" rows="3" id="about" ></textarea>
+          <%= f.text_area :about, id: 'about', class: 'mdl-textfield__input', value: @user.about %>
           <label class="mdl-textfield__label" for="about">About me</label>
         </div>
         <div class="pull-right">
