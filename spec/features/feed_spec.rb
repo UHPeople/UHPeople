@@ -56,7 +56,7 @@ RSpec.describe 'Feed page' do
     end
 
     it 'has thumbnails' do
-      expect(find('.img-circle:nth-of-type(1)')).to have_content ''
+      expect(first('#feed .img-circle')).to have_content ''
     end
   end
 
@@ -95,20 +95,6 @@ RSpec.describe 'Feed page' do
       expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
     end
   end
-
-  # it 'wont let add more favourites than max' do
-  #   max = APP_CONFIG['max_faves']
-  #   for i in 1..max
-  #     hashtag = FactoryGirl.create(:hashtag, tag: i)
-  #     visit "/hashtags/#{hashtag.tag}"
-  #     click_link 'add'
-  #   end
-  #
-  #   visit '/feed'
-  #   page.all(:css, 'td a.like-this').each(&:click)
-  #
-  #   expect(page).to have_content "You already have #{max} favourites, remove some to add a new one!"
-  # end
 
   #   context 'chatboxes' do
   #     let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
