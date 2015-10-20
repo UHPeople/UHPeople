@@ -4,6 +4,7 @@ RSpec.describe User do
   context 'Profile page' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:hashtag) { FactoryGirl.create(:hashtag) }
+    let!(:photo) { FactoryGirl.create(:photo, user_id: user.id) }
 
     before :each do
       visit "/login/#{user.id}"
@@ -41,16 +42,6 @@ RSpec.describe User do
       expect(page).not_to have_content 'Interests'
     end
 
-    it 'has button and form for adding photos' do
-      click_link 'Add photo'
-      expect(page).to have_content 'Photo title'
-    end
-
-    it 'can add photos to album' do
-      click_link 'Add photo'
-      expect(page).to have_content 'Photo title'
-    end
-
     it 'doesn´t have active channels if should not' do
       visit "/users/#{user.id}"
       expect(page).not_to have_content 'Most active'
@@ -82,6 +73,63 @@ RSpec.describe User do
 
       visit "/users/#{u2.id}"
       expect(page).not_to have_content 'You have'
+    end
+
+    context 'Photos tab', js: true do
+      before :each do
+        click_link 'Photos'
+      end
+
+      it 'has button for adding photos' do
+        expect(page).to have_content 'add'
+      end
+
+      it 'can add photos to album' do
+        execute_script "$('#image').show();"
+        attach_file('image', File.absolute_path('./app/assets/images/bg.jpg'))
+        expect(page).to have_content 'Photo was successfully added'
+      end
+
+      it 'can fail upload to album if not image file' do
+        execute_script "$('#image').show();"
+        attach_file('image', File.absolute_path('./app/assets/javascripts/chat.coffee'))
+        expect(page).to have_content 'An unknown error occured while saving your photo. Please try again.'
+      end
+
+      context 'photo gallery', js: true do
+
+        before :each do
+          click_link 'Photos'
+        end
+
+        it 'has one photo in gallery' do
+          expect(page).to have_xpath("//a[@id='" + photo.id.to_s + "']")
+          expect(page).to have_css ('.card-image')
+        end
+
+        it 'has full screen photo' do
+          click_link photo.id
+          expect(page).to have_css ('.overlay-card')
+        end
+
+        it 'has photo edit menu' do
+          click_link photo.id
+          expect(page).to have_css ('button#menu' + photo.id.to_s)
+        end
+
+        it 'has delete photo button' do
+          click_link photo.id
+          click_button "menu" + photo.id.to_s
+          expect(page).to have_content 'Delete photo'
+        end
+
+        # it 'delete photo button does delete' do
+        #   click_link photo.id
+        #   click_button "menu" + photo.id.to_s
+        #   click_link 'Delete photo'
+        #   expect(page).to have_content 'Photo was successfully deleted.'
+        # end
+      end
     end
   end
 end
