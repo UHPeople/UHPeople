@@ -5,24 +5,26 @@
   <div class="mdl-layout--large-screen-only">
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
-  <% if controller_name == "hashtags" && action_name == "show" %>
-    <div class="mdl-layout-spacer nav-toggleable"></div>
-    <div class="nav-toggleable topic">
-      <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
-    </div>
-  <% end %>
-  <div class="mdl-layout-spacer mdl-navbar nav-toggleable" style="display: none;">
-    <%= form_tag search_index_path, method: 'get', role: 'search' do %>
-      <%= text_field_tag :search, '', placeholder: 'Search', class: 'typeahead site-search', id: 'search', style: 'background-color: inherit !important;' %>
-      <div style="width: 0; height: 0; overflow: hidden;">
-        <%= submit_tag "Search", name: nil %>
+  <% unless current_user.nil? %>
+    <% if controller_name == "hashtags" && action_name == "show" %>
+      <div class="mdl-layout-spacer nav-toggleable"></div>
+      <div class="nav-toggleable topic">
+        <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
       </div>
     <% end %>
-  </div>
-  <div class="mdl-layout-spacer nav-toggleable"></div>
-  <nav class="mdl-navigation">
-    <%= render 'layouts/navigation_links' %>
-  </nav>
+    <div class="mdl-layout-spacer mdl-navbar nav-toggleable" style="display: none;">
+      <%= form_tag search_index_path, method: 'get', role: 'search' do %>
+        <%= text_field_tag :search, '', placeholder: 'Search', class: 'typeahead site-search', id: 'search', style: 'background-color: inherit !important;' %>
+        <div style="width: 0; height: 0; overflow: hidden;">
+          <%= submit_tag "Search", name: nil %>
+        </div>
+      <% end %>
+    </div>
+    <div class="mdl-layout-spacer nav-toggleable"></div>
+    <nav class="mdl-navigation">
+      <%= render 'layouts/navigation_links' %>
+    </nav>
+  <% end %>
 </div>
 <!-- ROW 2 -->
 <% if current_page?(feed_index_path) %>

@@ -1,45 +1,47 @@
-<div class="container">
-  <%= form_for @user, html: { multipart: true } do |f| %>
-    <%# render 'users/profile_well', action: action %>
-    <div class="col-sm-5">
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
-
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col"></div>
+  <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+    <div class="">
+      <!-- Photo upload here -->
+    </div>
+    <div class="mdl-card__supporting-text">
+      <%= form_for @user, html: { multipart: true } do |f| %>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %>:</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <% if action == 'new' %>
+          <%= f.hidden_field :username, value: @user.username %>
+        <% end %>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="name" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
+          <label class="mdl-textfield__label" for="name">Name</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="text" id="email" <% 'disabled' if ENV['RAILS_ENV'] == 'production' %> />
+          <label class="mdl-textfield__label" for="email">Email</label>
+        </div>
+        <div class="">
+          <% @campuses.each do |campus| %>
+            <p><input type="radio" name="campus" value="<%= campus %>"> <%= campus %></input></p>
+          <% end %>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <textarea class="mdl-textfield__input" type="text" rows="3" id="about" ></textarea>
+          <label class="mdl-textfield__label" for="about">About me</label>
+        </div>
+        <div class="actions element-position">
+          <button class="mdl-button mdl-js-button">
+            <%= action == 'new' ? 'Create' : 'Update' %>
+          </button>
         </div>
       <% end %>
-
-      <% if action == 'new' %>
-        <%= f.hidden_field :username, value: @user.username %>
-      <% end %>
-
-      <div class="field element-position">
-        <%= f.label :name %><br>
-        <%= f.hidden_field :name, value: @user.name %>
-        <%= @user.name %>
-      </div>
-      <div class="field element-position">
-        <%= f.label :email %><br>
-        <%= f.hidden_field :email, value: @user.email %>
-        <%= @user.email %>
-      </div>
-
-      <div class="option_class element-position">
-        <%= f.label :campus %><br>
-        <%= f.select :campus, options_for_select(@campuses, f.object.campus) %>
-      </div>
-      <div class="field element-position">
-        <%= f.label :about %><br>
-        <%= f.text_area :about, size: "60x8", class: "form-control" %>
-      </div>
-      <div class="actions element-position">
-        <%= f.button :Update, class: 'btn btn-primary' %>
-      </div>
     </div>
-  <% end %>
+  </div>
 </div>
