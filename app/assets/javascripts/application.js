@@ -203,11 +203,13 @@ $(document).ready(ready);
 $(document).on('page:load', ready);
 
 $(window).on('beforeunload', function() {
-  $.ajax({
-    type: 'POST',
-    async: false,
-    url: '/tab/' + window.location.hash.split('/')[1]
-  });
+	if ($(location).attr('pathname') == "/feed") {
+	  $.ajax({
+	    type: 'POST',
+	    async: false,
+	    url: '/tab/' + window.location.hash.split('/')[1]
+	  });
+	}
 
   console.log('');
 });

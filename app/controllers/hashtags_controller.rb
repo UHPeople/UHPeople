@@ -66,7 +66,12 @@ class HashtagsController < ApplicationController
     end
 
     current_user.hashtags = (current_user.hashtags | new_tags) & new_tags
-    redirect_to feed_index_path
+
+    if current_user.user_hashtags.count < 3
+      redirect_to threehash_path, alert: 'Please add at least three intrests!'
+    else
+      redirect_to feed_index_path
+    end
   end
 
   def update
