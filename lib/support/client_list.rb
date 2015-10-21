@@ -22,6 +22,7 @@ module ClientList
 
     hashtag = hashtags.first
     broadcast(online_users(hashtag), hashtag)
+
     UserHashtag.find_by(hashtag_id: hashtag, user_id: user).update_attribute(:last_visit, Time.now.utc)
   end
 

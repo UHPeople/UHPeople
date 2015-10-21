@@ -95,17 +95,14 @@ module UHPeople
         feed_event(user, socket) unless user.nil?
       elsif data['event'] == 'favourites'
         favourites_event(user, socket) unless user.nil?
+      elsif data['event'] == 'hashtag'
+        hashtag_event(user, hashtag, message, socket) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'like'
         like_event(user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'dislike'
         dislike_event(user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
         message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'online'
-        online_event(user, hashtag, socket) unless user.nil? or hashtag.nil?
-        messages_event(user, hashtag, nil, socket) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'messages'
-        messages_event(user, hashtag, message, socket) unless user.nil? or hashtag.nil? or message.nil?
       end
     end
   end

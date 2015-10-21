@@ -11,7 +11,12 @@
           <div class="mdl-card__title-row">
             <h2 class="mdl-typography--text-center mdl-color-text--white"><%= @user.name %></h2>
             <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.campus %></p>
-              <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.email %></p>
+            <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.email %></p>
+            <% unless @user.last_online.nil? %>
+              <p class="mdl-typography--text-center mdl-color-text--white">
+                Last online <span class="timestamp" data-timestamp="<%= @user.last_online.strftime('%Y-%m-%dT%H:%M:%S') %>"></span>
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
@@ -73,9 +78,6 @@
                   <% unless @user.about.blank? %>
                     <h2 class="mdl-color-text--grey">About me</h2>
                     <p><%= simple_format(auto_link(ERB::Util.html_escape(@user.about), html: { target: '_blank' })) %></p>
-                  <% end %>
-                  <% unless @user.last_online.nil? %>
-                    Last online <span class="timestamp" data-timestamp="<%= @user.last_online.strftime('%Y-%m-%dT%H:%M:%S') %>"></span>
                   <% end %>
                   <% if @user == current_user and action == 'show' %>
                     <%= link_to "Edit profile", edit_user_path(current_user), method: :get, class: "mdl-button mdl-js-button mdl-js-ripple-effect" %>

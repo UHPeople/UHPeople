@@ -114,7 +114,7 @@ on_open = (socket) ->
   user = $('#user-id')[0].value
 
   socket.send JSON.stringify
-    event: 'online'
+    event: 'hashtag'
     hashtag: hashtag
     user: user
 
@@ -225,7 +225,7 @@ ready = ->
     'join': on_join,
     'leave': on_leave,
     'notification': on_notification,
-    'messages': on_messages,
+    'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers

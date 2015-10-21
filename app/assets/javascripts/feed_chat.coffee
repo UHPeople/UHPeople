@@ -114,7 +114,7 @@ on_message = (data) ->
   add_click_handler_to_likes('#feed-like-' + data.id, ws)
   add_click_handler_to_likes('#favourites-like-' + data.id, ws)
 
-on_messages = (data) ->
+on_feed = (data) ->
   add_multiple_messages data, add_feed_message, false
   add_click_handler_to_likes('.feed-chat-box .like-this', ws)
 
@@ -140,7 +140,7 @@ ready = ->
     'open': on_open,
     'message': on_message,
     'notification': on_notification,
-    'messages': on_messages,
+    'feed': on_feed,
     'like': like_both,
     'dislike': dislike_both,
     'favourites': on_favourites
