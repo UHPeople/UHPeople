@@ -1,13 +1,27 @@
-<div class="container">
-  <h2>Your notifications</h2>
-  <% if current_user.notifications.empty? %>
-    You don't have any notifications.
-  <% else %>
-    <% @notifications.each do |notif| %>
-      <%= render 'notification', notification: notif, partial_message: 'has invited you to join' if notif.notification_type == 1 %>
-      <%= render 'notification', notification: notif, partial_message: 'made up a hot new topic over at' if notif.notification_type == 2 %>
-      <%= render 'notification', notification: notif, partial_message: 'mentioned you at' if notif.notification_type == 3 %>
-      <%= render 'likes', notification: notif if notif.notification_type == 4 %>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--11-col">
+    <h2>Your notifications</h2>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+    <% if current_user.notifications.empty? %>
+      You don't have any notifications.
+    <% else %>
+      <% @notifications.each do |notif| %>
+        <%= render 'notification', notification: notif, partial_message: 'has invited you to join' if notif.notification_type == 1 %>
+        <%= render 'notification', notification: notif, partial_message: 'made up a hot new topic over at' if notif.notification_type == 2 %>
+        <%= render 'notification', notification: notif, partial_message: 'mentioned you at' if notif.notification_type == 3 %>
+        <%= render 'likes', notification: notif if notif.notification_type == 4 %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--3-col">
+    <h4>Notifications settings</h4>
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="web_notifications_on">
+      <input type="checkbox" id="web_notifications_on" class="mdl-switch__input" checked />
+      <span class="mdl-switch__label">web notifications</span>
+    </label>
+  </div>
 </div>

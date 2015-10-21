@@ -19,6 +19,7 @@
 //= require chat
 //= require feed_chat
 //= require search
+//= require web_notifications
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
