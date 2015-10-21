@@ -3,8 +3,12 @@ module ClientList
     @clients = []
   end
 
-  def broadcast(json, hashtag)
-    @clients.each { |client| client.send(json) if client.hashtags.include? hashtag }
+  def broadcast(json, hashtag = nil)
+    if hashtag.nil?
+      @clients.each { |client| client.send(json) }
+    else
+      @clients.each { |client| client.send(json) if client.hashtags.include? hashtag }
+    end
   end
 
   def send(json, user)
@@ -16,14 +20,11 @@ module ClientList
     hashtags = client.hashtags
     @clients.delete(client)
 
+    broadcast(online_users, nil)
+
     User.find_by(id: client.user).update_attribute(:last_online, Time.now.utc)
-
-    return if hashtags.count > 1
-
-    hashtag = hashtags.first
-    broadcast(online_users(hashtag), hashtag)
-
-    UserHashtag.find_by(hashtag_id: hashtag, user_id: user).update_attribute(:last_visit, Time.now.utc)
+    UserHashtag.find_by(hashtag_id: hashtags.first, user_id: user)
+      .update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1
   end
 
   def add_client(socket, user, hashtag)
@@ -36,11 +37,13 @@ module ClientList
     end
 
     @clients << Client.new(socket, user, hashtag)
+
+    broadcast(online_users, nil)
   end
 
-  def online_users(hashtag)
-    onlines = @clients.map { |client| client.user if client.hashtags == [hashtag] }.compact
-    json = { 'event': 'online', 'hashtag': hashtag, 'onlines': onlines }
+  def online_users
+    onlines = @clients.map { |client| client.user }
+    json = { 'event': 'online', 'onlines': onlines }
     JSON.generate(json)
   end
 end

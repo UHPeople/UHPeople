@@ -29,6 +29,8 @@ module EventHandlers
   end
 
   def hashtag_event(user, hashtag, from, socket)
+    add_client socket, user.id, hashtag.id
+
     json = {
       'event': 'hashtag',
       'messages': get_hashtag_messages(user, hashtag, from) #MessagesController.
@@ -73,9 +75,4 @@ module EventHandlers
 
     broadcast(JSON.generate(message.serialize), hashtag.id)
   end
-
-  # def online_event(user, hashtag, socket)
-  #   add_client socket, user.id, hashtag.id
-  #   broadcast(online_users(hashtag.id), hashtag.id)
-  # end
 end
