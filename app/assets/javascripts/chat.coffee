@@ -112,8 +112,8 @@ add_message = (data, after = '.loader') ->
 on_open = (socket) ->
   socket.send JSON.stringify
     event: 'hashtag'
-    hashtag: $('#hashtag-id')[0].value
-    user: $('#user-id')[0].value
+    hashtag: $('#hashtag-id').val()
+    user: $('#user-id').val()
 
 on_close = ->
   input = $('#input-text')

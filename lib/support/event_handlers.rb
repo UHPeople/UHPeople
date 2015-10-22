@@ -5,7 +5,8 @@ module EventHandlers
     if user.token == token
       add_client(socket, user)
     else
-      send_error socket, "Invalid token" #"#{user.token} != #{token}"
+      send_error socket, 'Invalid token'
+      # socket.close
     end
   end
 

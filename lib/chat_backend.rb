@@ -52,7 +52,7 @@ module UHPeople
 
     def find_mentions(message)
       message.hashtag.users.each do |user|
-        send_mention(user.id,
+        send_mention(user,
           message.user_id,
           message.hashtag_id,
           message) if message.content.include? "@#{user.username}"
@@ -92,7 +92,7 @@ module UHPeople
       user, hashtag, message = graceful_find_all(socket, data)
 
       if data['event'] != 'online' and !authenticated(socket)
-        send_error socket, "Not authenticated" #\n#{data}\n#{@clients}"
+        send_error socket, 'Not authenticated'
         return
         # socket.close
       end

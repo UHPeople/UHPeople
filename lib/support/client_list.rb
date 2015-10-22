@@ -22,10 +22,8 @@ module ClientList
 
     broadcast(online_users)
 
-    user = User.find_by(id: client.user)
-    user.update_attribute(:last_online, Time.now.utc) if user.present?
-
-    user_hashtag = UserHashtag.find_by(hashtag_id: hashtags.first, user_id: client.user)
+    client.user.update_attribute(:last_online, Time.now.utc)
+    user_hashtag = client.user.user_hashtags.find_by(hashtag_id: hashtags.first)
     user_hashtag.update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
   end
 
