@@ -18,6 +18,7 @@
 //= require chat_common
 //= require chat
 //= require feed_chat
+//= require non_chat
 //= require search
 
 $(document).ready(function() {
@@ -104,7 +105,7 @@ function startOnboard() {
 	}
 }
 
-if ($(location).attr('pathname').indexOf("users") > -1 || $(location).attr('pathname') === '/threehash') {
+if ($(location).attr('pathname') === '/threehash') {
 	$.getJSON("/hashtags", function(json) {
 		var tags = [];
 		for (var i = 0; i < json.length; i++) {

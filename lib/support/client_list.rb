@@ -20,30 +20,43 @@ module ClientList
     hashtags = client.hashtags
     @clients.delete(client)
 
-    broadcast(online_users, nil)
+    broadcast(online_users)
 
-    User.find_by(id: client.user).update_attribute(:last_online, Time.now.utc)
-    UserHashtag.find_by(hashtag_id: hashtags.first, user_id: user)
-      .update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1
+    user = User.find_by(id: client.user)
+    user.update_attribute(:last_online, Time.now.utc) if user.present?
+
+    user_hashtag = UserHashtag.find_by(hashtag_id: hashtags.first, user_id: client.user)
+    user_hashtag.update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
   end
 
-  def add_client(socket, user, hashtag)
-    hashtags = (hashtag.class == Fixnum) ? [hashtag] : hashtag
+  def add_client(socket, user)
+    @clients << Client.new(socket, user)
+    broadcast(online_users) if count(user) == 1
+  end
 
-    client = @clients.find { |client| client.user == user && client.hashtags == hashtags }
-    unless client.nil?
-      client.socket.close
-      @clients.delete(client)
-    end
-
-    @clients << Client.new(socket, user, hashtag)
-
-    broadcast(online_users, nil)
+  def subscribe(socket, hashtag)
+    client = find(socket)
+    hashtags = (hashtag.class != Array) ? [hashtag] : hashtag
+    client.hashtags = client.hashtags + hashtags
   end
 
   def online_users
-    onlines = @clients.map { |client| client.user }
+    onlines = @clients.map { |client| client.user.id }
     json = { 'event': 'online', 'onlines': onlines }
     JSON.generate(json)
+  end
+
+  def authenticated(socket)
+    find(socket).present?
+  end
+
+  private
+
+  def find(socket)
+    @clients.find { |client| client.socket == socket }
+  end
+
+  def count(user)
+    @clients.count { |client| client.user == user }
   end
 end

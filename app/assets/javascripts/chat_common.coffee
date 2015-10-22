@@ -1,14 +1,24 @@
+ws = null
+
 create_websocket = (events) ->
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
 
   ws.onopen = ->
     console.log 'opened'
-    events['open'] ws
+
+    ws.send JSON.stringify
+      event: 'online',
+      user: $('input#user-id').val(),
+      token: $('input#user-token').val()
+
+    if events['open'] != undefined
+      events['open'] ws
 
   ws.onclose = ->
     console.log 'closed'
-    events['close']
+    if events['close'] != undefined
+      events['close']
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
@@ -18,8 +28,11 @@ create_websocket = (events) ->
     if event_handler != undefined
       event_handler(data)
     else
-      console.log 'Unknown event "' + data.event + '"'
+      console.log 'Unhandled event "' + data.event + '"'
   return ws
+
+send = (data) ->
+  ws.send JSON.stringify(data)
 
 on_notification = ->
   count = $('.notif-count')
@@ -120,6 +133,7 @@ get_likers_json_to_tooltip = (id, prefix) ->
     $('[for="'+ prefix + id + '"]').append(json.likers.join(', '))
 
 exports = this
+exports.send = send
 exports.add_multiple_messages = add_multiple_messages
 exports.format_timestamp = format_timestamp
 exports.create_websocket = create_websocket

@@ -24,6 +24,7 @@ RSpec.describe UHPeople::ChatBackend do
   end
 
   let!(:user) { FactoryGirl.create(:user) }
+  let!(:user2) { FactoryGirl.create(:user, username: 'asd2') }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
   let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
 
@@ -34,7 +35,8 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'responds with error to' do
     it 'invalid user' do
-      message = "{ \"event\": \"online\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
+      subject.online_event(socket, user, user.token)
+      message = "{ \"event\": \"hashtag\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
       subject.respond(socket, message)
 
       expect(socket.map 'event').to include 'error'
@@ -42,7 +44,8 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid hashtag' do
-      message = "{ \"event\": \"online\", \"user\": #{user.id}, \"hashtag\": -1 }"
+      subject.online_event(socket, user, user.token)
+      message = "{ \"event\": \"hashtag\", \"user\": #{user.id}, \"hashtag\": -1 }"
       subject.respond(socket, message)
 
       expect(socket.map 'event').to include 'error'
@@ -50,20 +53,36 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid message' do
-      subject.online_event(user, hashtag, socket)
-      subject.message_event(user, hashtag, socket, '')
+      subject.online_event(socket, user, user.token)
+      subject.message_event(socket, user, hashtag, '')
 
       expect(Message.count).to eq 0
       expect(socket.sent.last['event']).to eq 'error'
       expect(socket.sent.last['content']).to eq 'Invalid message'
+    end
+
+    it 'invalid authentication' do
+      subject.online_event(socket, user, "token")
+
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Invalid token'
+    end
+
+    it 'not authenticating' do
+      message = "{ \"event\": \"hashtag\", \"user\": #{user.id}, \"hashtag\": #{hashtag.id} }"
+      subject.respond(socket, message)
+
+      expect(socket.map 'event').to include 'error'
+      expect(socket.map 'content').to include 'Not authenticated'
     end
   end
 
   context 'on' do
     context 'feed event' do
       it 'responds with messages' do
-        subject.feed_event(user, socket)
-        expect(socket.sent.last['event']).to eq 'messages'
+        subject.online_event(socket, user, user.token)
+        subject.feed_event(socket, user)
+        expect(socket.sent.last['event']).to eq 'feed'
       end
 
       # it 'subscribes client to feed messages' do
@@ -71,7 +90,8 @@ RSpec.describe UHPeople::ChatBackend do
 
     context 'favourites event' do
       it 'responds with messages' do
-        subject.favourites_event(user, socket)
+        subject.online_event(socket, user, user.token)
+        subject.favourites_event(socket, user)
         expect(socket.sent.last['event']).to eq 'favourites'
       end
 
@@ -86,19 +106,20 @@ RSpec.describe UHPeople::ChatBackend do
 
     context 'message event' do
       it 'adds new message' do
-        subject.online_event(user, hashtag, socket)
+        subject.online_event(socket, user, user.token)
+        subject.hashtag_event(socket, user, hashtag, nil)
 
-        subject.message_event(user, hashtag, socket, 'asd')
+        subject.message_event(socket, user, hashtag, 'asd')
 
         expect(Message.count).to eq 1
-        expect(socket.sent.last['content']).to eq 'asd'
-        expect(socket.sent.last['event']).to eq 'message'
+        expect(socket.map 'event').to include 'message'
+        expect(socket.map 'content').to include 'asd'
       end
     end
 
     context 'online event' do
       it 'responds with online users' do
-        subject.online_event(user, hashtag, socket)
+        subject.online_event(socket, user, user.token)
         expect(socket.map 'event').to include 'online'
       end
     end
@@ -108,137 +129,78 @@ RSpec.describe UHPeople::ChatBackend do
   end
 
   context 'ClientList' do
-    it 'adds one online user' do
-      subject.add_client(socket, user.id, hashtag.id)
+    it 'adds one user' do
+      subject.add_client(socket, user)
 
-      onlines_json = subject.online_users(hashtag.id)
+      onlines_json = subject.online_users
       onlines = JSON.parse(onlines_json)
 
       expect(onlines['event']).to eq 'online'
       expect(onlines['onlines'].count).to eq 1
-    end
-
-    it 'adds two online users' do
-      subject.add_client(socket, user.id, hashtag.id)
-      subject.add_client(socket, user.id + 1, hashtag.id)
-
-      onlines_json = subject.online_users(hashtag.id)
-      onlines = JSON.parse(onlines_json)
-
-      expect(onlines['event']).to eq 'online'
-      expect(onlines['onlines'].count).to eq 2
-    end
-
-    it 'removes duplicate online users' do
-      subject.add_client(socket, user.id, hashtag.id)
-
-      socket2 = MockSocket.new
-      subject.add_client(socket2, user.id, hashtag.id)
-
-      onlines_json = subject.online_users(hashtag.id)
-      onlines = JSON.parse(onlines_json)
-
-      expect(onlines['event']).to eq 'online'
-      expect(onlines['onlines'].count).to eq 1
-
-      expect(socket.sent.last).to eq 'closed'
     end
 
     it 'removes online users' do
-      subject.add_client(socket, user.id, hashtag.id)
+      subject.add_client(socket, user)
 
       subject.remove_client socket
 
-      onlines_json = subject.online_users(hashtag.id)
+      onlines_json = subject.online_users
       onlines = JSON.parse(onlines_json)
 
       expect(onlines['event']).to eq 'online'
       expect(onlines['onlines'].count).to eq 0
-    end
-
-    it 'empty hashtag gives empty onlines' do
-      subject.add_client(socket, user.id, hashtag.id)
-
-      onlines_json = subject.online_users(hashtag.id + 1)
-      onlines = JSON.parse(onlines_json)
-
-      expect(onlines['event']).to eq 'online'
-      expect(onlines['hashtag']).to eq hashtag.id + 1
-      expect(onlines['onlines'].count).to eq 0
-    end
-
-    it 'handles multiple hashtags (one user, many hashtags => on feed)' do
-      subject.add_client socket, user.id, [1, 2]
-
-      onlines_json = subject.online_users(1)
-      onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 0
-
-      onlines_json = subject.online_users(2)
-      onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 0
-    end
-
-    it 'handles multiple hashtags (one user, one hashtag => on hashtags)' do
-      subject.add_client socket, user.id, 1
-      subject.add_client socket, user.id, 2
-
-      onlines_json = subject.online_users(1)
-      onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 1
-
-      onlines_json = subject.online_users(2)
-      onlines = JSON.parse(onlines_json)
-      expect(onlines['onlines'].count).to eq 1
     end
   end
 
   context 'broadcasts to' do
     it 'empty hashtags' do
-      subject.add_client socket, user.id, 0
-      subject.broadcast '{ "event": "asd" }', 1
+      subject.online_event(socket, user, user.token)
+      subject.subscribe(socket, hashtag.id)
+      subject.broadcast '{ "event": "asd" }', hashtag.id + 1
 
-      expect(socket.sent.last).to eq nil
+      expect(socket.map 'event').to_not include 'asd'
     end
 
     it 'single connected client' do
-      subject.add_client socket, user.id, 1
-      subject.broadcast '{ "event": "asd" }', 1
+      subject.online_event(socket, user, user.token)
+      subject.subscribe(socket, hashtag.id)
 
-      expect(socket.sent.last['event']).to eq 'asd'
+      subject.broadcast '{ "event": "asd" }', hashtag.id
+
+      expect(socket.map 'event').to include 'asd'
     end
 
     it 'all connected clients' do
-      subject.add_client socket, 0, 1
-
       socket2 = MockSocket.new
-      subject.add_client socket2, 1, 1
+      subject.online_event(socket, user, user.token)
+      subject.online_event(socket2, user2, user2.token)
 
-      subject.broadcast '{ "event": "asd" }', 1
+      subject.broadcast '{ "event": "asd" }'
 
-      expect(socket.sent.last['event']).to eq 'asd'
-      expect(socket2.sent.last['event']).to eq 'asd'
+      expect(socket.map 'event').to include 'asd'
+      expect(socket2.map 'event').to include 'asd'
     end
 
     it 'feed clients' do
-      subject.add_client socket, 0, 1
-
       socket2 = MockSocket.new
-      subject.add_client socket2, 0, [1, 0]
+      subject.online_event(socket, user, user.token)
+      subject.online_event(socket2, user2, user2.token)
+      subject.subscribe(socket, [hashtag.id])
+      subject.subscribe(socket2, [hashtag.id, hashtag.id + 1])
 
-      subject.broadcast '{ "event": "message" }', 1
+      subject.broadcast '{ "event": "message" }', hashtag.id
 
-      expect(socket.sent.last['event']).to eq 'message'
-      expect(socket2.sent.last['event']).to eq 'message'
+      expect(socket.map 'event').to include 'message'
+      expect(socket2.map 'event').to include 'message'
     end
   end
 
   it 'finds mentions' do
-    subject.add_client(socket, user.id, hashtag.id)
+    subject.online_event(socket, user, user.token)
 
-    message = Message.create user: user, hashtag: hashtag, content: "@#{user.name}"
+    message = Message.create user: user, hashtag: hashtag, content: "@#{user.username}"
     subject.find_mentions(message)
 
-    expect(socket.sent.last['event']).to eq 'notification'
+    expect(socket.map 'event').to include 'notification'
   end
 end

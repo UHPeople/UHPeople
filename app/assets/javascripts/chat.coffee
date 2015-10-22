@@ -110,13 +110,10 @@ add_message = (data, after = '.loader') ->
     set_star_hover()
 
 on_open = (socket) ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
-
   socket.send JSON.stringify
     event: 'hashtag'
-    hashtag: hashtag
-    user: user
+    hashtag: $('#hashtag-id')[0].value
+    user: $('#user-id')[0].value
 
 on_close = ->
   input = $('#input-text')
@@ -182,7 +179,7 @@ add_click_handler_to_chat = ->
     event.preventDefault()
     if $('#input-text')[0].value.length > 0
       text = $('#input-text')[0].value
-      ws.send JSON.stringify
+      send
         event: 'message'
         content: text
         hashtag: hashtag
@@ -199,7 +196,7 @@ add_click_handler_to_loader = ->
     activate_load_spinner()
 
     last_message = $('.panel-body:first')[0].id
-    ws.send JSON.stringify
+    send
       event: 'messages'
       hashtag: hashtag
       user: user

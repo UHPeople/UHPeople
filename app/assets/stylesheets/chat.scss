@@ -135,21 +135,25 @@
   }
 }
 
+.online-ball {
+  background: #549E54;
+  border-radius: 50%;
+  content: '';
+  display: block;
+  float: left;
+  height: 10px;
+  margin-right: 5px;
+  margin-top: 5px;
+  width: 10px;
+}
+
 .nav-list {
   li:not(.online) a {
     padding-left: 30px;
   }
 
   li.online a::before {
-    background: #549E54;
-    border-radius: 50%;
-    content: '';
-    display: block;
-    float: left;
-    height: 10px;
-    margin-right: 5px;
-    margin-top: 5px;
-    width: 10px;
+    @extend .online-ball
   }
 }
 

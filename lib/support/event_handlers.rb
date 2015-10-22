@@ -1,9 +1,17 @@
 require 'json'
 
 module EventHandlers
-  def feed_event(user, socket)
+  def online_event(socket, user, token)
+    if user.token == token
+      add_client(socket, user)
+    else
+      send_error socket, "Invalid token" #"#{user.token} != #{token}"
+    end
+  end
+
+  def feed_event(socket, user)
     hashtags = user.hashtags.map(&:id)
-    add_client socket, user.id, hashtags
+    subscribe socket, hashtags
 
     json = {
       'event': 'feed',
@@ -13,12 +21,12 @@ module EventHandlers
     socket.send(JSON.generate(json))
   end
 
-  def favourites_event(user, socket)
+  def favourites_event(socket, user)
     # For now users on favourites tab are already subscribed to all messages
     # through the feed event.
 
     # hashtags = user.hashtags.favourites.map(&:id)
-    # add_client socket, user.id, hashtags
+    # subscribe socket, hashtags
 
     json = {
       'event': 'favourites',
@@ -28,8 +36,8 @@ module EventHandlers
     socket.send(JSON.generate(json))
   end
 
-  def hashtag_event(user, hashtag, from, socket)
-    add_client socket, user.id, hashtag.id
+  def hashtag_event(socket, user, hashtag, from)
+    subscribe socket, hashtag.id
 
     json = {
       'event': 'hashtag',
@@ -39,7 +47,7 @@ module EventHandlers
     socket.send(JSON.generate(json))
   end
 
-  def like_event(user, message)
+  def like_event(socket, user, message)
     like = Like.create user: user, message: message
     unless like.valid?
       send_error socket, 'Invalid like'
@@ -50,7 +58,7 @@ module EventHandlers
     like_callback 'like', message
   end
 
-  def dislike_event(user, message)
+  def dislike_event(socket, user, message)
     like = Like.find_by user: user, message: message
     if like.nil?
       send_error socket, 'Invalid like'
@@ -63,7 +71,7 @@ module EventHandlers
     like_callback 'dislike', message
   end
 
-  def message_event(user, hashtag, socket, content)
+  def message_event(socket, user, hashtag, content)
     message = create_message content, user.id, hashtag.id #MessagesController.
 
     unless message.valid?
