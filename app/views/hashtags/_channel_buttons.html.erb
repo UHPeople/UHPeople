@@ -1,31 +1,32 @@
 <% if @user_has_tag %>
-  <span class="btn-group">
-    <div class="dropdown">
-      <%= link_to 'group', '#', class: 'material-icons md-36 dropdown-toggle icon-color', 'data-toggle':'dropdown' %>
-      <ul class="dropdown-menu dropdown-menu-right scrollable nav-list">
-        <li class="dropdown-header">Members</li>
-        <% @hashtag.users.each do |m| %>
-          <li class='member-<%= m.id %>'><%= link_to m.name, m %></li>
-        <% end %>
-      </ul>
-    </div>
-  </span>
-  <span class="btn-group">
-    <div class="dropdown">
-      <%= link_to 'more_vert', '#', class: 'material-icons md-36 dropdown-toggle icon-color', 'data-toggle':'dropdown' %>
-      <ul class="dropdown-menu dropdown-menu-right">
-        <li>
-          <%= link_to 'Leave channel', leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'leave-button' %>
-        </li>
-        <li>
-          <%= link_to 'Invite', '#', class: 'invite-modal__open' %>
-        </li>
-        <li>
-          <%= link_to 'Edit' , '#', class: 'edit-modal__open' %>
-        </li>
-      </ul>
-    </div>
-  </span>
+<span class="btn-group">
+  <button id="mobile-members-dropdown" class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">groups</i>
+  </button>
+  <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect scrollable nav-list dropdown-menu"
+    for="mobile-members-dropdown">
+    <% @hashtag.users.each do |m| %>
+      <li class='mdl-menu__item member-<%= m.id %>'><%= link_to truncate(m.name, length: 20), m %></li>
+    <% end %>
+  </ul>
+</span>
+<span class="btn-group">
+  <button id="mobile-actions-dropdown" class="mdl-button mdl-js-button mdl-button--icon">
+  <i class="material-icons">more_vert</i>
+  </button>
+  <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+    for="mobile-actions-dropdown">
+    <%= link_to leave_path(tag: @hashtag.tag), method: :delete, 'data-confirm': '', 'data-confirm-title': 'Leave Channel', class: 'leave-button' do %>
+      <li class="mdl-menu__item">Leave channel</li>
+    <% end %>
+    <%= link_to '#', class: 'invite-modal__open' do%>
+      <li class="mdl-menu__item">Invite</li>
+    <% end %>
+    <%= link_to '#', class: 'edit-modal__open' do %>
+      <li class="mdl-menu__item">Edit</li>
+    <% end %>
+  </ul>
+</span>
 <% else %>
   <%= link_to 'Join', join_path(tag: @hashtag.tag), method: :post, class: 'btn btn-success' %>
 <% end %>

@@ -135,26 +135,29 @@
   }
 }
 
-.online-ball {
-  background: #549E54;
-  border-radius: 50%;
-  content: '';
-  display: block;
-  float: left;
-  height: 10px;
-  margin-right: 5px;
-  margin-top: 5px;
-  width: 10px;
+@mixin online_ball($margin_top, $margin_right){
+  li.online a::before {
+    background: #549E54;
+    border-radius: 50%;
+    content: '';
+    display: block;
+    float: left;
+    height: 10px;
+    margin-right: $margin_right;
+    margin-top: $margin_top;
+    width: 10px;
+  }
 }
 
 .nav-list {
   li:not(.online) a {
     padding-left: 30px;
   }
+  @include online_ball(5px, 5px);
+}
 
-  li.online a::before {
-    @extend .online-ball
-  }
+.nav-list.dropdown-menu {
+  @include online_ball(16px, 18px);
 }
 
 // chat input moved inside chat panel
