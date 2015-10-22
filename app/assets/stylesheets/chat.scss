@@ -267,11 +267,11 @@
 }
 
 .new_messages{
-  -webkit-animation: highlight 200s; /* Safari, Chrome and Opera > 12.1 */
-     -moz-animation: highlight 200s; /* Firefox < 16 */
-      -ms-animation: highlight 200s; /* Internet Explorer */
-       -o-animation: highlight 200s; /* Opera < 12.1 */
-          animation: highlight 200s;
+  -webkit-animation: highlight 2s; /* Safari, Chrome and Opera > 12.1 */
+     -moz-animation: highlight 2s; /* Firefox < 16 */
+      -ms-animation: highlight 2s; /* Internet Explorer */
+       -o-animation: highlight 2s; /* Opera < 12.1 */
+          animation: highlight 2s;
 }
 
 div.line {

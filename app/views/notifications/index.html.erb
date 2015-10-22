@@ -17,11 +17,31 @@
     <% end %>
   </div>
   <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-  <div class="mdl-cell mdl-cell--3-col">
-    <h4>Notifications settings</h4>
-    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="web_notifications_on">
-      <input type="checkbox" id="web_notifications_on" class="mdl-switch__input" checked />
-      <span class="mdl-switch__label">web notifications</span>
+  <div class="mdl-cell mdl-cell--3-col mdl-cell--6-col-tablet mdl-cell--6-col-phone sys_notif_cell">
+    <h3>Notifications settings</h3>
+    <h4>System notifications
+      <button id="sys_notif_info" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+        <i class="material-icons">info</i>
+      </button>
+    </h4>
+    <div class="mdl-tooltip mdl-tooltip--large" for="sys_notif_info">
+      Allows UHPeople to display system notifications. <br>
+      NOTE:
+      This is an experimental technology. Browser support for notifications
+      isn’t very good on both desktop and mobile.
+    </div>
+    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="web_notifications_switch">
+      <input type="checkbox" id="web_notifications_switch" class="mdl-switch__input" checked disabled />
+      <span class="mdl-switch__label">
+        New messages
+        <button id="sys_notif_disabled_info" class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored">
+          <i class="material-icons">info</i>
+        </button>
+        <div class="mdl-tooltip mdl-tooltip--large" for="sys_notif_disabled_info">
+          This setting is disabled because either your
+          browser does not support this feature nor you have turned notifications on
+        </div>
+      </span>
     </label>
   </div>
 </div>

@@ -132,6 +132,9 @@ on_message = (data) ->
   add_message data, after
   scroll_to_bottom()
   add_click_handler_to_likes('#like-' + data.id, ws)
+  console.log data.content
+  #Just for test
+  new Web_notification().new_message_notification(data.username, data.hashtag_name, data.content)
 
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
