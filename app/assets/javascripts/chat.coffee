@@ -179,7 +179,7 @@ add_click_handler_to_chat = ->
     event.preventDefault()
     if $('#input-text')[0].value.length > 0
       text = $('#input-text')[0].value
-      send
+      ws.send
         event: 'message'
         content: text
         hashtag: hashtag
@@ -196,7 +196,7 @@ add_click_handler_to_loader = ->
     activate_load_spinner()
 
     last_message = $('.panel-body:first')[0].id
-    send
+    ws.send
       event: 'messages'
       hashtag: hashtag
       user: user
