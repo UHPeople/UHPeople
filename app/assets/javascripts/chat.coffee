@@ -82,29 +82,32 @@ add_message = (data, after = '.loader') ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
-      '<a href="/users/' + data.user + '" class="avatar-link">' +
-        '<img class="img-circle" src="' + data.avatar + '"></img>' +
-      '</a>' +
-      '<div class="message">' +
-        '<h5>' +
-          '<a href="/users/' + data.user + '">' + data.username + '</a>' +
-          '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
-            format_timestamp(data.timestamp) +
-          '</span>' +
-        '</h5>' +
-        '<p class="message_content">' + data.content +
-          '<span class="space-left">' +
-            '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
-              data.likes +
-            '</span>' +
-            '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
-              '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
-            '</a>' +
-          '</span>' +
-        '</p>' +
-      '</div>' +
-    '</div>').insertAfter(after)
+  $( """
+    <div class="panel-body #{highlight}" id="#{data.id}">
+      <a href="/users/#{data.user}" class="avatar-link">
+        <img class="img-circle" src="#{data.avatar}"></img>
+      </a>
+      <div class="message">
+        <h5>
+          <a href="/users/#{data.user}">#{data.username}</a>
+          <span class="timestamp" data-timestamp="#{data.timestamp}">
+            #{format_timestamp(data.timestamp)}
+          </span>
+        </h5>
+        <p class="message_content">#{data.content}
+          <span class="space-left">
+            <span class="like-badge like-icon-color" id="tt#{data.id}">
+              #{data.likes}
+            </span>
+            <a class="send-hover like-this" href="#" id="like-#{data.id}">
+              <i class="material-icons md-15 like-icon like-icon-color #{like_icon_liked}">#{star}</i>
+            </a>
+          </span>
+        </p>
+      </div>
+    </div>
+    """ +
+    '').insertAfter(after)
 
     add_mouseover_to_get_likers('tt', data.id)
     set_star_hover()
