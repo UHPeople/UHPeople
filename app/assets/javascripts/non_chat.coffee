@@ -1,8 +1,8 @@
 set_online = (id) ->
-  element = $('h2 #'+id)
+  element = $('h2#'+id)
   if element.length
     element.addClass('online')
-    $('.last_online').hide()
+    $('.last-online').hide()
 
 on_online = (data) ->
   set_online id for id in data.onlines
@@ -14,8 +14,6 @@ ready = ->
     console.log('non chat page detected!')
 
   ws = create_websocket {
-    # 'open': on_open,
-    # 'close': on_close,
     'online': on_online,
     'notification': on_notification
   }
