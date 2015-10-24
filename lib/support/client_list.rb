@@ -3,8 +3,12 @@ module ClientList
     @clients = []
   end
 
-  def broadcast(json, hashtag)
-    @clients.each { |client| client.send(json) if client.hashtags.include? hashtag }
+  def broadcast(json, hashtag = nil)
+    if hashtag.nil?
+      @clients.each { |client| client.send(json) }
+    else
+      @clients.each { |client| client.send(json) if client.hashtags.include? hashtag }
+    end
   end
 
   def send(json, user)
@@ -16,27 +20,41 @@ module ClientList
     hashtags = client.hashtags
     @clients.delete(client)
 
-    return if hashtags.count > 1
+    broadcast(online_users)
 
-    hashtag = hashtags.first
-    broadcast(online_users(hashtag), hashtag)
+    client.user.update_attribute(:last_online, Time.now.utc)
+    user_hashtag = client.user.user_hashtags.find_by(hashtag_id: hashtags.first)
+    user_hashtag.update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
   end
 
-  def add_client(socket, user, hashtag)
-    hashtags = (hashtag.class == Fixnum) ? [hashtag] : hashtag
-
-    client = @clients.find { |client| client.user == user && client.hashtags == hashtags }
-    unless client.nil?
-      client.socket.close
-      @clients.delete(client)
-    end
-
-    @clients << Client.new(socket, user, hashtag)
+  def add_client(socket, user)
+    @clients << Client.new(socket, user)
+    broadcast(online_users) if count(user) == 1
   end
 
-  def online_users(hashtag)
-    onlines = @clients.map { |client| client.user if client.hashtags == [hashtag] }.compact
-    json = { 'event': 'online', 'hashtag': hashtag, 'onlines': onlines }
+  def subscribe(socket, hashtag)
+    client = find(socket)
+    hashtags = (hashtag.class != Array) ? [hashtag] : hashtag
+    client.hashtags = client.hashtags + hashtags
+  end
+
+  def online_users
+    onlines = @clients.map { |client| client.user.id }
+    json = { 'event': 'online', 'onlines': onlines }
     JSON.generate(json)
+  end
+
+  def authenticated(socket)
+    find(socket).present?
+  end
+
+  private
+
+  def find(socket)
+    @clients.find { |client| client.socket == socket }
+  end
+
+  def count(user)
+    @clients.count { |client| client.user == user }
   end
 end

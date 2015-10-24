@@ -52,7 +52,7 @@ module UHPeople
 
     def find_mentions(message)
       message.hashtag.users.each do |user|
-        send_mention(user.id,
+        send_mention(user,
           message.user_id,
           message.hashtag_id,
           message) if message.content.include? "@#{user.username}"
@@ -91,21 +91,26 @@ module UHPeople
     def respond(socket, data)
       user, hashtag, message = graceful_find_all(socket, data)
 
-      if data['event'] == 'feed'
-        feed_event(user, socket) unless user.nil?
+      if data['event'] != 'online' and !authenticated(socket)
+        send_error socket, 'Not authenticated'
+        return
+        # socket.close
+      end
+
+      if data['event'] == 'online'
+        online_event(socket, user, data['token']) unless user.nil?
+      elsif data['event'] == 'feed'
+        feed_event(socket, user) unless user.nil?
       elsif data['event'] == 'favourites'
-        favourites_event(user, socket) unless user.nil?
+        favourites_event(socket, user) unless user.nil?
+      elsif data['event'] == 'hashtag'
+        hashtag_event(socket, user, hashtag, message) unless user.nil? or hashtag.nil?
       elsif data['event'] == 'like'
-        like_event(user, message) unless user.nil? or message.nil?
+        like_event(socket, user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'dislike'
-        dislike_event(user, message) unless user.nil? or message.nil?
+        dislike_event(socket, user, message) unless user.nil? or message.nil?
       elsif data['event'] == 'message'
-        message_event(user, hashtag, socket, data['content']) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'online'
-        online_event(user, hashtag, socket) unless user.nil? or hashtag.nil?
-        messages_event(user, hashtag, nil, socket) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'messages'
-        messages_event(user, hashtag, message, socket) unless user.nil? or hashtag.nil? or message.nil?
+        message_event(socket, user, hashtag, data['content']) unless user.nil? or hashtag.nil?
       end
     end
   end

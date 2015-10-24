@@ -110,13 +110,10 @@ add_message = (data, after = '.loader') ->
     set_star_hover()
 
 on_open = (socket) ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
-
   socket.send JSON.stringify
-    event: 'online'
-    hashtag: hashtag
-    user: user
+    event: 'hashtag'
+    hashtag: $('#hashtag-id').val()
+    user: $('#user-id').val()
 
 on_close = ->
   input = $('#input-text')
@@ -187,7 +184,7 @@ add_click_handler_to_chat = ->
     event.preventDefault()
     if $('#input-text')[0].value.length > 0
       text = $('#input-text')[0].value
-      ws.send JSON.stringify
+      ws.send
         event: 'message'
         content: text
         hashtag: hashtag
@@ -204,7 +201,7 @@ add_click_handler_to_loader = ->
     activate_load_spinner()
 
     last_message = $('.panel-body:first')[0].id
-    ws.send JSON.stringify
+    ws.send
       event: 'messages'
       hashtag: hashtag
       user: user
@@ -230,7 +227,7 @@ ready = ->
     'join': on_join,
     'leave': on_leave,
     'notification': on_notification,
-    'messages': on_messages,
+    'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers
@@ -246,14 +243,3 @@ exports.add_multiple_messages = add_multiple_messages
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
-$(window).on 'beforeunload', ->
-  if not $('#hashtag-id').length
-    return
-  else
-    $.ajax({
-      type: 'POST',
-      async: false,
-      url: '/update_last_visit/' + $('#hashtag-id')[0].value
-    })
-    console.log ""

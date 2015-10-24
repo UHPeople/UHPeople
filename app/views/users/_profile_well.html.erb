@@ -9,9 +9,16 @@
       <div class="mdl-card__title">
         <div class="mdl-grid">
           <div class="mdl-card__title-row">
-            <h2 class="mdl-typography--text-center mdl-color-text--white"><%= @user.name %></h2>
+            <h2 class="mdl-typography--text-center mdl-color-text--white" id="<%= @user.id %>">
+              <%= @user.name %>
+            </h2>
             <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.campus %></p>
-              <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.email %></p>
+            <p class="mdl-typography--text-center mdl-color-text--white"><%= @user.email %></p>
+            <% unless @user.last_online.nil? %>
+              <p class="mdl-typography--text-center mdl-color-text--white last-online">
+                Last online <span class="timestamp" data-timestamp="<%= @user.last_online.strftime('%Y-%m-%dT%H:%M:%S') %>"></span>
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
