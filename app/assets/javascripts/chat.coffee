@@ -177,6 +177,7 @@ on_likers = ->
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
+  photo_ids = $('#photo_ids')[0].value
 
   $('#chat-send').click (event) ->
     event.preventDefault()
@@ -187,6 +188,7 @@ add_click_handler_to_chat = ->
         content: text
         hashtag: hashtag
         user: user
+        photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
 

@@ -22,12 +22,16 @@
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
 
-      <!--
-      Tähän väliin photo upload -boksi, jossa voi uploadaa lisää kuvia omaan kansioonsa ja lisätä
-      kansiossa jo olevia kuvia viestin liitteeksi.
-      Lisää siis message_photo-olioita, kun viesti luodaan (photo.id:t napattava)
-      -->
+      <!-- photo_ids value = id:t pilkulla eroteltuna 2,5,78,4-->
       <input id="photo_ids" type="hidden" value="" />
+
+      <!-- Napilla aukeaa kuvagalleria, josta voi lisätä kuvia viestin liitteeks
+           eli lisää photo_id:t ylläolevaan muuttujaan
+                 <div class="add_chat_photo">
+         link_to 'Add photo' , '#', class: 'add-photo-modal__open' %>
+      </div>
+           -->
+
 
       <div class="chat-form-send">
         <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>

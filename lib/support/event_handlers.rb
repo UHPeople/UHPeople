@@ -54,8 +54,7 @@ module EventHandlers
       return
     end
 
-    # parse photo_ids in separate
-    photo_ids.each do |id|
+    photo_ids.split(',').each do |id| # parse photo_ids in separate
       create_message_photo(message.id, id) #MessagePhotosController
     end
 
