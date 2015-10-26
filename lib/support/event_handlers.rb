@@ -47,7 +47,7 @@ module EventHandlers
   end
 
   def message_event(user, hashtag, socket, content, photo_ids)
-    message = create_message content, user.id, hashtag.id, photo_ids #MessagesController.
+    message = create_message content, user.id, hashtag.id #MessagesController.
 
     unless message.valid?
       send_error socket, 'Invalid message'
@@ -55,8 +55,9 @@ module EventHandlers
     end
 
     # parse photo_ids in separate
-    # for each id in photo_ids
-    # Message_photo.create message_id: message.id, photo_id: id
+    photo_ids.each do |id|
+      create_message_photo(message.id, id) #MessagePhotosController
+    end
 
     find_mentions(message)
 
