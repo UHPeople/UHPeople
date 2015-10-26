@@ -12,8 +12,7 @@ RSpec.describe User do
     it 'after editing users unit and about, shows right information on user page' do
       visit edit_user_path(user)
 
-      fill_in('user_about', with: 'Hauska tyyppi.')
-
+      fill_in('about', with: 'Hauska tyyppi.')
       click_button('Update')
 
       expect(page).to have_content 'Hauska tyyppi.'
@@ -23,12 +22,6 @@ RSpec.describe User do
       user2 = described_class.create username: 'asd', name: 'asd', campus: 'asd'
       visit edit_user_path(user2)
       expect(current_path).to eq feed_index_path
-    end
-
-    it 'prevents changing name on first login' do
-      visit edit_user_path(user)
-
-      expect(page).not_to have_field 'name'
     end
   end
 end

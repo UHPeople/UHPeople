@@ -135,11 +135,7 @@
   }
 }
 
-.nav-list {
-  li:not(.online) a {
-    padding-left: 30px;
-  }
-
+@mixin online_ball($margin_top, $margin_right){
   li.online a::before {
     background: #549E54;
     border-radius: 50%;
@@ -147,10 +143,21 @@
     display: block;
     float: left;
     height: 10px;
-    margin-right: 5px;
-    margin-top: 5px;
+    margin-right: $margin_right;
+    margin-top: $margin_top;
     width: 10px;
   }
+}
+
+.nav-list {
+  li:not(.online) a {
+    padding-left: 30px;
+  }
+  @include online_ball(5px, 5px);
+}
+
+.nav-list.dropdown-menu {
+  @include online_ball(16px, 18px);
 }
 
 // chat input moved inside chat panel

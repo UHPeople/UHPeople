@@ -3,21 +3,23 @@ class SearchController < ApplicationController
   before_action :set_search, only: [:index]
 
   def index
-    # Strips leading '#' from search
-    hashtags_only = false
-    if @search =~ /^#[^#]*$/
-      @search = @search[1..-1]
-      hashtags_only = true
-    end
-
-    @hashtag = Hashtag.new tag: @search
+    hashtags_only = strip_hashtag
 
     @hashtags = Hashtag.where('tag ilike ?', "%#{@search}%").order('tag ASC')
-    @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}")
-    @hashtags_topic_match = (Hashtag.where('topic ilike ?', "%#{@search}%").order('tag ASC') - @hashtags)
+      .includes(:messages).limit(10)
 
-    @users = User.where('name ilike ?', "%#{@search}%").order('name ASC') unless hashtags_only
-    @users_exact = User.where('name ilike ?', "#{@search}").order('name ASC') unless hashtags_only
+    @hashtags_exact = Hashtag.where('tag ilike ?', "#{@search}").limit(1)
+
+    @hashtags_topic_match = (Hashtag.where('topic ilike ?', "%#{@search}%")
+      .order('tag ASC').includes(:messages).limit(10) - @hashtags)
+
+    @hashtag = Hashtag.new tag: @search if (@hashtags.nil? || @hashtags.empty?)
+
+    @users = User.where('name ilike ?', "%#{@search}%").order('name ASC')
+      .includes(:hashtags, :user_hashtags).limit(20) unless hashtags_only
+
+    @users_exact = User.where('name ilike ?', "#{@search}").order('name ASC')
+      .limit(1) unless hashtags_only
 
     redirect_to @users_exact.first if !hashtags_only &&
                                       (@hashtags.nil? || @hashtags.empty?) &&
@@ -28,6 +30,14 @@ class SearchController < ApplicationController
   end
 
   private
+
+  def strip_hashtag
+    if @search =~ /^#[^#]*$/
+      @search = @search[1..-1]
+      return true
+    end
+    return false
+  end
 
   def set_search
     @search = params[:search]

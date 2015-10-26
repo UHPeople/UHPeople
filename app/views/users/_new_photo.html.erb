@@ -1,0 +1,18 @@
+<% if @user == current_user and action == 'show' %>
+  <div class="add-photo-card">
+    <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true) do %>
+      <%= file_field_tag :image, id:"image", accept: 'image/png,image/jpeg', style:"display:none"%>
+      <%= button_tag id:"but", class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" do %>
+        <i class="material-icons">add</i>
+      <% end %>
+    <% end %>
+  </div>
+<% elsif action == 'new' %>
+  <div class="field element-position">
+    <%= label_tag :image_text, "Photo title" %>
+    <%= text_field_tag :image_text %>
+  </div>
+  <div class="field element-position">
+    <%= file_field_tag :image %>
+  </div>
+<% end %>

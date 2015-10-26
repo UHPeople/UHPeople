@@ -28,7 +28,7 @@ RSpec.describe 'Search page' do
 
   it 'finds user with non-exact match' do
     visit '/search?search=a'
-    first("//div[@id='users']/div/div/h4/a").click
+    first("//div[@id='users']/div/div/div/h4/a").click
     expect(page.current_path).to eq "/users/#{user.id}"
   end
 
@@ -37,13 +37,13 @@ RSpec.describe 'Search page' do
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=#{hashtag2.tag}"
-    first("//div[@id='hashtags']/div/div/h4/a").click
+    first("//div[@id='hashtags']/div/div/div/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag2.tag}"
   end
 
   it 'finds hashtag with non-exact match' do
     visit '/search?search=' + hashtag.tag[0]
-    find("//div[@id='hashtags']/div/div/h4/a").click
+    find("//div[@id='hashtags']/div/div/div/h4/a").click
     expect(page.current_path).to eq "/hashtags/#{hashtag.tag}"
   end
 
@@ -57,7 +57,7 @@ RSpec.describe 'Search page' do
     hashtag2 = FactoryGirl.create(:hashtag)
 
     visit "/search?search=%23#{hashtag2.tag}"
-    expect(page).to have_content "Search results for channels: ##{hashtag2.tag}"
+    expect(page).to have_content "#{hashtag2.tag}"
   end
 
   describe 'redirects to' do
@@ -86,7 +86,7 @@ RSpec.describe 'Search page' do
 
       visit '/search?search=asd'
 
-      expect(page).to have_content "Member of ##{hashtag.tag} ##{hashtag2.tag} ..."
+      expect(page).to have_content "Member of ##{hashtag.tag} ##{hashtag2.tag}"
     end
   end
 

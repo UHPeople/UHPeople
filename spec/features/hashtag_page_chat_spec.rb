@@ -28,7 +28,7 @@ RSpec.describe Hashtag do
       end
 
       it 'have a thumbnail' do
-        expect(find('.img-circle')).to have_content ''
+        expect(find('.chatbox .img-circle')).to have_content ''
       end
 
       it 'have name over @UsernameMention' do

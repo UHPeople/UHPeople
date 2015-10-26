@@ -1,20 +1,23 @@
-<div class="container">
-
-  <div class="well well-lg">
-
-    <p> You can invite your friends from University of Helsinki to the UHPeople community.</p>
-    <p> Please use helsinki.fi email address.</p>
-    <br>
-
-    <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
-      <div class="field">
-        <%= label_tag :receiver, 'Recipient email address:' %><br>
-        <%= text_field_tag :receiver %>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--10-col">
+    <div class="mdl-card mdl-shadow--2dp" style="width:100%;">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Invite</h2>
       </div>
-      <br>
-      <div class="actions">
-        <%= submit_tag("Send invitation!", :class=>"btn btn-info") %>
+      <div class="mdl-card__supporting-text">
+        <p>You can invite your friends from the University of Helsinki to the UHPeople community.</p>
+        <p>Please use helsinki.fi email address.</p>
+        <br>
+
+        <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
+          <div class="mdl-textfield mdl-js-textfield">
+            <%= text_field_tag :receiver, '',  class:"mdl-textfield__input", id:"new-invite" %>
+            <label class="mdl-textfield__label" for="new-invite">Write a email...</label>
+          </div>
+          <%= submit_tag("Send invitation!", class:"mdl-button") %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   </div>
-</div> <!-- /container -->
+</div>

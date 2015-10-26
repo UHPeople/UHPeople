@@ -52,7 +52,34 @@ $(document).ready(function() {
 			}
 		});
 	}
+	if ($(location).attr('pathname').indexOf("users") > -1) {
+		$(".image__show").click(function(){
+			$('.image-overlay').fadeIn();
+			getAndShowImage($(this).attr('id'));
+		});
+		$('#but').click(function(event){
+			event.preventDefault();
+			$('#image').click();
+		});
+		$('#image').change(function() {
+		  $('#add-photo').submit();
+		});
+	}
 });
+
+
+function getAndShowImage(id){
+	$.get('/photos/' + id, function(){
+	})
+	.done(function( data ) {
+		$('.image-overlay').html(data);
+		$(".image__close").click(function(){
+			$(".image-overlay").empty();
+			$('.image-overlay').fadeOut();
+		});
+		componentHandler.upgradeDom();
+  });
+}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {
@@ -176,11 +203,13 @@ $(document).ready(ready);
 $(document).on('page:load', ready);
 
 $(window).on('beforeunload', function() {
-  $.ajax({
-    type: 'POST',
-    async: false,
-    url: '/tab/' + window.location.hash.split('/')[1]
-  });
+	if ($(location).attr('pathname') == "/feed") {
+	  $.ajax({
+	    type: 'POST',
+	    async: false,
+	    url: '/tab/' + window.location.hash.split('/')[1]
+	  });
+	}
 
   console.log('');
 });

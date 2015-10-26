@@ -1,39 +1,13 @@
 <h2 class="mdl-color-text--grey">Photos</h2>
+<%= render 'new_photo', action: action %>
 <div class="mdl-grid">
   <% if @user.photos.count > 0 %>
     <% @user.photos.each do |pic| %>
-      <div class="mdl-cell mdl-cell--4-col">
-        <%= image_tag pic.image.url(:original), width:"100%" %>
+      <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+        <a href="#" class="image__show" id="<%= pic.id %>">
+          <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;"></div>
+        </a>
       </div>
     <% end %>
-  <% end %>
-  <% if @user == current_user and action == 'show' %>
-    <div class="mdl-cell mdl-cell--4-col">
-      <%= link_to "Add photo", '#', class: 'lead mdl-button mdl-js-button mdl-js-ripple-effect', onclick: "$('#target').toggleClass('hidden'); $('.lead').toggleClass('hidden');"%>
-      <div id="target" class="hidden">
-        <%= form_tag({controller: "photos", action: "create"}, method: "post", multipart: true) do %>
-          <div class="field element-position">
-            <%= label_tag :image_text, "Photo title" %>
-            <%= text_field_tag :image_text %>
-          </div>
-          <div class="field element-position">
-            <%= file_field_tag :image %>
-          </div>
-          <div class="actions element-position">
-            <%= submit_tag("Add photo", class: "btn btn-default") %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% elsif action == 'new' %>
-    <div class="mdl-cell mdl-cell--4-col">
-      <div class="field element-position">
-        <%= label_tag :image_text, "Photo title" %>
-        <%= text_field_tag :image_text %>
-      </div>
-      <div class="field element-position">
-        <%= file_field_tag :image %>
-      </div>
-    </div>
   <% end %>
 </div>
