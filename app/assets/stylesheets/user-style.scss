@@ -12,6 +12,60 @@ a img.img-circle {
   width: 45px;
   height: 45px;
 }
+.image-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  display: none;
+
+  .overlay-card {
+    z-index: 110;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    max-width:640px;
+    width: inherit;
+    height: auto;
+    display: block;
+
+    img {
+      max-width: 100%;
+      height:auto;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .mdl-card__actions {
+      height: 52px;
+      padding: 16px;
+      background-color: rgba(0, 0, 0, 0.3);
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+    }
+    .mdl-textfield {
+      color: $white;
+      width: 300px;
+      max-width: 60%;
+      margin: 0;
+      padding: 0 !important;
+    }
+    .image_filename {
+
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .mdl-button {
+      background: #484848;
+      color: $white;
+    }
+  }
+}
 
 .parallax {
   perspective: 1px;
@@ -74,6 +128,22 @@ a img.img-circle {
     }
     .collapse-card {
       width: 100%;
+    }
+    .tile-cell {
+      margin: 1px;
+    }
+    .card-image.mdl-card {
+      width: 100%;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+    .add-photo-card {
+      min-height: 80px;
+      position: absolute;
+      margin-top: -30px;
+      margin-bottom: 64px;
+      right: 16%;
+      z-index: 120;
     }
   }
 }

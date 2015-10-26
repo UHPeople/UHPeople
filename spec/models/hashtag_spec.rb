@@ -45,13 +45,13 @@ RSpec.describe Hashtag do
 
   it 'can give latest message' do
     hashtag = described_class.create tag: 'avantouinti'
-    user = User.create username: 'user', name: 'user'
-    
+    user = User.create username: 'user', name: 'user', campus: 'coolguycampus'
+
     hashtag.users << user
     hashtag.save
 
     message = Message.create hashtag: hashtag, user: user, content: 'content'
-    
+
     expect(hashtag.valid?).to be(true)
     expect(user.valid?).to be(true)
     expect(message.valid?).to be(true)
@@ -66,8 +66,8 @@ RSpec.describe Hashtag do
 
   it 'is not empty with messages' do
     hashtag = described_class.create tag: 'avantouinti'
-    user = User.create username: 'user', name: 'user'
-    
+    user = User.create username: 'user', name: 'user', campus: 'coolguycampus'
+
     hashtag.users << user
     hashtag.save
 

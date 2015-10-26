@@ -1,12 +1,6 @@
 <a href="#" class="mdl-navigation__link search-toggle">
 	<i class="material-icons md-24">search</i>
 </a>
-
-<!--
-<%= link_to "Home", root_path, id: 'feed-onboard-home',
-	class: 'mdl-navigation__link mdl-layout--large-screen-only' %>
--->
-
 <%= link_to notifications_path, class: 'mdl-navigation__link notif-link feed-onboard-notif' do %>
 	<i class="material-icons md-24">notifications</i>
 	<span class="notif-count">
@@ -17,20 +11,16 @@
 		<% end %>
 	</span>
 <% end %>
-
 <a id="menu-lower-right" class="mdl-navigation__link">
-	<%= current_user.name.partition(' ').first %>
-	<span class="caret"></span>
+	<%= image_tag(current_user.profile_picture_url(:thumb), class: "img-circle", style: 'height: 30px; width: 30px;') %>
+	<i class="material-icons md-24">arrow_drop_down</i>
 </a>
-
 <ul class="navbar-user-menu mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
     for="menu-lower-right">
 	<%= link_to 'Profile', current_user, class: 'mdl-menu__item' %>
-
 	<% unless current_user.first_time %>
 		<%= link_to "Start tour", first_time_path('true'), method: 'POST', class: 'mdl-menu__item' %>
 	<% end %>
-
 	<%= link_to 'Invite', '/invite', class: 'mdl-menu__item' %>
 	<%= link_to 'About', '/about', class: 'mdl-menu__item' %>
 	<%= link_to 'Logout', '/logout', class: 'mdl-menu__item' %>

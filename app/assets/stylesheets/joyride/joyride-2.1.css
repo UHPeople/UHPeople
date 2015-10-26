@@ -165,6 +165,10 @@ body {
 .joyride-close-tip {
   right: 10px;
   margin-bottom: 10px !important;
+  color: red;
+}
+a.joyride-close-tip {
+  color: red;
 }
 
 
@@ -187,7 +191,6 @@ body {
 }
 
 .joyride-expose-wrapper {
-    background-color: #ffffff;
     position: absolute;
     z-index: 102;
     -moz-box-shadow: 0px 0px 30px #ffffff;
@@ -201,11 +204,4 @@ body {
     z-index: 10000;
     top: 0px;
     left: 0px;
-
-    border-radius: 50%;
-    background-color: #fff transparent;
-    -webkit-box-shadow: 0px 0px 5px 5px rgba(255, 255, 190, .25);
-    -moz-box-shadow: 0px 0px 5px 5px rgba(255, 255, 190, .25);
-    box-shadow: 0px 0px 5px 5px rgba(255, 255, 190, .25);
 }
-

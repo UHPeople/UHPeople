@@ -75,7 +75,7 @@
                     <p><%= simple_format(auto_link(ERB::Util.html_escape(@user.about), html: { target: '_blank' })) %></p>
                   <% end %>
                   <% if @user == current_user and action == 'show' %>
-                    <%= link_to "Edit profile", edit_user_path(current_user), method: :get, class: "lead mdl-button mdl-js-button mdl-js-ripple-effect" %>
+                    <%= link_to "Edit profile", edit_user_path(current_user), method: :get, class: "mdl-button mdl-js-button mdl-js-ripple-effect" %>
                   <% end %>
                 </div>
               </div>

@@ -1,43 +1,46 @@
-<div class="container">
-  <div class="col-xs-12 col-sm-8">
-    <% unless @users.blank? %>
-      <div id="users">
-        <h1>Search results for users: <%= @search %></h1>
-
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-phone"></div>
+  <% unless @users.blank? %>
+    <div id="users" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Users</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
         <% @users.each do |user| %>
           <%= render 'result_user', user: user %>
         <% end %>
       </div>
-    <% end %>
-
-    <% unless @hashtags.blank? %>
-      <div id="hashtags">
-        <h1>Search results for channels: #<%= @search %></h1>
-
+    </div>
+  <% end %>
+  <% unless @hashtags.blank? %>
+    <div id="hashtags" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">Channels</h2>
+      </div>
+      <div class="mdl-card__supporting-text">
         <% @hashtags.each do |hashtag| %>
           <%= render 'result_hashtag', hashtag: hashtag %>
         <% end %>
-
         <% @hashtags_topic_match.each do |hashtag| %>
           <%= render 'result_hashtag', hashtag: hashtag %>
         <% end %>
       </div>
-    <% end %>
-
-    <% if @hashtags_exact.blank? and @hashtag.valid? %>
-      <div id="new_hashtag">
-        <h1>How about a new channel?</h1>
-        <div class="result-supporting-text">
-          Create new channel:
-          <%= link_to truncate("##{@search}", length: 30), hashtags_path(tag: @search), method: :post %>
-        </div>
+    </div>
+  <% end %>
+  <% if !@hashtag.nil? && @hashtag.valid? %>
+    <div id="new_hashtag" class="mdl-cell mdl-cell--5-col-desktop mdl-cell--12-col-phone mdl-cell--10-col-tablet mdl-card mdl-shadow--2dp">
+      <div class="mdl-card__title">
+        <h2 class="mdl-card__title-text">How about a new channel?</h2>
       </div>
-    <% end %>
-
-    <% if @users.blank? and @hashtags.blank? and not @hashtag.valid? %>
-      <div>
-        <h1>No results for: <%= @search %></h1>
+      <div class="mdl-card__supporting-text">
+        Create new channel:
+        <%= link_to truncate("##{@search}", length: 30), hashtags_path(tag: @search), method: :post %>
       </div>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+  <% if @users.blank? and @hashtags.blank? and not @hashtag.valid? %>
+    <div>
+      <h1>No results for: <%= @search %></h1>
+    </div>
+  <% end %>
 </div>

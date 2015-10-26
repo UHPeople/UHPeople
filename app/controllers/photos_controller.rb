@@ -43,7 +43,7 @@ class PhotosController < ApplicationController
   end
 
   def limit_photos
-    max_photos = 5
+    max_photos = 10
 
     return if current_user.photos.count < max_photos
 

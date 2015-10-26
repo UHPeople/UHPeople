@@ -1,40 +1,40 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <div class="modal-title" id="myModalLabel">
-    <h4>
+<div class="mdl-card overlay-card mdl-shadow--8dp">
+  <%= image_tag @photo.image.url(:original) %>
+  <div class="mdl-card__actions">
     <% if current_user == @photo.user %>
-      <%= form_tag({controller: "photos", action: "update"}, method: "patch", class: "form-inline") do %>
-        <%= text_field_tag :image_text, @photo.image_text, class: "form-control" %>
-        <%= submit_tag "Change title", class: "btn btn-default" %>
-      <% end %>
+      <span class="image_filename">
+        <%= form_tag({controller: "photos", action: "update"}, method: "patch", class: "form-inline", action:"#") do %>
+          <div class="mdl-textfield mdl-js-textfield">
+            <%= text_field_tag :image_text, @photo.image_text, class:"mdl-textfield__input", id:"title-field" %>
+            <label class="mdl-textfield__label" for="title-field">Add photo title</label>
+          </div>
+          <%= submit_tag "Save", class: "mdl-button mdl-js-button mdl-color-text--white" %>
+        <% end %>
+      </span>
+      <div class="mdl-layout-spacer"></div>
+      <button id="menu<%= @photo.id %>" class="mdl-button mdl-js-button mdl-button--icon">
+        <i class="material-icons mdl-color-text--white">more_vert</i>
+      </button>
+      <ul class="mdl-menu mdl-menu--top-right mdl-js-menu mdl-js-ripple-effect"
+          for="menu<%= @photo.id %>">
+        <% if current_user.profilePicture == @photo.id %>
+          <li disabled class="mdl-menu__item">Set as profile photo</li>
+        <% else %>
+          <%= link_to set_profile_picture_path(pic_id: @photo.id), method: :post do %>
+            <li class="mdl-menu__item">Set as profile photo</li>
+          <% end %>
+        <% end %>
+        <%= link_to 'Delete photo', photo_path(id: @photo.id), class:"mdl-menu__item", method: :delete %>
+      </ul>
     <% else %>
-      <%= @photo.image_text %>
-    <% end %>
-    </h4>  
-  </div>
-</div>
-<div class="modal-body">
-  <div class="container-fluid">
-    <div class="col-md-6">
-      <div class="modal-image" style="background-image:url('<%= @photo.image.url(:original) %>')"></div>
-    </div>
-
-    <% if current_user == @photo.user %>
-      <div class="col-md-2">
-        <div class="form-group">
-      <%= form_tag({controller: "users", action: "set_profile_picture"}, method: "post") do %>
-        <%= hidden_field_tag :pic_id, @photo.id %>
-        <%= submit_tag "Make default", class: 'btn btn-primary' %>
-      <% end %>
-      </div>
-      <div class="form-group">
-      <%= link_to 'Delete photo', photo_path(photo: @photo), method: :delete, class: 'btn btn-danger', "data-confirm": 'Are you sure you want to delete this photo?', "data-confirm-title": 'Delete photo' %>
-      </div>
-      </div>
+      <span class="image_filename">
+        <%= @photo.image_text %>
+      </span>
     <% end %>
   </div>
-</div>
-
-<div class="modal-footer">
-  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect image__close">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
 </div>

@@ -8,7 +8,7 @@ class Hashtag < ActiveRecord::Base
   belongs_to :photo
 
   def latest_message
-    messages.order('created_at desc').first
+    messages.order('created_at desc').limit(1).first
   end
 
   delegate :empty?, to: :messages

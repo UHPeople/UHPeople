@@ -1,45 +1,53 @@
-<div class="container">
-  <%= form_for @user, html: { multipart: true } do |f| %>
-    <%# render 'users/profile_well', action: action %>
-    <div class="col-sm-5">
-      <% if @user.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@user.errors.count, "error") %> prohibited changes from being saved:</h2>
-
-          <ul>
-            <% @user.errors.full_messages.each do |msg| %>
-              <li><%= msg %></li>
-            <% end %>
-          </ul>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+  <div class="mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
+    <div class="mdl-user-card mdl-color--grey-800">
+      <div class="mdl-card__title">
+        <div class="profileCrop user-img-circle" style="background-image: url('<%= @user.profile_picture_url(:medium) %>'); height: 200px;">
         </div>
-      <% end %>
-
-      <% if action == 'new' %>
-        <%= f.hidden_field :username, value: @user.username %>
-      <% end %>
-
-      <div class="field element-position">
-        <%= f.label :name %><br>
-        <%= f.hidden_field :name, value: @user.name %>
-        <%= @user.name %>
-      </div>
-      <div class="field element-position">
-        <%= f.label :email %><br>
-        <%= f.hidden_field :email, value: @user.email %>
-        <%= @user.email %>
-      </div>
-
-      <div class="option_class element-position">
-        <%= f.label :campus %><br>
-        <%= f.select :campus, options_for_select(@campuses, f.object.campus) %>
-      </div>
-      <div class="field element-position">
-        <%= f.label :about %><br>
-        <%= f.text_area :about, size: "60x8", class: "form-control" %>
-      </div>
-      <div class="actions element-position">
-        <%= f.button :Update, class: 'btn btn-primary' %>
       </div>
     </div>
-  <% end %>
+    <div>
+      <% if @user.errors.any? %>
+        <h2><%= pluralize(@user.errors.count, "error") %></h2>
+        <ul>
+          <% @user.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+    <div class="mdl-card__supporting-text" style="width: 100%;">
+      <%= form_for @user, html: { multipart: true } do |f| %>
+        <% if action == 'new' %>
+          <%= f.hidden_field :username, value: @user.username %>
+        <% end %>
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+          <%= f.text_field :name, id: 'name', class: 'mdl-textfield__input', value: @user.name, disabled: ENV['RAILS_ENV'] == 'production' %>
+          <label class="mdl-textfield__label" for="name">Name</label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+          <%= f.text_field :email, id: 'email', class: 'mdl-textfield__input', value: @user.email, disabled: ENV['RAILS_ENV'] == 'production' %>
+          <label class="mdl-textfield__label" for="email">Email</label>
+        </div>
+        <div class="">
+          <% @campuses.each do |campus| %>
+            <p>
+              <%= f.radio_button :campus, campus %>
+              <%= label :campus, campus %>
+            </p>
+          <% end %>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+          <%= f.text_area :about, id: 'about', class: 'mdl-textfield__input', value: @user.about %>
+          <label class="mdl-textfield__label" for="about">About me</label>
+        </div>
+        <div class="pull-right">
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--raised">
+            <%= action == 'new' ? 'Create' : 'Update' %>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
