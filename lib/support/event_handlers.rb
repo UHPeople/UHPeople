@@ -54,8 +54,8 @@ module EventHandlers
       return
     end
 
-    photo_ids.split(',').each do |id| # parse photo_ids in separate
-      create_message_photo(message.id, id) #MessagePhotosController
+    photo_ids.split(',').each do |photo_id|
+      MessagePhoto.create message_id: message.id, photo_id: photo_id
     end
 
     find_mentions(message)

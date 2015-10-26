@@ -4,7 +4,6 @@ require 'erb'
 
 require_relative 'support/messages_controller.rb'
 require_relative 'support/notification_controller.rb'
-require_relative 'support/message_photos_controller.rb'
 
 require_relative 'support/chat_callbacks.rb'
 require_relative 'support/event_handlers.rb'

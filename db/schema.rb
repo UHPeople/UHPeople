@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013065812) do
+ActiveRecord::Schema.define(version: 20151021102930) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20151013065812) do
     t.datetime "updated_at",                   null: false
     t.string   "topic"
     t.integer  "topic_updater_id"
-    t.integer  "photo_id"
     t.integer  "color",            default: 0, null: false
+    t.integer  "photo_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(version: 20151013065812) do
     t.boolean  "first_time",     default: true
     t.integer  "profilePicture"
     t.integer  "tab",            default: 0
+    t.datetime "last_online"
+    t.string   "token"
   end
 
 end
