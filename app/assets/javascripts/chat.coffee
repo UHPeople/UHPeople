@@ -177,20 +177,21 @@ on_likers = ->
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
   user = $('#user-id')[0].value
-  photo_ids = $('#photo_ids')[0].value
 
   $('#chat-send').click (event) ->
     event.preventDefault()
-    if $('#input-text')[0].value.length > 0
-      text = $('#input-text')[0].value
-      ws.send JSON.stringify
-        event: 'message'
-        content: text
-        hashtag: hashtag
-        user: user
-        photo_ids: photo_ids
+    #if $('#input-text')[0].value.length > 0 #check removed for adding photos
+    text = $('#input-text')[0].value
+    photo_ids = $('#photo_ids')[0].value
+    ws.send JSON.stringify
+      event: 'message'
+      content: text
+      hashtag: hashtag
+      user: user
+      photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
+    $('#photo_ids')[0].value = ''
 
 add_click_handler_to_loader = ->
   hashtag = $('#hashtag-id')[0].value

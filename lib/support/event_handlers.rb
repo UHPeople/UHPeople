@@ -47,11 +47,23 @@ module EventHandlers
   end
 
   def message_event(user, hashtag, socket, content, photo_ids)
-    message = create_message content, user.id, hashtag.id #MessagesController.
 
-    unless message.valid?
-      send_error socket, 'Invalid message'
-      return
+    if content.empty? && photo_ids.present?
+      new_content = 'to be removed'
+      message = create_message new_content, user.id, hashtag.id #MessagesController.
+      unless message.valid?
+        send_error socket, 'Invalid message'
+        return
+      end
+      message.content = ''
+      message.save
+    else
+      message = create_message content, user.id, hashtag.id #MessagesController.
+
+      unless message.valid?
+        send_error socket, 'Invalid message'
+        return
+      end
     end
 
     photo_ids.split(',').each do |photo_id|

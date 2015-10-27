@@ -21,7 +21,8 @@ class Message < ActiveRecord::Base
   has_many :message_photos, dependent: :destroy
   has_many :photos, through: :message_photos
 
-  #validates :content, :hashtag_id, :user_id, presence: true
+  validates :hashtag_id, :user_id, presence: true
+  validates_presence_of :content, on: :create
   validates_with UserHashtagValidator
 
   def timestamp
