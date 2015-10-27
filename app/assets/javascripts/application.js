@@ -39,12 +39,14 @@ $(document).ready(function() {
 		$('.edit-modal__close').click(function() {
 			$('.edit-card').fadeOut(300);
 		});
-        $('.add-photo-modal__open').click(function() {
-            $('.add-photo-card').fadeIn(300);
-        });
-        $('.add-photo-modal__close').click(function() {
-            $('.add-photo-card').fadeOut(300);
-        });
+    $('.add-photo-modal__open').click(function() {
+			$('.image-overlay').fadeIn();
+      $('.add-photo-partial').fadeIn(300);
+    });
+    $('.add-photo-modal__close').click(function() {
+			$('.image-overlay').fadeOut();
+      //$('.add-photo-card').fadeOut(300);
+    });
 
 		$(".topic__toggle").click(function(){
 			if ($(".mdl-layout__header-row.mdl-hashtag-topic").height() == 56 ){
@@ -59,20 +61,28 @@ $(document).ready(function() {
 		});
 	}
 	if ($(location).attr('pathname').indexOf("users") > -1) {
-		$(".image__show").click(function(){
-			$('.image-overlay').fadeIn();
-			getAndShowImage($(this).attr('id'));
-		});
-		$('#but').click(function(event){
-			event.preventDefault();
-			$('#image').click();
-		});
-		$('#image').change(function() {
-		  $('#add-photo').submit();
+		//TODO: add load spinner, get user_id and set to load function
+
+		$(".photosection").load("/users/1/photos", function() {
+			// When load is complete
+		  componentHandler.upgradeDom();
+			$(".image__show").click(function(){
+				$('.image-overlay').fadeIn();
+				getAndShowImage($(this).attr('id'));
+			});
+			$('#but').click(function(event){
+				event.preventDefault();
+				$('#image').click();
+			});
+			$('#image').change(function() {
+				// post photo#create
+				// when done reload photosection
+				// $.post('photos/create', $('#image').serialize())
+			  // $('#add-photo').submit();
+			});
 		});
 	}
 });
-
 
 function getAndShowImage(id){
 	$.get('/photos/' + id, function(){

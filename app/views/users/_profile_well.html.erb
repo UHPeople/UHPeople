@@ -25,13 +25,13 @@
         </div>
         <!-- Tabs -->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect  mdl-color--white">
-          <a href="#fixed-tab-1" class="mdl-layout__tab is-active">Channels</a>
-          <a href="#fixed-tab-2" class="mdl-layout__tab">Photos</a>
-          <a href="#fixed-tab-3" class="mdl-layout__tab">About</a>
+          <%= link_to 'Channels', '#channels', class:"mdl-layout__tab is-active" %>
+          <%= link_to 'Photos', '#photos', class:"mdl-layout__tab", :remote => true %>
+          <%= link_to 'About', '#about', class:"mdl-layout__tab" %>
         </div>
       </header>
       <main class="mdl-layout__content next">
-        <section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+        <section class="mdl-layout__tab-panel is-active" id="channels">
           <div class="page-content">
             <div class="mdl-grid">
               <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
@@ -55,17 +55,17 @@
             </div>
           </div>
         </section>
-          <section class="mdl-layout__tab-panel" id="fixed-tab-2">
+          <section class="mdl-layout__tab-panel" id="photos">
             <div class="page-content">
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-                <div class="mdl-cell mdl-cell--10-col">
-                  <%= render 'photo_section', action: action %>
+                <div class="mdl-cell mdl-cell--10-col photosection">
+                  <%# render 'photo_section', action: action %>
                 </div>
               </div>
             </div>
           </section>
-          <section class="mdl-layout__tab-panel" id="fixed-tab-3">
+          <section class="mdl-layout__tab-panel" id="about">
             <div class="page-content">
               <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>

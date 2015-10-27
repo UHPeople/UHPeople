@@ -443,7 +443,7 @@ span.space-left {
   height: 52px !important;
 
   .chat-form-input {
-    @include calc("width", "100% - 48px");
+    @include calc("width", "100% - 96px");
     padding-top: 8px !important;
 
     label {

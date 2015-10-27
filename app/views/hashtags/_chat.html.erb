@@ -13,7 +13,11 @@
     </div>
   </div>
   <div class="mdl-card__actions mdl-card--border chat-form">
+
     <form action="#" enctype="multipart/form-data">
+      <button class="mdl-button mdl-js-button mdl-button--icon add-photo-modal__open">
+        <i class="material-icons icon-color">insert_photo</i>
+      </button>
       <div class="mdl-textfield mdl-js-textfield chat-form-input">
         <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
         <label class="mdl-textfield__label" for="input-text">Write a message...</label>
@@ -21,16 +25,7 @@
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="user-id" type="hidden" value="<%= current_user.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
-
-      <!-- photo_ids value = id:t pilkulla eroteltuna 2,5,78,4-->
-      <input id="photo_ids" type="hidden" value="2" />
-
-      <!-- Napilla aukeaa kuvagalleria, josta voi lisätä kuvia viestin liitteeks
-           eli lisää photo_id:t ylläolevaan muuttujaan
-                 <div class="add_chat_photo">
-         link_to 'Add photo' , '#', class: 'add-photo-modal__open' %>
-      </div>
-           -->
+      <input id="photo_ids" type="hidden" value="" />
 
       <div class="chat-form-send">
         <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>

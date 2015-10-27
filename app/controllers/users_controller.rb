@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_non_production, only: [:new]
-  before_action :require_login, only: [:show, :edit, :update, :set_tab]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :require_login, only: [:show, :edit, :update, :set_tab, :set_profile_picture]
+  before_action :set_user, only: [:show, :edit, :update, :photos]
   before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
 
@@ -115,6 +115,10 @@ class UsersController < ApplicationController
       format.json { render json: {} }
       format.html { redirect_to feed_index_path }
     end
+  end
+
+  def photos
+    render partial: 'users/photos/index'
   end
 
   private
