@@ -39,6 +39,12 @@ $(document).ready(function() {
 		$('.edit-modal__close').click(function() {
 			$('.edit-card').fadeOut(300);
 		});
+        $('.add-photo-modal__open').click(function() {
+            $('.add-photo-card').fadeIn(300);
+        });
+        $('.add-photo-modal__close').click(function() {
+            $('.add-photo-card').fadeOut(300);
+        });
 
 		$(".topic__toggle").click(function(){
 			if ($(".mdl-layout__header-row.mdl-hashtag-topic").height() == 56 ){
