@@ -12,6 +12,7 @@ loadPhotoSection = ->
   user_id = $('h2.mdl-typography--text-center').attr('id')
   $('.photosection').load "/users/#{user_id}/photos", ->
     # load callback
+    componentHandler.upgradeDom()
     toggleSpinner()
     $('.image__show').click ->
       toggleSpinner()
@@ -54,6 +55,19 @@ setImageComponents = ->
         loadPhotoSection()
 
   componentHandler.upgradeDom()
+
+checkCheckboxes = ->
+  boxes = $('input[type=checkbox]')
+  checked_ids = []
+  for box in boxes
+    do ->
+      if $(box).is(':checked')
+        $(box).parent().removeClass('is-checked')
+        checked_ids.push $(box).attr('id').split('-')[1]
+  checked_ids
+
+exports = this
+exports.checkCheckboxes = checkCheckboxes
 
 ready = ->
   unless $(location).attr('pathname').indexOf('users') > -1

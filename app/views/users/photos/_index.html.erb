@@ -14,8 +14,13 @@
     <% @user.photos.each do |pic| %>
       <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
         <a href="#" class="image__show" id="<%= pic.id %>">
-          <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;"></div>
+          <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;">
+          </div>
         </a>
+        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-<%= pic.id %>">
+          <input type="checkbox" id="checkbox-<%= pic.id %>" class="mdl-checkbox__input" />
+          <span class="mdl-checkbox__label">Add photo to message</span>
+        </label>
       </div>
     <% end %>
   <% end %>
