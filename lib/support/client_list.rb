@@ -41,7 +41,7 @@ module ClientList
     client.user.update_attribute(:last_online, Time.now.utc)
 
     user_hashtag = client.user.user_hashtags.find_by(hashtag_id: hashtags.first)
-    user_hashtag.update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
+    user_hashtag.update_attribute(:last_visited, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
   end
 
   def add_client(socket, user)
