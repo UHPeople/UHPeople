@@ -13,11 +13,11 @@ module NotificationController
                         message: message
   end
 
-  def notification_from_like(like)
+  def notification_from_like(user, message)
     notification = Notification.create notification_type: 4,
-                        user: user,
-                        tricker_user: tricker,
-                        tricker_hashtag: hashtag,
+                        user: message.user,
+                        tricker_user: user,
+                        tricker_hashtag: message.hashtag,
                         message: message
   end
 

@@ -54,11 +54,11 @@ module EventHandlers
       return
     end
 
-    notification_from_like like #NotificationController.
+    notification_from_like user, message #NotificationController.
 
     json = {
       'event': 'like',
-      'hashtag': hashtag.id,
+      'hashtag': message.hashtag.id,
       'message': message.id
     }
 
@@ -77,7 +77,7 @@ module EventHandlers
 
     json = {
       'event': 'dislike',
-      'hashtag': hashtag.id,
+      'hashtag': message.hashtag.id,
       'message': message.id
     }
 

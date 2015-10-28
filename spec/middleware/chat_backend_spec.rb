@@ -110,9 +110,82 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     context 'like event' do
+      it 'fails with invalid like' do
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, nil)
+
+        expect(Like.count).to eq 0
+      end
+
+      it 'creates like' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, message)
+
+        expect(Like.count).to eq 1
+      end
+
+      it 'creates like' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, message)
+
+        expect(Like.count).to eq 1
+      end
+
+      it 'sends like' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+        subject.like_event(socket, user, message)
+
+        expect(socket.map 'event').to include 'like'
+      end
+
+      it 'sends like even if not subscribed' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, message)
+
+        expect(socket.map 'event').to include 'like'
+      end
     end
 
     context 'dislike event' do
+      it 'fails with invalid like' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, message)
+        subject.dislike_event(socket, user, nil)
+
+        expect(Like.count).to eq 1
+      end
+
+      it 'removes like' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.like_event(socket, user, message)
+        subject.dislike_event(socket, user, message)
+
+        expect(Like.count).to eq 0
+      end
+
+      it 'responds with dislike' do
+        message = FactoryGirl.create :message, user: user, hashtag: hashtag
+
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+        subject.like_event(socket, user, message)
+        subject.dislike_event(socket, user, message)
+
+        expect(socket.map 'event').to include 'dislike'
+      end
     end
 
     context 'message event' do
@@ -208,24 +281,24 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'subscribed' do
     it 'false with no clients' do
-      expect(subject.subscribed(user, hashtag)).to be false
+      expect(subject.subscribed(user, hashtag.id)).to be false
     end
 
     it 'false with client not subscribed' do
       subject.online_event(socket, user, user.token)
-      expect(subject.subscribed(user, hashtag)).to be false
+      expect(subject.subscribed(user, hashtag.id)).to be false
     end
 
     it 'false with client subscribed other hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id + 1])
-      expect(subject.subscribed(user, hashtag)).to be false
+      expect(subject.subscribed(user, hashtag.id)).to be false
     end
 
     it 'true with client subscribed to hashtag' do
       subject.online_event(socket, user, user.token)
-      subject.subscribe(socket, [hashtag])
-      expect(subject.subscribed(user, hashtag)).to be true
+      subject.subscribe(socket, [hashtag.id])
+      expect(subject.subscribed(user, hashtag.id)).to be true
     end
   end
 
