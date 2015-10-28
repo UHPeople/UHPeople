@@ -20,11 +20,16 @@ class PhotosController < ApplicationController
 
   def create
     photo = Photo.new(photo_params)
-
     if photo.save
-      # redirect_to current_user, notice: 'Photo was successfully added.'
+      respond_to do |format|
+        format.json { render json: {message: 'Photo was successfully added.'} }
+        format.html { redirect_to current_user, notice: 'Photo was successfully added.' }
+      end
     else
-      # redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'
+      respond_to do |format|
+        format.json { render json: {} }
+        format.html {redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'}
+      end
     end
   end
 

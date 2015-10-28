@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.form
 //= require bootstrap-sprockets
 //= require twitter/bootstrap/rails/confirm
 
@@ -62,27 +63,39 @@ $(document).ready(function() {
 	}
 	if ($(location).attr('pathname').indexOf("users") > -1) {
 		//TODO: add load spinner, get user_id and set to load function
-
-		$(".photosection").load("/users/1/photos", function() {
-			// When load is complete
-		  componentHandler.upgradeDom();
-			$(".image__show").click(function(){
-				$('.image-overlay').fadeIn();
-				getAndShowImage($(this).attr('id'));
-			});
-			$('#but').click(function(event){
-				event.preventDefault();
-				$('#image').click();
-			});
-			$('#image').change(function() {
-				// post photo#create
-				// when done reload photosection
-				// $.post('photos/create', $('#image').serialize())
-			  // $('#add-photo').submit();
-			});
-		});
+		loadPhotoSection();
 	}
 });
+
+function loadPhotoSection(){
+	$(".photosection").load("/users/1/photos", function() {
+		// When load is complete
+		componentHandler.upgradeDom();
+		$(".image__show").click(function(){
+			$('.image-overlay').fadeIn();
+			getAndShowImage($(this).attr('id'));
+		});
+		$('#but').click(function(event){
+			event.preventDefault();
+			$('#image').click();
+		});
+		$('#image').change(function() {
+			$('.image-overlay').fadeIn();
+			$('.absolut-center-spinner').fadeIn();
+			$(this).parent().ajaxSubmit({
+				beforeSubmit: function(a,f,o) {
+			   o.dataType = 'json';
+			  },
+			  complete: function(XMLHttpRequest, textStatus) {
+					console.log(XMLHttpRequest.responseJSON.message);
+					$('.image-overlay').fadeOut();
+					$('.absolut-center-spinner').fadeOut();
+					loadPhotoSection();
+			  },
+			});
+		});
+	});
+}
 
 function getAndShowImage(id){
 	$.get('/photos/' + id, function(){

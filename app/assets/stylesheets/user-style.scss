@@ -22,6 +22,17 @@ a img.img-circle {
   z-index: 100;
   display: none;
 
+  .absolut-center-spinner{
+    position:fixed;
+     width:60px;
+     height:60px;
+     margin:-30px auto auto -30px;
+     top:50%;
+     left:50%;
+     text-align:center;
+     display: none;
+  }
+
   .overlay-card {
     z-index: 110;
     position: absolute;

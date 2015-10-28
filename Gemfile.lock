@@ -109,6 +109,8 @@ GEM
     jqcloud-rails (1.0.0)
       jquery-rails
     jquery-atwho-rails (1.3.2)
+    jquery-form-rails (1.0.1)
+      jquery-rails
     jquery-rails (4.0.5)
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
@@ -291,6 +293,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jqcloud-rails
   jquery-atwho-rails
+  jquery-form-rails (~> 1.0, >= 1.0.1)
   jquery-rails
   launchy
   material_design_lite-rails
@@ -320,3 +323,6 @@ DEPENDENCIES
   twitter-typeahead-rails (~> 0.10.5)
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
+
+BUNDLED WITH
+   1.10.6

@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
+gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 gem 'twitter-bootstrap-rails-confirm'

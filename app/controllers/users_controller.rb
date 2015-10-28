@@ -55,12 +55,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     redirect_to(action: 'new') && return unless @user.save
-
-    if params[:image]
-      photo = Photo.new(user_id: @user.id, image: params[:image], image_text: params[:image_text])
-      @user.update_attribute(:profilePicture, photo.id) if photo.save
-    end
-
+    #
+    # if params[:image]
+    #   photo = Photo.new(user_id: @user.id, image: params[:image], image_text: params[:image_text])
+    #   @user.update_attribute(:profilePicture, photo.id) if photo.save && @user.profilePicture.nil?
+    # end
+    #
     session[:user_id] = @user.id
 
     redirect_to threehash_path
