@@ -1,21 +1,20 @@
 
-toggleSpinner = ->
-  unless $('.absolut-center-spinner').is(":visible")
-    $('.image-overlay').fadeIn()
-    $('.absolut-center-spinner').fadeIn()
-  else
+startSpinner = ->
+  $('.image-overlay').fadeIn()
+  $('.absolut-center-spinner').fadeIn()
+
+stopSpinner = ->
     $('.image-overlay').fadeOut()
     $('.absolut-center-spinner').fadeOut()
 
 loadPhotoSection = ->
-  toggleSpinner()
   user_id = $('h2.mdl-typography--text-center').attr('id')
   $('.photosection').load "/users/#{user_id}/photos", ->
     # load callback
     componentHandler.upgradeDom()
-    toggleSpinner()
+    stopSpinner()
     $('.image__show').click ->
-      toggleSpinner()
+      startSpinner()
       getAndShowImage $(this).attr('id')
 
     $('.fab_add_button').click (event) ->
@@ -23,13 +22,13 @@ loadPhotoSection = ->
       $('#image').click()
 
     $('#image').change ->
-      toggleSpinner()
+      startSpinner()
       $(this).parent().ajaxSubmit
         beforeSubmit: (a, f, o) ->
           o.dataType = 'json'
         complete: (XMLHttpRequest, textStatus) ->
           # console.log XMLHttpRequest.responseJSON.message
-          toggleSpinner()
+          stopSpinner()
           loadPhotoSection()
 
 getAndShowImage = (id) ->
