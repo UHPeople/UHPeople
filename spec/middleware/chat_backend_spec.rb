@@ -135,7 +135,7 @@ RSpec.describe UHPeople::ChatBackend do
         expect(Like.count).to eq 1
       end
 
-      it 'sends like' do
+      it 'sends like once if subscribed' do
         message = FactoryGirl.create :message, user: user, hashtag: hashtag
 
         subject.online_event(socket, user, user.token)
@@ -143,6 +143,7 @@ RSpec.describe UHPeople::ChatBackend do
         subject.like_event(socket, user, message)
 
         expect(socket.map 'event').to include 'like'
+        expect(socket.map('event').count('like')).to eq 1
       end
 
       it 'sends like even if not subscribed' do
