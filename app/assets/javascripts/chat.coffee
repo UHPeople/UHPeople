@@ -122,6 +122,12 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
+  hashtag = $('#hashtag-id').val()
+  console.log `hashtag != data.hashtag`
+  if `hashtag != data.hashtag`
+    on_notification()
+    return
+
   after = '.panel-body:last'
   if $('.panel-body').length == 0
     after = '.loader'
@@ -226,11 +232,11 @@ ready = ->
     'online': on_online,
     'join': on_join,
     'leave': on_leave,
-    'notification': on_notification,
     'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
-    'likers': on_likers
+    'likers': on_likers,
+    'mention': on_notification
   }
 
   update_leave_button()

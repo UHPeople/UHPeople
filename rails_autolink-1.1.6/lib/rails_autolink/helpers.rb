@@ -90,8 +90,8 @@ module RailsAutolink
 
           AUTO_EMAIL_LOCAL_RE = /[\w.!#\$%&'*\/=?^`{|}~+-]/
           AUTO_EMAIL_RE = /[\w.!#\$%+-]\.?#{AUTO_EMAIL_LOCAL_RE}*@[\w-]+(?:\.[\w-]+)+/
-          AUTO_MENTION_RE = /\B@[a-zA-Z0-9_-]+/
-          AUTO_HASHTAG_RE = /\B#[a-zA-Z0-9_-]+/
+          AUTO_MENTION_RE = /\B@[0-9]+/
+          AUTO_HASHTAG_RE = /\B#[^ ]+/
 
           BRACKETS = { ']' => '[', ')' => '(', '}' => '{' }
 
@@ -167,10 +167,9 @@ module RailsAutolink
                   display_text = sanitize(display_text) unless text == display_text
                 end
 
-                match_user = User.find_by username: text.gsub('@', '')
+                match_user = User.find_by id: text.gsub('@', '')
 
                 unless match_user.nil?
-
                   content_tag(:a, '@' + match_user.name, link_attributes.merge('href' => Rails.root + '/users/' + match_user.id.to_s), !!options[:sanitize])
                 else
                   text

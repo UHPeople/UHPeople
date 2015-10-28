@@ -43,19 +43,9 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-        env['chat.like_callback'] = proc { |event, message| like_callback(event, message) }
-        env['chat.notification_callback'] = proc { |user| notification_callback(user) }
+        env['chat.notification_callback'] = proc { |notification| notification_callback(notification) }
 
         @app.call(env)
-      end
-    end
-
-    def find_mentions(message)
-      message.hashtag.users.each do |user|
-        send_mention(user,
-          message.user_id,
-          message.hashtag_id,
-          message) if message.content.include? "@#{user.username}"
       end
     end
 
@@ -94,7 +84,6 @@ module UHPeople
       if data['event'] != 'online' and !authenticated(socket)
         send_error socket, 'Not authenticated'
         return
-        # socket.close
       end
 
       if data['event'] == 'online'

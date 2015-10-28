@@ -15,7 +15,8 @@ ready = ->
 
   ws = create_websocket {
     'online': on_online,
-    'notification': on_notification
+    'message': on_notification,
+    'mention': on_notification
   }
 
 $(document).ready(ready)

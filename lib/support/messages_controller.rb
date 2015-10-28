@@ -11,6 +11,11 @@ module MessagesController
                    user_id: user_id
   end
 
+  def find_mentions(message)
+    # Looks for user id
+    message.content.scan /@([0-9]+)/
+  end
+
   def get_feed_messages(user)
     tags = user.user_hashtags.includes(hashtag: :messages).map(&:hashtag)
     messages = Message.includes(:hashtag, :user)

@@ -6,7 +6,6 @@ module EventHandlers
       add_client(socket, user)
     else
       send_error socket, 'Invalid token'
-      # socket.close
     end
   end
 
@@ -55,8 +54,15 @@ module EventHandlers
       return
     end
 
-    add_likenotif message, user #NotificationController.
-    like_callback 'like', message
+    json = {
+      'event': 'like',
+      'hashtag': message.hashtag.id,
+      'message': message.id
+    }
+
+    broadcast(JSON.generate(json), message.hashtag.id)
+    send(JSON.generate(json), message.user) unless subscribed(message.user, message.hashtag.id)
+    notification_from_like(user, message) unless online(message.user)
   end
 
   def dislike_event(socket, user, message)
@@ -68,8 +74,13 @@ module EventHandlers
 
     like.destroy
 
-    remove_likenotif message, user #NotificationController.
-    like_callback 'dislike', message
+    json = {
+      'event': 'dislike',
+      'hashtag': message.hashtag.id,
+      'message': message.id
+    }
+
+    broadcast(JSON.generate(json), message.hashtag.id)
   end
 
   def message_event(socket, user, hashtag, content)
@@ -80,8 +91,28 @@ module EventHandlers
       return
     end
 
-    find_mentions(message)
+    json = JSON.generate(message.serialize)
+    broadcast(json, hashtag.id)
 
-    broadcast(JSON.generate(message.serialize), hashtag.id)
+    hashtag.users.each do |u|
+      unless subscribed(u, hashtag.id)
+        send(json, u)
+        notification_from_message(u, message)
+      end
+    end
+
+    find_mentions(message).each do |id|
+      user = User.find_by id: id
+      unless user.nil?
+        json = {
+          'event': 'mention',
+          'user': message.user,
+          'message': message.id
+        }
+
+        send(JSON.generate(json), user)
+        notification_from_mention(user, message)
+      end
+    end
   end
 end
