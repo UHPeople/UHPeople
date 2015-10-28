@@ -23,6 +23,14 @@ module ClientList
     return false
   end
 
+  def online(user)
+    @clients.each do |client|
+      return true if client.user == user
+    end
+
+    return false
+  end
+
   def remove_client(socket)
     client = @clients.find { |client| client.socket == socket }
     hashtags = client.hashtags

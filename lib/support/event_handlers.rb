@@ -54,8 +54,6 @@ module EventHandlers
       return
     end
 
-    notification_from_like user, message #NotificationController.
-
     json = {
       'event': 'like',
       'hashtag': message.hashtag.id,
@@ -64,6 +62,7 @@ module EventHandlers
 
     broadcast(JSON.generate(json), message.hashtag.id)
     send(JSON.generate(json), message.user) unless subscribed(message.user, message.hashtag.id)
+    notification_from_like(user, message) unless online(message.user)
   end
 
   def dislike_event(socket, user, message)
@@ -95,14 +94,12 @@ module EventHandlers
     broadcast(JSON.generate(message.serialize), hashtag.id)
 
     hashtag.users.each do |user|
-      notification_from_message(user, message)
+      notification_from_message(user, message) unless online(message.user)
     end
 
     find_mentions(message).each do |id|
       user = User.find_by id: id
       unless user.nil?
-        notification_from_mention(user, message)
-
         json = {
           'event': 'mention',
           'user': message.user,
@@ -110,6 +107,7 @@ module EventHandlers
         }
 
         send(JSON.generate(json), user)
+        notification_from_mention(user, message) unless online(user)
       end
     end
   end
