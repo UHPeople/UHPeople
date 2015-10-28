@@ -43,8 +43,6 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-        env['chat.like_callback'] = proc { |event, message| like_callback(event, message) }
-        env['chat.notification_callback'] = proc { |user| notification_callback(user) }
 
         @app.call(env)
       end

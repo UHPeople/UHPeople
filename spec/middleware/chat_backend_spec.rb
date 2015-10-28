@@ -26,7 +26,7 @@ RSpec.describe UHPeople::ChatBackend do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:user2) { FactoryGirl.create(:user, username: 'asd2') }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
-  let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
+  let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag, favourite: true) }
 
   let!(:socket) { MockSocket.new }
 
@@ -90,12 +90,23 @@ RSpec.describe UHPeople::ChatBackend do
 
     context 'favourites event' do
       it 'responds with messages' do
+        subject.message_event(socket, user, hashtag, 'asd')
+
         subject.online_event(socket, user, user.token)
         subject.favourites_event(socket, user)
+
         expect(socket.sent.last['event']).to eq 'favourites'
+        expect(socket.sent.last['messages'].last['content']).to eq 'asd'
       end
 
       # it 'subscribes client to favourites messages' do
+      #   subject.online_event(socket, user, user.token)
+      #   subject.favourites_event(socket, user)
+      #
+      #   subject.message_event(socket, user, hashtag, 'asd')
+      #
+      #   expect(socket.sent.last['event']).to eq 'message'
+      # end
     end
 
     context 'like event' do
@@ -192,6 +203,29 @@ RSpec.describe UHPeople::ChatBackend do
 
       expect(socket.map 'event').to include 'message'
       expect(socket2.map 'event').to include 'message'
+    end
+  end
+
+  context 'subscribed' do
+    it 'false with no clients' do
+      expect(subject.subscribed(user, hashtag)).to be false
+    end
+
+    it 'false with client not subscribed' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.subscribed(user, hashtag)).to be false
+    end
+
+    it 'false with client subscribed other hashtag' do
+      subject.online_event(socket, user, user.token)
+      subject.subscribe(socket, [hashtag.id + 1])
+      expect(subject.subscribed(user, hashtag)).to be false
+    end
+
+    it 'true with client subscribed to hashtag' do
+      subject.online_event(socket, user, user.token)
+      subject.subscribe(socket, [hashtag])
+      expect(subject.subscribed(user, hashtag)).to be true
     end
   end
 

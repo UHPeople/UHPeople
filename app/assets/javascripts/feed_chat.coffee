@@ -139,7 +139,7 @@ ready = ->
   ws = create_websocket {
     'open': on_open,
     'message': on_message,
-    'notification': on_notification,
+    'mention': on_notification,
     'feed': on_feed,
     'like': like_both,
     'dislike': dislike_both,

@@ -58,10 +58,12 @@ module EventHandlers
 
     json = {
       'event': 'like',
+      'hashtag': hashtag.id,
       'message': message.id
     }
 
     broadcast(JSON.generate(json), message.hashtag.id)
+    send(JSON.generate(json), message.user) unless subscribed(message.user, message.hashtag)
   end
 
   def dislike_event(socket, user, message)
@@ -75,6 +77,7 @@ module EventHandlers
 
     json = {
       'event': 'dislike',
+      'hashtag': hashtag.id,
       'message': message.id
     }
 

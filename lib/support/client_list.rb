@@ -15,6 +15,14 @@ module ClientList
     @clients.each { |client| client.send(json) if client.user == user }
   end
 
+  def subscribed(user, hashtag)
+    @clients.each do |client|
+      return true if client.user == user and client.hashtags.include? hashtag
+    end
+
+    return false
+  end
+
   def remove_client(socket)
     client = @clients.find { |client| client.socket == socket }
     hashtags = client.hashtags

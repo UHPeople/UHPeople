@@ -221,11 +221,11 @@ ready = ->
     'online': on_online,
     'join': on_join,
     'leave': on_leave,
-    'notification': on_notification,
     'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
-    'likers': on_likers
+    'likers': on_likers,
+    'mention': on_notification
   }
 
   update_leave_button()
