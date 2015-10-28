@@ -116,12 +116,12 @@ class HashtagsController < ApplicationController
       return
     end
 
-    Notification.create notification_type: 1,
+    notification = Notification.create notification_type: 1,
                         user_id: user.id,
                         tricker_user: current_user,
                         tricker_hashtag: @hashtag
 
-    request.env['chat.notification_callback'].call(user.id)
+    request.env['chat.notification_callback'].call(notification)
 
     respond_to do |format|
       format.html { redirect_to hashtag_path(@hashtag.tag) }

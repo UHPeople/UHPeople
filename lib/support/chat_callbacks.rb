@@ -11,4 +11,8 @@ module ChatCallbacks
 
     broadcast(JSON.generate(json), hashtag.id)
   end
+
+  def notification_callback(notification)
+    send(notification.serialize, notification.user)
+  end
 end
