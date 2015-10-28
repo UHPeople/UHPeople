@@ -123,8 +123,8 @@ on_close = ->
 
 on_message = (data) ->
   hashtag = $('#hashtag-id').val()
-  console.log hashtag != data.hashtag
-  if hashtag != data.hashtag
+  console.log `hashtag != data.hashtag`
+  if `hashtag != data.hashtag`
     on_notification()
     return
 

@@ -95,8 +95,10 @@ module EventHandlers
     broadcast(json, hashtag.id)
 
     hashtag.users.each do |u|
-      send(json, u) unless subscribed(u, hashtag.id)
-      notification_from_message(u, message) unless online(message.user)
+      unless subscribed(u, hashtag.id)
+        send(json, u)
+        notification_from_message(u, message)
+      end
     end
 
     find_mentions(message).each do |id|
@@ -109,7 +111,7 @@ module EventHandlers
         }
 
         send(JSON.generate(json), user)
-        notification_from_mention(user, message) unless online(user)
+        notification_from_mention(user, message)
       end
     end
   end
