@@ -20,6 +20,7 @@
 //= require chat
 //= require feed_chat
 //= require search
+//= require user_profile
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
@@ -61,54 +62,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	if ($(location).attr('pathname').indexOf("users") > -1) {
-		//TODO: add load spinner, get user_id and set to load function
-		loadPhotoSection();
-	}
 });
-
-function loadPhotoSection(){
-	$(".photosection").load("/users/1/photos", function() {
-		// When load is complete
-		componentHandler.upgradeDom();
-		$(".image__show").click(function(){
-			$('.image-overlay').fadeIn();
-			getAndShowImage($(this).attr('id'));
-		});
-		$('#but').click(function(event){
-			event.preventDefault();
-			$('#image').click();
-		});
-		$('#image').change(function() {
-			$('.image-overlay').fadeIn();
-			$('.absolut-center-spinner').fadeIn();
-			$(this).parent().ajaxSubmit({
-				beforeSubmit: function(a,f,o) {
-			   o.dataType = 'json';
-			  },
-			  complete: function(XMLHttpRequest, textStatus) {
-					console.log(XMLHttpRequest.responseJSON.message);
-					$('.image-overlay').fadeOut();
-					$('.absolut-center-spinner').fadeOut();
-					loadPhotoSection();
-			  },
-			});
-		});
-	});
-}
-
-function getAndShowImage(id){
-	$.get('/photos/' + id, function(){
-	})
-	.done(function( data ) {
-		$('.image-overlay').html(data);
-		$(".image__close").click(function(){
-			$(".image-overlay").empty();
-			$('.image-overlay').fadeOut();
-		});
-		componentHandler.upgradeDom();
-  });
-}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {

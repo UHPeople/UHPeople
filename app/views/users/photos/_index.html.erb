@@ -3,7 +3,7 @@
   <div class="add-photo-card">
     <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true, remote: true) do %>
       <%= file_field_tag :image, id:"image", accept: 'image/png,image/jpeg', style:"display:none"%>
-      <%= button_tag id:"but", class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" do %>
+      <%= button_tag class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab_add_button" do %>
         <i class="material-icons">add</i>
       <% end %>
     <% end %>

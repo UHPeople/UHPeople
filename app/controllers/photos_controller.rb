@@ -14,7 +14,10 @@ class PhotosController < ApplicationController
   def destroy
     current_user.update_attribute(:profilePicture, nil) if @photo.id == current_user.profilePicture
     current_user.photos.destroy @photo
-    redirect_to current_user, notice: 'Photo was successfully deleted.'
+    respond_to do |format|
+      format.json { render json: {message: 'Photo was successfully deleted.'} }
+      format.html { redirect_to current_user, notice: 'Photo was successfully deleted.' }
+    end
   end
 
   def create
