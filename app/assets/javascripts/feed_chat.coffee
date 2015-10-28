@@ -99,11 +99,9 @@ on_open = (socket) ->
 
   socket.send JSON.stringify
     event: 'feed'
-    user: user
 
   socket.send JSON.stringify
     event: 'favourites'
-    user: user
 
 on_message = (data) ->
   add_feed_message data

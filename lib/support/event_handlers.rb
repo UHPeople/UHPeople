@@ -2,11 +2,12 @@ require 'json'
 
 module EventHandlers
   def online_event(socket, user, token)
-    if user.token == token
-      add_client(socket, user)
-    else
-      send_error socket, 'Invalid token'
+    user = User.find_by id: user
+    if user.nil? or user.token != token
+      send_error socket, 'Invalid user or token'
     end
+
+    add_client(socket, user)
   end
 
   def feed_event(socket, user)

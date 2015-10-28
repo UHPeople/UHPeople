@@ -35,12 +35,10 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'responds with error to' do
     it 'invalid user' do
-      subject.online_event(socket, user, user.token)
-      message = "{ \"event\": \"hashtag\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
-      subject.respond(socket, message)
+      subject.online_event(socket, user.id + 1, user.token)
 
       expect(socket.map 'event').to include 'error'
-      expect(socket.map 'content').to include 'Invalid User'
+      expect(socket.map 'content').to include 'Invalid user or token'
     end
 
     it 'invalid hashtag' do
@@ -62,10 +60,10 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid authentication' do
-      subject.online_event(socket, user, "token")
+      subject.online_event(socket, user.id, "token")
 
       expect(socket.map 'event').to include 'error'
-      expect(socket.map 'content').to include 'Invalid token'
+      expect(socket.map 'content').to include 'Invalid user or token'
     end
 
     it 'not authenticating' do

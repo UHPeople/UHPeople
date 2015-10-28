@@ -113,7 +113,6 @@ on_open = (socket) ->
   socket.send JSON.stringify
     event: 'hashtag'
     hashtag: $('#hashtag-id').val()
-    user: $('#user-id').val()
 
 on_close = ->
   input = $('#input-text')
@@ -189,7 +188,6 @@ add_click_handler_to_chat = ->
         event: 'message'
         content: text
         hashtag: hashtag
-        user: user
 
     $('#input-text')[0].value = ''
 
@@ -205,7 +203,6 @@ add_click_handler_to_loader = ->
     ws.send JSON.stringify
       event: 'messages'
       hashtag: hashtag
-      user: user
       message: last_message
 
 activate_load_spinner = ->

@@ -107,7 +107,6 @@ add_click_handler_to_likes = (element, socket) ->
 
     socket.send JSON.stringify
       event: event
-      user: user
       message: message
 
 add_mouseover_to_get_likers = (prefix, id) ->

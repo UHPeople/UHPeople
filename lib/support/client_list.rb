@@ -65,8 +65,6 @@ module ClientList
     find(socket).present?
   end
 
-  private
-
   def find(socket)
     @clients.find { |client| client.socket == socket }
   end
