@@ -91,10 +91,12 @@ module EventHandlers
       return
     end
 
-    broadcast(JSON.generate(message.serialize), hashtag.id)
+    json = JSON.generate(message.serialize)
+    broadcast(json, hashtag.id)
 
-    hashtag.users.each do |user|
-      notification_from_message(user, message) unless online(message.user)
+    hashtag.users.each do |u|
+      send(json, u) unless subscribed(u, hashtag.id)
+      notification_from_message(u, message) unless online(message.user)
     end
 
     find_mentions(message).each do |id|

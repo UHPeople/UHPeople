@@ -122,6 +122,12 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
+  hashtag = $('#hashtag-id').val()
+  console.log hashtag != data.hashtag
+  if hashtag != data.hashtag
+    on_notification()
+    return
+
   after = '.panel-body:last'
   if $('.panel-body').length == 0
     after = '.loader'

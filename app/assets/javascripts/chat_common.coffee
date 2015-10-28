@@ -32,12 +32,12 @@ create_websocket = (events) ->
   return ws
 
 on_notification = ->
-  count = $('.notif-count')
-  t = Number(count.text())
-  if t == 0
+  count = $('.notif-count .badge')
+  if not count.length
     $('.notif-count').append("<span class='badge badge-success'>1</span>");
   else
-    $('.notif-count .badge').text(t + 1)
+    t = Number(count.text())
+    count.text(t + 1)
 
 set_star_hover = ->
   $('.like-icon').hover( ->
@@ -63,11 +63,17 @@ change_like_star = (t) ->
 
 on_like = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  count.text(Number(count.text()) + 1)
+  if not count.length
+    on_notification
+  else
+    count.text(Number(count.text()) + 1)
 
 on_dislike = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  count.text(Number(count.text()) - 1)
+  if not count.length
+    on_notification
+  else
+    count.text(Number(count.text()) - 1)
 
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)

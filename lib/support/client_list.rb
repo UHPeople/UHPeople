@@ -39,6 +39,7 @@ module ClientList
     broadcast(online_users)
 
     client.user.update_attribute(:last_online, Time.now.utc)
+
     user_hashtag = client.user.user_hashtags.find_by(hashtag_id: hashtags.first)
     user_hashtag.update_attribute(:last_visit, Time.now.utc) if hashtags.count == 1 && user_hashtag.present?
   end
@@ -51,7 +52,7 @@ module ClientList
   def subscribe(socket, hashtag)
     client = find(socket)
     hashtags = (hashtag.class != Array) ? [hashtag] : hashtag
-    client.hashtags = client.hashtags + hashtags
+    client.hashtags = (client.hashtags + hashtags).compact
   end
 
   def online_users
