@@ -41,6 +41,8 @@ $(document).ready(function() {
 		$('.edit-modal__close').click(function() {
 			$('.edit-card').fadeOut(300);
 		});
+
+		// TODO: this
     $('.add-photo-modal__open').click(function() {
 			$('.image-overlay').fadeIn();
       $('.add-photo-partial').fadeIn(300);

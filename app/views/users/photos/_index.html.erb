@@ -1,4 +1,3 @@
-<h2 class="mdl-color-text--grey">Photos</h2>
 <% if @user == current_user %>
   <div class="add-photo-card">
     <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true, remote: true) do %>

@@ -8,7 +8,7 @@ stopSpinner = ->
     $('.absolut-center-spinner').fadeOut()
 
 loadPhotoSection = ->
-  user_id = $('h2.mdl-typography--text-center').attr('id')
+  user_id = $('.photosection').attr('id')
   $('.photosection').load "/users/#{user_id}/photos", ->
     # load callback
     componentHandler.upgradeDom()
@@ -67,12 +67,14 @@ checkCheckboxes = ->
 
 exports = this
 exports.checkCheckboxes = checkCheckboxes
+exports.loadPhotoSection = loadPhotoSection
 
 ready = ->
-  unless $(location).attr('pathname').indexOf('users') > -1
-   return
-  else
+  if $(location).attr('pathname').indexOf('users') > -1
+   loadPhotoSection()
+ if $('#hashtag-id').length
   loadPhotoSection()
+
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
