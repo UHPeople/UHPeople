@@ -147,6 +147,15 @@ a img.img-circle {
       width: 100%;
       background-size: contain;
       background-repeat: no-repeat;
+
+      .mdl-card__title {
+        height: 160px;
+      }
+      .mdl-card__actions{
+        visibility: hidden;
+        background-color: rgba(255, 255, 255, 0.5);
+        padding-left: 20px;
+      }
     }
     .add-photo-card {
       min-height: 80px;
