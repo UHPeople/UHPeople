@@ -19,7 +19,8 @@ class Message < ActiveRecord::Base
 
   has_many :likes, dependent: :destroy
 
-  validates :content, :hashtag_id, :user_id, presence: true
+  validates :hashtag_id, :user_id, presence: true
+  validates :content, presence: true, length: { maximum: 256 }
   validates_with UserHashtagValidator
 
   def timestamp

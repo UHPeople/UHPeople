@@ -25,6 +25,13 @@ RSpec.describe Message do
     expect(described_class.count).to eq(0)
   end
 
+  it 'is not saved if too long' do
+    message = described_class.create content: 'a'*300, hashtag_id: hashtag.id, user_id: user.id
+
+    expect(message.valid?).to be(false)
+    expect(described_class.count).to eq(0)
+  end
+
   it 'is not saved if user doesn\'t belong to hashtag' do
     message = described_class.create content: 'asd', hashtag_id: hashtag.id, user_id: user.id
 
