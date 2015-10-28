@@ -50,15 +50,6 @@ module UHPeople
       end
     end
 
-    def find_mentions(message)
-      message.hashtag.users.each do |user|
-        send_mention(user,
-          message.user_id,
-          message.hashtag_id,
-          message) if message.content.include? "@#{user.username}"
-      end
-    end
-
     def send_error(socket, error)
       json = {
         'event': 'error',
@@ -94,7 +85,6 @@ module UHPeople
       if data['event'] != 'online' and !authenticated(socket)
         send_error socket, 'Not authenticated'
         return
-        # socket.close
       end
 
       if data['event'] == 'online'

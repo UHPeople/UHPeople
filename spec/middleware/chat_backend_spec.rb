@@ -197,10 +197,8 @@ RSpec.describe UHPeople::ChatBackend do
 
   it 'finds mentions' do
     subject.online_event(socket, user, user.token)
+    subject.message_event(socket, user, hashtag, "@#{user.id}")
 
-    message = Message.create user: user, hashtag: hashtag, content: "@#{user.username}"
-    subject.find_mentions(message)
-
-    expect(socket.map 'event').to include 'notification'
+    expect(socket.map 'event').to include 'mention'
   end
 end
