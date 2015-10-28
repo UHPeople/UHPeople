@@ -1,7 +1,6 @@
 class PhotosController < ApplicationController
   before_action :require_login
   before_action :set_photo, only: [:update, :destroy, :show]
-  before_action :limit_photos, only: [:create]
 
   def update
     unless @photo.update(image_text: params[:image_text])
@@ -42,12 +41,4 @@ class PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
   end
 
-  def limit_photos
-    max_photos = 10
-
-    return if current_user.photos.count < max_photos
-
-    redirect_to current_user,
-                alert: "You have added the maximum amount of #{max_photos} photos, you have to remove some to add new ones."
-  end
 end
