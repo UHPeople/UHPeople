@@ -4,8 +4,8 @@ startSpinner = ->
   $('.absolut-center-spinner').fadeIn()
 
 stopSpinner = ->
-    $('.image-overlay').fadeOut()
-    $('.absolut-center-spinner').fadeOut()
+  $('.image-overlay').fadeOut()
+  $('.absolut-center-spinner').fadeOut()
 
 loadPhotoSection = (callback)->
   user_id = $('.photosection').attr('id')
@@ -15,7 +15,7 @@ loadPhotoSection = (callback)->
     stopSpinner()
     $('.image__show').click ->
       startSpinner()
-      getAndShowImage $(this).attr('id')
+      getAndShowImage $(this).attr('id'), callback
 
     $('.fab_add_button').click (event) ->
       event.preventDefault()
@@ -30,19 +30,17 @@ loadPhotoSection = (callback)->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
           loadPhotoSection(callback)
+          
+    if (callback?) then callback()
 
-    if (callback?)
-      callback()
-
-
-getAndShowImage = (id) ->
+getAndShowImage = (id, callback) ->
   $.get('/photos/' + id, ->
   ).done (data) ->
     $('.absolut-center-spinner').fadeOut()
     $('.image-overlay').append data
-    setImageComponents()
+    setImageComponents(callback)
 
-setImageComponents = ->
+setImageComponents = (callback)->
   $('.image__close').click ->
     $('.overlay-card').remove()
     $('.image-overlay').fadeOut()
@@ -55,14 +53,14 @@ setImageComponents = ->
       url: '/photos/' + $(this).attr('id')
       type: 'DELETE'
       success: (result) ->
-        loadPhotoSection()
+        loadPhotoSection(callback)
 
   componentHandler.upgradeDom()
 
 checkCheckboxes = ->
-  boxes = $('input[type=checkbox]')
+  checkboxes = $('input[type=checkbox]')
   checked_ids = []
-  for box in boxes
+  for box in checkboxes
     do ->
       if $(box).is(':checked')
         $(box).parent().removeClass('is-checked')
@@ -71,11 +69,10 @@ checkCheckboxes = ->
 
 exports = this
 exports.checkCheckboxes = checkCheckboxes
-exports.loadPhotoSection = loadPhotoSection
 
 ready = ->
   if $(location).attr('pathname').indexOf('users') > -1 #what if hashtagname contains 'users'
-   loadPhotoSection()
+    loadPhotoSection()
   if $('#hashtag-id').length
     $('.add-photo-modal__open').click (event) ->
       event.preventDefault()
