@@ -18,8 +18,15 @@ RSpec.describe Message do
     expect(described_class.count).to eq(0)
   end
 
-  it 'is not saved if empty' do
+  it 'is not saved if empty and no photos' do
     message = described_class.create content: '', hashtag_id: hashtag.id, user_id: user.id
+
+    expect(message.valid?).to be(false)
+    expect(described_class.count).to eq(0)
+  end
+
+  it 'is not saved if too long' do
+    message = described_class.create content: 'a'*300, hashtag_id: hashtag.id, user_id: user.id
 
     expect(message.valid?).to be(false)
     expect(described_class.count).to eq(0)
@@ -53,6 +60,26 @@ RSpec.describe Message do
     it 'content is autolinked' do
       serialized = message.serialize
       expect(serialized[:content]).to include '<a target="_blank" href="http://localhost:3000/hashtags/2">http://localhost:3000/hashtags/2</a>'
+    end
+  end
+
+  context 'with photos' do
+    let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
+    let!(:message) do
+      described_class.create content: 'asd',
+                             user: user,
+                             hashtag: hashtag
+    end
+    let!(:photo) { FactoryGirl.create(:photo, user: user) }
+    let!(:message_photo) { MessagePhoto.create(message: message, photo: photo) }
+
+    it 'is saved without content' do
+      expect(message.valid?).to be(true)
+      expect(described_class.count).to eq(1)
+    end
+
+    it 'has correct file name for photo' do
+      expect(message.photos.first.image_file_name).to eq('test.png')
     end
   end
 end

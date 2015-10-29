@@ -37,6 +37,9 @@ gem 'jquery-atwho-rails'
 gem 'pg'
 gem 'omniauth-shibboleth'
 
+# Backported gem from Rails 5.0
+gem 'has_secure_token'
+
 group :development do
   gem 'rubocop'
   gem 'rubocop-rspec'

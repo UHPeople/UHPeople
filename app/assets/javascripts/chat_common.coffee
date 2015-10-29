@@ -1,14 +1,24 @@
+ws = null
+
 create_websocket = (events) ->
   uri = websocket_scheme + websocket_host
   ws = new WebSocket(uri)
 
   ws.onopen = ->
     console.log 'opened'
-    events['open'] ws
+
+    ws.send JSON.stringify
+      event: 'online'
+      user: $('input#user-id').val()
+      token: $('input#user-token').val()
+
+    if events['open'] != undefined
+      events['open'] ws
 
   ws.onclose = ->
     console.log 'closed'
-    events['close']
+    if events['close'] != undefined
+      events['close']
 
   ws.onmessage = (message) ->
     data = JSON.parse message.data
@@ -18,16 +28,16 @@ create_websocket = (events) ->
     if event_handler != undefined
       event_handler(data)
     else
-      console.log 'Unknown event "' + data.event + '"'
+      console.log 'Unhandled event "' + data.event + '"'
   return ws
 
 on_notification = ->
-  count = $('.notif-count')
-  t = Number(count.text())
-  if t == 0
+  count = $('.notif-count .badge')
+  if not count.length
     $('.notif-count').append("<span class='badge badge-success'>1</span>");
   else
-    $('.notif-count .badge').text(t + 1)
+    t = Number(count.text())
+    count.text(t + 1)
 
 set_star_hover = ->
   $('.like-icon').hover( ->
@@ -53,11 +63,17 @@ change_like_star = (t) ->
 
 on_like = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  count.text(Number(count.text()) + 1)
+  if not count.length
+    on_notification
+  else
+    count.text(Number(count.text()) + 1)
 
 on_dislike = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  count.text(Number(count.text()) - 1)
+  if not count.length
+    on_notification
+  else
+    count.text(Number(count.text()) - 1)
 
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
@@ -91,7 +107,6 @@ add_click_handler_to_likes = (element, socket) ->
 
     socket.send JSON.stringify
       event: event
-      user: user
       message: message
 
 add_mouseover_to_get_likers = (prefix, id) ->

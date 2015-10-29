@@ -110,13 +110,9 @@ add_message = (data, after = '.loader') ->
     set_star_hover()
 
 on_open = (socket) ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
-
   socket.send JSON.stringify
-    event: 'online'
-    hashtag: hashtag
-    user: user
+    event: 'hashtag'
+    hashtag: $('#hashtag-id').val()
 
 on_close = ->
   input = $('#input-text')
@@ -125,6 +121,12 @@ on_close = ->
   input[0].value = 'Connection lost!'
 
 on_message = (data) ->
+  hashtag = $('#hashtag-id').val()
+  console.log `hashtag != data.hashtag`
+  if `hashtag != data.hashtag`
+    on_notification()
+    return
+
   after = '.panel-body:last'
   if $('.panel-body').length == 0
     after = '.loader'
@@ -187,7 +189,6 @@ add_click_handler_to_chat = ->
       event: 'message'
       content: text
       hashtag: hashtag
-      user: user
       photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
@@ -205,7 +206,6 @@ add_click_handler_to_loader = ->
     ws.send JSON.stringify
       event: 'messages'
       hashtag: hashtag
-      user: user
       message: last_message
 
 activate_load_spinner = ->
@@ -227,11 +227,11 @@ ready = ->
     'online': on_online,
     'join': on_join,
     'leave': on_leave,
-    'notification': on_notification,
-    'messages': on_messages,
+    'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
-    'likers': on_likers
+    'likers': on_likers,
+    'mention': on_notification
   }
 
   update_leave_button()
@@ -244,14 +244,3 @@ exports.add_multiple_messages = add_multiple_messages
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
-
-$(window).on 'beforeunload', ->
-  if not $('#hashtag-id').length
-    return
-  else
-    $.ajax({
-      type: 'POST',
-      async: false,
-      url: '/update_last_visit/' + $('#hashtag-id')[0].value
-    })
-    console.log ""

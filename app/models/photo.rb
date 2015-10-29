@@ -1,9 +1,8 @@
 class Photo < ActiveRecord::Base
-  validates :user_id, presence: true
-  validates :image, presence: true
+  validates :user_id, :image, presence: true
 
   belongs_to :user
-  has_many :hashtags
+  # belongs_to :hashtag
   has_many :message_photos, dependent: :destroy
   has_many :messages, through: :message_photos
 

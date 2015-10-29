@@ -103,7 +103,7 @@ class UsersController < ApplicationController
       render action: 'new'
     else
       session[:user_id] = @user.id
-      redirect_to threehash_path
+      redirect_to feed_index_path
     end
   end
 
