@@ -37,10 +37,11 @@ RSpec.describe Hashtag do
   end
 
   it 'has correct file name for cover photo' do
-    file = File.new(File.join(Rails.root, '/spec/fixtures/paperclip', 'blank.jpg'), 'rb')
-    hashtag = described_class.create!(tag: 'test', cover_photo: file)
+    user = FactoryGirl.create(:user)
+    photo = FactoryGirl.create(:photo, user: user)
+    hashtag = described_class.create!(tag: 'test', photo: photo)
 
-    assert_equal 'blank.jpg', hashtag.cover_photo_file_name
+    expect(hashtag.photo.image_file_name).to eq('test.png')
   end
 
   it 'can give latest message' do

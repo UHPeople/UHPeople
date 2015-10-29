@@ -5,8 +5,8 @@ require 'erb'
 # They should be included in the correct controllers in app/controllers/
 
 module MessagesController
-  def create_message(content, user_id, hashtag_id, photo_ids)
-    photos = photo_ids.split(',').map { |id| Photo.find_by id: id }
+  def create_message(content, user_id, hashtag_id, photo_ids = nil)
+    photos = photo_ids.nil? ? [] : photo_ids.split(',').map { |id| Photo.find_by(id: id) }
 
     Message.create content: content,
                    hashtag_id: hashtag_id,

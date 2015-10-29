@@ -52,7 +52,7 @@ RSpec.describe UHPeople::ChatBackend do
 
     it 'invalid message' do
       subject.online_event(socket, user, user.token)
-      subject.message_event(socket, user, hashtag, '')
+      subject.message_event(socket, user, hashtag, 'a'*300)
 
       expect(Message.count).to eq 0
       expect(socket.sent.last['event']).to eq 'error'

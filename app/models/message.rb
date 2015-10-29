@@ -24,6 +24,9 @@ class Message < ActiveRecord::Base
   validates :hashtag_id, :user_id, presence: true
   validates :content, length: { maximum: 256 }
 
+  validates :message_photos, presence: true, if: 'content.blank?'
+  validates :content, presence: true, if: 'message_photos.nil?'
+
   validates_with UserHashtagValidator
 
   def timestamp
@@ -45,11 +48,7 @@ class Message < ActiveRecord::Base
   end
 
   def user_likes(current_user)
-    if current_user.nil?
-      false
-    else
-      likes.exists? user_id: current_user.id
-    end
+    current_user.nil? ? false : likes.exists?(user_id: current_user.id)
   end
 
   def likers
