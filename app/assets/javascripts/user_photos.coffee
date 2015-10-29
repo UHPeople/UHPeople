@@ -85,8 +85,9 @@ ready = ->
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
 
+
     $('.add-photo-modal__send').click (event) ->
-      #TODO: make 'checkCheckboxes()' to fill field value
+      $('#photo_ids').val(checkCheckboxes())
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
 
