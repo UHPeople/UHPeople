@@ -155,10 +155,14 @@ a img.img-circle {
   .mdl-card__title {
     height: 160px;
   }
+
+  // Only shown in chat add photo
   .mdl-card__actions {
     display: none;
-    background-color: rgba(255, 255, 255, 0.5) !important;
-    padding-left: 20px;
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    display: flex;
+    box-sizing:border-box;
+    align-items: center;
   }
 }
 .add-photo-card {
