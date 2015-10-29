@@ -18,25 +18,26 @@ RSpec.describe Hashtag do
 
     context 'messages', js: true do
       before :each do
-        message = FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: Time.now.utc)
+        message = FactoryGirl.create(:message, user: user, hashtag: hashtag,
+          content: "@#{user.id} ##{hashtag.tag}", created_at: Time.now.utc)
         visit hashtag_path(hashtag.tag)
         page.execute_script("add_chat_message(#{JSON.generate(message.serialize(user))})")
-      end
-
-      it 'have content' do
-        expect(page).to have_content 'Hello World!'
       end
 
       it 'have a thumbnail' do
         expect(find('.chatbox .img-circle')).to have_content ''
       end
 
-      it 'have name over @UsernameMention' do
-        expect(page).to have_content 'Hello World! @asd asd'
+      it 'have content' do
+        expect(page).to have_content "@#{user.name} ##{hashtag.tag}"
+      end
+
+      it 'have name over @id mention' do
+        expect(page).to have_content "@#{user.name} ##{hashtag.tag}"
       end
 
       it 'have #hashtag after autolinking' do
-        expect(page).to have_content 'Hello World! @asd asd #avantouinti'
+        expect(page).to have_content "@#{user.name} ##{hashtag.tag}"
       end
 
       it 'has zero likes if not any' do

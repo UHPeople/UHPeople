@@ -22,7 +22,8 @@ class Message < ActiveRecord::Base
   has_many :photos, through: :message_photos
 
   validates :hashtag_id, :user_id, presence: true
-  validates_presence_of :content, on: :create
+  validates :content, length: { maximum: 256 }
+
   validates_with UserHashtagValidator
 
   def timestamp

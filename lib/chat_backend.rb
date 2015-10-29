@@ -43,19 +43,9 @@ module UHPeople
       else
         env['chat.join_callback'] = proc { |user, hashtag| hashtag_callback('join', user, hashtag) }
         env['chat.leave_callback'] = proc { |user, hashtag| hashtag_callback('leave', user, hashtag) }
-        env['chat.like_callback'] = proc { |event, message| like_callback(event, message) }
-        env['chat.notification_callback'] = proc { |user| notification_callback(user) }
+        env['chat.notification_callback'] = proc { |notification| notification_callback(notification) }
 
         @app.call(env)
-      end
-    end
-
-    def find_mentions(message)
-      message.hashtag.users.each do |user|
-        send_mention(user.id,
-          message.user_id,
-          message.hashtag_id,
-          message) if message.content.include? "@#{user.username}"
       end
     end
 
@@ -76,7 +66,7 @@ module UHPeople
     end
 
     def graceful_find_all(socket, data)
-      user = graceful_find(User, data['user'], socket)
+      user = find(socket).user
       message = graceful_find(Message, data['message'], socket)
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
 
@@ -89,23 +79,27 @@ module UHPeople
     end
 
     def respond(socket, data)
+      if data['event'] == 'online'
+        online_event(socket, data['user'], data['token'])
+      elsif !authenticated(socket)
+        send_error socket, 'Not authenticated'
+        return
+      end
+
       user, hashtag, message = graceful_find_all(socket, data)
 
       if data['event'] == 'feed'
-        feed_event(user, socket) unless user.nil?
+        feed_event(socket, user)
       elsif data['event'] == 'favourites'
-        favourites_event(user, socket) unless user.nil?
+        favourites_event(socket, user)
+      elsif data['event'] == 'hashtag'
+        hashtag_event(socket, user, hashtag, message) unless hashtag.nil?
       elsif data['event'] == 'like'
-        like_event(user, message) unless user.nil? or message.nil?
+        like_event(socket, user, message) unless message.nil?
       elsif data['event'] == 'dislike'
-        dislike_event(user, message) unless user.nil? or message.nil?
+        dislike_event(socket, user, message) unless message.nil?
       elsif data['event'] == 'message'
-        message_event(user, hashtag, socket, data['content'], data['photo_ids']) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'online'
-        online_event(user, hashtag, socket) unless user.nil? or hashtag.nil?
-        messages_event(user, hashtag, nil, socket) unless user.nil? or hashtag.nil?
-      elsif data['event'] == 'messages'
-        messages_event(user, hashtag, message, socket) unless user.nil? or hashtag.nil? or message.nil?
+        message_event(socket, user, hashtag, data['content'], data['photo_ids']) unless hashtag.nil?
       end
     end
   end

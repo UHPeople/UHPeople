@@ -71,7 +71,7 @@ RSpec.describe 'Feed page' do
       hashtag.update_attribute(:updated_at, Time.now.utc)
 
       visit '/feed'
-      expect(page).to have_content '#avantouinti 1'
+      expect(first("span.unread")).to have_content ''
     end
   end
 
