@@ -20,7 +20,7 @@
 //= require chat
 //= require feed_chat
 //= require search
-//= require user_profile
+//= require user_photos
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
@@ -41,16 +41,6 @@ $(document).ready(function() {
 		$('.edit-modal__close').click(function() {
 			$('.edit-card').fadeOut(300);
 		});
-
-		// TODO: this
-    $('.add-photo-modal__open').click(function() {
-			$('.image-overlay').fadeIn();
-      $('.add-photo-partial').fadeIn(300);
-    });
-    $('.add-photo-modal__close').click(function() {
-			$('.image-overlay').fadeOut();
-      //$('.add-photo-card').fadeOut(300);
-    });
 
 		$(".topic__toggle").click(function(){
 			if ($(".mdl-layout__header-row.mdl-hashtag-topic").height() == 56 ){

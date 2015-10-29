@@ -144,7 +144,7 @@ a img.img-circle {
 }
 
 .tile-cell {
-  margin: 1px;
+  margin: 1px !important;
 }
 
 .card-image.mdl-card {
@@ -156,8 +156,8 @@ a img.img-circle {
     height: 160px;
   }
   .mdl-card__actions {
-    visibility: hidden;
-    background-color: rgba(255, 255, 255, 0.5);
+    display: none;
+    background-color: rgba(255, 255, 255, 0.5) !important;
     padding-left: 20px;
   }
 }
@@ -165,7 +165,6 @@ a img.img-circle {
   min-height: 80px;
   position: absolute;
   margin-top: -30px;
-  //margin-bottom: 64px;
   right: 16%;
   z-index: 120;
 }

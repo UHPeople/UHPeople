@@ -7,7 +7,7 @@ stopSpinner = ->
     $('.image-overlay').fadeOut()
     $('.absolut-center-spinner').fadeOut()
 
-loadPhotoSection = ->
+loadPhotoSection = (callback)->
   user_id = $('.photosection').attr('id')
   $('.photosection').load "/users/#{user_id}/photos", ->
     # load callback
@@ -30,6 +30,10 @@ loadPhotoSection = ->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
           loadPhotoSection()
+
+    if (callback?)
+      callback()
+
 
 getAndShowImage = (id) ->
   $.get('/photos/' + id, ->
@@ -70,11 +74,16 @@ exports.checkCheckboxes = checkCheckboxes
 exports.loadPhotoSection = loadPhotoSection
 
 ready = ->
-  if $(location).attr('pathname').indexOf('users') > -1
+  if $(location).attr('pathname').indexOf('users') > -1 #what if hashtagname contains 'users'
    loadPhotoSection()
- if $('#hashtag-id').length
-  loadPhotoSection()
-
+  if $('#hashtag-id').length
+    $('.add-photo-modal__open').click (event) ->
+      event.preventDefault()
+      loadPhotoSection ->
+        $('.card-image.mdl-card .mdl-card__actions').show()
+        $('.add-photos-to-message-card').fadeIn()
+    $('.add-photo-modal__close').click (event) ->
+      $('.add-photos-to-message-card').fadeOut()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
