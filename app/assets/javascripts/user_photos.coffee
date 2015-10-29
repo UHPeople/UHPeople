@@ -29,7 +29,7 @@ loadPhotoSection = (callback)->
         complete: (XMLHttpRequest, textStatus) ->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
-          loadPhotoSection()
+          loadPhotoSection(callback)
 
     if (callback?)
       callback()
@@ -82,6 +82,7 @@ ready = ->
       loadPhotoSection ->
         $('.card-image.mdl-card .mdl-card__actions').show()
         $('.add-photos-to-message-card').fadeIn()
+
     $('.add-photo-modal__close').click (event) ->
       $('.add-photos-to-message-card').fadeOut()
 

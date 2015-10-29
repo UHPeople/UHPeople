@@ -449,6 +449,10 @@ span.space-left {
   left: 0;
   right: 0;
   bottom: 0;
+
+  .scrollable {
+    overflow: scroll;
+  }
 }
 
 .bottom-sheet-overlay {
