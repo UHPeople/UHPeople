@@ -18,14 +18,14 @@ class Message < ActiveRecord::Base
   belongs_to :user
 
   has_many :likes, dependent: :destroy
-  has_many :message_photos, dependent: :destroy
-  has_many :photos, through: :message_photos
+
+  has_and_belongs_to_many :photos
 
   validates :hashtag_id, :user_id, presence: true
   validates :content, length: { maximum: 256 }
 
-  validates :message_photos, presence: true, if: 'content.blank?'
-  validates :content, presence: true, if: 'message_photos.nil?'
+  validates :photos, presence: true, if: 'content.blank?'
+  validates :content, presence: true, if: 'photos.empty?'
 
   validates_with UserHashtagValidator
 

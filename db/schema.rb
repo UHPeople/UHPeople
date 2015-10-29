@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021102930) do
+ActiveRecord::Schema.define(version: 20151029154030) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,6 @@ ActiveRecord::Schema.define(version: 20151021102930) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "message_photos", force: :cascade do |t|
-    t.integer  "message_id"
-    t.integer  "photo_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "messages", force: :cascade do |t|
     t.string   "content"
     t.integer  "user_id"
@@ -47,6 +40,14 @@ ActiveRecord::Schema.define(version: 20151021102930) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "messages_photos", id: false, force: :cascade do |t|
+    t.integer "message_id"
+    t.integer "photo_id"
+  end
+
+  add_index "messages_photos", ["message_id"], name: "index_messages_photos_on_message_id", using: :btree
+  add_index "messages_photos", ["photo_id"], name: "index_messages_photos_on_photo_id", using: :btree
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "notification_type",                 null: false
