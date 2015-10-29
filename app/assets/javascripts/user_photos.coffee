@@ -80,15 +80,18 @@ ready = ->
     $('.add-photo-modal__open').click (event) ->
       event.preventDefault()
       loadPhotoSection ->
+        $('.mdl-layout__header').css('z-index', '-3')
         $('.card-image.mdl-card .mdl-card__actions').show()
         $('.add-photos-to-message-card').fadeIn()
 
     $('.add-photo-modal__close').click (event) ->
       $('.add-photos-to-message-card').fadeOut()
+      $('.mdl-layout__header').css('z-index', '3')
 
     $('.add-photo-modal__send').click (event) ->
-      #TODO: make 'checkCheckboxes()' to fill field value 
+      #TODO: make 'checkCheckboxes()' to fill field value
       $('.add-photos-to-message-card').fadeOut()
+      $('.mdl-layout__header').css('z-index', '3')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
