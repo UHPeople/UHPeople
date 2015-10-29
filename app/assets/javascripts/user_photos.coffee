@@ -86,5 +86,9 @@ ready = ->
     $('.add-photo-modal__close').click (event) ->
       $('.add-photos-to-message-card').fadeOut()
 
+    $('.add-photo-modal__send').click (event) ->
+      #TODO: make 'checkCheckboxes()' to fill field value 
+      $('.add-photos-to-message-card').fadeOut()
+
 $(document).ready(ready)
 $(document).on('page:load', ready)

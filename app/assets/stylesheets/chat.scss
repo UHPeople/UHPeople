@@ -450,8 +450,18 @@ span.space-left {
   right: 0;
   bottom: 0;
 
-  .scrollable {
+  .scrollable__media.mdl-card__media {
     overflow: scroll;
+    height: calc(100% - 135px);
+    background-color: $white !important;
+  }
+
+  .mdl-card__actions.action-toolbar {
+    padding: 20px;
+    padding-right: 10%;
+    display: flex;
+    box-sizing:border-box;
+    align-items: center;
   }
 }
 
