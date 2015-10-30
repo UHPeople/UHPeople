@@ -6,7 +6,8 @@ require 'erb'
 
 module MessagesController
   def create_message(content, user_id, hashtag_id, photo_ids = '')
-    photos = photo_ids.split(',').map { |id| Photo.find_by(id: id) }
+    photos = photo_ids.split(',').map { |id| Photo.find_by id: id }
+
     Message.create content: content,
                    hashtag_id: hashtag_id,
                    user_id: user_id,

@@ -198,6 +198,25 @@ RSpec.describe UHPeople::ChatBackend do
         expect(socket.map 'event').to include 'message'
         expect(socket.map 'content').to include 'asd'
       end
+
+      it 'finds mentions' do
+        subject.online_event(socket, user, user.token)
+        subject.message_event(socket, user, hashtag, "@#{user.id}")
+
+        expect(socket.map 'event').to include 'mention'
+      end
+
+      it 'handles photos in message' do
+        subject.online_event(socket, user, user.token)
+        subject.hashtag_event(socket, user, hashtag, nil)
+
+        photo = FactoryGirl.create(:photo, user: user)
+        subject.message_event(socket, user, hashtag, '', photo.id.to_s)
+
+        expect(Message.count).to eq 1
+        expect(socket.map 'event').to include 'message'
+        expect(socket.map('photos').compact.first).to include photo.image.url(:thumb)
+      end
     end
 
     context 'online event' do
@@ -299,12 +318,5 @@ RSpec.describe UHPeople::ChatBackend do
       subject.subscribe(socket, [hashtag.id])
       expect(subject.subscribed(user, hashtag.id)).to be true
     end
-  end
-
-  it 'finds mentions' do
-    subject.online_event(socket, user, user.token)
-    subject.message_event(socket, user, hashtag, "@#{user.id}")
-
-    expect(socket.map 'event').to include 'mention'
   end
 end

@@ -66,7 +66,8 @@ class Message < ActiveRecord::Base
       'timestamp': timestamp,
       'avatar': user.profile_picture_url,
       'likes': likes.count,
-      'current_user_likes': user_likes(current_user)
+      'current_user_likes': user_likes(current_user),
+      'photos': photos.map { |photo| photo.image.url(:thumb) }
     }
   end
 end
