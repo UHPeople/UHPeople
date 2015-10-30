@@ -37,11 +37,27 @@ RSpec.describe User do
     expect(described_class.count).to eq(0)
   end
 
+  context 'likes' do
+    let!(:user) { FactoryGirl.create(:user) }
+    let!(:hashtag) { FactoryGirl.create(:hashtag) }
+    let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
+    let!(:message) { Message.create(content: 'aasd', user: user, hashtag: hashtag) }
+
+    it 'is false if no likes' do
+      expect(user.likes? message).to be(false)
+    end
+
+    it 'is true if likes message' do
+      Like.create message: message, user: user
+      expect(user.likes? message).to be(true)
+    end
+  end
+
   context 'has active and unactive channels' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:hashtag) { FactoryGirl.create(:hashtag) }
     let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
-    let!(:message) {Message.create(content: 'aasd', user: user, hashtag: hashtag)}
+    let!(:message) { Message.create(content: 'aasd', user: user, hashtag: hashtag) }
 
     it 'has user_hashtag is in most_active_channels' do
       expect(user.six_most_active_channels.count).to eq(1)

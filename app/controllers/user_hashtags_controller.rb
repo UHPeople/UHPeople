@@ -7,7 +7,7 @@ class UserHashtagsController < ApplicationController
     if user_hashtag.favourite?
       user_hashtag.update(favourite: false)
     else
-      if UserHashtag.where(user_id: current_user.id, favourite: true).count < APP_CONFIG['max_faves']
+      if current_user.favourites.count < APP_CONFIG['max_faves']
         user_hashtag.update(favourite: true)
       else
         redirect_to feed_index_path + '#favourites',
@@ -17,15 +17,5 @@ class UserHashtagsController < ApplicationController
     end
 
     redirect_to feed_index_path + '#favourites'
-  end
-
-  def update_last_visit
-    ch = current_user.user_hashtags.find_by hashtag_id: params[:id]
-    ch.update_attribute(:last_visited, Time.now.utc)
-
-    respond_to do |format|
-      format.json { render json: {} }
-      format.html { redirect_to feed_index_path }
-    end
   end
 end
