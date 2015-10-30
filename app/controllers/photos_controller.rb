@@ -15,7 +15,7 @@ class PhotosController < ApplicationController
     current_user.update_attribute(:profilePicture, nil) if @photo.id == current_user.profilePicture
     current_user.photos.destroy @photo
     respond_to do |format|
-      format.json { render json: {message: 'Photo was successfully deleted.'} }
+      format.json { render json: { message: 'Photo was successfully deleted.' } }
       format.html { redirect_to current_user, notice: 'Photo was successfully deleted.' }
     end
   end
@@ -24,13 +24,13 @@ class PhotosController < ApplicationController
     photo = Photo.new(photo_params)
     if photo.save
       respond_to do |format|
-        format.json { render json: {message: 'Photo was successfully added.'} }
+        format.json { render json: { message: 'Photo was successfully added.' } }
         format.html { redirect_to current_user, notice: 'Photo was successfully added.' }
       end
     else
       respond_to do |format|
         format.json { render json: {} }
-        format.html {redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.'}
+        format.html { redirect_to current_user, alert: 'An unknown error occured while saving your photo. Please try again.' }
       end
     end
   end
@@ -48,5 +48,4 @@ class PhotosController < ApplicationController
   def set_photo
     @photo = Photo.find(params[:id])
   end
-
 end

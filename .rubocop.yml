@@ -11,6 +11,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/**/*'
     - 'rails_autolink-1.1.6/**/*'
+    - 'app/assets/stylesheets/uh-styleguide/**/*'
 
 Metrics/LineLength:
   Enabled: false

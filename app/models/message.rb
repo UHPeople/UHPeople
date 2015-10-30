@@ -2,9 +2,8 @@ require 'rails_autolink'
 
 class UserHashtagValidator < ActiveModel::Validator
   def validate(message)
-    unless UserHashtag.where(hashtag: message.hashtag, user: message.user).exists?
-      message.errors[:user] << 'User needs to be a member of hashtag'
-    end
+    return if message.user.hashtags.include? message.hashtag
+    message.errors[:user] << 'User needs to be a member of hashtag'
   end
 end
 
@@ -52,7 +51,7 @@ class Message < ActiveRecord::Base
   end
 
   def likers
-    Like.includes(:user).where(message_id: self.id)
+    Like.includes(:user).where(message_id: id)
   end
 
   def serialize(current_user = nil)

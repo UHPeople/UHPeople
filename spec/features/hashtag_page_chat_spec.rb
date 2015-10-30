@@ -19,7 +19,7 @@ RSpec.describe Hashtag do
     context 'messages', js: true do
       before :each do
         message = FactoryGirl.create(:message, user: user, hashtag: hashtag,
-          content: "@#{user.id} ##{hashtag.tag}", created_at: Time.now.utc)
+                                               content: "@#{user.id} ##{hashtag.tag}", created_at: Time.now.utc)
         visit hashtag_path(hashtag.tag)
         page.execute_script("add_chat_message(#{JSON.generate(message.serialize(user))})")
       end
@@ -59,9 +59,9 @@ RSpec.describe Hashtag do
         page.execute_script("add_chat_message(#{JSON.generate(message.serialize(user))})")
       end
       # fails on travis
-      #it 'has likers count from db' do
+      # it 'has likers count from db' do
       #  expect(page).to have_css('#tt1', text: '1')
-      #end
+      # end
 
       # it 'has likers hover' do
       #   page.find('#tt1').trigger(:mouseover)

@@ -71,7 +71,7 @@ RSpec.describe 'Feed page' do
       hashtag.update_attribute(:updated_at, Time.now.utc)
 
       visit '/feed'
-      expect(first("span.unread")).to have_content ''
+      expect(first('span.unread')).to have_content ''
     end
   end
 
@@ -148,7 +148,7 @@ RSpec.describe 'Feed page' do
 
       click_link 'Feed'
       visit '/feed'
-      #expect(user.tab).to eq 1
+      # expect(user.tab).to eq 1
     end
   end
 end

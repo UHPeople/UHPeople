@@ -52,7 +52,7 @@ RSpec.describe UHPeople::ChatBackend do
 
     it 'invalid message' do
       subject.online_event(socket, user, user.token)
-      subject.message_event(socket, user, hashtag, 'a'*300)
+      subject.message_event(socket, user, hashtag, 'a' * 300)
 
       expect(Message.count).to eq 0
       expect(socket.sent.last['event']).to eq 'error'
@@ -60,7 +60,7 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid authentication' do
-      subject.online_event(socket, user.id, "token")
+      subject.online_event(socket, user.id, 'token')
 
       expect(socket.map 'event').to include 'error'
       expect(socket.map 'content').to include 'Invalid user or token'

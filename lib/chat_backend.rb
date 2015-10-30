@@ -71,12 +71,12 @@ module UHPeople
       message = graceful_find(Message, data['message'], socket)
       hashtag = graceful_find(Hashtag, data['hashtag'], socket)
 
-      if user.present? and hashtag.present? and !user.hashtags.include?(hashtag)
+      if user.present? && hashtag.present? && !user.hashtags.include?(hashtag)
         send_error socket, 'User not member of hashtag'
         hashtag = nil
       end
 
-      return user, hashtag, message
+      [user, hashtag, message]
     end
 
     def respond(socket, data)

@@ -6,21 +6,21 @@ require 'erb'
 
 module NotificationController
   def notification_from_invite(user, hashtag, trigger)
-    notification = Notification.create notification_type: 1,
-                      user: user,
-                      tricker_user: trigger,
-                      tricker_hashtag: hashtag
+    Notification.create notification_type: 1,
+                        user: user,
+                        tricker_user: trigger,
+                        tricker_hashtag: hashtag
   end
 
   def notification_from_topic(user, hashtag)
-    notification = Notification.create notification_type: 2,
+    Notification.create notification_type: 2,
                         user: user,
                         tricker_user: hashtag.topic_updater,
                         tricker_hashtag: hashtag
   end
 
   def notification_from_mention(user, message)
-    notification = Notification.create notification_type: 3,
+    Notification.create notification_type: 3,
                         user: user,
                         tricker_user: message.user,
                         tricker_hashtag: message.hashtag,
@@ -28,7 +28,7 @@ module NotificationController
   end
 
   def notification_from_like(user, message)
-    notification = Notification.create notification_type: 4,
+    Notification.create notification_type: 4,
                         user: message.user,
                         tricker_user: user,
                         tricker_hashtag: message.hashtag,
@@ -36,7 +36,7 @@ module NotificationController
   end
 
   def notification_from_message(user, message)
-    notification = Notification.create notification_type: 5,
+    Notification.create notification_type: 5,
                         user: user,
                         tricker_user: message.user,
                         tricker_hashtag: message.hashtag,

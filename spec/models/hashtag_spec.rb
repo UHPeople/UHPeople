@@ -72,7 +72,7 @@ RSpec.describe Hashtag do
     hashtag.users << user
     hashtag.save
 
-    message = Message.create hashtag: hashtag, user: user, content: 'content'
+    Message.create hashtag: hashtag, user: user, content: 'content'
     expect(hashtag.empty?).to be(false)
   end
 end
