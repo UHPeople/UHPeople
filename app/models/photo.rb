@@ -2,9 +2,9 @@ class Photo < ActiveRecord::Base
   validates :user_id, :image, presence: true
 
   belongs_to :user
-  # belongs_to :hashtag
-  has_many :message_photos, dependent: :destroy
-  has_many :messages, through: :message_photos
+  belongs_to :hashtag
+
+  has_and_belongs_to_many :messages
 
   has_attached_file :image,
                     styles: {

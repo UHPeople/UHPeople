@@ -12,7 +12,29 @@ module ChatCallbacks
     broadcast(JSON.generate(json), hashtag.id)
   end
 
-  def notification_callback(notification)
-    send(notification.serialize, notification.user)
+  def topic_callback(hashtag)
+    json = {
+      'event': 'topic',
+      'hashtag': hashtag.id,
+      'topic': hashtag.topic,
+      'background': hashtag.photo_url
+    }
+
+    broadcast(JSON.generate(json), hashtag.id)
+
+    hashtag.users.each do |user|
+      notification_from_topic(user, hashtag) unless subscribed(user, hashtag.id)
+    end
+  end
+
+  def invite_callback(user, hashtag, trigger)
+    json = {
+      'event': 'invite',
+      'hashtag': hashtag.id,
+      'trigger': trigger
+    }
+
+    send(JSON.generate(json), user)
+    notification_from_invite(user, hashtag, trigger) unless subscribed(user, hashtag.id)
   end
 end

@@ -84,7 +84,8 @@ module EventHandlers
     broadcast(JSON.generate(json), message.hashtag.id)
   end
 
-  def message_event(socket, user, hashtag, content, photo_ids = nil)
+  def message_event(socket, user, hashtag, content, photo_ids = '')
+    photo_ids = '' if photo_ids.nil?
     message = create_message content, user.id, hashtag.id, photo_ids #MessagesController.
 
     unless message.valid?

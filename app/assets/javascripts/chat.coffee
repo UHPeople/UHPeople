@@ -82,6 +82,13 @@ add_message = (data, after = '.loader') ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
+  photos = ''
+  if data.photos.length
+    photos = '<div style="display: inline-block;">'
+    for photo in data.photos
+      photos += '<img src="' + photo + '"/>'
+    photos += '</div>'
+
   $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
@@ -92,7 +99,7 @@ add_message = (data, after = '.loader') ->
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' +
+        '</h5>' + photos +
         '<p class="message_content">' + data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +

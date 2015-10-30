@@ -65,13 +65,13 @@ RSpec.describe Message do
 
   context 'with photos' do
     let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
+    let!(:photo) { FactoryGirl.create(:photo, user: user) }
     let!(:message) do
-      described_class.create content: 'asd',
+      described_class.create photos: [photo],
                              user: user,
                              hashtag: hashtag
     end
-    let!(:photo) { FactoryGirl.create(:photo, user: user) }
-    let!(:message_photo) { MessagePhoto.create(message: message, photo: photo) }
+
 
     it 'is saved without content' do
       expect(message.valid?).to be(true)
