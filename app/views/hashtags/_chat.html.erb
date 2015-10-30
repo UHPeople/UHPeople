@@ -15,9 +15,9 @@
   <div class="mdl-card__actions mdl-card--border chat-form">
 
     <form action="#" enctype="multipart/form-data">
-      <button class="mdl-button mdl-js-button mdl-button--icon add-photo-modal__open">
+      <%= link_to '', class:"mdl-button mdl-js-button mdl-button--icon add-photo-modal__open" do %>
         <i class="material-icons icon-color">insert_photo</i>
-      </button>
+      <% end %>
       <div class="mdl-textfield mdl-js-textfield chat-form-input">
         <input class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
         <label class="mdl-textfield__label" for="input-text">Write a message...</label>
