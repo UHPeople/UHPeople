@@ -26,7 +26,7 @@ module EventHandlers
     # For now users on favourites tab are already subscribed to all messages
     # through the feed event.
 
-    # hashtags = user.hashtags.favourites.map(&:id)
+    # hashtags = user.favourites.map(&:id)
     # subscribe socket, hashtags
 
     json = {
@@ -65,7 +65,7 @@ module EventHandlers
 
   def dislike_event(socket, user, message)
     like = Like.find_by user: user, message: message
-    send_error(socket, 'Invalid like') && return unless like.nil?
+    send_error(socket, 'Invalid like') && return if like.nil?
     like.destroy
 
     json = {
@@ -89,23 +89,22 @@ module EventHandlers
   def send_notifications_from_message(message)
     json = JSON.generate(message.serialize)
     message.hashtag.users.each do |user|
-      unless subscribed(user, hashtag.id)
-        send(json, user)
-        notification_from_message(user, message)
-      end
+      next if subscribed(user, message.hashtag.id)
+      send(json, user)
+      notification_from_message(user, message)
     end
   end
 
-  def send_mentions
+  def send_mentions(message)
+    json = {
+      'event': 'mention',
+      'user': message.user,
+      'message': message.id
+    }
+
     find_mentions(message).each do |id|
       user = User.find_by id: id
-      next if user.nil?
-
-      json = {
-        'event': 'mention',
-        'user': message.user,
-        'message': message.id
-      }
+      next if user.nil? or subscribed(user, message.hashtag.id)
 
       send(JSON.generate(json), user)
       notification_from_mention(user, message)

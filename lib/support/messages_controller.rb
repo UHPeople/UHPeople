@@ -15,7 +15,7 @@ module MessagesController
   end
 
   def find_mentions(message)
-    message.content.scan %r{/@([0-9]+)/}
+    message.content.scan /@([0-9]+)/
   end
 
   def get_feed_messages(user)

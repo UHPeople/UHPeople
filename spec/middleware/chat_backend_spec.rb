@@ -199,6 +199,11 @@ RSpec.describe UHPeople::ChatBackend do
         expect(socket.map 'content').to include 'asd'
       end
 
+      it 'extracts mentions' do
+        message = Message.new content: "@#{user.id}"
+        expect(subject.find_mentions(message).first).to include "#{user.id}"
+      end
+
       it 'finds mentions' do
         subject.online_event(socket, user, user.token)
         subject.message_event(socket, user, hashtag, "@#{user.id}")

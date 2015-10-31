@@ -30,7 +30,7 @@ loadPhotoSection = (callback)->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
           loadPhotoSection(callback)
-          
+
     if (callback?) then callback()
 
 getAndShowImage = (id, callback) ->
