@@ -38,7 +38,7 @@ class Message < ActiveRecord::Base
 
   def formatted_content
     auto_link(ERB::Util.html_escape(content), html: { target: '_blank' }) do |text|
-      truncate(text, length: 200)
+      truncate(text, length: 256)
     end
   end
 
@@ -52,7 +52,7 @@ class Message < ActiveRecord::Base
       'username': user.name,
       'timestamp': timestamp,
       'avatar': user.profile_picture_url,
-      'likes': likes.map { |like| like.user.name },
+      'likes': likes.first(15).map { |like| like.user.name },
       'photos': photos.map { |photo| photo.image.url(:thumb) }
     }
   end

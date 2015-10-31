@@ -238,7 +238,9 @@ ready = ->
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers,
-    'mention': on_notification
+    'mention': on_notification,
+    'invite': on_notification,
+    'topic': on_notification
   }
 
   update_leave_button()
