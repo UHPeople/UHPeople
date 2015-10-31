@@ -42,19 +42,7 @@ class Message < ActiveRecord::Base
     end
   end
 
-  def likes_count
-    pluralize(likes.count, 'like') if likes.count > 0
-  end
-
-  def user_likes(current_user)
-    current_user.nil? ? false : likes.exists?(user_id: current_user.id)
-  end
-
-  def likers
-    Like.includes(:user).where(message_id: id)
-  end
-
-  def serialize(current_user = nil)
+  def serialize
     { 'event': 'message',
       'content': formatted_content,
       'hashtag': hashtag_id,
@@ -64,8 +52,7 @@ class Message < ActiveRecord::Base
       'username': user.name,
       'timestamp': timestamp,
       'avatar': user.profile_picture_url,
-      'likes': likes.count,
-      'current_user_likes': user_likes(current_user),
+      'likes': likes.map { |like| like.user.name },
       'photos': photos.map { |photo| photo.image.url(:thumb) }
     }
   end

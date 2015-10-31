@@ -11,6 +11,7 @@
   <body>
     <% unless current_user.nil? %>
       <input id="user-id" type="hidden" value="<%= current_user.id %>">
+      <input id="user-name" type="hidden" value="<%= current_user.name %>">
       <input id="user-token" type="hidden" value="<%= current_user.token %>">
     <% end %>
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header

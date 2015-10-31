@@ -47,7 +47,7 @@ module MessagesController
     tags = user.user_hashtags.includes(hashtag: :messages).map(&:hashtag)
     messages = Message.includes(:hashtag, :user)
                .where(hashtag: tags).order(created_at: :desc).limit(20).reverse
-    messages.map { |m| m.serialize(user) }
+    messages.map(&:serialize)
   end
 
   def get_favourites_messages(user)
@@ -55,7 +55,7 @@ module MessagesController
     messages_json = []
     hashtags.each do |hashtag|
       messages = hashtag.messages.order(created_at: :desc).limit(5)
-      messages_json += messages.map { |message| message.serialize(user) }
+      messages_json += messages.map(&:serialize)
     end
 
     messages_json
@@ -64,6 +64,6 @@ module MessagesController
   def get_hashtag_messages(user, hashtag, from)
     messages = hashtag.messages.includes(:user, :likes)
     messages = from.nil? ? messages.all : messages.where('id < ? ', from.id)
-    messages.order(created_at: :desc).limit(20).map { |m| m.serialize(user) }
+    messages.order(created_at: :desc).limit(20).map(&:serialize)
   end
 end

@@ -20,7 +20,7 @@ add_feed_message = (data) ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
@@ -41,7 +41,7 @@ add_feed_message = (data) ->
           data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
-              data.likes +
+              data.likes.length +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="feed-like-' + data.id + '">' +
               '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -51,7 +51,7 @@ add_feed_message = (data) ->
       '</div>' +
     '</div>'
 
-    add_mouseover_to_get_likers('tt', data.id)
+    add_mouseover_to_show_likers('tt', data.id, data.likes)
     set_star_hover()
 
 add_favourites_message = (data) ->
@@ -60,7 +60,7 @@ add_favourites_message = (data) ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
@@ -81,7 +81,7 @@ add_favourites_message = (data) ->
             data.content +
             '<span class="space-left">' +
               '<span class="like-badge like-icon-color" id="fav-tt' + data.id + '">' +
-                data.likes +
+                data.likes.length +
               '</span>' +
               '<a class="send-hover like-this" href="#" id="favourites-like-' + data.id + '">' +
                 '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -92,7 +92,7 @@ add_favourites_message = (data) ->
       '</div>' +
     '</div>'
 
-  add_mouseover_to_get_likers('fav-tt', data.id)
+  add_mouseover_to_show_likers('fav-tt', data.id, data.likes)
 
 on_open = (socket) ->
   user = $('#user-id')[0].value

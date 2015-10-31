@@ -78,7 +78,7 @@ add_message = (data, after = '.loader') ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
@@ -103,7 +103,7 @@ add_message = (data, after = '.loader') ->
         '<p class="message_content">' + data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
-              data.likes +
+              data.likes.length +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
               '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -113,7 +113,7 @@ add_message = (data, after = '.loader') ->
       '</div>' +
     '</div>').insertAfter(after)
 
-    add_mouseover_to_get_likers('tt', data.id)
+    add_mouseover_to_show_likers('tt', data.id, data.likes)
     set_star_hover()
 
 on_open = (socket) ->

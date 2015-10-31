@@ -21,7 +21,7 @@ RSpec.describe 'Feed page' do
       click_link 'Feed'
 
       message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
-      page.execute_script("add_feed_message(#{JSON.generate(message.serialize(user))})")
+      page.execute_script("add_feed_message(#{JSON.generate(message.serialize)})")
     end
 
     it 'has messages in feed' do
@@ -30,7 +30,7 @@ RSpec.describe 'Feed page' do
 
     it 'has messages in feed in order' do
       message2 = Message.create user: user, hashtag: hashtag, content: 'Asdasd2', created_at: Time.now.utc
-      page.execute_script("add_feed_message(#{JSON.generate(message2.serialize(user))})")
+      page.execute_script("add_feed_message(#{JSON.generate(message2.serialize)})")
 
       expect(find('.feed-chat-box:nth-of-type(1)')).to have_content 'Asdasd2'
       expect(find('.feed-chat-box:nth-of-type(2)')).to have_content 'Asdasd'
@@ -82,7 +82,7 @@ RSpec.describe 'Feed page' do
       click_link 'Favourites'
 
       message = Message.create user: user, hashtag: hashtag, content: 'Asdasd', created_at: Time.now.utc
-      page.execute_script("add_favourites_message(#{JSON.generate(message.serialize(user))})")
+      page.execute_script("add_favourites_message(#{JSON.generate(message.serialize)})")
     end
 
     it 'has the right content when favourites exist' do
@@ -95,27 +95,6 @@ RSpec.describe 'Feed page' do
       expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
     end
   end
-
-  #   context 'chatboxes' do
-  #     let!(:hashtag2) { Hashtag.create tag: 'asd2000' }
-  #     let!(:message) { Message.create user: user, hashtag: hashtag2, content: 'Asdasd2' }
-
-  #     before :each do
-  #       create_and_visit
-  #       page.all(:css, 'td a.like-this').each(&:click)
-  #     end
-
-  #     it 'are in order' do
-  #       expect(find('.fav:first')).to have_content 'Asdasd'
-  #     end
-
-  #     it 'have timestamps formatted', js: true do
-  #       page.all(:css, 'span.timestamp').each do |e|
-  #         expect(e).to_not have_content 'T'
-  #       end
-  #     end
-  #   end
-  # end
 
   it 'has tagcloud', js: true do
     Rails.cache.clear

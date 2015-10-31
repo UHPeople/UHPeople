@@ -40,16 +40,13 @@ on_notification = ->
     count.text(t + 1)
 
 set_star_hover = ->
-  $('.like-icon').hover( ->
+  $('.like-icon').hover ->
       $(this).text 'star_half'
-      return
     , ->
-      if $(this).hasClass( "like-icon-liked" )
+      if $(this).hasClass 'like-icon-liked'
         $(this).text 'star'
-        return
       else
         $(this).text 'star_border'
-    )
 
 change_like_star = (t) ->
   if $(t).hasClass 'like-icon-liked'
@@ -78,7 +75,7 @@ on_dislike = (data, prefix = '') ->
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
     timestamp = moment.utc(timestamp)
-  timestamp.local().fromNow() #.format('MMM D, H:mm')
+  timestamp.local().fromNow()
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
   for message in data.messages
@@ -109,37 +106,23 @@ add_click_handler_to_likes = (element, socket) ->
       event: event
       message: message
 
-add_mouseover_to_get_likers = (prefix, id) ->
-  $('#' + prefix + id).hover( ->
-    if (Number $(this).text() > 0)
-      append_tooltip_element(this, id, prefix)
-      get_likers_json_to_tooltip(id, prefix)
-    else
-      $('[for="'+ prefix + id + '"]').remove()
-    return
+add_mouseover_to_show_likers = (prefix, id, likers) ->
+  $('#' + prefix + id).hover ->
+    if (Number($(this).text()) > 0)
+      $(this).parent().append '' +
+        '<div class="mdl-tooltip" for="' + prefix + id + '">' +
+          likers.join(', ') +
+        '</div>'
+      componentHandler.upgradeElement($('[for="'+ prefix + id + '"]')[0])
   , ->
     $('[for="'+ prefix + id + '"]').empty()
-    return
-  )
-
-append_tooltip_element = (element, id, prefix) ->
-  div = document.createElement('div')
-  div.setAttribute('class', 'mdl-tooltip')
-  div.setAttribute('for', '' + prefix + id)
-  componentHandler.upgradeElement(div)
-  $(element).parent().append( div )
-
-get_likers_json_to_tooltip = (id, prefix) ->
-  jsonData = $.getJSON("../get_message_likers/" + id)
-  jsonData.done (json)->
-    $('[for="'+ prefix + id + '"]').append(json.likers.join(', '))
 
 exports = this
 exports.add_multiple_messages = add_multiple_messages
 exports.format_timestamp = format_timestamp
 exports.create_websocket = create_websocket
 exports.on_notification = on_notification
-exports.add_mouseover_to_get_likers = add_mouseover_to_get_likers
+exports.add_mouseover_to_show_likers = add_mouseover_to_show_likers
 exports.on_like = on_like
 exports.on_dislike = on_dislike
 exports.change_like_star = change_like_star
