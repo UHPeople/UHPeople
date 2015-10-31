@@ -85,29 +85,4 @@ module EventHandlers
     send_notifications_from_message(message)
     send_mentions(message)
   end
-
-  def send_notifications_from_message(message)
-    json = JSON.generate(message.serialize)
-    message.hashtag.users.each do |user|
-      next if subscribed(user, message.hashtag.id)
-      send(json, user)
-      notification_from_message(user, message)
-    end
-  end
-
-  def send_mentions(message)
-    json = {
-      'event': 'mention',
-      'user': message.user,
-      'message': message.id
-    }
-
-    find_mentions(message).each do |id|
-      user = User.find_by id: id
-      next if user.nil? or subscribed(user, message.hashtag.id)
-
-      send(JSON.generate(json), user)
-      notification_from_mention(user, message)
-    end
-  end
 end

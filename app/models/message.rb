@@ -2,7 +2,7 @@ require 'rails_autolink'
 
 class UserHashtagValidator < ActiveModel::Validator
   def validate(message)
-    return if message.user.present? and message.user.hashtags.include? message.hashtag
+    return if message.user.present? && message.user.hashtags.include?(message.hashtag)
     message.errors[:user] << 'User needs to be a member of hashtag'
   end
 end
