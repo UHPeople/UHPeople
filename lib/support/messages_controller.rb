@@ -17,7 +17,7 @@ module MessagesController
   def send_notifications_from_message(message)
     json = JSON.generate(message.serialize)
     message.hashtag.users.each do |user|
-      next if subscribed(user, message.hashtag.id)
+      next if subscribed?(user, message.hashtag.id)
       send(json, user)
       notification_from_message(user, message)
     end
@@ -36,7 +36,7 @@ module MessagesController
 
     find_mentions(message).each do |id|
       user = User.find_by id: id
-      next if user.nil? || subscribed(user, message.hashtag.id)
+      next if user.nil? || subscribed?(user, message.hashtag.id)
 
       send(JSON.generate(json), user)
       notification_from_mention(user, message)

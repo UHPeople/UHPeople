@@ -23,7 +23,7 @@ module ChatCallbacks
     broadcast(JSON.generate(json), hashtag.id)
 
     hashtag.users.each do |user|
-      notification_from_topic(user, hashtag) unless subscribed(user, hashtag.id)
+      notification_from_topic(user, hashtag) unless subscribed?(user, hashtag.id)
     end
   end
 
@@ -35,6 +35,6 @@ module ChatCallbacks
     }
 
     send(JSON.generate(json), user)
-    notification_from_invite(user, hashtag, trigger) unless subscribed(user, hashtag.id)
+    notification_from_invite(user, hashtag, trigger) unless subscribed?(user, hashtag.id)
   end
 end

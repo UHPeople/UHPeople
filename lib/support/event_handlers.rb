@@ -59,8 +59,8 @@ module EventHandlers
     }
 
     broadcast(JSON.generate(json), message.hashtag.id)
-    send(JSON.generate(json), message.user) unless subscribed(message.user, message.hashtag.id)
-    notification_from_like(user, message) unless online(message.user)
+    send(JSON.generate(json), message.user) unless subscribed?(message.user, message.hashtag.id)
+    notification_from_like(user, message) unless online?(message.user)
   end
 
   def dislike_event(socket, user, message)

@@ -15,7 +15,7 @@ module ClientList
     @clients.each { |client| client.send(json) if client.user == user }
   end
 
-  def subscribed(user, hashtag)
+  def subscribed?(user, hashtag)
     @clients.each do |client|
       return true if client.user == user && client.hashtags.include?(hashtag)
     end
@@ -23,7 +23,7 @@ module ClientList
     false
   end
 
-  def online(user)
+  def online?(user)
     @clients.each do |client|
       return true if client.user == user
     end

@@ -304,24 +304,40 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'subscribed' do
     it 'false with no clients' do
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client not subscribed' do
       subject.online_event(socket, user, user.token)
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client subscribed other hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id + 1])
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'true with client subscribed to hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id])
-      expect(subject.subscribed(user, hashtag.id)).to be true
+      expect(subject.subscribed?(user, hashtag.id)).to be true
+    end
+  end
+
+  context 'subscribed' do
+    it 'false with no clients' do
+      expect(subject.online?(user)).to be false
+    end
+
+    it 'false with client subscribed other hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user2)).to be false
+    end
+
+    it 'true with client subscribed to hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user)).to be true
     end
   end
 end
