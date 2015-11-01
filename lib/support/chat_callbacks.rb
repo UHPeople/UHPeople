@@ -16,6 +16,7 @@ module ChatCallbacks
     json = {
       'event': 'topic',
       'hashtag': hashtag.id,
+      'updater': hashtag.topic_updater
       'topic': hashtag.topic,
       'background': hashtag.photo_url
     }

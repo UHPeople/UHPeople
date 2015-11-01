@@ -67,9 +67,7 @@ on_like = (data, prefix = '') ->
 
 on_dislike = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  if not count.length
-    on_notification
-  else
+  if count.length
     count.text(Number(count.text()) - 1)
 
 format_timestamp = (timestamp) ->
@@ -106,16 +104,23 @@ add_click_handler_to_likes = (element, socket) ->
       event: event
       message: message
 
-add_mouseover_to_show_likers = (prefix, id, likers) ->
-  $('#' + prefix + id).hover ->
-    if (Number($(this).text()) > 0)
-      $(this).parent().append '' +
-        '<div class="mdl-tooltip" for="' + prefix + id + '">' +
-          likers.join(', ') +
-        '</div>'
-      componentHandler.upgradeElement($('[for="'+ prefix + id + '"]')[0])
-  , ->
-    $('[for="'+ prefix + id + '"]').empty()
+add_mouseover_to_show_likers = (selector, likers) ->
+  badge = $('#' + selector)
+  if (Number(badge.text()) > 0)
+    badge.parent().append '' +
+      '<div class="mdl-tooltip" for="' + selector + '">' +
+        likers.join(', ') +
+      '</div>'
+    componentHandler.upgradeElement($('[for="'+ selector + '"]')[0])
+
+construct_photo_message = (photos) ->
+  div = ''
+  if photos.length
+    div = '<div style="display: inline-block;">'
+    for photo in photos
+      div += '<img src="' + photo + '"/>'
+    div += '</div>'
+  return div
 
 exports = this
 exports.add_multiple_messages = add_multiple_messages
@@ -128,3 +133,4 @@ exports.on_dislike = on_dislike
 exports.change_like_star = change_like_star
 exports.set_star_hover = set_star_hover
 exports.add_click_handler_to_likes = add_click_handler_to_likes
+exports.construct_photo_message = construct_photo_message

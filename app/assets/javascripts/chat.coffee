@@ -82,12 +82,7 @@ add_message = (data, after = '.loader') ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  photos = ''
-  if data.photos.length
-    photos = '<div style="display: inline-block;">'
-    for photo in data.photos
-      photos += '<img src="' + photo + '"/>'
-    photos += '</div>'
+  photos = construct_photo_message data.photos
 
   $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -129,7 +124,6 @@ on_close = ->
 
 on_message = (data) ->
   hashtag = $('#hashtag-id').val()
-  console.log `hashtag != data.hashtag`
   if `hashtag != data.hashtag`
     on_notification()
     return
@@ -202,8 +196,8 @@ add_click_handler_to_chat = ->
     $('#photo_ids')[0].value = ''
 
 add_click_handler_to_loader = ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
+  hashtag = $('#hashtag-id').val()
+  user = $('#user-id').val()
 
   $('#loader').click (event) ->
     event.preventDefault()
@@ -220,6 +214,14 @@ activate_load_spinner = ->
 
 disactivate_load_spinner = ->
   $('.mdl-spinner').removeClass('is-active')
+
+on_topic = (data) ->
+  # if data.hashtag != $('#hashtag-id').val()
+  #   return
+
+  $('.header-topic-container p').text(data.topic)
+  $('.header-topic-container span b').text(data.updater)
+  $('.hashtag-bg').css('background: ' + data.photo + ' no-repeat center center')
 
 ready = ->
   if not $('#hashtag-id').length
@@ -238,9 +240,9 @@ ready = ->
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers,
+    'topic': on_topic,
     'mention': on_notification,
-    'invite': on_notification,
-    'topic': on_notification
+    'invite': on_notification
   }
 
   update_leave_button()

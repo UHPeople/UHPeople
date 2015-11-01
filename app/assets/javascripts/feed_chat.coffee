@@ -24,6 +24,8 @@ add_feed_message = (data) ->
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
+  photos = construct_photo_message data.photos
+
   $('#feed').prepend ''+
     '<div class="feed-chat-box" id="feed-' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -36,7 +38,7 @@ add_feed_message = (data) ->
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' +
+        '</h5>' + photos +
         '<p>' +
           data.content +
           '<span class="space-left">' +
@@ -51,7 +53,7 @@ add_feed_message = (data) ->
       '</div>' +
     '</div>'
 
-    add_mouseover_to_show_likers('tt', data.id, data.likes)
+    add_mouseover_to_show_likers('tt' + data.id, data.likes)
     set_star_hover()
 
 add_favourites_message = (data) ->
@@ -63,6 +65,8 @@ add_favourites_message = (data) ->
   if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
+
+  photos = construct_photo_message data.photos
 
   $('div.fav#box-' + data.hashtag).append ''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
@@ -76,7 +80,7 @@ add_favourites_message = (data) ->
             '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
               format_timestamp(data.timestamp) +
             '</span>' +
-          '</h5>' +
+          '</h5>' + photos +
           '<p>' +
             data.content +
             '<span class="space-left">' +
@@ -92,7 +96,7 @@ add_favourites_message = (data) ->
       '</div>' +
     '</div>'
 
-  add_mouseover_to_show_likers('fav-tt', data.id, data.likes)
+  add_mouseover_to_show_likers('fav-tt' + data.id, data.likes)
 
 on_open = (socket) ->
   user = $('#user-id')[0].value
