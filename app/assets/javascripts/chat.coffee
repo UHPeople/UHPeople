@@ -108,7 +108,7 @@ add_message = (data, after = '.loader') ->
       '</div>' +
     '</div>').insertAfter(after)
 
-    add_mouseover_to_show_likers('tt', data.id, data.likes)
+    add_mouseover_to_show_likers('tt' + data.id, data.likes)
     set_star_hover()
 
 on_open = (socket) ->
