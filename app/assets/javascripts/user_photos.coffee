@@ -68,9 +68,38 @@ addSelectedPhotosToInput = ->
   selectedhotos = $('.is-selected')
   for image in selectedhotos
     do ->
-      img_url = $(image).css('background-image').replace('url(','').replace(')','');
+      img_url = $(image).css('background-image')
       img_id = $(image).attr 'id'
-      $('.added-image-area').append('<img class="img-circle" id=' + img_id + ' src=' + img_url + ' />')
+
+      $('.added-image-area').append("""
+        <div class="added-image-container" id="#{img_id}">
+          <div class="added-image" style="background-image: #{img_url};"></div>
+          <div class="clear-image">
+            <i class="material-icons">clear</i>
+          </div>
+        </div>""")
+
+      $("##{img_id}.added-image-container").hover( ->
+        $(this).children('.clear-image').show()
+        $(this).children('.added-image').css({
+          '-webkit-filter': 'brightness(50%)',
+          '-moz-filter': 'brightness(50%)',
+          '-o-filter': 'brightness(50%)',
+          '-ms-filter': 'brightness(50%)',
+          'filter': 'brightness(50%)',
+        })
+      , ->
+        $(this).children('.clear-image').hide()
+        $(this).children('.added-image').css({
+          '-webkit-filter': 'brightness(100%)',
+          '-moz-filter': 'brightness(100%)',
+          '-o-filter': 'brightness(100%)',
+          '-ms-filter': 'brightness(100%)',
+          'filter': 'brightness(100%)',
+        })
+      )
+      $("##{img_id}.added-image-container").click ->
+        $(this).remove()
 
 selectedPhotosToArrayAndEmpty = ->
   added_images = $('.added-image-area').children()

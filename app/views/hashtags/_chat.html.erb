@@ -25,7 +25,7 @@
       </div>
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
-      
+
       <div class="chat-form-send">
         <%= button_tag(type: 'submit', class: 'btn-borderless', id: 'chat-send') do %>
           <i class="material-icons md-24 icon-color send-hover">send</i>

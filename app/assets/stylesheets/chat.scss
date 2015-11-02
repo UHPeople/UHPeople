@@ -527,14 +527,31 @@ span.space-left {
 
 // displays added images
 .mdl-card__actions.mdl-card--border.added-image-area{
-  // display: none;
   padding: 0;
   padding-left: 16px;
 
-  img {
-    margin-top: 8px;
-    margin-right: 3px;
-    width:30px;
-    height:30px;
+  .added-image-container {
+    float: left;
+    margin-top: 4px;
+    margin-left: 4px;
+    height: 45px;
+    width: 45px;
+
+    .clear-image {
+      display: none;
+      color: $white;
+      height: 26px;
+      width: 26px;
+      position: relative;
+      top: -33px;
+      margin: 0 auto;
+    }
+  }
+  .added-image {
+    height: 45px;
+    width: 45px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
   }
 }
