@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20151029154030) do
     t.datetime "updated_at",                   null: false
     t.string   "topic"
     t.integer  "topic_updater_id"
-    t.integer  "color",            default: 0, null: false
     t.integer  "photo_id"
+    t.integer  "color",            default: 0, null: false
   end
 
   create_table "likes", force: :cascade do |t|
