@@ -34,7 +34,7 @@ loadPhotoSection = (callback)->
     if (callback?) then callback()
 
 getAndShowImage = (id, callback) ->
-  $.get('/photos/' + id, ->
+  $.get('/photos/' + id
   ).done (data) ->
     $('.absolut-center-spinner').fadeOut()
     $('.image-overlay').append data
