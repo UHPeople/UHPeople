@@ -81,12 +81,12 @@ ready = ->
   if !!~ $(location).attr('pathname').indexOf 'users'
     loadPhotoSection()
   else if $('#hashtag-id').length
-    #$('.add-photo-modal__open').click (event) ->
-    #  event.preventDefault()
-    loadPhotoSection 'select', ->
-      $('.mdl-layout__header').css('z-index', '-3') # move navbar under modal
-      $('.card-image.mdl-card .mdl-card__actions').show()
-      $('.add-photos-to-message-card').fadeIn()
+    $('.add-photo-modal__open').click (event) ->
+      event.preventDefault()
+      loadPhotoSection 'select', ->
+        $('.mdl-layout__header').css('z-index', '-3') # move navbar under modal
+        $('.card-image.mdl-card .mdl-card__actions').show()
+        $('.add-photos-to-message-card').fadeIn()
 
     # click handlers
     $('.add-photo-modal__close').click () ->
