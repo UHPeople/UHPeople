@@ -10,6 +10,12 @@
     </div>
   </div>
   <div class="mdl-card__actions action-toolbar">
+    <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true, remote: true) do %>
+      <%= file_field_tag :image, id:"image", accept: 'image/png,image/jpeg', style:"display:none"%>
+      <%= button_tag class:"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored fab_add_button" do %>
+        Upload new image
+      <% end %>
+    <% end %>
     <div class="mdl-layout-spacer"></div>
     <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent add-photo-modal__send">
       Add to Message

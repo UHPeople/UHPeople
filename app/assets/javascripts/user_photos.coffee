@@ -7,15 +7,22 @@ stopSpinner = ->
   $('.image-overlay').fadeOut()
   $('.absolut-center-spinner').fadeOut()
 
-loadPhotoSection = (callback)->
+loadPhotoSection = (select = '', callback)->
   user_id = $('.photosection').attr('id')
-  $('.photosection').load "/users/#{user_id}/photos", ->
+  $('.photosection').load "/users/#{user_id}/photos/" + select, ->
     # load callback
     componentHandler.upgradeDom()
     stopSpinner()
     $('.image__show').click ->
       startSpinner()
-      getAndShowImage $(this).attr('id'), callback
+      getAndShowImage $(this).attr('id'), select, callback
+
+    if select.length # if on selection partial
+      $('.image__select').click () ->
+        if $(this).children().hasClass 'is-selected'
+          $(this).children().removeClass 'is-selected'
+        else
+          $(this).children().addClass 'is-selected'
 
     $('.fab_add_button').click (event) ->
       event.preventDefault()
@@ -29,18 +36,18 @@ loadPhotoSection = (callback)->
         complete: (XMLHttpRequest, textStatus) ->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
-          loadPhotoSection(callback)
+          loadPhotoSection(select, callback)
 
     if (callback?) then callback()
 
-getAndShowImage = (id, callback) ->
+getAndShowImage = (id, select, callback) ->
   $.get('/photos/' + id
   ).done (data) ->
     $('.absolut-center-spinner').fadeOut()
     $('.image-overlay').append data
-    setImageComponents(callback)
+    setImageComponents(select, callback)
 
-setImageComponents = (callback)->
+setImageComponents = (select, callback)->
   $('.image__close').click ->
     $('.overlay-card').remove()
     $('.image-overlay').fadeOut()
@@ -53,18 +60,17 @@ setImageComponents = (callback)->
       url: '/photos/' + $(this).attr('id')
       type: 'DELETE'
       success: (result) ->
-        loadPhotoSection(callback)
+        loadPhotoSection(select, callback)
 
   componentHandler.upgradeDom()
 
 checkCheckboxes = ->
-  checkboxes = $('input[type=checkbox]')
+  checkboxes = $('.is-selected')
   checked_ids = []
-  for box in checkboxes
+  for image in checkboxes
     do ->
-      if $(box).is(':checked')
-        $(box).parent().removeClass('is-checked')
-        checked_ids.push $(box).attr('id').split('-')[1]
+        $(image).removeClass('is-selected') # should empty selection on message send
+        checked_ids.push $(image).attr('id')
   checked_ids
 
 exports = this
@@ -74,20 +80,20 @@ ready = ->
   # hijack the bitwise operator so we don't have to do a -1 comparison
   if !!~ $(location).attr('pathname').indexOf 'users'
     loadPhotoSection()
-  if $('#hashtag-id').length
-    $('.add-photo-modal__open').click (event) ->
-      event.preventDefault()
-      loadPhotoSection ->
-        $('.mdl-layout__header').css('z-index', '-3')
-        $('.card-image.mdl-card .mdl-card__actions').show()
-        $('.add-photos-to-message-card').fadeIn()
+  else if $('#hashtag-id').length
+    #$('.add-photo-modal__open').click (event) ->
+    #  event.preventDefault()
+    loadPhotoSection 'select', ->
+      $('.mdl-layout__header').css('z-index', '-3') # move navbar under modal
+      $('.card-image.mdl-card .mdl-card__actions').show()
+      $('.add-photos-to-message-card').fadeIn()
 
-    $('.add-photo-modal__close').click (event) ->
+    # click handlers
+    $('.add-photo-modal__close').click () ->
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
 
-
-    $('.add-photo-modal__send').click (event) ->
+    $('.add-photo-modal__send').click () ->
       $('#photo_ids').val(checkCheckboxes())
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
