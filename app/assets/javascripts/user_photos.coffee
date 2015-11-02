@@ -30,7 +30,7 @@ loadPhotoSection = (callback)->
           # console.log XMLHttpRequest.responseJSON.message
           stopSpinner()
           loadPhotoSection(callback)
-          
+
     if (callback?) then callback()
 
 getAndShowImage = (id, callback) ->
@@ -71,7 +71,8 @@ exports = this
 exports.checkCheckboxes = checkCheckboxes
 
 ready = ->
-  if $(location).attr('pathname').indexOf('users') > -1 #what if hashtagname contains 'users'
+  # hijack the bitwise operator so we don't have to do a -1 comparison
+  if !!~ $(location).attr('pathname').indexOf 'users'
     loadPhotoSection()
   if $('#hashtag-id').length
     $('.add-photo-modal__open').click (event) ->
