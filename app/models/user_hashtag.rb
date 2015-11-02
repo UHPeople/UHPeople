@@ -6,7 +6,7 @@ class UserHashtag < ActiveRecord::Base
   belongs_to :hashtag
 
   scope :favourite, -> { where(favourite: true) }
-  scope :downcase_sorted, -> {
+  scope :downcase_sorted, lambda {
     includes(:hashtag).sort_by { |h| [h.favourite ? 0 : 1, h.hashtag.tag.downcase] }
   }
 

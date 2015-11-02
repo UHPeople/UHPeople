@@ -15,15 +15,4 @@ class Notification < ActiveRecord::Base
   def timestamp
     created_at.strftime('%Y-%m-%dT%H:%M:%S')
   end
-
-  def serialize
-    json = {
-      'user': user,
-      'message': message,
-      'tricker_user': tricker_user,
-      'tricker_hashtag': tricker_hashtag
-    }
-
-    JSON.generate json
-  end
 end

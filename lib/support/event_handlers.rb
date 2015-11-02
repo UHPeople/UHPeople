@@ -3,7 +3,7 @@ require 'json'
 module EventHandlers
   def online_event(socket, user, token)
     user = User.find_by id: user
-    if user.nil? or user.token != token
+    if user.nil? || user.token != token
       send_error socket, 'Invalid user or token'
     end
 
@@ -16,7 +16,7 @@ module EventHandlers
 
     json = {
       'event': 'feed',
-      'messages': get_feed_messages(user) #MessagesController.
+      'messages': get_feed_messages(user) # MessagesController.
     }
 
     socket.send(JSON.generate(json))
@@ -26,12 +26,12 @@ module EventHandlers
     # For now users on favourites tab are already subscribed to all messages
     # through the feed event.
 
-    # hashtags = user.hashtags.favourites.map(&:id)
+    # hashtags = user.favourites.map(&:id)
     # subscribe socket, hashtags
 
     json = {
       'event': 'favourites',
-      'messages': get_favourites_messages(user) #MessagesController.
+      'messages': get_favourites_messages(user) # MessagesController.
     }
 
     socket.send(JSON.generate(json))
@@ -42,7 +42,7 @@ module EventHandlers
 
     json = {
       'event': 'hashtag',
-      'messages': get_hashtag_messages(user, hashtag, from) #MessagesController.
+      'messages': get_hashtag_messages(user, hashtag, from) # MessagesController.
     }
 
     socket.send(JSON.generate(json))
@@ -50,10 +50,7 @@ module EventHandlers
 
   def like_event(socket, user, message)
     like = Like.create user: user, message: message
-    unless like.valid?
-      send_error socket, 'Invalid like'
-      return
-    end
+    send_error(socket, 'Invalid like') && return unless like.valid?
 
     json = {
       'event': 'like',
@@ -62,17 +59,13 @@ module EventHandlers
     }
 
     broadcast(JSON.generate(json), message.hashtag.id)
-    send(JSON.generate(json), message.user) unless subscribed(message.user, message.hashtag.id)
-    notification_from_like(user, message) unless online(message.user)
+    send(JSON.generate(json), message.user) unless subscribed?(message.user, message.hashtag.id)
+    notification_from_like(user, message) unless online?(message.user)
   end
 
   def dislike_event(socket, user, message)
     like = Like.find_by user: user, message: message
-    if like.nil?
-      send_error socket, 'Invalid like'
-      return
-    end
-
+    send_error(socket, 'Invalid like') && return if like.nil?
     like.destroy
 
     json = {
@@ -85,36 +78,11 @@ module EventHandlers
   end
 
   def message_event(socket, user, hashtag, content, photo_ids = '')
-    photo_ids = '' if photo_ids.nil?
-    message = create_message content, user.id, hashtag.id, photo_ids #MessagesController.
+    message = create_message content, user.id, hashtag.id, photo_ids
+    send_error(socket, 'Invalid message') && return unless message.valid?
 
-    unless message.valid?
-      send_error socket, 'Invalid message'
-      return
-    end
-
-    json = JSON.generate(message.serialize)
-    broadcast(json, hashtag.id)
-
-    hashtag.users.each do |u|
-      unless subscribed(u, hashtag.id)
-        send(json, u)
-        notification_from_message(u, message)
-      end
-    end
-
-    find_mentions(message).each do |id|
-      user = User.find_by id: id
-      unless user.nil?
-        json = {
-          'event': 'mention',
-          'user': message.user,
-          'message': message.id
-        }
-
-        send(JSON.generate(json), user)
-        notification_from_mention(user, message)
-      end
-    end
+    broadcast(JSON.generate(message.serialize), hashtag.id)
+    send_notifications_from_message(message)
+    send_mentions(message)
   end
 end

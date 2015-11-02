@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
-  validates :name, presence: true
-  validates :campus, presence: true
+  validates :name, :campus, presence: true
 
   has_secure_token
 
@@ -23,25 +22,28 @@ class User < ActiveRecord::Base
   end
 
   def six_most_active_channels
-    # 2 * On^2?
-    # returns user_hashtag
+    # replace with sql join
     non_zero_tags = user_hashtags.where(hashtag_id: messages.map(&:hashtag_id).uniq)
-    non_zero_tags.sort_by { |h| messages.where(hashtag_id: h.hashtag_id).count }.reverse.first 6
+    non_zero_tags.sort_by { |h| messages.where(hashtag_id: h.hashtag_id).count }.reverse.first(6)
   end
 
   def unactive_channels
-    six_channels = six_most_active_channels
-    user_hashtags.where.not(hashtag_id: six_channels.map(&:hashtag_id))
+    active = six_most_active_channels.map(&:hashtag_id)
+    user_hashtags.where.not(hashtag_id: active)
   end
 
   def last_visit(hashtag)
     timestamp = user_hashtags.find_by(hashtag_id: hashtag.id).last_visited
-    timestamp = Time.zone.now if timestamp.nil?
+    timestamp ||= Time.zone.now
     timestamp.strftime('%Y-%m-%dT%H:%M:%S')
   end
 
   def likes?(message)
     likes.each { |like| return true if like.message == message }
     false
+  end
+
+  def favourites
+    user_hashtags.favourite.map(&:hashtag)
   end
 end

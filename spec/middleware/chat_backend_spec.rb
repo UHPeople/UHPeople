@@ -52,7 +52,7 @@ RSpec.describe UHPeople::ChatBackend do
 
     it 'invalid message' do
       subject.online_event(socket, user, user.token)
-      subject.message_event(socket, user, hashtag, 'a'*300)
+      subject.message_event(socket, user, hashtag, 'a' * 300)
 
       expect(Message.count).to eq 0
       expect(socket.sent.last['event']).to eq 'error'
@@ -60,7 +60,7 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid authentication' do
-      subject.online_event(socket, user.id, "token")
+      subject.online_event(socket, user.id, 'token')
 
       expect(socket.map 'event').to include 'error'
       expect(socket.map 'content').to include 'Invalid user or token'
@@ -199,6 +199,11 @@ RSpec.describe UHPeople::ChatBackend do
         expect(socket.map 'content').to include 'asd'
       end
 
+      it 'extracts mentions' do
+        message = Message.new content: "@#{user.id}"
+        expect(subject.find_mentions(message).first).to include "#{user.id}"
+      end
+
       it 'finds mentions' do
         subject.online_event(socket, user, user.token)
         subject.message_event(socket, user, hashtag, "@#{user.id}")
@@ -299,24 +304,40 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'subscribed' do
     it 'false with no clients' do
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client not subscribed' do
       subject.online_event(socket, user, user.token)
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client subscribed other hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id + 1])
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'true with client subscribed to hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id])
-      expect(subject.subscribed(user, hashtag.id)).to be true
+      expect(subject.subscribed?(user, hashtag.id)).to be true
+    end
+  end
+
+  context 'subscribed' do
+    it 'false with no clients' do
+      expect(subject.online?(user)).to be false
+    end
+
+    it 'false with client subscribed other hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user2)).to be false
+    end
+
+    it 'true with client subscribed to hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user)).to be true
     end
   end
 end

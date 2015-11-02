@@ -26,7 +26,7 @@ RSpec.describe Message do
   end
 
   it 'is not saved if too long' do
-    message = described_class.create content: 'a'*300, hashtag_id: hashtag.id, user_id: user.id
+    message = described_class.create content: 'a' * 300, hashtag_id: hashtag.id, user_id: user.id
 
     expect(message.valid?).to be(false)
     expect(described_class.count).to eq(0)
@@ -71,7 +71,6 @@ RSpec.describe Message do
                              user: user,
                              hashtag: hashtag
     end
-
 
     it 'is saved without content' do
       expect(message.valid?).to be(true)
