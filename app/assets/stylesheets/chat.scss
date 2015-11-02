@@ -524,3 +524,17 @@ span.space-left {
     }
   }
 }
+
+// displays added images
+.mdl-card__actions.mdl-card--border.added-image-area{
+  // display: none;
+  padding: 0;
+  padding-left: 16px;
+
+  img {
+    margin-top: 8px;
+    margin-right: 3px;
+    width:30px;
+    height:30px;
+  }
+}

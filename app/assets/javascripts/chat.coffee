@@ -185,7 +185,7 @@ add_click_handler_to_chat = ->
     event.preventDefault()
     #if $('#input-text')[0].value.length > 0 #check removed for adding photos
     text = $('#input-text')[0].value
-    photo_ids = $('#photo_ids')[0].value
+    photo_ids = selectedPhotosToArrayAndEmpty()
     ws.send JSON.stringify
       event: 'message'
       content: text
@@ -193,7 +193,6 @@ add_click_handler_to_chat = ->
       photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
-    $('#photo_ids')[0].value = ''
 
 add_click_handler_to_loader = ->
   hashtag = $('#hashtag-id').val()

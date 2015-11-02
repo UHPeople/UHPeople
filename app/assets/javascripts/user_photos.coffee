@@ -64,17 +64,27 @@ setImageComponents = (select, callback)->
 
   componentHandler.upgradeDom()
 
-checkCheckboxes = ->
-  checkboxes = $('.is-selected')
-  checked_ids = []
-  for image in checkboxes
+addSelectedPhotosToInput = ->
+  selectedhotos = $('.is-selected')
+  for image in selectedhotos
     do ->
-        $(image).removeClass('is-selected') # should empty selection on message send
-        checked_ids.push $(image).attr('id')
-  checked_ids
+      img_url = $(image).css('background-image').replace('url(','').replace(')','');
+      img_id = $(image).attr 'id'
+      $('.added-image-area').append('<img class="img-circle" id=' + img_id + ' src=' + img_url + ' />')
+
+selectedPhotosToArrayAndEmpty = ->
+  added_images = $('.added-image-area').children()
+  added_ids = []
+  for image in added_images
+    do ->
+      id = $(image).attr('id')
+      if id not in added_ids
+        added_ids.push id
+  added_images.remove()
+  added_ids
 
 exports = this
-exports.checkCheckboxes = checkCheckboxes
+exports.selectedPhotosToArrayAndEmpty = selectedPhotosToArrayAndEmpty
 
 ready = ->
   # hijack the bitwise operator so we don't have to do a -1 comparison
@@ -94,9 +104,10 @@ ready = ->
       $('.mdl-layout__header').css('z-index', '3')
 
     $('.add-photo-modal__send').click () ->
-      $('#photo_ids').val(checkCheckboxes())
-      $('.add-photos-to-message-card').fadeOut()
-      $('.mdl-layout__header').css('z-index', '3')
+      cf = addSelectedPhotosToInput()
+      if cf.length
+        $('.add-photos-to-message-card').fadeOut()
+        $('.mdl-layout__header').css('z-index', '3')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
