@@ -43,4 +43,5 @@ Rails.application.routes.draw do
   get 'get_message_likers/:id', to: 'message#get_message_likers'
   get 'privacy_policy', to: 'about#privacy_policy'
   get 'users/:id/photos', to: 'users#photos', as: 'user_photos'
+  get 'users/:id/photos/select', to: 'users#select_photos', as: 'select_user_photos'
 end

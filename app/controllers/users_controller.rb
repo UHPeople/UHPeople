@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :require_non_production, only: [:new]
-  before_action :require_login, only: [:show, :edit, :update, :set_tab, :set_profile_picture]
-  before_action :set_user, only: [:show, :edit, :update, :photos]
+  before_action :require_login, only: [:show, :edit, :update, :set_tab, :set_profile_picture, :photos, :select_photos]
+  before_action :set_user, only: [:show, :edit, :update, :photos, :select_photos]
   before_action :set_arrays, only: [:new, :show, :edit, :update, :shibboleth_callback]
   before_action :user_is_current, only: [:edit, :update]
 
@@ -119,6 +119,10 @@ class UsersController < ApplicationController
 
   def photos
     render partial: 'users/photos/index'
+  end
+
+  def select_photos
+    render partial: 'users/photos/select'
   end
 
   private

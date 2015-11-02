@@ -153,7 +153,7 @@ a img.img-circle {
   background-repeat: no-repeat;
 
   .mdl-card__title {
-    height: 160px;
+    height: 200px;
   }
 
   // Only shown in chat add photo
@@ -170,4 +170,12 @@ a img.img-circle {
   margin-top: -30px;
   right: 16%;
   z-index: 120;
+}
+
+.is-selected {
+  -webkit-filter: brightness(50%);
+  -moz-filter: brightness(50%);
+  -o-filter: brightness(50%);
+  -ms-filter: brightness(50%);
+  filter: brightness(50%);
 }
