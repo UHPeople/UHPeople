@@ -85,15 +85,23 @@ RSpec.describe User do
       end
 
       it 'can add photos to album' do
+        last_photo = Photo.last.id
         execute_script "$('#image').show();"
         attach_file('image', File.absolute_path('./app/assets/images/bg.jpg'))
-        expect(page).to have_content 'Photo was successfully added'
+
+        expect Photo.last.id == last_photo+1
+        expect Photo.last.user_id == user.id
+        expect(page).to have_xpath("//a[@id='" + Photo.last.id.to_s + "']")
+        expect(page).to have_css ('.card-image')
+
       end
 
       it 'can fail upload to album if not image file' do
+        last_photo = Photo.last.id
         execute_script "$('#image').show();"
         attach_file('image', File.absolute_path('./app/assets/javascripts/chat.coffee'))
-        expect(page).to have_content 'An unknown error occured while saving your photo. Please try again.'
+
+        expect Photo.last.id == last_photo
       end
 
       context 'photo gallery', js: true do
