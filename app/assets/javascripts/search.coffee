@@ -36,12 +36,17 @@ addNotice = (name, avatar) ->
         '<img class="img-circle mdl-card__supporting-image" src="' + avatar + '"></img>' +
         '<span>' + name + ' invited</span>' +
       '</div>' +
+      '<div class="mdl-card__menu">' +
+        '<button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">' +
+          '<i class="material-icons">close</i>' +
+        '</button>' +
+      '</div>' +
     '</div>'
 
   $('.invite-notice').slideDown('slow')
 
   $('.invite-notice button').click ->
-    $(this).parent().hide('slow')
+    $(this).parent().parent().hide('slow')
 
 clearInviteBox = ->
   $('form#invite-form').parent().removeClass('has-success')
