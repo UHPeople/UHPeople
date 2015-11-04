@@ -3,24 +3,18 @@
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text mdl-color-text--white">Edit channel</h2>
     </div>
-    <div class="mdl-card__supporting-text">
+    <div class="mdl-card__supporting-text" class="width: 100% !important;">
       <%= form_for @hashtag, url: { tag: @hashtag.tag } do |f| %>
-        <div class="modal-body edit-modal">
-          <div class="form-group">
-            <div>
-              <%= f.label(:topic, 'Channel description')%>
-              <%= f.text_area :topic, value: @hashtag.topic, class: 'form-control input-large', id: 'topic' %>
-            </div>
-            <div>
-              <%= f.label(:photo_id, 'Background image')%>
-              <button class="mdl-button mdl-js-button mdl-button--icon add-photo-modal__open">
-                <i class="material-icons icon-color">insert_photo</i>
-              </button>
-              <%= f.hidden_field :photo_id, value: '', id: 'cover_photo' %>
-            </div>
-          </div>
-
-          <%= f.submit value: 'Update', class: 'mdl-button mdl-button--raised' %>
+        <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
+          <%= f.text_area :topic, id: 'topic', class: 'mdl-textfield__input', value: @hashtag.topic, rows: 3 %>
+          <label class="mdl-textfield__label" for="topic">Channel description</label>
+        </div>
+        <div class="pull-right">
+          <%= f.hidden_field :photo_id, value: '', id: 'cover_photo' %>
+          <button class="mdl-button mdl-js-button mdl-js-ripple-effect add-photo-modal__open">
+            Background image
+          </button>
+          <%= f.submit value: 'Update', class: 'mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--raised' %>
         </div>
       <% end %>
     </div>
