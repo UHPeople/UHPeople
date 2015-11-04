@@ -90,6 +90,8 @@ module UHPeople
       user, hashtag, message = graceful_find_all(socket, data)
       photo_ids = data['photo_ids'] || []
 
+      p data
+
       if data['event'] == 'feed'
         feed_event(socket, user)
       elsif data['event'] == 'favourites'

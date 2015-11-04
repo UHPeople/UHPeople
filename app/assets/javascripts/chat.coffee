@@ -204,7 +204,7 @@ add_click_handler_to_loader = ->
 
     last_message = $('.panel-body:first')[0].id
     ws.send JSON.stringify
-      event: 'messages'
+      event: 'hashtag'
       hashtag: hashtag
       message: last_message
 
@@ -220,7 +220,7 @@ on_topic = (data) ->
 
   $('.header-topic-container p').text(data.topic)
   $('.header-topic-container span b').text(data.updater)
-  $('.hashtag-bg').css('background: ' + data.photo + ' no-repeat center center')
+  $('.hashtag-bg').css('background-image', 'src(' + data.photo + ') no-repeat center center')
 
 ready = ->
   if not $('#hashtag-id').length

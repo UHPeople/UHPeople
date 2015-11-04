@@ -190,7 +190,7 @@ RSpec.describe UHPeople::ChatBackend do
     context 'message event' do
       it 'adds new message' do
         subject.online_event(socket, user, user.token)
-        subject.hashtag_event(socket, user, hashtag, nil)
+        subject.hashtag_event(socket, hashtag, nil)
 
         subject.message_event(socket, user, hashtag, 'asd')
 
@@ -213,7 +213,7 @@ RSpec.describe UHPeople::ChatBackend do
 
       it 'handles photos in message' do
         subject.online_event(socket, user, user.token)
-        subject.hashtag_event(socket, user, hashtag, nil)
+        subject.hashtag_event(socket, hashtag, nil)
 
         photo = FactoryGirl.create(:photo, user: user)
         subject.message_event(socket, user, hashtag, '', [photo.id])

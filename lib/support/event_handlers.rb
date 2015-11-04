@@ -37,12 +37,12 @@ module EventHandlers
     socket.send(JSON.generate(json))
   end
 
-  def hashtag_event(socket, user, hashtag, from)
-    subscribe socket, hashtag.id
+  def hashtag_event(socket, hashtag, from)
+    subscribe(socket, hashtag.id)
 
     json = {
       'event': 'hashtag',
-      'messages': get_hashtag_messages(user, hashtag, from) # MessagesController.
+      'messages': get_hashtag_messages(hashtag, from) # MessagesController.
     }
 
     socket.send(JSON.generate(json))
