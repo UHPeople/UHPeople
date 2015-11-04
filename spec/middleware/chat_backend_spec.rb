@@ -216,7 +216,7 @@ RSpec.describe UHPeople::ChatBackend do
         subject.hashtag_event(socket, user, hashtag, nil)
 
         photo = FactoryGirl.create(:photo, user: user)
-        subject.message_event(socket, user, hashtag, '', photo.id.to_s)
+        subject.message_event(socket, user, hashtag, '', [photo.id])
 
         expect(Message.count).to eq 1
         expect(socket.map 'event').to include 'message'

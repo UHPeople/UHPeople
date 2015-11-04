@@ -88,6 +88,7 @@ module UHPeople
       end
 
       user, hashtag, message = graceful_find_all(socket, data)
+      photo_ids = data['photo_ids'] || []
 
       if data['event'] == 'feed'
         feed_event(socket, user)
@@ -101,7 +102,7 @@ module UHPeople
         dislike_event(socket, user, message) unless message.nil?
       elsif data['event'] == 'message'
         p data['photo_ids']
-        message_event(socket, user, hashtag, data['content'], data['photo_ids']) unless hashtag.nil?
+        message_event(socket, user, hashtag, data['content'], photo_ids) unless hashtag.nil?
       end
     end
   end

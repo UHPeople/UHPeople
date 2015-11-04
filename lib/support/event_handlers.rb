@@ -77,7 +77,7 @@ module EventHandlers
     broadcast(JSON.generate(json), message.hashtag.id)
   end
 
-  def message_event(socket, user, hashtag, content, photo_ids = '')
+  def message_event(socket, user, hashtag, content, photo_ids = [])
     message = create_message content, user.id, hashtag.id, photo_ids
     send_error(socket, 'Invalid message') && return unless message.valid?
 
