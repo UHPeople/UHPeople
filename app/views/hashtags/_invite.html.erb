@@ -3,16 +3,22 @@
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text mdl-color-text--white">Invite</h2>
     </div>
-    <div class="mdl-card__supporting-text">
-      <div class="modal-body invite-modal">
-        <p>Invite friends and colleques to your interest!</p>
-        <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post',
-            'data-toggle': 'tooltip', 'data-placement': 'top',
-            title: 'Invite people to the channel. Start typing, choose a right person and press enter.', id: 'invite-form') do %>
-          <%= text_field_tag :user, params[:user], placeholder: 'Fill in name', class: 'typeahead-invite' %>
-          <%= submit_tag('Invite', class: 'mdl-button invite-button pull-right') %>
-        <% end %>
-      </div>
+    <div class="mdl-card__supporting-text" style="width: 100%;">
+      <%= form_tag({controller: 'hashtags', action: 'invite'}, method: 'post',
+          'data-toggle': 'tooltip', 'data-placement': 'top',
+          title: 'Invite people to the channel. Start typing, choose a right person and press enter.', id: 'invite-form') do %>
+        <div class="mdl-textfield mdl-js-textfield" style="width: calc(100% - 68px);">
+          <%= text_field_tag :user, '', id: 'user', class: 'mdl-textfield__input typeahead-invite', placeholder: 'Invite friends and colleagues!' %>
+        </div>
+        <div class="pull-right" style="margin-top: 16px;">
+          <%= submit_tag 'Invite', class: 'mdl-button mdl-js-button mdl-js-ripple-effect invite-button' %>
+        </div>
+      <% end %>
+    </div>
+    <div class="mdl-card__menu">
+      <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect invite-modal__close">
+        <i class="material-icons">close</i>
+      </button>
     </div>
   </div>
 </div>

@@ -30,56 +30,23 @@ users_mentions = new Bloodhound(
     ttl: 1)
 
 addNotice = (name, avatar) ->
-  $('.invite-modal').append '' +
-    '<div class="alert alert-success alert-dismissible invite-notice" role="alert" style="display: none;">' +
-      '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-        '<span aria-hidden="true">&times;</span>' +
-      '</button>' +
-      '<div>' +
+  $('.invite-card .mdl-card__supporting-text').append '' +
+    '<div class="invite-notice notification-card-wide mdl-card mdl-shadow--2dp" style="display: none;">' +
+      '<div class="mdl-card__supporting-text">' +
+        '<img class="img-circle mdl-card__supporting-image" src="' + avatar + '"></img>' +
         '<span>' + name + ' invited</span>' +
-        '<a href="#"><img class="img-circle" src="' + avatar + '"></img></a>' +
       '</div>' +
     '</div>'
 
-  $('.invite-notice').slideDown 'slow'
+  $('.invite-notice').slideDown('slow')
 
-  $('.invite-notice button').on 'click', ->
-    $(this).parent().hide 'slow'
+  $('.invite-notice button').click ->
+    $(this).parent().hide('slow')
 
 clearInviteBox = ->
-  $('form#invite-form span span.glyphicon').remove()
-  $('form#invite-form').parent().removeClass 'has-success'
-  $('form#invite-form').parent().removeClass 'has-error'
-  $('form#invite-form span input#user').val ''
-
-  return
-
-makeSexy = ->
-  input = $('form#invite-form span input#user')
-  form = $('form#invite-form')
-
-  input.click ->
-    clearInviteBox()
-
-  form.submit ->
-    input.blur()
-    $.ajax(
-      type: 'POST'
-      url: form.attr('action')
-      data: form.serialize()
-      dataType: 'JSON'
-    ).done((json) ->
-      form.children('.input-group').children('.twitter-typeahead').append '<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>'
-      form.parent().addClass 'has-success'
-      addNotice json['name'], json['avatar']
-    ).fail ->
-      form.children('.input-group').children('.twitter-typeahead').append '<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>'
-      form.parent().addClass 'has-error'
-    false
-
-send = (name) ->
-  $('form#invite-form span input#user').text name
-  $('form#invite-form').submit()
+  $('form#invite-form').parent().removeClass('has-success')
+  $('form#invite-form').parent().removeClass('has-error')
+  $('form#invite-form input#user').val('')
 
 $(document).ready ->
   # users.clearPrefetchCache()
@@ -134,13 +101,30 @@ $(document).ready ->
     displayKey: 'name'
     source: users.ttAdapter()
     templates: suggestion: Handlebars.compile(
-      '<div onclick="send({{name}});">' +
+      '<div>' +
         '<span>{{name}}</span>' +
         '<img class="img-circle" src="{{avatar}}"></img>' +
       '</div>')
   }
 
-  makeSexy()
+  input = $('form#invite-form span input#user')
+  form = $('form#invite-form')
+
+  form.submit (event) ->
+    event.preventDefault()
+
+    input.blur()
+    $.ajax(
+      type: 'POST'
+      url: form.attr('action')
+      data: form.serialize()
+      dataType: 'JSON'
+    ).done((json) ->
+      input.addClass('has-success')
+      addNotice(json['name'], json['avatar'])
+      clearInviteBox()
+    ).fail ->
+      input.addClass('has-error')
 
 $(document).ready ->
   if $('.typeahead-add').length == 0
