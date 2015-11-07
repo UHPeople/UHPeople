@@ -1,14 +1,17 @@
-<div class="container">
-  <h2>Your notifications</h2>
-  <% if current_user.notifications.empty? %>
-    You don't have any notifications.
-  <% else %>
-    <% @notifications.each do |notif| %>
-      <%= render 'notification', notification: notif, partial_message: 'has invited you to join' if notif.notification_type == 1 %>
-      <%= render 'notification', notification: notif, partial_message: 'made up a hot new topic over at' if notif.notification_type == 2 %>
-      <%= render 'notification', notification: notif, partial_message: 'mentioned you at' if notif.notification_type == 3 %>
-      <%= render 'likes', notification: notif if notif.notification_type == 4 %>
-      <%= render 'notification', notification: notif, partial_message: 'crafted a new message at' if notif.notification_type == 5 %>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--1-col"></div>
+  <div class="mdl-cell mdl-cell--6-col">
+    <h2>Your notifications</h2>
+    <% if current_user.notifications.empty? %>
+      You don't have any notifications.
+    <% else %>
+      <% @notifications.each do |notif| %>
+        <%= render 'notification', notification: notif, partial_message: 'has invited you to join' if notif.notification_type == 1 %>
+        <%= render 'notification', notification: notif, partial_message: 'made up a hot new topic over at' if notif.notification_type == 2 %>
+        <%= render 'notification', notification: notif, partial_message: 'mentioned you at' if notif.notification_type == 3 %>
+        <%= render 'likes', notification: notif if notif.notification_type == 4 %>
+        <%= render 'notification', notification: notif, partial_message: 'crafted a new message at' if notif.notification_type == 5 %>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 </div>
