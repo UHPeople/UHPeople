@@ -54,7 +54,7 @@ module MessagesController
     hashtags = user.user_hashtags.includes(hashtag: :messages).favourite.map(&:hashtag)
     messages_json = []
     hashtags.each do |hashtag|
-      messages = hashtag.messages.order(created_at: :desc).limit(5)
+      messages = hashtag.messages.order(created_at: :desc).limit(5).reverse
       messages_json += messages.map(&:serialize)
     end
 

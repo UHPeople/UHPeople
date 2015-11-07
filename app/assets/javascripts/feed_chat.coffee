@@ -61,7 +61,7 @@ add_favourites_message = (data) ->
 
   photos = construct_photo_message data.photos
 
-  $('div.fav#box-' + data.hashtag).prepend ''+
+  $(''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -87,7 +87,7 @@ add_favourites_message = (data) ->
           '</p>' +
         '</div>' +
       '</div>' +
-    '</div>'
+    '</div>').insertAfter('div.fav#box-' + data.hashtag + ' .mdl-card__title')
 
   add_mouseover_to_show_likers('fav-tt' + data.id, data.likes)
 
