@@ -57,14 +57,15 @@ RSpec.describe Hashtag do
 
         visit "/login/#{user2.id}"
 
-        expect(find('.notif-count')).to have_content '1'
+        expect(page).to have_selector('.notif-link .mdl-badge[data-badge="1"]')
       end
 
       it 'doesn\'t send invitation to member' do
         first('a.invite-modal__open').click
         fill_in 'user', with: user.name
         find('.invite-button').click
-        expect(find('.notif-count')).to_not have_content '1'
+
+        expect(page).to have_selector('.notif-link .mdl-badge[data-badge="0"]')
       end
     end
   end
