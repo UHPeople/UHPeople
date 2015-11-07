@@ -68,7 +68,7 @@ add_favourites_message = (data) ->
 
   photos = construct_photo_message data.photos
 
-  $('div.fav#box-' + data.hashtag).append ''+
+  $('div.fav#box-' + data.hashtag).prepend ''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
