@@ -2,14 +2,7 @@
 	<i class="material-icons md-24">search</i>
 </a>
 <%= link_to notifications_path, class: 'mdl-navigation__link notif-link feed-onboard-notif' do %>
-	<i class="material-icons md-24">notifications</i>
-	<span class="notif-count">
-		<% if current_user.unread_notifications? %>
-			<span class="badge badge-success">
-				<%= current_user.notifications.unread_count  %>
-			</span>
-		<% end %>
-	</span>
+	<i class="material-icons md-24 mdl-badge" data-badge="<%= current_user.notifications.unread_count %>">notifications</i>
 <% end %>
 <a id="menu-lower-right" class="mdl-navigation__link">
 	<%= image_tag(current_user.profile_picture_url(:thumb), class: "img-circle", style: 'height: 30px; width: 30px;') %>

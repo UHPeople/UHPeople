@@ -3,15 +3,8 @@
 ws = null
 
 add_unread = (data) ->
-  console.log data.hashtag
-  if !$('.interest-list-hashtag p a#' + data.hashtag).children().hasClass('unread')
-      $('.interest-list-hashtag p a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
-  else
-    $('.interest-list-hashtag p a#' + data.hashtag + ' .unread').text (i, t) ->
-      if t > 0
-        Number(t) + 1
-      else
-        ''
+  badge = $('#' + data.hashtag + ' .mdl-badge')
+  badge.attr('data-badge', Number(badge.attr('data-badge'))+1)
 
 add_feed_message = (data) ->
   #highlight = ''

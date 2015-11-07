@@ -86,6 +86,16 @@ p {
   float: right;
 }
 
+.notif-link .mdl-badge[data-badge]:after {
+	top: 11px !important;
+}
+.mdl-badge[data-badge='0']:after {
+	display: none;
+}
+a .mdl-badge[data-badge]:after {
+	top: -2px !important;
+}
+
 // Jumbotron material desing
 
 .frontpage-jumbotron {

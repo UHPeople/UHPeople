@@ -35,11 +35,10 @@
           </div>
           <div class="interest-list-hashtag">
             <p>
-              <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>" >
-                <%= '#' + tag.hashtag.tag %>
-                <% if !tag.unread_messages.nil? && tag.unread_messages > 0 %>
-                  <span class="badge badge-success unread"><%= tag.unread_messages.to_s %></span>
-                <% end %>
+              <a href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>">
+                <span class="mdl-badge" data-badge="<%= tag.unread_messages.to_s %>">
+                  <%= '#' + tag.hashtag.tag %>
+                </span>
               </a>
             </p>
           </div>

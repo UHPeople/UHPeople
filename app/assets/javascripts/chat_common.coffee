@@ -32,12 +32,8 @@ create_websocket = (events) ->
   return ws
 
 on_notification = ->
-  count = $('.notif-count .badge')
-  if not count.length
-    $('.notif-count').append("<span class='badge badge-success'>1</span>");
-  else
-    t = Number(count.text())
-    count.text(t + 1)
+  badge = $('.notif-link .mdl-badge')
+  badge.attr('data-badge', Number(badge.attr('data-badge')) + 1)
 
 set_star_hover = ->
   $('.like-icon').hover ->
