@@ -5,9 +5,11 @@ class Hashtag < ActiveRecord::Base
   has_many :user_hashtags, dependent: :destroy
   has_many :users, through: :user_hashtags
   has_many :messages, dependent: :destroy
-  belongs_to :photo
 
+  belongs_to :photo
   belongs_to :topic_updater, class_name: 'User', foreign_key: 'topic_updater_id'
+
+  delegate :empty?, to: :messages
 
   def latest_message
     messages.order('created_at desc').limit(1).first
@@ -17,6 +19,4 @@ class Hashtag < ActiveRecord::Base
     return ActionController::Base.helpers.asset_path('missing.png') if photo.nil?
     photo.image.url(size)
   end
-
-  delegate :empty?, to: :messages
 end
