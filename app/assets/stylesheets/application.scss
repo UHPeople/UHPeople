@@ -98,8 +98,9 @@ p {
 	margin-right: 0;
 }
 
-a .mdl-badge[data-badge]:after {
-	top: -2px !important;
+.mdl-badge[data-badge]:after {
+	top: -2px;
+	background-color: $accent;
 }
 
 // Jumbotron material desing
