@@ -94,7 +94,8 @@ p {
 	display: none;
 }
 .mdl-badge[data-badge='0'] {
-	margin-right: inherit;
+	position: inherit;
+	margin-right: 0;
 }
 
 a .mdl-badge[data-badge]:after {
