@@ -21,12 +21,12 @@ RSpec.describe 'Notifications page' do
 
   it 'resets unread notification count', js: true do
     visit '/feed'
-    expect(page).to have_content('1')
+    expect(page).to have_selector('.notif-link .mdl-badge[data-badge="1"]')
 
     visit '/notifications'
 
     visit '/feed'
-    expect(page).to_not have_content('1')
+    expect(page).to have_selector('.notif-link .mdl-badge[data-badge="0"]')
   end
 
   describe 'actions' do
