@@ -1,13 +1,13 @@
 <%= form_tag({controller: "hashtags", action: "add_multiple"}, method: "put") do %>
   <div class="mdl-grid">
-    <div class="mdl-cell mdl-cell--3-col"></div>
-    <div class="mdl-cell mdl-cell--6-col mdl-card mdl-shadow--2dp">
+    <div class="mdl-cell mdl-cell--3-col mdl-cell--hide-phone"></div>
+    <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-card mdl-shadow--2dp">
       <div class="mdl-card__title">
         <h2 class="mdl-card__title-text">Tell us about yourself!</h2>
       </div>
-      <div class="mdl-card__supporting-text">
+      <div class="mdl-card__supporting-text" style="width: 100%;">
         <p>List three things that feel important to you right now.</p>
-        <%= text_field_tag :hashtags, current_user.hashtags.map(&:tag).join(",") %>
+        <%= text_field_tag :hashtags, current_user.hashtags.map(&:tag).join(","), style: 'width: 100%;' %>
       </div>
       <div class="mdl-card__actions">
         <div class="pull-right">
