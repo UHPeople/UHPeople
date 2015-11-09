@@ -95,11 +95,13 @@ p {
 }
 
 .mdl-badge[data-badge='0'] {
+	position: inherit;
 	margin-right: 0;
 }
 
-a .mdl-badge[data-badge]:after {
-	top: -2px !important;
+.mdl-badge[data-badge]:after {
+	top: -2px;
+	background-color: $accent;
 }
 
 // Jumbotron material desing
