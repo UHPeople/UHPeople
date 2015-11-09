@@ -7,7 +7,7 @@ class UserHashtag < ActiveRecord::Base
 
   scope :favourite, -> { where(favourite: true) }
   scope :downcase_sorted, lambda {
-    includes(:hashtag).sort_by { |h| [h.favourite? ? 1 : 0, h.hashtag.updated_at, h.hashtag.tag.downcase] }.reverse
+    includes(:hashtag).sort_by { |h| [h.favourite? ? 1 : 0, h.unread_messages, h.hashtag.updated_at, h.hashtag.tag.downcase] }.reverse
   }
 
   def unread_messages
