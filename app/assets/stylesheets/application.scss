@@ -115,8 +115,15 @@ p {
     word-wrap: break-word;
   }
   .middle {
-    padding-top: 150px;
+    padding-top: 10vh;
   }
+	.shadow {
+	    -webkit-filter: drop-shadow( 5px 5px 5px rgba(0,0,0,0.33) );
+	            filter: drop-shadow( 5px 5px 5px rgba(0,0,0,0.33) );
+	}
+	.mdl-button {
+		margin-top: 32px;
+	}
 }
 
 .panel-title {
