@@ -103,24 +103,32 @@ p {
 	background-color: $accent;
 }
 
-// Jumbotron material desing
+.landing-page-image {
+	background: image-url('bg.jpg') center / cover;
 
-.frontpage-jumbotron {
-  background: image-url('bg.jpg') center / cover;
-  height: 100vh;
-  width: 100%;
-  color: $white;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+
+	-webkit-filter: brightness(75%);
+	-moz-filter: brightness(75%);
+	-o-filter: brightness(75%);
+	-ms-filter: brightness(75%);
+	filter: brightness(75%);
+}
+
+.landing-page-content {
+	@extend .text-center;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	color: $white;
+	padding-top: 20vh;
 
   h1 {
     word-wrap: break-word;
   }
-  .middle {
-    padding-top: 10vh;
-  }
-	.shadow {
-	    -webkit-filter: drop-shadow( 5px 5px 5px rgba(0,0,0,0.33) );
-	            filter: drop-shadow( 5px 5px 5px rgba(0,0,0,0.33) );
-	}
+
 	.mdl-button {
 		margin-top: 32px;
 	}

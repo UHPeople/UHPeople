@@ -1,10 +1,8 @@
 <div class="frontpage-jumbotron">
-	<div class="container text-center middle">
-		<%= image_tag('hy_logo_white.svg', height: '100', width: '100', class:"shadow" )%>
-		<h1 class="shadow mdl-typography--display-3">Welcome to UniCorner!</h1>
-
-		<h3 class="shadow">Where University of Helsinki gets connected</h3>
-
+	<div class="landing-page-image"></div>
+	<div class="landing-page-content">
+		<%= image_tag 'hy_logo_white.svg', height: '100', width: '100' %>
+		<h2 class="regular-text mdl-typography--display-3">Welcome to UniCorner!</h2>
 		<%= link_to 'Login or signup!', @login_url, class: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' %>
 	</div>
 </div>
