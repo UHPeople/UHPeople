@@ -7,8 +7,42 @@ stopSpinner = ->
   $('.image-overlay').fadeOut()
   $('.absolut-center-spinner').fadeOut()
 
+setClickHandlers = ->
+  $('.add-photo-modal__open').click (event) ->
+    event.preventDefault()
+    $('.mdl-layout__header').css('z-index', '-3')
+    $('.add-photos-to-message-card').fadeIn()
+    loadPhotoSection()
+
+  $('.fab_add_button').click (event) ->
+    event.preventDefault()
+    $('#image').click()
+
+  # image input change function
+  $('#image').change ->
+    startSpinner()
+    $(this).parent().ajaxSubmit
+      beforeSubmit: (a, f, o) ->
+        o.dataType = 'json'
+      complete: (XMLHttpRequest, textStatus) ->
+        # console.log XMLHttpRequest.responseJSON.message
+        stopSpinner()
+        loadPhotoSection()
+
+  $('.add-photo-modal__close').click () ->
+    $('#add-photo')[0].reset();
+    $('.add-photos-to-message-card').fadeOut()
+    $('.mdl-layout__header').css('z-index', '3')
+
+  $('.add-photo-modal__send').click () ->
+    cf = addSelectedPhotosToInput()
+    if cf.length
+      $('.add-photos-to-message-card').fadeOut()
+      $('.mdl-layout__header').css('z-index', '3')
+
 loadPhotoSection = ->
   user_id = $('.photosection').attr('id')
+  $('#add-photo')[0].reset();
   $('.photosection').load "/users/#{user_id}/photos/select", ->
     # photosection load callback
 
@@ -17,21 +51,6 @@ loadPhotoSection = ->
         $(this).children().removeClass 'is-selected'
       else
         $(this).children().addClass 'is-selected'
-
-    $('.fab_add_button').click (event) ->
-      event.preventDefault()
-      $('#image').click()
-
-    $('#image').change ->
-      console.log 'going ajaxsubmit'
-      startSpinner()
-      $(this).parent().ajaxSubmit
-        beforeSubmit: (a, f, o) ->
-          o.dataType = 'json'
-        complete: (XMLHttpRequest, textStatus) ->
-          # console.log XMLHttpRequest.responseJSON.message
-          stopSpinner()
-          loadPhotoSection()
 
 addSelectedPhotosToInput = ->
   selectedhotos = $('.is-selected')
@@ -86,23 +105,7 @@ exports.selectedPhotosToArrayAndEmpty = selectedPhotosToArrayAndEmpty
 ready = ->
   # hijack the bitwise operator so we don't have to do a -1 comparison
   if !!~ $(location).attr('pathname').indexOf 'hashtag'
-    $('.add-photo-modal__open').click (event) ->
-      event.preventDefault()
-      $('.mdl-layout__header').css('z-index', '-3')
-      $('.add-photos-to-message-card').fadeIn()
-      loadPhotoSection()
-
-    # click handlers
-    $('.add-photo-modal__close').click () ->
-      $('.add-photos-to-message-card').fadeOut()
-      $('.mdl-layout__header').css('z-index', '3')
-
-    $('.add-photo-modal__send').click () ->
-
-      cf = addSelectedPhotosToInput()
-      if cf.length
-        $('.add-photos-to-message-card').fadeOut()
-        $('.mdl-layout__header').css('z-index', '3')
+    setClickHandlers()
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
