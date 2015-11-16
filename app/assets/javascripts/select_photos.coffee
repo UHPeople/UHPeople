@@ -34,7 +34,7 @@ setAddPhotoToMessageClickHandlers = (photosection) ->
     $('.mdl-layout__header').css('z-index', '3')
 
   $('.add-photo-modal__send').click () ->
-    cf = addSelectedPhotosToInput()
+    cf = addSelectedPhotosToInput(photosection)
     if cf.length
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
@@ -53,7 +53,7 @@ setCoverPhotoModalClickHandlers = (photosection) ->
     ('.edit-card').css('z-index', '9')
 
   $('.change-cover-modal__send').click () ->
-    selectedhotos = $('.is-selected')
+    selectedhotos = $("#{photosection} .is-selected")
     if selectedhotos.length == 1
       $('#cover_photo').val(selectedhotos.attr('id'))
       $('.edit-card').css('z-index', '9')
@@ -73,8 +73,8 @@ loadPhotoSection = (photosection) ->
           $('.change-cover-photosection a.image__select').children().removeClass('is-selected')
         $(this).children().addClass 'is-selected'
 
-addSelectedPhotosToInput = ->
-  selectedhotos = $('.is-selected')
+addSelectedPhotosToInput = (photosection) ->
+  selectedhotos = $("#{photosection} .is-selected")
   for image in selectedhotos
     do ->
       img_url = $(image).css('background-image')
