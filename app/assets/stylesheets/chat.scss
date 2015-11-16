@@ -446,7 +446,7 @@ span.space-left {
   }
 }
 
-.add-photos-to-message-card.mdl-card {
+@mixin photogallery_selector () {
   display: none;
   position: absolute;
   width: 96vw;
@@ -468,6 +468,15 @@ span.space-left {
     box-sizing:border-box;
     align-items: center;
   }
+}
+
+
+.add-photos-to-message-card.mdl-card {
+  @include photogallery_selector
+}
+
+.change-cover-card.mdl-card {
+  @include photogallery_selector
 }
 
 .bottom-sheet-overlay {

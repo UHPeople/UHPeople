@@ -14,7 +14,6 @@ loadPhotoSection = ()->
     componentHandler.upgradeDom()
     stopSpinner()
 
-    # only user profile gallery
     $('.image__show').click ->
       startSpinner()
       getAndShowImage $(this).attr('id')

@@ -7,12 +7,12 @@ stopSpinner = ->
   $('.image-overlay').fadeOut()
   $('.absolut-center-spinner').fadeOut()
 
-setAddPhotoToMessageClickHandlers = (multiple)->
-  $('.add-photo-modal__open').click (event) ->
+setAddPhotoToMessageClickHandlers = (photosection) ->
+  $(".add-photo-modal__open").click (event) ->
     event.preventDefault()
     $('.mdl-layout__header').css('z-index', '-3')
     $('.add-photos-to-message-card').fadeIn()
-    loadPhotoSection(multiple)
+    loadPhotoSection(photosection)
 
   $('.fab_add_button').click (event) ->
     event.preventDefault()
@@ -27,10 +27,9 @@ setAddPhotoToMessageClickHandlers = (multiple)->
       complete: (XMLHttpRequest, textStatus) ->
         # console.log XMLHttpRequest.responseJSON.message
         stopSpinner()
-        loadPhotoSection(multiple)
+        loadPhotoSection(photosection)
 
   $('.add-photo-modal__close').click () ->
-    $('#add-photo')[0].reset();
     $('.add-photos-to-message-card').fadeOut()
     $('.mdl-layout__header').css('z-index', '3')
 
@@ -40,16 +39,33 @@ setAddPhotoToMessageClickHandlers = (multiple)->
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
 
-loadPhotoSection = (multiple)->
-  user_id = $('.photosection').attr('id')
-  $('.photosection').load "/users/#{user_id}/photos/select", ->
+setCoverPhotoModalClickHandlers = (photosection) ->
+  $('.change-cover-modal__open').click (event) ->
+    event.preventDefault()
+    $('.mdl-layout__header').css('z-index', '-3')
+    $('.change-cover-card').fadeIn()
+    loadPhotoSection(photosection)
+
+  $('.change-cover-modal__close').click () ->
+    $('.change-cover-card').fadeOut()
+    $('.mdl-layout__header').css('z-index', '3')
+
+  $('.change-cover-modal__send').click () ->
+    console.log 'going out'
+    # set cover photo val and exit
+
+loadPhotoSection = (photosection) ->
+  user_id = $(photosection).attr('id')
+  $(photosection).load "/users/#{user_id}/photos/select", ->
     # photosection load callback
 
-    $('.image__select').click () ->
+    $("#{photosection} a.image__select").click () ->
       if $(this).children().hasClass 'is-selected'
         $(this).children().removeClass 'is-selected'
       else
-        if not multiple then $('.image__select').children().removeClass('is-selected')
+        if photosection is '.change-cover-photosection'
+          #single selection
+          $('.change-cover-photosection a.image__select').children().removeClass('is-selected')
         $(this).children().addClass 'is-selected'
 
 addSelectedPhotosToInput = ->
@@ -105,7 +121,8 @@ exports.selectedPhotosToArrayAndEmpty = selectedPhotosToArrayAndEmpty
 ready = ->
   # hijack the bitwise operator so we don't have to do a -1 comparison
   if !!~ $(location).attr('pathname').indexOf 'hashtag'
-    setAddPhotoToMessageClickHandlers(true)
+    setAddPhotoToMessageClickHandlers('.photosection')
+    setCoverPhotoModalClickHandlers('.change-cover-photosection')
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
