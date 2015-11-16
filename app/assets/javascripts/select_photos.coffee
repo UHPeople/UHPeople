@@ -42,6 +42,7 @@ setAddPhotoToMessageClickHandlers = (photosection) ->
 setCoverPhotoModalClickHandlers = (photosection) ->
   $('.change-cover-modal__open').click (event) ->
     event.preventDefault()
+    $('.edit-card').css('z-index', '1')
     $('.mdl-layout__header').css('z-index', '-3')
     $('.change-cover-card').fadeIn()
     loadPhotoSection(photosection)
@@ -49,10 +50,14 @@ setCoverPhotoModalClickHandlers = (photosection) ->
   $('.change-cover-modal__close').click () ->
     $('.change-cover-card').fadeOut()
     $('.mdl-layout__header').css('z-index', '3')
+    ('.edit-card').css('z-index', '9')
 
   $('.change-cover-modal__send').click () ->
-    console.log 'going out'
-    # set cover photo val and exit
+    selectedhotos = $('.is-selected')
+    if selectedhotos.length == 1
+      $('#cover_photo').val(selectedhotos.attr('id'))
+      $('.edit-card').css('z-index', '9')
+      $('.change-cover-card').fadeOut()
 
 loadPhotoSection = (photosection) ->
   user_id = $(photosection).attr('id')
