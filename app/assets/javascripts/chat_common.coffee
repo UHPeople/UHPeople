@@ -114,7 +114,11 @@ construct_photo_message = (photos) ->
   if photos.length
     div = '<div style="display: inline-block;">'
     for photo in photos
-      div += '<img style="padding: 8px;" src="' + photo + '"/>'
+      div += """
+          <a href="#" class="image__show" id="#{photo.id}">
+            <img style="padding: 8px;" src="#{photo.url}"/>
+          </a>
+        """
     div += '</div>'
   return div
 

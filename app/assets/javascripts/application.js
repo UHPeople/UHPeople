@@ -22,6 +22,7 @@
 //= require non_chat
 //= require search
 //= require user_photos
+//= require select_photos
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
