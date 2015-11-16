@@ -7,12 +7,12 @@ stopSpinner = ->
   $('.image-overlay').fadeOut()
   $('.absolut-center-spinner').fadeOut()
 
-setClickHandlers = ->
+setAddPhotoToMessageClickHandlers = (multiple)->
   $('.add-photo-modal__open').click (event) ->
     event.preventDefault()
     $('.mdl-layout__header').css('z-index', '-3')
     $('.add-photos-to-message-card').fadeIn()
-    loadPhotoSection()
+    loadPhotoSection(multiple)
 
   $('.fab_add_button').click (event) ->
     event.preventDefault()
@@ -27,7 +27,7 @@ setClickHandlers = ->
       complete: (XMLHttpRequest, textStatus) ->
         # console.log XMLHttpRequest.responseJSON.message
         stopSpinner()
-        loadPhotoSection()
+        loadPhotoSection(multiple)
 
   $('.add-photo-modal__close').click () ->
     $('#add-photo')[0].reset();
@@ -40,9 +40,8 @@ setClickHandlers = ->
       $('.add-photos-to-message-card').fadeOut()
       $('.mdl-layout__header').css('z-index', '3')
 
-loadPhotoSection = ->
+loadPhotoSection = (multiple)->
   user_id = $('.photosection').attr('id')
-  $('#add-photo')[0].reset();
   $('.photosection').load "/users/#{user_id}/photos/select", ->
     # photosection load callback
 
@@ -50,6 +49,7 @@ loadPhotoSection = ->
       if $(this).children().hasClass 'is-selected'
         $(this).children().removeClass 'is-selected'
       else
+        if not multiple then $('.image__select').children().removeClass('is-selected')
         $(this).children().addClass 'is-selected'
 
 addSelectedPhotosToInput = ->
@@ -105,7 +105,7 @@ exports.selectedPhotosToArrayAndEmpty = selectedPhotosToArrayAndEmpty
 ready = ->
   # hijack the bitwise operator so we don't have to do a -1 comparison
   if !!~ $(location).attr('pathname').indexOf 'hashtag'
-    setClickHandlers()
+    setAddPhotoToMessageClickHandlers(true)
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
