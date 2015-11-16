@@ -138,7 +138,7 @@ var ready = function() {
 
 	$(function() {
 		setTimeout(function() {
-			$('#collapseAlert').collapse('hide');
+			$('#collapseAlert').fadeOut();
 		}, 5000);
 	});
 
