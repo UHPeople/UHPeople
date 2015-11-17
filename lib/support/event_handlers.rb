@@ -82,7 +82,35 @@ module EventHandlers
     send_error(socket, 'Invalid message') && return unless message.valid?
 
     broadcast(JSON.generate(message.serialize), hashtag.id)
-    send_notifications_from_message(message)
+    # send_notifications_from_message(message)
     send_mentions(message)
+  end
+
+  def topic_event(socket, user, hashtag, topic, photo_id)
+    photo = Photo.find_by id: photo_id
+
+    return if topic == hashtag.topic and (photo.nil? or photo == hashtag.photo)
+
+    hashtag.topic = topic
+    hashtag.photo = photo unless photo.nil?
+    hashtag.topic_updater = user
+    send_error(socket, 'Invalid topic or photo') && return unless hashtag.save
+
+    url = hashtag.photo.nil? ? '' : hashtag.photo.image.url(:cover)
+
+    json = JSON.generate({
+      'event': 'topic',
+      'hashtag': hashtag.id,
+      'user': user.name,
+      'topic': topic,
+      'photo': url
+    })
+
+    broadcast(json, hashtag.id)
+    hashtag.users.each do |user_|
+      next if subscribed?(user_, hashtag.id)
+      send(json, user_)
+      notification_from_topic(user_, hashtag)
+    end
   end
 end

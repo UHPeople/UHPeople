@@ -74,15 +74,15 @@ class HashtagsController < ApplicationController
     end
   end
 
-  def update
-    @hashtag.topic_updater_id = current_user.id
-
-    redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
-      return unless @hashtag.update(hashtag_params)
-
-    request.env['chat.topic_callback'].call(@hashtag)
-    redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
-  end
+  # def update
+  #   @hashtag.topic_updater_id = current_user.id
+  #
+  #   redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
+  #     return unless @hashtag.update(hashtag_params)
+  #
+  #   request.env['chat.topic_callback'].call(@hashtag)
+  #   redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
+  # end
 
   def create
     hashtag = Hashtag.find_by tag: params[:tag]

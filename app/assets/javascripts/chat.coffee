@@ -179,24 +179,22 @@ on_likers = ->
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
 
   $('#chat-send').click (event) ->
     event.preventDefault()
-    #if $('#input-text')[0].value.length > 0 #check removed for adding photos
     text = $('#input-text')[0].value
     photo_ids = selectedPhotosToArrayAndEmpty()
-    ws.send JSON.stringify
-      event: 'message'
-      content: text
-      hashtag: hashtag
-      photo_ids: photo_ids
+    if text.length() > 0 or photo_ids.length() > 0
+      ws.send JSON.stringify
+        event: 'message'
+        hashtag: hashtag
+        content: text
+        photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
 
 add_click_handler_to_loader = ->
   hashtag = $('#hashtag-id').val()
-  user = $('#user-id').val()
 
   $('#loader').click (event) ->
     event.preventDefault()
@@ -215,12 +213,29 @@ disactivate_load_spinner = ->
   $('.mdl-spinner').removeClass('is-active')
 
 on_topic = (data) ->
-  # if data.hashtag != $('#hashtag-id').val()
-  #   return
+  if data.hashtag != $('#hashtag-id').val()
+    console.log(data.hashtag)
+    return
 
   $('.header-topic-container p').text(data.topic)
   $('.header-topic-container span b').text(data.updater)
-  $('.hashtag-bg').css('background-image', 'src(' + data.photo + ') no-repeat center center')
+  $('.hashtag-bg').css('background-image', 'url(' + data.photo + ') no-repeat center center')
+
+add_click_handler_to_edit = ->
+  hashtag = $('#hashtag-id')[0].value
+
+  $('#edit-send').click (event) ->
+    event.preventDefault()
+    text = $('#topic')[0].value
+    cover = $('#cover_photo')[0].value
+
+    ws.send JSON.stringify
+      event: 'topic'
+      hashtag: hashtag
+      topic: text
+      photo: cover
+
+    $('.edit-modal__close').click()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -247,6 +262,7 @@ ready = ->
   update_leave_button()
   add_click_handler_to_chat()
   add_click_handler_to_loader()
+  add_click_handler_to_edit()
 
 exports = this
 exports.add_chat_message = add_message
