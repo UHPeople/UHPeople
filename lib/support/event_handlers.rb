@@ -103,7 +103,8 @@ module EventHandlers
       'hashtag': hashtag.id,
       'user': user.name,
       'topic': topic,
-      'photo': url
+      'photo': url,
+      'timestamp': hashtag.timestamp
     })
 
     broadcast(json, hashtag.id)

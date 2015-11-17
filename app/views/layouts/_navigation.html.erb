@@ -37,15 +37,13 @@
 <% if controller_name == "hashtags" && action_name == "show"  %>
   <div class="mdl-layout__header-row mdl-hashtag-topic">
     <div class="header-topic-container mdl-cell--top">
-      <p class="mdl-typography--body-1">
-        <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %><br>
-        <% if @topicker %>
-          <span class="mdl-typography--caption">
-            Updated by <b><%= @topicker.name if @topicker %></b>
-            <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
-          </span>
-        <% end %>
+      <p class="mdl-typography--body-1 topic-content" style="padding: 0; margin: 0;">
+        <%= auto_link(ERB::Util.html_escape(@hashtag.topic), html: { target: '_blank' }) if @hashtag %>
       </p>
+      <span class="mdl-typography--caption" style="<%= 'display: hidden;' if @topicker.nil? %>">
+        Updated by <b class="topic-updater"><%= @topicker.try(:name) %></b>
+        <span class="timestamp" data-timestamp="<%= @hashtag.updated_at.strftime('%Y-%m-%dT%H:%M:%S') if @hashtag %>"></span>
+      </span>
     </div>
     <% if @hashtag && @hashtag.topic %>
       <div class="mdl-layout-spacer"></div>

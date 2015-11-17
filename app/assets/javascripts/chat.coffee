@@ -213,13 +213,18 @@ disactivate_load_spinner = ->
   $('.mdl-spinner').removeClass('is-active')
 
 on_topic = (data) ->
-  if data.hashtag != $('#hashtag-id').val()
-    console.log(data.hashtag)
+  if `$('#hashtag-id').val() != data.hashtag`
     return
 
-  $('.header-topic-container p').text(data.topic)
-  $('.header-topic-container span b').text(data.updater)
+  $('.header-topic-container .topic-content').text(data.topic)
+  $('.header-topic-container .topic-updater').text(data.user)
+  $('.mdl-typography--caption').show()
+
   $('.hashtag-bg').css('background-image', 'url(' + data.photo + ') no-repeat center center')
+
+  timestamp = $('.header-topic-container .timestamp')
+  timestamp.attr('data-timestamp', data.timestamp)
+  timestamp.text(format_timestamp(data.timestamp))
 
 add_click_handler_to_edit = ->
   hashtag = $('#hashtag-id')[0].value

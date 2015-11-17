@@ -18,5 +18,10 @@ class Hashtag < ActiveRecord::Base
     photo.image.url(size)
   end
 
+  # NOTE: Hashtag is updated on new messages. This should use something else.
+  def timestamp
+    updated_at.strftime('%Y-%m-%dT%H:%M:%S')
+  end
+
   delegate :empty?, to: :messages
 end
