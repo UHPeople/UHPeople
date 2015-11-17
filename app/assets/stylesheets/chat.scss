@@ -419,8 +419,14 @@ span.space-left {
 }
 
 .chat-form {
+
   padding: 0 0 0 16px !important;
   height: 52px !important;
+
+  .add-photo-modal__open {
+    float: left;
+    margin-top: 8px;
+  }
 
   .chat-form-input {
     @include calc("width", "100% - 96px");
@@ -446,7 +452,7 @@ span.space-left {
   }
 }
 
-.add-photos-to-message-card.mdl-card {
+@mixin photogallery_selector () {
   display: none;
   position: absolute;
   width: 96vw;
@@ -470,6 +476,15 @@ span.space-left {
   }
 }
 
+
+.add-photos-to-message-card.mdl-card {
+  @include photogallery_selector
+}
+
+.change-cover-card.mdl-card {
+  @include photogallery_selector
+}
+
 .bottom-sheet-overlay {
   display: none;
   position: absolute;
@@ -477,10 +492,10 @@ span.space-left {
   width: 70vw;
   margin-left: -35vw;
   z-index: 9;
-  bottom: 10%;
+  top: 116px;
 
   .bottom-sheet-card.mdl-card {
-    height: 65vh;
+    height: 500px;
     width: 100%;
     margin: 0 auto;
     max-width: 500px;
@@ -489,6 +504,14 @@ span.space-left {
 
   .bottom-sheet-card > .mdl-card__supporting-text {
     height: 100%;
+    .thumb-container{
+      height: 140px;
+      width: 100%;
+    }
+    .coverphoto-thumb{
+      height: 100px;
+      width: 100%;
+    }
   }
 
   .bottom-sheet-card > .mdl-card__title {

@@ -173,9 +173,6 @@ a img.img-circle {
 }
 
 .is-selected {
-  -webkit-filter: brightness(50%);
-  -moz-filter: brightness(50%);
-  -o-filter: brightness(50%);
-  -ms-filter: brightness(50%);
-  filter: brightness(50%);
+  border-color: blue;
+  border-style: solid;
 }

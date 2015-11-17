@@ -53,7 +53,7 @@ class Message < ActiveRecord::Base
       'timestamp': timestamp,
       'avatar': user.profile_picture_url,
       'likes': likes.first(15).map { |like| like.user.name },
-      'photos': photos.map { |photo| photo.image.url(:medium) }
+      'photos': photos.map { |photo| {id: photo.id, url: photo.image.url(:medium)}}
     }
   end
 end

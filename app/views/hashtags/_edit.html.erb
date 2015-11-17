@@ -9,11 +9,17 @@
           <%= f.text_area :topic, id: 'topic', class: 'mdl-textfield__input', value: @hashtag.topic, rows: 3 %>
           <label class="mdl-textfield__label" for="topic">Channel description</label>
         </div>
+        <div class="thumb-container">
+          <h4>Background photo</h4>
+          <div class="coverphoto-thumb hashtag-color--<%= @hashtag.color %>"
+            style="<%= @hashtag.photo.nil? ? '' : 'background: url(' + @hashtag.photo.image.url(:medium) + ') no-repeat center center' %>">
+          </div>
+        </div>
         <div class="pull-right">
-          <%= f.hidden_field :photo_id, value: '', id: 'cover_photo' %>
-          <button class="mdl-button mdl-js-button mdl-js-ripple-effect add-photo-modal__open">
-            Background image
-          </button>
+          <%= f.hidden_field :photo_id, value: @hashtag.photo.nil? ? '' : @hashtag.photo.id, id: 'cover_photo' %>
+            <button class="mdl-button mdl-js-button mdl-js-ripple-effect change-cover-modal__open">
+              New background image
+            </button>
           <%= f.submit value: 'Update', class: 'mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--raised' %>
         </div>
       <% end %>

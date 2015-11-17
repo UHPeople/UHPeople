@@ -220,7 +220,7 @@ RSpec.describe UHPeople::ChatBackend do
 
         expect(Message.count).to eq 1
         expect(socket.map 'event').to include 'message'
-        expect(socket.map('photos').compact.first).to include photo.image.url(:medium)
+        expect(socket.map('photos').compact.first[0]["url"]).to include photo.image.url(:medium)
       end
     end
 
