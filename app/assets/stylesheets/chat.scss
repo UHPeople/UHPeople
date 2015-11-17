@@ -419,8 +419,14 @@ span.space-left {
 }
 
 .chat-form {
+
   padding: 0 0 0 16px !important;
   height: 52px !important;
+
+  .add-photo-modal__open {
+    float: left;
+    margin-top: 8px;
+  }
 
   .chat-form-input {
     @include calc("width", "100% - 96px");
