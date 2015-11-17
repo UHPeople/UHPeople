@@ -16,7 +16,7 @@
           </div>
         </div>
         <div class="pull-right">
-          <%= f.hidden_field :photo_id, value: @hashtag.photo.id , id: 'cover_photo' %>
+          <%= f.hidden_field :photo_id, value: @hashtag.photo.nil? ? '' : @hashtag.photo.id, id: 'cover_photo' %>
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect change-cover-modal__open">
               New background image
             </button>
