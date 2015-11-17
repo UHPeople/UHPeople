@@ -498,6 +498,14 @@ span.space-left {
 
   .bottom-sheet-card > .mdl-card__supporting-text {
     height: 100%;
+    .thumb-container{
+      height: 140px;
+      width: 100%;
+    }
+    .coverphoto-thumb{
+      height: 100px;
+      width: 100%;
+    }
   }
 
   .bottom-sheet-card > .mdl-card__title {

@@ -55,6 +55,7 @@ setCoverPhotoModalClickHandlers = (photosection) ->
   $('.change-cover-modal__send').click () ->
     selectedhotos = $("#{photosection} .is-selected")
     if selectedhotos.length == 1
+      $('.coverphoto-thumb').css({'background': $(selectedhotos).css('background-image') + ' no-repeat center center'}) 
       $('#cover_photo').val(selectedhotos.attr('id'))
       $('.edit-card').css('z-index', '9')
       $('.change-cover-card').fadeOut()
