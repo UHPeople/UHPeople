@@ -149,11 +149,12 @@
 
 .nav-list {
   li:not(.online) a {
-    padding-left: 30px;
+    //padding-left: 30px;
   }
 
-  li.online a::before {
+  li.online .result-title h5::after {
     @include online_ball(5px, 5px);
+    float: right;
   }
 }
 
