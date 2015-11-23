@@ -13,13 +13,39 @@
       <input id="user-name" type="hidden" value="<%= current_user.name %>">
       <input id="user-token" type="hidden" value="<%= current_user.token %>">
     <% end %>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header
       <%= 'mdl-layout--fixed-tabs' if current_page?(feed_index_path) %>">
       <%= render 'layouts/hashtag_bg' if controller_name == "hashtags" && action_name == "show" %>
       <% unless current_user.nil? %>
         <header class="mdl-layout__header <%= (controller_name == "hashtags" && action_name == "show") ? 'mdl-layout__header--transparent' : 'mdl-color--black' %>">
           <%= render 'layouts/navigation' %>
         </header>
+        <div class="mdl-layout__drawer mdl-color-text--blue-grey-500">
+          <span class="mdl-layout-title">Unicorner</span>
+          <h4>hello@example.com</h4>
+          <nav class="mdl-navigation">
+            <% @user_tags.each do |tag| %>
+              <a class="mdl-navigation__link" href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>">
+                <span class="mdl-badge" data-badge="<%= tag.unread_messages.to_s %>">
+                  <%= '#' + tag.hashtag.tag %>
+                </span>
+              </a>
+            <% end %>
+          </nav>
+        </div>
+        <div class="mdl-layout__drawer mdl-color-text--blue-grey-500">
+          <span class="mdl-layout-title">Unicorner</span>
+          <h4>hello@example.com</h4>
+          <nav class="mdl-navigation">
+            <% @user_tags.each do |tag| %>
+              <a class="mdl-navigation__link" href="<%= hashtag_path(tag.hashtag.tag) %>" id="<%= tag.hashtag.id %>">
+                <span class="mdl-badge" data-badge="<%= tag.unread_messages.to_s %>">
+                  <%= '#' + tag.hashtag.tag %>
+                </span>
+              </a>
+            <% end %>
+          </nav>
+        </div>
       <% end %>
       <main role="main" class="mdl-layout__content">
         <div class="overlay" style="
