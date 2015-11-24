@@ -177,7 +177,17 @@ on_messages = (data) ->
 on_likers = ->
   console.log 'got likers'
 
+add_max_lenght_to_message_input = ->
+  max = 256
+  $('input#input-text.mdl-textfield__input').keypress (e) ->
+    if @value.length == max
+      e.preventDefault()
+    else if @value.length > max
+      @value = @value.substring(0, max)
+
 add_click_handler_to_chat = ->
+  add_max_lenght_to_message_input()
+
   hashtag = $('#hashtag-id')[0].value
 
   $('#chat-send').click (event) ->

@@ -10,7 +10,7 @@ stopSpinner = ->
 setAddPhotoToMessageClickHandlers = (photosection) ->
   $(".add-photo-modal__open").click (event) ->
     event.preventDefault()
-    $('.mdl-layout__header').css('z-index', '-3')
+    $('.mdl-layout__header').css('display', 'none')
     $('.add-photos-to-message-card').fadeIn()
     loadPhotoSection(photosection)
 
@@ -31,32 +31,33 @@ setAddPhotoToMessageClickHandlers = (photosection) ->
 
   $('.add-photo-modal__close').click () ->
     $('.add-photos-to-message-card').fadeOut()
-    $('.mdl-layout__header').css('z-index', '3')
+    $('.mdl-layout__header').css('display', 'initial')
 
   $('.add-photo-modal__send').click () ->
     cf = addSelectedPhotosToInput(photosection)
     if cf.length
       $('.add-photos-to-message-card').fadeOut()
-      $('.mdl-layout__header').css('z-index', '3')
+      $('.mdl-layout__header').css('display', 'initial')
 
 setCoverPhotoModalClickHandlers = (photosection) ->
   $('.change-cover-modal__open').click (event) ->
     event.preventDefault()
     $('.edit-card').css('z-index', '1')
-    $('.mdl-layout__header').css('z-index', '-3')
+    $('.mdl-layout__header').css('display', 'none')
     $('.change-cover-card').fadeIn()
     loadPhotoSection(photosection)
 
   $('.change-cover-modal__close').click () ->
     $('.change-cover-card').fadeOut()
-    $('.mdl-layout__header').css('z-index', '3')
+    $('.mdl-layout__header').css('display', 'initial')
     ('.edit-card').css('z-index', '9')
 
   $('.change-cover-modal__send').click () ->
     selectedhotos = $("#{photosection} .is-selected")
     if selectedhotos.length == 1
-      $('.coverphoto-thumb').css({'background': $(selectedhotos).css('background-image') + ' no-repeat center center'}) 
+      $('.coverphoto-thumb').css({'background': $(selectedhotos).css('background-image') + ' no-repeat center center'})
       $('#cover_photo').val(selectedhotos.attr('id'))
+      $('.mdl-layout__header').css('display', 'initial')
       $('.edit-card').css('z-index', '9')
       $('.change-cover-card').fadeOut()
 
