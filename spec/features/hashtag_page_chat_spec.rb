@@ -98,6 +98,14 @@ RSpec.describe Hashtag do
         page.find('.add-photo-modal__close').click
         expect(page).to_not have_content 'ADD PHOTOS TO MESSAGE'
       end
+
+      it 'selected photo is added to added photo area' do
+        click_link('insert_photo')
+        page.find('a.image__select').click
+        expect(page).to have_css('a.image__select > .is-selected')
+        page.find('.add-photo-modal__send').click
+        expect(page).to have_css('.added-image-container > .added-image')
+      end
     end
   end
 end
