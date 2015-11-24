@@ -282,6 +282,7 @@ ready = ->
 exports = this
 exports.add_chat_message = add_message
 exports.add_multiple_messages = add_multiple_messages
+exports.change_topic = on_topic
 
 $(document).ready(ready)
 $(document).on('page:load', ready)
