@@ -4,6 +4,7 @@ RSpec.describe Hashtag do
   context 'chat page' do
     let!(:user) { FactoryGirl.create(:user) }
     let!(:hashtag) { FactoryGirl.create(:hashtag) }
+    let!(:photo) { FactoryGirl.create(:photo, user_id: user.id) }
 
     before :each do
       visit "/login/#{user.id}"
@@ -68,6 +69,35 @@ RSpec.describe Hashtag do
       #   page.find('#tt1').trigger(:mouseover)
       #   expect(page).to have_css('.mdl-tooltip', text: 'asd asd')
       # end
+    end
+    context 'input has photo gallery', js: true do
+      before :each do
+        visit hashtag_path(hashtag.tag)
+      end
+
+      it 'button opens gallery' do
+        click_link('insert_photo')
+        expect(page).to have_content 'ADD PHOTOS TO MESSAGE'
+      end
+
+      it 'has photo in gallery' do
+        click_link('insert_photo')
+        expect(page).to have_content 'ADD PHOTOS TO MESSAGE'
+        expect(page).to have_css('a.image__select')
+      end
+
+      it 'photo in gallery is selectable' do
+        click_link('insert_photo')
+        expect(page).to_not have_css('a.image__select > .is-selected')
+        page.find('a.image__select').click
+        expect(page).to have_css('a.image__select > .is-selected')
+      end
+
+      it 'button closes gallery' do
+        click_link('insert_photo')
+        page.find('.add-photo-modal__close').click
+        expect(page).to_not have_content 'ADD PHOTOS TO MESSAGE'
+      end
     end
   end
 end
