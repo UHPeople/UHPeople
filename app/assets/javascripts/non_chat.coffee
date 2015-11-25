@@ -8,7 +8,7 @@ on_online = (data) ->
   set_online id for id in data.onlines
 
 ready = ->
-  if $('#hashtag-id').length or $('#feed').length
+  if $('#hashtag-id').length or $('#feed').length or $('.frontpage-jumbotron').length
     return
   else
     console.log('non chat page detected!')
