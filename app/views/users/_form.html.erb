@@ -23,11 +23,11 @@
           <%= f.hidden_field :username, value: @user.username %>
         <% end %>
         <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-          <%= f.text_field :name, id: 'name', class: 'mdl-textfield__input', value: @user.name, disabled: ENV['RAILS_ENV'] == 'production' %>
+          <%= f.text_field :name, id: 'name', class: 'mdl-textfield__input', value: @user.name, readonly: ENV['RAILS_ENV'] == 'production' %>
           <label class="mdl-textfield__label" for="name">Name</label>
         </div>
         <div class="mdl-textfield mdl-js-textfield" style="width: 100%;">
-          <%= f.text_field :email, id: 'email', class: 'mdl-textfield__input', value: @user.email, disabled: ENV['RAILS_ENV'] == 'production' %>
+          <%= f.text_field :email, id: 'email', class: 'mdl-textfield__input', value: @user.email, readonly: ENV['RAILS_ENV'] == 'production' %>
           <label class="mdl-textfield__label" for="email">Email</label>
         </div>
         <div class="">
