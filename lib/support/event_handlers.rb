@@ -5,6 +5,7 @@ module EventHandlers
     user = User.find_by id: user
     if user.nil? || user.token != token
       send_error socket, 'Invalid user or token'
+      return
     end
 
     add_client(socket, user)
