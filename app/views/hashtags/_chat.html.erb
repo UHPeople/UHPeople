@@ -20,8 +20,9 @@
         <i class="material-icons icon-color">insert_photo</i>
       <% end %>
       <div class="mdl-textfield mdl-js-textfield chat-form-input">
-        <input  class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" />
+        <input  class="mdl-textfield__input" type="text" id="input-text" autocomplete="off" pattern=".{0,255}" maxlength="256" />
         <label class="mdl-textfield__label" for="input-text">Write a message...</label>
+        <span class="mdl-textfield__error">Message has to be less than 256 characters</span>
       </div>
       <input id="hashtag-id" type="hidden" value="<%= @hashtag.id %>"/>
       <input id="last-visit" type="hidden" value="<%= current_user.last_visit(@hashtag) %>"/>
