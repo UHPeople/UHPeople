@@ -3,6 +3,7 @@ class SessionController < ApplicationController
 
   def login
     @user = User.find(params[:id])
+
     session[:user_id] = @user.id
 
     if current_user.user_hashtags.count < 3
@@ -10,6 +11,8 @@ class SessionController < ApplicationController
     else
       redirect_to feed_index_path
     end
+  rescue
+    redirect_to feed_index_path
   end
 
   def logout

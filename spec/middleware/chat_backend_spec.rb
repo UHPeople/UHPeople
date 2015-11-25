@@ -220,7 +220,7 @@ RSpec.describe UHPeople::ChatBackend do
 
         expect(Message.count).to eq 1
         expect(socket.map 'event').to include 'message'
-        expect(socket.map('photos').compact.first[0]["url"]).to include photo.image.url(:medium)
+        expect(socket.map('photos').compact.first[0]['url']).to include photo.image.url(:medium)
       end
     end
 
@@ -232,6 +232,45 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     context 'messages event' do
+    end
+
+    context 'topic event' do
+      it 'doesn\'t respond to unchanged topic' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        subject.topic_event(socket, user, hashtag, hashtag.topic, nil)
+
+        expect(socket.map 'event').to_not include 'topic'
+      end
+
+      it 'responds to changed topic when subscribed' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        subject.topic_event(socket, user, hashtag, 'asd', nil)
+
+        expect(socket.map 'event').to include 'topic'
+      end
+
+      it 'responds to changed topic when not subscribed' do
+        subject.online_event(socket, user, user.token)
+
+        subject.topic_event(socket, user, hashtag, 'asd', nil)
+
+        expect(socket.map 'event').to include 'topic'
+      end
+
+      it 'responds to changed cover photo' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        photo = FactoryGirl.create(:photo, user: user)
+        subject.topic_event(socket, user, hashtag, hashtag.topic, photo.id)
+
+        expect(socket.map 'event').to include 'topic'
+        expect(socket.map 'photo').to include photo.image.url(:cover)
+      end
     end
   end
 

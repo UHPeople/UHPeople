@@ -89,19 +89,22 @@ module UHPeople
 
       user, hashtag, message = graceful_find_all(socket, data)
       photo_ids = data['photo_ids'] || []
-      
-      if data['event'] == 'feed'
+      event = data['event']
+
+      if event == 'feed'
         feed_event(socket, user)
-      elsif data['event'] == 'favourites'
+      elsif event == 'favourites'
         favourites_event(socket, user)
-      elsif data['event'] == 'hashtag'
+      elsif event == 'hashtag'
         hashtag_event(socket, hashtag, message) unless hashtag.nil?
-      elsif data['event'] == 'like'
+      elsif event == 'like'
         like_event(socket, user, message) unless message.nil?
-      elsif data['event'] == 'dislike'
+      elsif event == 'dislike'
         dislike_event(socket, user, message) unless message.nil?
-      elsif data['event'] == 'message'
+      elsif event == 'message'
         message_event(socket, user, hashtag, data['content'], photo_ids) unless hashtag.nil?
+      elsif event == 'topic'
+        topic_event(socket, user, hashtag, data['topic'], data['photo']) unless hashtag.nil?
       end
     end
   end

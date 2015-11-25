@@ -7,7 +7,7 @@ RSpec.describe Hashtag do
 
     before :each do
       visit "/login/#{user.id}"
-      visit "/hashtags/#{hashtag.tag}"
+      visit hashtag_path(hashtag.tag)
       click_link 'add'
     end
 
@@ -16,15 +16,24 @@ RSpec.describe Hashtag do
     end
 
     it 'has edit channel button' do
-      fill_in 'topic', with: 'This is the topic!'
-      click_button 'Update'
       expect(page).to have_content 'Edit channel'
     end
 
-    it 'has updated topic' do
-      fill_in 'topic', with: 'This is the topic!'
-      click_button 'Update'
+    it 'has updated topic', js: true do
+      # WebSocket backend won't answer
+      # find('.edit-modal__open').click
+      # fill_in 'topic', with: 'This is the topic!'
+      # click_button 'Update'
 
+      json = {
+        hashtag: hashtag.id,
+        topic: 'This is the topic!',
+        user: '',
+        cover: '',
+        timestamp: ''
+      }
+
+      page.execute_script("change_topic(#{JSON.generate(json)})")
       expect(page).to have_content 'This is the topic!'
     end
 
