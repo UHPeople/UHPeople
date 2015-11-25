@@ -89,7 +89,7 @@ module EventHandlers
   def topic_event(socket, user, hashtag, topic, photo_id)
     photo = Photo.find_by id: photo_id
 
-    return if topic == hashtag.topic and (photo.nil? or photo == hashtag.photo)
+    return if topic == hashtag.topic && (photo.nil? || photo == hashtag.photo)
 
     hashtag.topic = topic
     hashtag.photo = photo unless photo.nil?
@@ -98,14 +98,12 @@ module EventHandlers
 
     url = hashtag.photo.nil? ? '' : hashtag.photo.image.url(:cover)
 
-    json = JSON.generate({
-      'event': 'topic',
-      'hashtag': hashtag.id,
-      'user': user.name,
-      'topic': topic,
-      'photo': url,
-      'timestamp': hashtag.timestamp
-    })
+    json = JSON.generate('event': 'topic',
+                         'hashtag': hashtag.id,
+                         'user': user.name,
+                         'topic': topic,
+                         'photo': url,
+                         'timestamp': hashtag.timestamp)
 
     broadcast(json, hashtag.id)
     hashtag.users.each do |user_|

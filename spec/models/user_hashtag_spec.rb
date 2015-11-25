@@ -63,10 +63,10 @@ RSpec.describe UserHashtag do
 
       user_hashtag = described_class.create hashtag: hashtag, user: user, last_visited: Time.zone.now
 
-      FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: 1.days.ago)
+      FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: 1.day.ago)
       FactoryGirl.create(:message, user: user, hashtag: hashtag)
 
-      hashtag.update_attribute(:updated_at, 1.days.ago)
+      hashtag.update_attribute(:updated_at, 1.day.ago)
 
       expect(user_hashtag.unread_messages).to eq(1)
     end
@@ -78,9 +78,9 @@ RSpec.describe UserHashtag do
       user_hashtag = described_class.create hashtag: hashtag, user: user, last_visited: Time.current
 
       FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: 2.days.ago)
-      FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: 1.days.ago)
+      FactoryGirl.create(:message, user: user, hashtag: hashtag, created_at: 1.day.ago)
 
-      hashtag.update_attribute(:updated_at, 1.days.ago)
+      hashtag.update_attribute(:updated_at, 1.day.ago)
 
       expect(user_hashtag.unread_messages).to eq(0)
     end
