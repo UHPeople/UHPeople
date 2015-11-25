@@ -35,7 +35,7 @@ module ClientList
     client = @clients.find { |client| client.socket == socket }
     @clients.delete(client)
 
-    broadcast(online_users)
+    broadcast(online_users) if count(client.user) == 0
 
     client.user.update_attribute(:last_online, Time.now.utc)
 
