@@ -45,7 +45,12 @@ module ClientList
 
   def add_client(socket, user)
     @clients << Client.new(socket, user)
-    broadcast(online_users) if count(user) == 1
+
+    if count(user) == 1
+      broadcast(online_users)
+    else
+      send(online_users, user)
+    end
   end
 
   def subscribe(socket, hashtag)
