@@ -144,7 +144,7 @@ on_message = (data) ->
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
-
+  console.log data.onlines
   set_all_offline()
   set_online id for id in data.onlines
   sort_members members_list
