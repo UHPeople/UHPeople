@@ -381,7 +381,7 @@ span.space-left {
 }
 
 .asd {
-  @include calc("height", "70vh - 61px - 52px");
+  @include calc("height", "70vh - 52px");
 }
 
 .chatbox-outer {
