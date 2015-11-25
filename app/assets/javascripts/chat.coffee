@@ -220,7 +220,7 @@ on_topic = (data) ->
   $('.header-topic-container .topic-updater').text(data.user)
   $('.mdl-typography--caption').show()
 
-  $('.hashtag-bg').css('background-image', 'url(' + data.photo + ') no-repeat center center')
+  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ')')
 
   timestamp = $('.header-topic-container .timestamp')
   timestamp.attr('data-timestamp', data.timestamp)
