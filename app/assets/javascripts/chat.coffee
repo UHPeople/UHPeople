@@ -184,7 +184,7 @@ add_click_handler_to_chat = ->
     event.preventDefault()
     text = $('#input-text')[0].value
     photo_ids = selectedPhotosToArrayAndEmpty()
-    if text.length() > 0 or photo_ids.length() > 0
+    if text.length > 0 or photo_ids.length > 0
       ws.send JSON.stringify
         event: 'message'
         hashtag: hashtag
