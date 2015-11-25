@@ -13,6 +13,7 @@
         <%= render 'notification', notification: notif, partial_message: 'made up a hot new topic over at' if notif.notification_type == 2 %>
         <%= render 'notification', notification: notif, partial_message: 'mentioned you at' if notif.notification_type == 3 %>
         <%= render 'likes', notification: notif if notif.notification_type == 4 %>
+        <%= render 'notification', notification: notif, partial_message: 'crafted a new message at' if notif.notification_type == 5 %>
       <% end %>
     <% end %>
   </div>

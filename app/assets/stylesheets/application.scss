@@ -16,7 +16,7 @@
 @import 'search';
 @import 'notification';
 @import 'material-colors';
-
+@import 'landing-page';
 @import 'material';
 
 @import 'bootstrap-sprockets';
@@ -86,22 +86,23 @@ p {
   float: right;
 }
 
-// Jumbotron material desing
-
-.frontpage-jumbotron {
-  background: image-url('bg.jpg') center / cover;
-  height: 100vh;
-  width: 100%;
-  color: $white;
-
-  h1 {
-    word-wrap: break-word;
-  }
-  .middle {
-    padding-top: 150px;
-  }
+.notif-link .mdl-badge[data-badge]:after {
+	top: 11px !important;
 }
 
+.mdl-badge[data-badge='0']:after {
+	display: none;
+}
+
+.mdl-badge[data-badge='0'] {
+	position: inherit;
+	margin-right: 0;
+}
+
+.mdl-badge[data-badge]:after {
+	top: -2px;
+	background-color: $accent;
+}
 .panel-title {
   word-wrap: break-word;
 }

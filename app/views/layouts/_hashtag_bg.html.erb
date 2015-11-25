@@ -1,7 +1,7 @@
 <div class="hashtag_bg hashtag-color--<%= @hashtag.color %>"
     style="
-    <% if @hashtag.cover_photo.present? %>
-      background: url(<%= @hashtag.cover_photo.url %>) no-repeat center center;
+    <% if @hashtag.photo.present? %>
+      background: url(<%= @hashtag.photo.image.url(:cover) %>) no-repeat center center;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;

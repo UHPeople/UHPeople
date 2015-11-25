@@ -1,0 +1,13 @@
+<div class="mdl-grid">
+  <% if @user.photos.count > 0 %>
+    <% @user.photos.each do |pic| %>
+      <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+        <a href="#" class="image__select">
+          <div class="card-image mdl-js-ripple-effect mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;" id="<%= pic.id %>">
+            <span class="mdl-ripple"></span>
+          </div>
+        </a>
+      </div>
+    <% end %>
+  <% end %>
+</div>

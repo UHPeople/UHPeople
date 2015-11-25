@@ -3,15 +3,8 @@
 ws = null
 
 add_unread = (data) ->
-  console.log data.hashtag
-  if !$('.interest-list-hashtag p a#' + data.hashtag).children().hasClass('unread')
-      $('.interest-list-hashtag p a#' + data.hashtag).append '<span class="badge badge-success unread">1</span>'
-  else
-    $('.interest-list-hashtag p a#' + data.hashtag + ' .unread').text (i, t) ->
-      if t > 0
-        Number(t) + 1
-      else
-        ''
+  badge = $('#' + data.hashtag + ' .mdl-badge')
+  badge.attr('data-badge', Number(badge.attr('data-badge'))+1)
 
 add_feed_message = (data) ->
   #highlight = ''
@@ -20,9 +13,11 @@ add_feed_message = (data) ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
+
+  photos = construct_photo_message data.photos
 
   $('#feed').prepend ''+
     '<div class="feed-chat-box" id="feed-' + data.id + '">' +
@@ -36,12 +31,12 @@ add_feed_message = (data) ->
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' +
+        '</h5>' + photos +
         '<p>' +
           data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
-              data.likes +
+              data.likes.length +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="feed-like-' + data.id + '">' +
               '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -51,7 +46,7 @@ add_feed_message = (data) ->
       '</div>' +
     '</div>'
 
-    add_mouseover_to_get_likers('tt', data.id)
+    add_mouseover_to_show_likers('tt' + data.id, data.likes)
     set_star_hover()
 
 add_favourites_message = (data) ->
@@ -60,11 +55,13 @@ add_favourites_message = (data) ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
 
-  $('div.fav#box-' + data.hashtag).append ''+
+  photos = construct_photo_message data.photos
+
+  $(''+
     '<div class="panel-body fav" id="favourites-' + data.id + '">' +
       '<div class="favourites-chat-box">' +
         '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -76,12 +73,12 @@ add_favourites_message = (data) ->
             '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
               format_timestamp(data.timestamp) +
             '</span>' +
-          '</h5>' +
+          '</h5>' + photos +
           '<p>' +
             data.content +
             '<span class="space-left">' +
               '<span class="like-badge like-icon-color" id="fav-tt' + data.id + '">' +
-                data.likes +
+                data.likes.length +
               '</span>' +
               '<a class="send-hover like-this" href="#" id="favourites-like-' + data.id + '">' +
                 '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -90,20 +87,18 @@ add_favourites_message = (data) ->
           '</p>' +
         '</div>' +
       '</div>' +
-    '</div>'
+    '</div>').insertAfter('div.fav#box-' + data.hashtag + ' .mdl-card__title')
 
-  add_mouseover_to_get_likers('fav-tt', data.id)
+  add_mouseover_to_show_likers('fav-tt' + data.id, data.likes)
 
 on_open = (socket) ->
   user = $('#user-id')[0].value
 
   socket.send JSON.stringify
     event: 'feed'
-    user: user
 
   socket.send JSON.stringify
     event: 'favourites'
-    user: user
 
 on_message = (data) ->
   add_feed_message data
@@ -139,11 +134,13 @@ ready = ->
   ws = create_websocket {
     'open': on_open,
     'message': on_message,
-    'mention': on_notification,
     'feed': on_feed,
     'like': like_both,
     'dislike': dislike_both,
-    'favourites': on_favourites
+    'favourites': on_favourites,
+    'mention': on_notification,
+    'invite': on_notification,
+    'topic': on_notification
   }
 
 exports = this

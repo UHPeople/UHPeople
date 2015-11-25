@@ -1,0 +1,29 @@
+<% if @user == current_user %>
+  <div class="add-photo-card">
+    <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true, remote: true) do %>
+      <%= file_field_tag :image, id:"image", accept: 'image/png,image/jpeg', style:"display:none"%>
+      <%= button_tag class:"mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored fab_add_button" do %>
+        <i class="material-icons">add</i>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<div class="mdl-grid">
+  <% if @user.photos.count > 0 %>
+    <% @user.photos.each do |pic| %>
+      <div class="mdl-cell tile-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-phone">
+        <div class="card-image mdl-card" style="background: url(<%= pic.image.url(:medium) %>) center / cover;">
+          <a href="#" class="image__show" id="<%= pic.id %>">
+            <div class="mdl-card__title"></div>
+          </a>
+          <div class="mdl-card__actions">
+            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-<%= pic.id %>">
+              <input type="checkbox" id="checkbox-<%= pic.id %>" class="mdl-checkbox__input" />
+              <span class="mdl-checkbox__label">Add photo to message</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

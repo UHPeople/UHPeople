@@ -22,6 +22,17 @@ a img.img-circle {
   z-index: 100;
   display: none;
 
+  .absolut-center-spinner{
+    position:fixed;
+     width:60px;
+     height:60px;
+     margin:-30px auto auto -30px;
+     top:50%;
+     left:50%;
+     text-align:center;
+     display: none;
+  }
+
   .overlay-card {
     z-index: 110;
     position: absolute;
@@ -129,21 +140,39 @@ a img.img-circle {
     .collapse-card {
       width: 100%;
     }
-    .tile-cell {
-      margin: 1px;
-    }
-    .card-image.mdl-card {
-      width: 100%;
-      background-size: contain;
-      background-repeat: no-repeat;
-    }
-    .add-photo-card {
-      min-height: 80px;
-      position: absolute;
-      margin-top: -30px;
-      margin-bottom: 64px;
-      right: 16%;
-      z-index: 120;
-    }
   }
+}
+
+.tile-cell {
+  margin: 1px !important;
+}
+
+.card-image.mdl-card {
+  width: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  .mdl-card__title {
+    height: 200px;
+  }
+
+  // Only shown in chat add photo
+  .mdl-card__actions {
+    display: none;
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    box-sizing:border-box;
+    align-items: center;
+  }
+}
+.add-photo-card {
+  min-height: 80px;
+  position: absolute;
+  margin-top: -30px;
+  right: 16%;
+  z-index: 120;
+}
+
+.is-selected {
+  border-color: blue;
+  border-style: solid;
 }

@@ -35,12 +35,10 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'responds with error to' do
     it 'invalid user' do
-      subject.online_event(socket, user, user.token)
-      message = "{ \"event\": \"hashtag\", \"hashtag\": #{hashtag.id}, \"user\": -1 }"
-      subject.respond(socket, message)
+      subject.online_event(socket, user.id + 1, user.token)
 
       expect(socket.map 'event').to include 'error'
-      expect(socket.map 'content').to include 'Invalid User'
+      expect(socket.map 'content').to include 'Invalid user or token'
     end
 
     it 'invalid hashtag' do
@@ -54,7 +52,7 @@ RSpec.describe UHPeople::ChatBackend do
 
     it 'invalid message' do
       subject.online_event(socket, user, user.token)
-      subject.message_event(socket, user, hashtag, '')
+      subject.message_event(socket, user, hashtag, 'a' * 300)
 
       expect(Message.count).to eq 0
       expect(socket.sent.last['event']).to eq 'error'
@@ -62,10 +60,10 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     it 'invalid authentication' do
-      subject.online_event(socket, user, "token")
+      subject.online_event(socket, user.id, 'token')
 
       expect(socket.map 'event').to include 'error'
-      expect(socket.map 'content').to include 'Invalid token'
+      expect(socket.map 'content').to include 'Invalid user or token'
     end
 
     it 'not authenticating' do
@@ -192,13 +190,37 @@ RSpec.describe UHPeople::ChatBackend do
     context 'message event' do
       it 'adds new message' do
         subject.online_event(socket, user, user.token)
-        subject.hashtag_event(socket, user, hashtag, nil)
+        subject.hashtag_event(socket, hashtag, nil)
 
         subject.message_event(socket, user, hashtag, 'asd')
 
         expect(Message.count).to eq 1
         expect(socket.map 'event').to include 'message'
         expect(socket.map 'content').to include 'asd'
+      end
+
+      it 'extracts mentions' do
+        message = Message.new content: "@#{user.id}"
+        expect(subject.find_mentions(message).first).to include "#{user.id}"
+      end
+
+      it 'finds mentions' do
+        subject.online_event(socket, user, user.token)
+        subject.message_event(socket, user, hashtag, "@#{user.id}")
+
+        expect(socket.map 'event').to include 'mention'
+      end
+
+      it 'handles photos in message' do
+        subject.online_event(socket, user, user.token)
+        subject.hashtag_event(socket, hashtag, nil)
+
+        photo = FactoryGirl.create(:photo, user: user)
+        subject.message_event(socket, user, hashtag, '', [photo.id])
+
+        expect(Message.count).to eq 1
+        expect(socket.map 'event').to include 'message'
+        expect(socket.map('photos').compact.first[0]['url']).to include photo.image.url(:medium)
       end
     end
 
@@ -210,6 +232,45 @@ RSpec.describe UHPeople::ChatBackend do
     end
 
     context 'messages event' do
+    end
+
+    context 'topic event' do
+      it 'doesn\'t respond to unchanged topic' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        subject.topic_event(socket, user, hashtag, hashtag.topic, nil)
+
+        expect(socket.map 'event').to_not include 'topic'
+      end
+
+      it 'responds to changed topic when subscribed' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        subject.topic_event(socket, user, hashtag, 'asd', nil)
+
+        expect(socket.map 'event').to include 'topic'
+      end
+
+      it 'responds to changed topic when not subscribed' do
+        subject.online_event(socket, user, user.token)
+
+        subject.topic_event(socket, user, hashtag, 'asd', nil)
+
+        expect(socket.map 'event').to include 'topic'
+      end
+
+      it 'responds to changed cover photo' do
+        subject.online_event(socket, user, user.token)
+        subject.subscribe(socket, [hashtag.id])
+
+        photo = FactoryGirl.create(:photo, user: user)
+        subject.topic_event(socket, user, hashtag, hashtag.topic, photo.id)
+
+        expect(socket.map 'event').to include 'topic'
+        expect(socket.map 'photo').to include photo.image.url(:cover)
+      end
     end
   end
 
@@ -282,31 +343,40 @@ RSpec.describe UHPeople::ChatBackend do
 
   context 'subscribed' do
     it 'false with no clients' do
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client not subscribed' do
       subject.online_event(socket, user, user.token)
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'false with client subscribed other hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id + 1])
-      expect(subject.subscribed(user, hashtag.id)).to be false
+      expect(subject.subscribed?(user, hashtag.id)).to be false
     end
 
     it 'true with client subscribed to hashtag' do
       subject.online_event(socket, user, user.token)
       subject.subscribe(socket, [hashtag.id])
-      expect(subject.subscribed(user, hashtag.id)).to be true
+      expect(subject.subscribed?(user, hashtag.id)).to be true
     end
   end
 
-  it 'finds mentions' do
-    subject.online_event(socket, user, user.token)
-    subject.message_event(socket, user, hashtag, "@#{user.id}")
+  context 'subscribed' do
+    it 'false with no clients' do
+      expect(subject.online?(user)).to be false
+    end
 
-    expect(socket.map 'event').to include 'mention'
+    it 'false with client subscribed other hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user2)).to be false
+    end
+
+    it 'true with client subscribed to hashtag' do
+      subject.online_event(socket, user, user.token)
+      expect(subject.online?(user)).to be true
+    end
   end
 end

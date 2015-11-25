@@ -1,5 +1,6 @@
 //= require jquery
 //= require jquery_ujs
+//= require jquery.form
 //= require bootstrap-sprockets
 //= require twitter/bootstrap/rails/confirm
 
@@ -21,6 +22,8 @@
 //= require non_chat
 //= require search
 //= require web_notifications
+//= require user_photos
+//= require select_photos
 
 $(document).ready(function() {
 	if ($(location).attr('pathname').indexOf("notifications") > -1) {
@@ -54,34 +57,7 @@ $(document).ready(function() {
 			}
 		});
 	}
-	if ($(location).attr('pathname').indexOf("users") > -1) {
-		$(".image__show").click(function(){
-			$('.image-overlay').fadeIn();
-			getAndShowImage($(this).attr('id'));
-		});
-		$('#but').click(function(event){
-			event.preventDefault();
-			$('#image').click();
-		});
-		$('#image').change(function() {
-		  $('#add-photo').submit();
-		});
-	}
 });
-
-
-function getAndShowImage(id){
-	$.get('/photos/' + id, function(){
-	})
-	.done(function( data ) {
-		$('.image-overlay').html(data);
-		$(".image__close").click(function(){
-			$(".image-overlay").empty();
-			$('.image-overlay').fadeOut();
-		});
-		componentHandler.upgradeDom();
-  });
-}
 
 function startOnboard() {
 	if ($(location).attr('pathname').indexOf("feed") > -1) {
@@ -163,7 +139,7 @@ var ready = function() {
 
 	$(function() {
 		setTimeout(function() {
-			$('#collapseAlert').collapse('hide');
+			$('#collapseAlert').fadeOut();
 		}, 5000);
 	});
 

@@ -4,7 +4,7 @@ RSpec.describe Like do
   let!(:user) { FactoryGirl.create(:user) }
   let!(:hashtag) { FactoryGirl.create(:hashtag) }
   let!(:user_hashtag) { UserHashtag.create(user: user, hashtag: hashtag) }
-  let!(:message) { FactoryGirl.create(:message, user: user, hashtag: hashtag)}
+  let!(:message) { FactoryGirl.create(:message, user: user, hashtag: hashtag) }
 
   it 'has user set' do
     like = described_class.new user: user

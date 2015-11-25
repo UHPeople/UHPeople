@@ -1,23 +1,24 @@
-<div class="container">  
-  <p id="notice"><%= notice %></p>
-
-  <table class="table table-condensed table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @users.each do |user| %>
+<div class="mdl-grid">
+  <div class="mdl-cell mdl-cell--2-col"></div>
+  <div class="mdl-cell mdl-cell--8-col">
+    <table class="mdl-data-table mdl-js-data-table" style="width: 100%;">
+      <thead>
         <tr>
-          <td><%= link_to user.name, user %></td>
-          <td><%= link_to 'Edit', edit_user_path(user) %></td>
-          <td><%= link_to 'Login as', "login/#{user.id}" %></td>
+          <th class="mdl-data-table__cell--non-numeric">Name</th>
+          <th>Actions</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
 
-  <%= link_to 'Add new user', new_user_path %>
-</div> <!-- /container -->  
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td class="mdl-data-table__cell--non-numeric"><%= user.name %></td>
+            <td><%= link_to 'Login as', "login/#{user.id}" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= link_to 'Add new user', new_user_path %>
+  </div>
+</div>

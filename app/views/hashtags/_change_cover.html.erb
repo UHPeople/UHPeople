@@ -1,0 +1,23 @@
+
+<div class="change-cover-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text mdl-color-text--grey">Change cover photo</h2>
+  </div>
+  <div class="scrollable__media mdl-card__media">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+      <div class="mdl-cell mdl-cell--10-col change-cover-photosection" id="<%= current_user.id %>"></div>
+    </div>
+  </div>
+  <div class="mdl-card__actions action-toolbar">
+    <div class="mdl-layout-spacer"></div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent change-cover-modal__send">
+      Choose photo
+    </button>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect change-cover-modal__close">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+</div>

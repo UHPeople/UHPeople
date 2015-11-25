@@ -78,9 +78,11 @@ add_message = (data, after = '.loader') ->
 
   like_icon_liked = ''
   star = 'star_border'
-  if data.current_user_likes
+  if $('#user-name').val() in data.likes
     like_icon_liked = 'like-icon-liked'
     star = 'star'
+
+  photos = construct_photo_message data.photos
 
   $('<div class="panel-body ' + highlight + '" id="' + data.id + '">' +
       '<a href="/users/' + data.user + '" class="avatar-link">' +
@@ -92,11 +94,11 @@ add_message = (data, after = '.loader') ->
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' +
+        '</h5>' + photos +
         '<p class="message_content">' + data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +
-              data.likes +
+              data.likes.length +
             '</span>' +
             '<a class="send-hover like-this" href="#" id="like-' + data.id + '">' +
               '<i class="material-icons md-15 like-icon like-icon-color ' + like_icon_liked + '">' + star + '</i>' +
@@ -106,14 +108,13 @@ add_message = (data, after = '.loader') ->
       '</div>' +
     '</div>').insertAfter(after)
 
-    add_mouseover_to_get_likers('tt', data.id)
+    add_mouseover_to_show_likers('tt' + data.id, data.likes)
     set_star_hover()
 
 on_open = (socket) ->
   socket.send JSON.stringify
     event: 'hashtag'
     hashtag: $('#hashtag-id').val()
-    user: $('#user-id').val()
 
 on_close = ->
   input = $('#input-text')
@@ -123,7 +124,6 @@ on_close = ->
 
 on_message = (data) ->
   hashtag = $('#hashtag-id').val()
-  console.log `hashtag != data.hashtag`
   if `hashtag != data.hashtag`
     on_notification()
     return
@@ -182,25 +182,34 @@ on_messages = (data) ->
 on_likers = ->
   console.log 'got likers'
 
+add_max_lenght_to_message_input = ->
+  max = 256
+  $('input#input-text.mdl-textfield__input').keypress (e) ->
+    if @value.length == max
+      e.preventDefault()
+    else if @value.length > max
+      @value = @value.substring(0, max)
+
 add_click_handler_to_chat = ->
+  add_max_lenght_to_message_input()
+
   hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
 
   $('#chat-send').click (event) ->
     event.preventDefault()
-    if $('#input-text')[0].value.length > 0
-      text = $('#input-text')[0].value
+    text = $('#input-text')[0].value
+    photo_ids = selectedPhotosToArrayAndEmpty()
+    if text.length() > 0 or photo_ids.length() > 0
       ws.send JSON.stringify
         event: 'message'
-        content: text
         hashtag: hashtag
-        user: user
+        content: text
+        photo_ids: photo_ids
 
     $('#input-text')[0].value = ''
 
 add_click_handler_to_loader = ->
-  hashtag = $('#hashtag-id')[0].value
-  user = $('#user-id')[0].value
+  hashtag = $('#hashtag-id').val()
 
   $('#loader').click (event) ->
     event.preventDefault()
@@ -208,9 +217,8 @@ add_click_handler_to_loader = ->
 
     last_message = $('.panel-body:first')[0].id
     ws.send JSON.stringify
-      event: 'messages'
+      event: 'hashtag'
       hashtag: hashtag
-      user: user
       message: last_message
 
 activate_load_spinner = ->
@@ -218,6 +226,36 @@ activate_load_spinner = ->
 
 disactivate_load_spinner = ->
   $('.mdl-spinner').removeClass('is-active')
+
+on_topic = (data) ->
+  if `$('#hashtag-id').val() != data.hashtag`
+    return
+
+  $('.header-topic-container .topic-content').text(data.topic)
+  $('.header-topic-container .topic-updater').text(data.user)
+  $('.mdl-typography--caption').show()
+
+  $('.hashtag-bg').css('background-image', 'url(' + data.photo + ') no-repeat center center')
+
+  timestamp = $('.header-topic-container .timestamp')
+  timestamp.attr('data-timestamp', data.timestamp)
+  timestamp.text(format_timestamp(data.timestamp))
+
+add_click_handler_to_edit = ->
+  hashtag = $('#hashtag-id')[0].value
+
+  $('#edit-send').click (event) ->
+    event.preventDefault()
+    text = $('#topic')[0].value
+    cover = $('#cover_photo')[0].value
+
+    ws.send JSON.stringify
+      event: 'topic'
+      hashtag: hashtag
+      topic: text
+      photo: cover
+
+    $('.edit-modal__close').click()
 
 ready = ->
   if not $('#hashtag-id').length
@@ -236,16 +274,20 @@ ready = ->
     'like': on_like,
     'dislike': on_dislike,
     'likers': on_likers,
-    'mention': on_notification
+    'topic': on_topic,
+    'mention': on_notification,
+    'invite': on_notification
   }
 
   update_leave_button()
   add_click_handler_to_chat()
   add_click_handler_to_loader()
+  add_click_handler_to_edit()
 
 exports = this
 exports.add_chat_message = add_message
 exports.add_multiple_messages = add_multiple_messages
+exports.change_topic = on_topic
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

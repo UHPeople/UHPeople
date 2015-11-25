@@ -32,24 +32,17 @@ create_websocket = (events) ->
   return ws
 
 on_notification = ->
-  count = $('.notif-count .badge')
-  if not count.length
-    $('.notif-count').append("<span class='badge badge-success'>1</span>");
-  else
-    t = Number(count.text())
-    count.text(t + 1)
+  badge = $('.notif-link .mdl-badge')
+  badge.attr('data-badge', Number(badge.attr('data-badge')) + 1)
 
 set_star_hover = ->
-  $('.like-icon').hover( ->
+  $('.like-icon').hover ->
       $(this).text 'star_half'
-      return
     , ->
-      if $(this).hasClass( "like-icon-liked" )
+      if $(this).hasClass 'like-icon-liked'
         $(this).text 'star'
-        return
       else
         $(this).text 'star_border'
-    )
 
 change_like_star = (t) ->
   if $(t).hasClass 'like-icon-liked'
@@ -70,15 +63,13 @@ on_like = (data, prefix = '') ->
 
 on_dislike = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
-  if not count.length
-    on_notification
-  else
+  if count.length
     count.text(Number(count.text()) - 1)
 
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
     timestamp = moment.utc(timestamp)
-  timestamp.local().fromNow() #.format('MMM D, H:mm')
+  timestamp.local().fromNow()
 
 add_multiple_messages = (data, add_message, drawMarker = true) ->
   for message in data.messages
@@ -107,42 +98,39 @@ add_click_handler_to_likes = (element, socket) ->
 
     socket.send JSON.stringify
       event: event
-      user: user
       message: message
 
-add_mouseover_to_get_likers = (prefix, id) ->
-  $('#' + prefix + id).hover( ->
-    if (Number $(this).text() > 0)
-      append_tooltip_element(this, id, prefix)
-      get_likers_json_to_tooltip(id, prefix)
-    else
-      $('[for="'+ prefix + id + '"]').remove()
-    return
-  , ->
-    $('[for="'+ prefix + id + '"]').empty()
-    return
-  )
+add_mouseover_to_show_likers = (selector, likers) ->
+  badge = $('#' + selector)
+  if (Number(badge.text()) > 0)
+    badge.parent().append '' +
+      '<div class="mdl-tooltip" for="' + selector + '">' +
+        likers.join(', ') +
+      '</div>'
+    componentHandler.upgradeElement($('[for="'+ selector + '"]')[0])
 
-append_tooltip_element = (element, id, prefix) ->
-  div = document.createElement('div')
-  div.setAttribute('class', 'mdl-tooltip')
-  div.setAttribute('for', '' + prefix + id)
-  componentHandler.upgradeElement(div)
-  $(element).parent().append( div )
-
-get_likers_json_to_tooltip = (id, prefix) ->
-  jsonData = $.getJSON("../get_message_likers/" + id)
-  jsonData.done (json)->
-    $('[for="'+ prefix + id + '"]').append(json.likers.join(', '))
+construct_photo_message = (photos) ->
+  div = ''
+  if photos.length
+    div = '<div style="display: inline-block;">'
+    for photo in photos
+      div += """
+          <a href="#" class="image__show" id="#{photo.id}">
+            <img style="padding: 8px;" src="#{photo.url}"/>
+          </a>
+        """
+    div += '</div>'
+  return div
 
 exports = this
 exports.add_multiple_messages = add_multiple_messages
 exports.format_timestamp = format_timestamp
 exports.create_websocket = create_websocket
 exports.on_notification = on_notification
-exports.add_mouseover_to_get_likers = add_mouseover_to_get_likers
+exports.add_mouseover_to_show_likers = add_mouseover_to_show_likers
 exports.on_like = on_like
 exports.on_dislike = on_dislike
 exports.change_like_star = change_like_star
 exports.set_star_hover = set_star_hover
 exports.add_click_handler_to_likes = add_click_handler_to_likes
+exports.construct_photo_message = construct_photo_message

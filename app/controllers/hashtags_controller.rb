@@ -74,25 +74,15 @@ class HashtagsController < ApplicationController
     end
   end
 
-  def update
-    @hashtag.topic_updater_id = current_user.id
-
-    redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
-      return unless @hashtag.update(hashtag_params)
-
-    @hashtag.users.each do |user|
-      next if user == current_user
-
-      Notification.create notification_type: 2,
-                          user: user,
-                          tricker_user: current_user,
-                          tricker_hashtag: @hashtag
-
-      request.env['chat.notification_callback'].call(user.id)
-    end
-
-    redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
-  end
+  # def update
+  #   @hashtag.topic_updater_id = current_user.id
+  #
+  #   redirect_to(hashtag_path(@hashtag.tag), notice: 'Something went wrong!') &&
+  #     return unless @hashtag.update(hashtag_params)
+  #
+  #   request.env['chat.topic_callback'].call(@hashtag)
+  #   redirect_to hashtag_path(@hashtag.tag), notice: 'Topic was successfully updated.'
+  # end
 
   def create
     hashtag = Hashtag.find_by tag: params[:tag]
@@ -116,12 +106,7 @@ class HashtagsController < ApplicationController
       return
     end
 
-    notification = Notification.create notification_type: 1,
-                        user_id: user.id,
-                        tricker_user: current_user,
-                        tricker_hashtag: @hashtag
-
-    request.env['chat.notification_callback'].call(notification)
+    request.env['chat.invite_callback'].call(user, @hashtag, current_user)
 
     respond_to do |format|
       format.html { redirect_to hashtag_path(@hashtag.tag) }
@@ -146,7 +131,7 @@ class HashtagsController < ApplicationController
   end
 
   def hashtag_params
-    params.require(:hashtag).permit(:topic, :topic_updater_id, :cover_photo)
+    params.require(:hashtag).permit(:topic, :topic_updater_id, :photo_id)
   end
 
   def topic_updater

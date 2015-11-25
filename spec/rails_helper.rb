@@ -1,5 +1,7 @@
 require 'simplecov'
-SimpleCov.start('rails')
+SimpleCov.start :rails do
+  add_filter 'rails_autolink-1.1.6'
+end
 
 require 'codeclimate-test-reporter'
 CodeClimate::TestReporter.start

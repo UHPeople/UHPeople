@@ -10,23 +10,24 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
 
 gem 'jquery-rails'
+gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
 gem 'jbuilder', '~> 2.0'
 # gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 gem 'twitter-bootstrap-rails-confirm'
-gem 'rails_autolink', :path => "rails_autolink-1.1.6/"
+gem 'rails_autolink', :path => 'rails_autolink-1.1.6/'
 gem 'momentjs-rails'
-gem "paperclip", "~> 4.2"
+gem 'paperclip', '~> 4.2'
 gem 'rb-readline'
-gem "select2-rails", '~> 3.5.2'
-gem 'material_icons'
-gem 'material_design_lite-rails'
+gem 'select2-rails', '~> 3.5.2'
+
+gem 'material_design_lite-sass'
 
 group :doc do
   gem 'sdoc', '~> 0.4.0'
 end
 
 gem 'bootstrap-sass'
-gem "autoprefixer-rails"
+gem 'autoprefixer-rails'
 gem 'twitter-typeahead-rails', '~> 0.10.5'
 gem 'handlebars_assets'
 

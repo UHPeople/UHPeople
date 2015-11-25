@@ -1,0 +1,29 @@
+
+<div class="add-photos-to-message-card mdl-card mdl-shadow--6dp">
+  <div class="mdl-card__title">
+    <h2 class="mdl-card__title-text mdl-color-text--grey">Add photos to message</h2>
+  </div>
+  <div class="scrollable__media mdl-card__media">
+    <div class="mdl-grid">
+      <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+      <div class="mdl-cell mdl-cell--10-col photosection" id="<%= current_user.id %>"></div>
+    </div>
+  </div>
+  <div class="mdl-card__actions action-toolbar">
+    <%= form_tag({controller: "photos", action: "create"}, id:"add-photo", method: "post", multipart: true, remote: true) do %>
+      <%= file_field_tag :image, id:"image", accept: 'image/png,image/jpeg', style:"display:none"%>
+      <%= button_tag class:"mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored fab_add_button" do %>
+        Upload new image
+      <% end %>
+    <% end %>
+    <div class="mdl-layout-spacer"></div>
+    <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent add-photo-modal__send">
+      Add to Message
+    </button>
+  </div>
+  <div class="mdl-card__menu">
+    <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect add-photo-modal__close">
+      <i class="material-icons">close</i>
+    </button>
+  </div>
+</div>

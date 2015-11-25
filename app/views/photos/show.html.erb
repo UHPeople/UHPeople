@@ -24,7 +24,7 @@
             <li class="mdl-menu__item">Set as profile photo</li>
           <% end %>
         <% end %>
-        <%= link_to 'Delete photo', photo_path(id: @photo.id), class:"mdl-menu__item", method: :delete %>
+        <%= link_to 'Delete photo', '', class:"mdl-menu__item image__delete", id: @photo.id  %>
       </ul>
     <% else %>
       <span class="image_filename">
