@@ -54,17 +54,34 @@ change_like_star = (t) ->
     $(t).text 'star'
     return 'like'
 
-on_like = (data, prefix = '') ->
+on_like = (data, prefix = 'tt') ->
   count = $('#' + prefix + data.message + ' .like-badge')
   if not count.length
     on_notification
   else
     count.text(Number(count.text()) + 1)
+    tooltip = count.siblings('.mdl-tooltip')
+    if tooltip.length
+      tooltip.text(tooltip.text() + ', ' + data.user)
+    else
+      count.parent().append '' +
+        '<div class="mdl-tooltip" for="' + prefix + data.message + '">' + data.user + '</div>'
+      componentHandler.upgradeElement($('[for="'+ prefix + data.message + '"]')[0])
 
 on_dislike = (data, prefix = '') ->
   count = $('#' + prefix + data.message + ' .like-badge')
   if count.length
     count.text(Number(count.text()) - 1)
+    tooltip = count.siblings('.mdl-tooltip')
+    if tooltip.length
+      text = tooltip.text()
+      text = text.replace(', '+data.user, '') # remove from the middle
+      text = text.replace(data.user+', ', '') # remove from the start
+      text = text.replace(data.user, '') # remove if only one
+      if text.length
+        tooltip.text(text)
+      else
+        tooltip.remove()
 
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
