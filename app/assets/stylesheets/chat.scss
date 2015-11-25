@@ -152,9 +152,11 @@
     //padding-left: 30px;
   }
 
-  li.online .result-title h5::after {
-    @include online_ball(5px, 5px);
-    float: right;
+  li.online .result-title h5:after {
+    @include online_ball(3px, initial);
+    display: inline-block;
+    float: initial;
+    margin-left: 8px;
   }
 }
 
@@ -253,7 +255,7 @@ h2.online::before {
 
 .scrollable {
   height: 423px;
-  overflow: auto;
+  overflow: auto !important;
 }
 
 .panel-body.fav {

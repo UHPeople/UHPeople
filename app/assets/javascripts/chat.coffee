@@ -20,7 +20,7 @@ add_member = (data) ->
   element = '' +
     '<li class="search-result result-user member-' + data.user + '" style="min-height: 59px; padding-left:8px;">' +
       '<div class="result-image" style="padding-top: 4px !important;">' +
-        '<a href="/users/' + data.user + '"><img src="#" class="img-circle"/> ' +
+        '<a href="/users/' + data.user + '"><img src="' + data.img + '" class="img-circle"/> ' +
       '</div>' +
       '<div class="result-title">' +
         '<h5><a href="#" style="color: #3d3c40 !important; font-weight: 900;">' + data.username + '</a></h5>' +
@@ -144,7 +144,7 @@ on_message = (data) ->
 on_online = (data) ->
   members_list = $('ul.nav-list:not(.dropdown-menu)')
   members_list_dropdown = $('ul.nav-list.dropdown-menu')
-  console.log data.onlines
+
   set_all_offline()
   set_online id for id in data.onlines
   sort_members members_list

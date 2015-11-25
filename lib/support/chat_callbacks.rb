@@ -6,7 +6,8 @@ module ChatCallbacks
       'event': event,
       'hashtag': hashtag.id,
       'username': user.name,
-      'user': user.id
+      'user': user.id,
+      'img': user.profile_picture_url(:thumb)
     }
 
     broadcast(JSON.generate(json), hashtag.id)
