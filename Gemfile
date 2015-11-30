@@ -12,7 +12,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
 gem 'jbuilder', '~> 2.0'
-# gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
+gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 gem 'twitter-bootstrap-rails-confirm'
 gem 'rails_autolink', :path => 'rails_autolink-1.1.6/'
 gem 'momentjs-rails'
