@@ -5,20 +5,20 @@ gem 'rails', '4.2.4'
 ruby '2.2.3'
 
 gem 'sass-rails', '~> 5.0'
-gem 'uglifier', '>= 1.3.0'
+gem 'uglifier', '~> 2.7'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
+gem 'rb-readline'
 
 gem 'jquery-rails'
 gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
-gem 'jbuilder', '~> 2.0'
-# gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
-gem 'twitter-bootstrap-rails-confirm'
-gem 'rails_autolink', :path => 'rails_autolink-1.1.6/'
+gem 'jqcloud-rails'
+gem 'select2-rails', '~> 3.5.2' #'~> 4.0'
 gem 'momentjs-rails'
-gem 'paperclip', '~> 4.2'
-gem 'rb-readline'
-gem 'select2-rails', '~> 3.5.2'
+# gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
+
+gem 'rails_autolink', :path => 'rails_autolink-1.1.6/'
+gem 'paperclip', '~> 4.3'
 
 gem 'material_design_lite-sass'
 
@@ -27,6 +27,8 @@ group :doc do
 end
 
 gem 'bootstrap-sass'
+gem 'twitter-bootstrap-rails-confirm'
+
 gem 'autoprefixer-rails'
 gem 'twitter-typeahead-rails', '~> 0.10.5'
 gem 'handlebars_assets'
@@ -71,5 +73,3 @@ group :test do
   # gem 'mutant-rspec'
   gem 'database_cleaner'
 end
-
-gem 'jqcloud-rails'
