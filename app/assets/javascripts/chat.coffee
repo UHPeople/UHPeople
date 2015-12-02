@@ -45,7 +45,10 @@ scroll_to_bottom = ->
 
 move_to_message = (id) ->
   chatbox = $('.chatbox')
-  chatbox.scrollTop($('#' + id).offset().top - chatbox.offset().top + chatbox.scrollTop())
+  message = $('#' + id)
+
+  chatbox.scrollTop(message.offset().top + message.height()
+    - chatbox.offset().top + chatbox.scrollTop())
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
@@ -158,7 +161,7 @@ on_join = (data) ->
   add_member data
   sort_members members_list
   sort_members members_list_dropdown
-  update_leave_button
+  update_leave_button()
 
 on_leave = (data) ->
   remove_member data
@@ -178,9 +181,6 @@ on_messages = (data) ->
 
   first = data.messages[0].id
   move_to_message first
-
-on_likers = ->
-  console.log 'got likers'
 
 add_click_handler_to_chat = ->
   hashtag = $('#hashtag-id')[0].value
@@ -263,7 +263,6 @@ ready = ->
     'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
-    'likers': on_likers,
     'topic': on_topic,
     'mention': on_notification,
     'invite': on_notification

@@ -56,7 +56,8 @@ module EventHandlers
     json = {
       'event': 'like',
       'hashtag': message.hashtag.id,
-      'message': message.id
+      'message': message.id,
+      'user': user.name
     }
 
     broadcast(JSON.generate(json), message.hashtag.id)
@@ -72,7 +73,8 @@ module EventHandlers
     json = {
       'event': 'dislike',
       'hashtag': message.hashtag.id,
-      'message': message.id
+      'message': message.id,
+      'user': user.name
     }
 
     broadcast(JSON.generate(json), message.hashtag.id)

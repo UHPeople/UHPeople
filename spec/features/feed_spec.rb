@@ -40,6 +40,7 @@ RSpec.describe 'Feed page' do
       first(:link, 'avantouinti').click
       expect(page).to have_content 'avantouinti'
     end
+
     # broke after bootstrap removal
     # it 'doesn\'t have interests title if no hashtags' do
     #   visit "/hashtags/#{hashtag.tag}"
@@ -93,6 +94,17 @@ RSpec.describe 'Feed page' do
       find('.interest-list-star a.like-this').click
       click_link 'Favourites'
       expect(page).to have_content 'You have no favourites selected. Star some interests to see something here!'
+    end
+
+    it 'wont let add more favourites than max' do
+      (1..APP_CONFIG['max_faves']).each do |i|
+        hashtag = FactoryGirl.create :hashtag, tag: i
+        UserHashtag.create hashtag: hashtag, user: user, favourite: (i != 1)
+      end
+
+      visit feed_index_path
+      first('.interest-list-star a :not(.like-icon-liked)').click
+      expect(page).to have_css('div#flash_alert')
     end
   end
 

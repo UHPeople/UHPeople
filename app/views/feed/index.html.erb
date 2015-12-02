@@ -1,7 +1,3 @@
-<script type="text/javascript">
-  var tab = <%= @tab %>
-</script>
-
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
   <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
@@ -11,8 +7,8 @@
     <section class="mdl-layout__tab-panel fav mdl-shadow--2dp mdl-color--white" id="feed">
       <div class="page-content"><%# render 'feed' %></div>
     </section>
-    <section class="mdl-layout__tab-panel fav mdl-shadow--2dp mdl-color--white" id="limputtaja">
-      <div class="page-content"><%= render 'limputtaja' %></div>
+    <section class="mdl-layout__tab-panel mdl-shadow--2dp mdl-color--white" id="statistics">
+      <div class="page-content"><%= render 'statistics' %></div>
     </section>
   </div>
   <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet hashtaglist-position">

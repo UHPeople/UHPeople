@@ -10,12 +10,12 @@
         <p>Please use helsinki.fi email address.</p>
         <br>
 
-        <%= form_tag({controller: "invite", action: "send_email"}, method: "post") do %>
+        <%= form_tag({controller: 'invite', action: 'send_email'}, method: 'post') do %>
           <div class="mdl-textfield mdl-js-textfield">
-            <%= text_field_tag :receiver, '',  class:"mdl-textfield__input", id:"new-invite" %>
+            <%= text_field_tag :receiver, '',  class: 'mdl-textfield__input', id: 'new-invite' %>
             <label class="mdl-textfield__label" for="new-invite">Write a email...</label>
           </div>
-          <%= submit_tag("Send invitation!", class:"mdl-button") %>
+          <%= submit_tag 'Send invitation!', class: 'mdl-button' %>
         <% end %>
       </div>
     </div>

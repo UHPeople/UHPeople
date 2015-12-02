@@ -54,17 +54,35 @@ change_like_star = (t) ->
     $(t).text 'star'
     return 'like'
 
-on_like = (data, prefix = '') ->
-  count = $('#' + prefix + data.message + ' .like-badge')
+on_like = (data, prefix = 'tt') ->
+  count = $('#' + prefix + data.message + '.like-badge')
   if not count.length
     on_notification
   else
     count.text(Number(count.text()) + 1)
+    tooltip = count.siblings('.mdl-tooltip')
+    if tooltip.length
+      tooltip.text(tooltip.text() + ', ' + data.user)
+    else
+      count.parent().append '' +
+        '<div class="mdl-tooltip" for="' + prefix + data.message + '">' + data.user + '</div>'
+      componentHandler.upgradeElement($('[for="'+ prefix + data.message + '"]')[0])
 
 on_dislike = (data, prefix = '') ->
-  count = $('#' + prefix + data.message + ' .like-badge')
+  count = $('#' + prefix + data.message + '.like-badge')
   if count.length
     count.text(Number(count.text()) - 1)
+    tooltip = count.siblings('.mdl-tooltip')
+    if tooltip.length
+      text = tooltip.text()
+        .replace(data.user + ', ', '') # remove from the start
+        .replace(', ' + data.user, '') # remove from the middle or end
+        .replace(data.user, '') # remove if only one
+
+      if text.length
+        tooltip.text(text)
+      else
+        tooltip.remove()
 
 format_timestamp = (timestamp) ->
   if !moment.isMoment(timestamp)
@@ -115,8 +133,15 @@ construct_photo_message = (photos) ->
     div = '<div style="display: inline-block;">'
     for photo in photos
       div += """
-          <a href="#" class="image__show" id="#{photo.id}">
-            <img style="padding: 8px;" src="#{photo.url}"/>
+          <a href="#" class="image__show" id="#{photo.id}"
+            style="display: inline-block; margin : 8px;
+            width: 250px; height: 200px;
+            background: url('#{photo.url}') no-repeat center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -ms-background-size: cover;
+            background-size: cover;">
           </a>
         """
     div += '</div>'
