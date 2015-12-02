@@ -1,6 +1,7 @@
 require 'simplecov'
 SimpleCov.start :rails do
   add_filter 'rails_autolink-1.1.6'
+  add_filter 'uh-styleguide'
 end
 
 require 'codeclimate-test-reporter'
