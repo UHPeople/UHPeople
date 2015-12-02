@@ -141,8 +141,6 @@ $(document).ready ->
   users.initialize()
   hashtags.initialize()
 
-  console.log users.index.datums
-
   $('input.mentions').atwho
     at: '@'
     data: users.index.datums
