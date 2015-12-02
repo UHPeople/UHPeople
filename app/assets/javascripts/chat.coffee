@@ -45,7 +45,10 @@ scroll_to_bottom = ->
 
 move_to_message = (id) ->
   chatbox = $('.chatbox')
-  chatbox.scrollTop($('#' + id).offset().top - chatbox.offset().top + chatbox.scrollTop())
+  message = $('#' + id)
+
+  chatbox.scrollTop(message.offset().top + message.height()
+    - chatbox.offset().top + chatbox.scrollTop())
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
