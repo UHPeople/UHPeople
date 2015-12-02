@@ -138,15 +138,15 @@ $(document).ready ->
   if $('input.mentions').length == 0
     return
 
-  console.log 'setting up chat autocomplete'
-
   users.initialize()
   hashtags.initialize()
+
+  console.log users.index.datums
 
   $('input.mentions').atwho
     at: '@'
     data: users.index.datums
-    displayTpl: '<li>${name}</li>'
+    displayTpl: '<li><img class="img-circle" style="width: 20px; height: 20px; margin-right: 8px;" src="${avatar}"/>${name}</li>'
     insertTpl: '@${id}'
   .atwho
     at: '#'
