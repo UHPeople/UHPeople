@@ -18,7 +18,7 @@
 //= require chat
 //= require feed_chat
 //= require non_chat
-//= require search
+//= require autocomplete
 //= require user_photos
 //= require select_photos
 
