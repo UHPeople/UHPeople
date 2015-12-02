@@ -149,11 +149,14 @@
 
 .nav-list {
   li:not(.online) a {
-    padding-left: 30px;
+    //padding-left: 30px;
   }
 
-  li.online a::before {
-    @include online_ball(5px, 5px);
+  li.online .result-title h5:after {
+    @include online_ball(3px, initial);
+    display: inline-block;
+    float: initial;
+    margin-left: 8px;
   }
 }
 
@@ -252,7 +255,7 @@ h2.online::before {
 
 .scrollable {
   height: 423px;
-  overflow: auto;
+  overflow: auto !important;
 }
 
 .panel-body.fav {
@@ -378,7 +381,7 @@ span.space-left {
 }
 
 .asd {
-  @include calc("height", "70vh - 61px - 52px");
+  @include calc("height", "70vh - 52px");
 }
 
 .chatbox-outer {

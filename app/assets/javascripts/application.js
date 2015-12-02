@@ -1,9 +1,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.form
-//= require bootstrap-sprockets
-//= require twitter/bootstrap/rails/confirm
-
 //= require jqcloud
 //= require moment
 //= require material
