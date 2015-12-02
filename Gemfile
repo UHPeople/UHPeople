@@ -15,6 +15,7 @@ gem 'jquery-rails'
 gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
 gem 'jquery-atwho-rails'
 gem 'jqcloud-rails'
+
 gem 'select2-rails', '~> 4.0'
 gem 'momentjs-rails'
 
@@ -36,7 +37,6 @@ gem 'handlebars_assets'
 
 gem 'faye-websocket'
 gem 'puma'
-gem 'jquery-atwho-rails'
 gem 'pg'
 gem 'omniauth-shibboleth'
 
