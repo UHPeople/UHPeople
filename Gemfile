@@ -9,15 +9,16 @@ gem 'uglifier', '~> 2.7'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'therubyracer', platforms: :ruby
 gem 'rb-readline'
+# gem 'turbolinks', '~> 3.0.0', github: 'rails/turbolinks'
 
 gem 'jquery-rails'
 gem 'jquery-form-rails', '~> 1.0', '>= 1.0.1'
+gem 'jquery-atwho-rails'
 gem 'jqcloud-rails'
-gem 'select2-rails', '~> 3.5.2' #'~> 4.0'
+gem 'select2-rails', '~> 4.0'
 gem 'momentjs-rails'
-# gem 'turbolinks', '~> 3.0.0', :git => 'https://github.com/rails/turbolinks.git'
 
-gem 'rails_autolink', :path => 'rails_autolink-1.1.6/'
+gem 'rails_autolink', path: 'rails_autolink-1.1.6/'
 gem 'paperclip', '~> 4.3'
 
 gem 'material_design_lite-sass'

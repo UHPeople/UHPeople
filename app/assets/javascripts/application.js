@@ -1,16 +1,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.form
+//= require joyride/jquery.joyride-2.1
+//= require jquery.atwho
 //= require jqcloud
-//= require moment
-//= require material
+
 //= require select2
+//= require moment
 
 //= require twitter/typeahead
 //= require handlebars
 
-//= require joyride/jquery.joyride-2.1
-//= require jquery.atwho
+//= require material
 
 //= require rails
 //= require chat_common

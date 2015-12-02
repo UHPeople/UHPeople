@@ -7,27 +7,14 @@ users = new Bloodhound(
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name')
   queryTokenizer: Bloodhound.tokenizers.whitespace
   prefetch:
-    url: '/users/'
-    ttl: 1)
+    url: '/users/')
 
 hashtags = new Bloodhound(
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('tag')
   queryTokenizer: (query) ->
     Bloodhound.tokenizers.whitespace normalize(query)
   prefetch:
-    url: '/hashtags/'
-    ttl: 1)
-
-users_mentions = new Bloodhound(
-  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name')
-  queryTokenizer: (query) ->
-    matches = query.toLowerCase().match(/@\w+/g)
-    matches = if (matches == null) then [] else matches
-    matches = (m.substr(1) for m in matches)
-    return matches
-  prefetch:
-    url: '/users/'
-    ttl: 1)
+    url: '/hashtags/')
 
 addNotice = (name, avatar) ->
   $('.invite-card .mdl-card__supporting-text').append '' +
@@ -148,15 +135,22 @@ $(document).ready ->
   }
 
 $(document).ready ->
-  users_mentions.initialize()
+  if $('input.mentions').length == 0
+    return
 
-  $('.typeahead-mention').typeahead({
-    highlight: true
-  }, {
-    name: 'users'
-    displayKey: 'name'
-    source: users_mentions.ttAdapter()
-  }).on('typeahead:selected', (obj, datum) ->
-    console.log $('.typeahead-mention').text()
-    console.log $('.typeahead-mention').val()
-  )
+  console.log 'setting up chat autocomplete'
+
+  users.initialize()
+  hashtags.initialize()
+
+  $('input.mentions').atwho
+    at: '@'
+    data: users.index.datums
+    displayTpl: '<li>${name}</li>'
+    insertTpl: '@${id}'
+  .atwho
+    at: '#'
+    data: hashtags.index.datums
+    displayTpl: '<li>${tag}</li>'
+    insertTpl: '#${tag}'
+    limit: 30
