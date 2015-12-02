@@ -75,9 +75,10 @@ on_dislike = (data, prefix = '') ->
     tooltip = count.siblings('.mdl-tooltip')
     if tooltip.length
       text = tooltip.text()
-      text = text.replace(', '+data.user, '') # remove from the middle
-      text = text.replace(data.user+', ', '') # remove from the start
-      text = text.replace(data.user, '') # remove if only one
+        .replace(data.user + ', ', '') # remove from the start
+        .replace(', ' + data.user, '') # remove from the middle or end
+        .replace(data.user, '') # remove if only one
+
       if text.length
         tooltip.text(text)
       else
