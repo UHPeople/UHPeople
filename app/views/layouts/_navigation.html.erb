@@ -6,7 +6,7 @@
     <%= link_to 'UHPeople', root_path, class: 'mdl-navigation__link logo-font' %>
   </div>
   <% unless current_user.nil? %>
-    <% if controller_name == "hashtags" && action_name == "show" %>
+    <% if controller_name == "hashtags" && action_name == "show" && @hashtag %>
       <div class="mdl-layout-spacer nav-toggleable"></div>
       <div class="nav-toggleable topic">
         <span class="mdl-typography--title">#<%= @hashtag.tag if @hashtag %></span>
@@ -34,7 +34,7 @@
     <a href="#statistics" class="mdl-layout__tab" target="3">Statistics</a>
   </div>
 <% end %>
-<% if controller_name == "hashtags" && action_name == "show" %>
+<% if controller_name == "hashtags" && action_name == "show" && @hashtag %>
   <div class="mdl-layout__header-row mdl-hashtag-topic">
     <div class="header-topic-container mdl-cell--top" style="<%= 'display: none;' if @hashtag && (@hashtag.topic.nil? || @hashtag.topic.empty?) %>">
       <p class="mdl-typography--body-1 topic-content" style="padding: 0; margin: 0;">

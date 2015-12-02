@@ -221,7 +221,7 @@ on_topic = (data) ->
   if `$('#hashtag-id').val() != data.hashtag`
     return
 
-  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ')')
+  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ') center cover')
 
   if data.topic.length == 0
     $('.header-topic-container').hide()
