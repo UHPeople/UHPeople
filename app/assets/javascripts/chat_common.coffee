@@ -55,7 +55,7 @@ change_like_star = (t) ->
     return 'like'
 
 on_like = (data, prefix = 'tt') ->
-  count = $('#' + prefix + data.message + ' .like-badge')
+  count = $('#' + prefix + data.message + '.like-badge')
   if not count.length
     on_notification
   else
@@ -69,7 +69,7 @@ on_like = (data, prefix = 'tt') ->
       componentHandler.upgradeElement($('[for="'+ prefix + data.message + '"]')[0])
 
 on_dislike = (data, prefix = '') ->
-  count = $('#' + prefix + data.message + ' .like-badge')
+  count = $('#' + prefix + data.message + '.like-badge')
   if count.length
     count.text(Number(count.text()) - 1)
     tooltip = count.siblings('.mdl-tooltip')
