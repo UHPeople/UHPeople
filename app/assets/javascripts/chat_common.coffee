@@ -133,8 +133,15 @@ construct_photo_message = (photos) ->
     div = '<div style="display: inline-block;">'
     for photo in photos
       div += """
-          <a href="#" class="image__show" id="#{photo.id}">
-            <img style="padding: 8px;" src="#{photo.url}"/>
+          <a href="#" class="image__show" id="#{photo.id}"
+            style="display: inline-block; margin : 8px;
+            width: 250px; height: 200px;
+            background: url('#{photo.url}') no-repeat center;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            -ms-background-size: cover;
+            background-size: cover;">
           </a>
         """
     div += '</div>'
