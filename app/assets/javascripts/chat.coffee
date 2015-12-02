@@ -221,11 +221,17 @@ on_topic = (data) ->
   if `$('#hashtag-id').val() != data.hashtag`
     return
 
+  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ')')
+
+  if data.topic.length == 0
+    $('.header-topic-container').hide()
+    return
+
   $('.header-topic-container .topic-content').text(data.topic)
   $('.header-topic-container .topic-updater').text(data.user)
-  $('.mdl-typography--caption').show()
 
-  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ')')
+  $('.header-topic-container').show()
+  $('.mdl-typography--caption').show()
 
   timestamp = $('.header-topic-container .timestamp')
   timestamp.attr('data-timestamp', data.timestamp)
