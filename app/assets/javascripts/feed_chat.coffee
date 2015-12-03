@@ -25,13 +25,13 @@ add_feed_message = (data) ->
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
       '<div class="message">' +
-        '<h5>' +
+        '<p class="head">' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>at ' +
           '<a href="/hashtags/' + data.hashtag_name + '">#' + data.hashtag_name + '</a>' +
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' + photos +
+        '</p>' + photos +
         '<p>' +
           data.content +
           '<span class="space-left">' +
@@ -68,12 +68,12 @@ add_favourites_message = (data) ->
           '<img class="img-circle" src="' + data.avatar + '"></img>' +
         '</a>' +
         '<div class="message">' +
-          '<h5>' +
-            '<a href="/users/' + data.user + '">' + data.username + '</a> ' +
+          '<p class="head">' +
+            '<a href="/users/' + data.user + '">' + data.username + '</a>' +
             '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
               format_timestamp(data.timestamp) +
             '</span>' +
-          '</h5>' + photos +
+          '</p>' + photos +
           '<p>' +
             data.content +
             '<span class="space-left">' +

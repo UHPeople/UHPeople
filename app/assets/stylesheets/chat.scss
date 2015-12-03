@@ -152,11 +152,21 @@
     //padding-left: 30px;
   }
 
-  li.online .result-title h5:after {
+  li.online .result-title p:after {
     @include online_ball(3px, initial);
     display: inline-block;
     float: initial;
     margin-left: 8px;
+  }
+  .result-title {
+
+    p {
+      padding-top: 8px;
+    }
+    a {
+      color: #222;
+      font-weight: 400;
+    }
   }
 }
 

@@ -2,14 +2,18 @@
   <div class="mdl-card__supporting-text">
     <img class="img-circle mdl-card__supporting-image" src="<%= notification.tricker_user.profile_picture_url %>" ></img>
     <div class="mdl-card__supporting-text-paragraph">
-      <%= link_to notification.tricker_user.name, notification.tricker_user %>
-      <%= partial_message %>
-      <% if notification.tricker_hashtag != nil %>
-        <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag) %>
-      <% else %>
-        <i>deleted channel</i>
-      <% end %>
-      <span class="timestamp" data-timestamp="<%= notification.timestamp %>"></span>
+      <p>
+        <%= link_to notification.tricker_user.name, notification.tricker_user %>
+        <%= partial_message %>
+        <% if notification.tricker_hashtag != nil %>
+          <%= link_to '#'+notification.tricker_hashtag.tag, hashtag_path(notification.tricker_hashtag.tag) %>
+        <% else %>
+          <i>deleted channel</i>
+        <% end %>
+      </p>
+      <p>
+        <span class="timestamp" data-timestamp="<%= notification.timestamp %>"></span>
+      </p>
     </div>
   </div>
   <div class="mdl-card__menu">

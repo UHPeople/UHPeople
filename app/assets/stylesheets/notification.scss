@@ -5,11 +5,14 @@
   .mdl-card__supporting-text {
     .mdl-card__supporting-image {
       float: left;
-      height: 35px;
+      height: 48px;
     }
 
     .mdl-card__supporting-text-paragraph {
-      padding-left: 47px;
+      padding-left: 58px;
+      p {
+        margin-bottom: 0;
+      }
 
       .timestamp{
         display: block;

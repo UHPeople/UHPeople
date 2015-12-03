@@ -23,7 +23,7 @@ add_member = (data) ->
         '<a href="/users/' + data.user + '"><img src="' + data.img + '" class="img-circle"/> ' +
       '</div>' +
       '<div class="result-title">' +
-        '<h5><a href="#" style="color: #3d3c40 !important; font-weight: 900;">' + data.username + '</a></h5>' +
+        '<p><a href="/users' + data.user +  '">' + data.username + '</a></p>' +
       '</div>' +
     '</li>'
 
@@ -97,12 +97,12 @@ add_message = (data, after = '.loader') ->
         '<img class="img-circle" src="' + data.avatar + '"></img>' +
       '</a>' +
       '<div class="message">' +
-        '<h5>' +
+        '<p class="head">' +
           '<a href="/users/' + data.user + '">' + data.username + '</a>' +
           '<span class="timestamp" data-timestamp="' + data.timestamp + '">' +
             format_timestamp(data.timestamp) +
           '</span>' +
-        '</h5>' + photos +
+        '</p>' + photos +
         '<p class="message_content">' + data.content +
           '<span class="space-left">' +
             '<span class="like-badge like-icon-color" id="tt' + data.id + '">' +

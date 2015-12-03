@@ -5,6 +5,18 @@
   background-color: inherit;
   font-size: inherit;
 }
+.message {
+  .head a {
+    color: #222;
+    font-weight: 400;
+    margin-right: 4px;
+  }
+  p {
+    font-weight: 300;
+    margin-bottom: 0;
+  }
+}
+
 
 // Favourites
 .fav {

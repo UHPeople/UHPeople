@@ -19,7 +19,6 @@
 @import 'landing-page';
 @import 'material';
 
-@import 'bootstrap-sprockets';
 @import 'bootstrap-custom';
 
 @import 'material-colors-override';
@@ -50,6 +49,15 @@ p {
   width: 15px;
   height: 15px;
   vertical-align: top;
+}
+ul.nav.nav-list {
+	padding:0;
+	margin:0;
+	list-style-type: none;
+}
+
+a:link {
+    text-decoration: none;
 }
 
 .material-icons.md-18 {

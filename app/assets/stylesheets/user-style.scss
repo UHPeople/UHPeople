@@ -9,8 +9,13 @@
 
 // Thumbnail image size
 a img.img-circle {
-  width: 45px;
-  height: 45px;
+  width: 48px;
+  height: 48px;
+}
+.img-circle {
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
 }
 .image-overlay {
   position: fixed;
