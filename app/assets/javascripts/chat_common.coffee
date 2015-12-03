@@ -68,7 +68,7 @@ on_like = (data, prefix = 'tt') ->
         '<div class="mdl-tooltip" for="' + prefix + data.message + '">' + data.user + '</div>'
       componentHandler.upgradeElement($('[for="'+ prefix + data.message + '"]')[0])
 
-on_dislike = (data, prefix = '') ->
+on_dislike = (data, prefix = 'tt') ->
   count = $('#' + prefix + data.message + '.like-badge')
   if count.length
     count.text(Number(count.text()) - 1)
