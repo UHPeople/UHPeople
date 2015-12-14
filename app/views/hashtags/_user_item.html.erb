@@ -1,0 +1,8 @@
+<li class="search-result result-user member-<%= user.id %>" style="min-height: 59px; padding-left:8px;">
+  <div class="result-image" style="padding-top: 4px !important;">
+    <%= link_to image_tag(user.profile_picture_url(:small), class: "img-circle"), user %>
+  </div>
+  <div class="result-title">
+    <h5><%= link_to user.name, user, style:"color: #3d3c40 !important; font-weight: 900;" %></h5>
+  </div>
+</li>

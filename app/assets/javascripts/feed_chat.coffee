@@ -118,12 +118,12 @@ on_favourites = (data) ->
   add_click_handler_to_likes('.fav .like-this', ws)
 
 like_both = (data) ->
-  on_like(data, 'favourites-')
-  on_like(data, 'feed-')
+  on_like(data, 'fav-tt')
+  on_like(data, 'tt')
 
 dislike_both = (data) ->
-  on_dislike(data, 'favourites-')
-  on_dislike(data, 'feed-')
+  on_dislike(data, 'fav-tt')
+  on_dislike(data, 'tt')
 
 ready = ->
   if not $('#feed').length

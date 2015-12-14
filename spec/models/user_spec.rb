@@ -84,7 +84,7 @@ RSpec.describe User do
     end
 
     it 'has last_visit for hashtag' do
-      timestamp = 1.days.ago
+      timestamp = 1.day.ago
       UserHashtag.find_by(user_id: user.id, hashtag_id: hashtag.id).update_attribute(:last_visited, timestamp)
       expect(user.last_visit(hashtag)).to eq(timestamp.strftime('%Y-%m-%dT%H:%M:%S'))
     end

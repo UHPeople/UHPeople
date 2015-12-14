@@ -17,9 +17,14 @@ set_all_offline = (id) ->
   $('.nav-list li').removeClass('online')
 
 add_member = (data) ->
-  element = ''+
-    '<li class="member-' + data.user + '">'+
-      '<a href="/users/' + data.user + '">' + data.username + '</a>' +
+  element = '' +
+    '<li class="search-result result-user member-' + data.user + '" style="min-height: 59px; padding-left:8px;">' +
+      '<div class="result-image" style="padding-top: 4px !important;">' +
+        '<a href="/users/' + data.user + '"><img src="' + data.img + '" class="img-circle"/> ' +
+      '</div>' +
+      '<div class="result-title">' +
+        '<h5><a href="#" style="color: #3d3c40 !important; font-weight: 900;">' + data.username + '</a></h5>' +
+      '</div>' +
     '</li>'
 
   $('.nav-list').append(element)
@@ -40,7 +45,10 @@ scroll_to_bottom = ->
 
 move_to_message = (id) ->
   chatbox = $('.chatbox')
-  chatbox.scrollTop($('#' + id).offset().top - chatbox.offset().top + chatbox.scrollTop())
+  message = $('#' + id)
+
+  chatbox.scrollTop(message.offset().top + message.height()
+    - chatbox.offset().top + chatbox.scrollTop())
 
 compare_text = (a, b) ->
   $(a).text().toUpperCase().localeCompare($(b).text().toUpperCase())
@@ -158,7 +166,7 @@ on_join = (data) ->
   add_member data
   sort_members members_list
   sort_members members_list_dropdown
-  update_leave_button
+  update_leave_button()
 
 on_leave = (data) ->
   remove_member data
@@ -179,27 +187,14 @@ on_messages = (data) ->
   first = data.messages[0].id
   move_to_message first
 
-on_likers = ->
-  console.log 'got likers'
-
-add_max_lenght_to_message_input = ->
-  max = 256
-  $('input#input-text.mdl-textfield__input').keypress (e) ->
-    if @value.length == max
-      e.preventDefault()
-    else if @value.length > max
-      @value = @value.substring(0, max)
-
 add_click_handler_to_chat = ->
-  add_max_lenght_to_message_input()
-
   hashtag = $('#hashtag-id')[0].value
 
   $('#chat-send').click (event) ->
     event.preventDefault()
     text = $('#input-text')[0].value
     photo_ids = selectedPhotosToArrayAndEmpty()
-    if text.length() > 0 or photo_ids.length() > 0
+    if text.length > 0 or photo_ids.length > 0
       ws.send JSON.stringify
         event: 'message'
         hashtag: hashtag
@@ -231,11 +226,17 @@ on_topic = (data) ->
   if `$('#hashtag-id').val() != data.hashtag`
     return
 
+  $('.hashtag_bg').css('background-image', 'url(' + data.photo + ') center cover')
+
+  if data.topic.length == 0
+    $('.header-topic-container').hide()
+    return
+
   $('.header-topic-container .topic-content').text(data.topic)
   $('.header-topic-container .topic-updater').text(data.user)
-  $('.mdl-typography--caption').show()
 
-  $('.hashtag-bg').css('background-image', 'url(' + data.photo + ') no-repeat center center')
+  $('.header-topic-container').show()
+  $('.mdl-typography--caption').show()
 
   timestamp = $('.header-topic-container .timestamp')
   timestamp.attr('data-timestamp', data.timestamp)
@@ -273,7 +274,6 @@ ready = ->
     'hashtag': on_messages,
     'like': on_like,
     'dislike': on_dislike,
-    'likers': on_likers,
     'topic': on_topic,
     'mention': on_notification,
     'invite': on_notification

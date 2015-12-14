@@ -1,19 +1,17 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.form
-//= require bootstrap-sprockets
-//= require twitter/bootstrap/rails/confirm
-
+//= require joyride/jquery.joyride-2.1
+//= require jquery.atwho
 //= require jqcloud
-//= require moment
-//= require material
+
 //= require select2
+//= require moment
 
 //= require twitter/typeahead
 //= require handlebars
 
-//= require joyride/jquery.joyride-2.1
-//= require jquery.atwho
+//= require material
 
 //= require rails
 //= require chat_common
@@ -22,6 +20,7 @@
 //= require non_chat
 //= require search
 //= require web_notifications
+//= require autocomplete
 //= require user_photos
 //= require select_photos
 
