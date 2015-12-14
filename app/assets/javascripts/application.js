@@ -18,7 +18,6 @@
 //= require chat
 //= require feed_chat
 //= require non_chat
-//= require search
 //= require web_notifications
 //= require autocomplete
 //= require user_photos
