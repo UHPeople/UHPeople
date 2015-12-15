@@ -24,7 +24,7 @@ user3.hashtags.create tag: 'tasaarvo'
 
 
 (1..50).each{
-	Hashtag.create tag: [*('a'..'ö')].sample(rand(3..12)).join
+	Hashtag.create tag: [*('a'..'ö')].sample(rand(3..12)).join, color: rand(12)
 }
 
 (1..50).each{
