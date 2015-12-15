@@ -30,10 +30,10 @@ user3.hashtags.create tag: 'tasaarvo'
 (1..50).each{
 	u = User.create username: [*('a'..'Z')].sample(8).join, email: [*('a'..'z')].sample(8).join + '@helsinki.fi', campus:'Viikki',
 		name: (2).times.map{[*('a'..'ö')].sample(rand(3..12)).join}.join(' '), about: rand(1..25).times.map{[*('a'..'Ö')].sample(rand(2..8)).join}.join(' ')
-	rand(1..30).times{
+	rand(1..20).times{
 		h = Hashtag.find(rand(1..50))
 		unless h.users.include? u then h.users << u end
-		rand(1..50).times{ Message.create content: (rand(1..20).times.map{[*('a'..'Ö')].sample(rand(2..8)).join}.join(' ')), user_id: u.id, hashtag_id: h.id}
+		rand(1..20).times{ Message.create content: (rand(1..20).times.map{[*('a'..'Ö')].sample(rand(2..8)).join}.join(' ')), user_id: u.id, hashtag_id: h.id}
 	}
 }
 
